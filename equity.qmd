@@ -39,7 +39,7 @@ displaced_a <- g("a", DLI, "students") + g("a", CLO, "students")
 - **The plan leans on moving immersion programs.** Scenario A moves `r fmt_n(g("a", DLI, "students"))` immersion students out of their schools. That is `r fmt_pct(g("a", DLI, "students") / displaced_a)` of the students directly displaced by a closure or program move ([§1](#sec-relies)).
 - **The programs being moved are not short of families.** Atkinson draws `r fmt_n(dm("Atkinson", "applications"))` kindergarten applications a year for about `r fmt_n(dm("Atkinson", "offered"))` seats, and Beach `r fmt_n(dm("Beach", "applications"))` for `r fmt_n(dm("Beach", "offered"))` ([§2](#sec-demand)).
 - **The burden falls on schools serving underserved communities.** Schools losing an immersion program are `r fmt_pct(cp("a", SEND, "pct_hist_underserved"))` historically underserved and `r fmt_pct(cp("a", SEND, "pct_direct_cert"))` low-income. The schools closing outright are `r fmt_pct(cp("a", CLOS, "pct_white"))` white, with `r fmt_pct(cp("a", CLOS, "pct_hist_underserved"))` underserved. Students in the moving programs are `r round(g("a", DLI, "pct_spanish_home") / g("a", CLO, "pct_spanish_home"))` times as likely to speak Spanish at home as students at closing schools ([§3](#sec-who)).
-- **And it is heavier.** Their schools move farther (`r sprintf("%.1f", g("a", DLI, "school_miles"))` vs `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles), and the share of school-age Spanish speakers within a mile of a K-5 Spanish site falls from `r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` to `r fmt_pct(acc$within_1mi[acc$scenario == "a"])` ([§4](#sec-burden)).
+- **The moves are longer.** Their schools move farther (`r sprintf("%.1f", g("a", DLI, "school_miles"))` vs `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles), and the share of school-age Spanish speakers within a mile of a K-5 Spanish site falls from `r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` to `r fmt_pct(acc$within_1mi[acc$scenario == "a"])` ([§4](#sec-burden)).
 - **Moving a program loses the families who would have joined it.** After PPS moved Bridger's Spanish program to Lent in 2023, kindergarten immersion enrollment fell 31%, against 14% district-wide. PPS's forecast had Lent 14–16% higher than it turned out. Families who don't follow go to neighborhood schools, and PPS hasn't shown whether its projections account for them ([§5](#sec-optout)).
 - **PPS's equity check can't see any of this.** It reports one move rate per group. Even so, multilingual learners are already the most-moved group ([§6](#sec-pps)).
 :::
@@ -118,7 +118,7 @@ In Scenario A, **`r fmt_pct(g("a", DLI, "pct_spanish_home"))` of students in the
 
 These are the students two-way immersion depends on. The model needs native speakers of the program language in every classroom, alongside English speakers.
 
-## 4. The burden is heavier {#sec-burden}
+## 4. Immersion programs move farther from families {#sec-burden}
 
 **How far the school moves (measured).** Students at closing schools mostly move to the next school over, on average `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles. Immersion programs move farther: `r sprintf("%.1f", g("a", DLI, "school_miles"))` miles on average. Atkinson, Beach, James John and Sitton each move 1.6–2.5 miles; Scott → Rigler, at 0.7 miles, is the exception.
 
@@ -219,7 +219,9 @@ The data points to options that would take less from immersion families. Each of
 
 ## Details {#sec-distance-detail}
 
-**Estimated home-to-school distance.** Children are placed by 2020 census block. For closures, children living in the closing school's attendance area are used, and their new school is the one assigned on the scenario map. For immersion programs, children are those nearest the program's current site of that language (an assumption), and their new school is the program's new site.
+### Estimated home-to-school distance
+
+Children are placed by 2020 census block. For closures, children living in the closing school's attendance area are used, and their new school is the one assigned on the scenario map. For immersion programs, children are those nearest the program's current site of that language (an assumption), and their new school is the program's new site.
 
 ```{r}
 #| label: fig-home
@@ -262,7 +264,7 @@ read_data("equity_home_sensitivity.csv") |>
   tab_source_note(md(cite("scenarios", "blocks", "acs", "by_grade")))
 ```
 
-**Every closure and immersion move.**
+### Every closure and immersion move
 
 ```{r}
 #| label: tbl-changes
@@ -281,7 +283,8 @@ chg |> filter(scenario == "a") |>
   tab_source_note(md(cite("by_grade", "by_lang", "scenarios")))
 ```
 
-**Caveats.**
+### Caveats
+
 - Lottery figures count applications, not children.
 - Race and income are whole-school figures; PPS doesn't publish them by program.
 - Home-to-school distances and families not following are estimates.
