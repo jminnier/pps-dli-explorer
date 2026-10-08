@@ -45,6 +45,43 @@ viz_layout(p, xtitle = "Kindergarten applications per year", ytitle = NULL) |>
 
 Schools with no orange dot (Rigler, Boise-Eliot/Humboldt, Vestal) have no immersion lottery today: Boise-Eliot/Humboldt and Vestal would be new sites, and Rigler fills its Spanish program without appearing in the lottery reports.
 
+### A precedent: Bridger's Spanish program moved to Lent in 2023
+
+```{r}
+bl_keys <- c("bridgercreativescience", "lent")
+bl <- lottery_k |> filter(language == "Spanish") |>
+  mutate(group = if_else(key %in% bl_keys, school, "Other")) |>
+  group_by(year) |>
+  summarise(bridger = sum(applications[key == "bridgercreativescience"]), lent = sum(applications[key == "lent"]),
+            other = sum(applications[!key %in% bl_keys]), .groups = "drop") |>
+  mutate(combined = bridger + lent, period = if_else(year < "2023-24", "before", "after"))
+chg <- bl |> group_by(period) |> summarise(combined = mean(combined), other = mean(other))
+pct <- function(col) (chg[[col]][chg$period == "after"] / chg[[col]][chg$period == "before"]) - 1
+enr <- profiles |> filter(key %in% bl_keys) |> group_by(year) |> summarise(spanish = sum(imm_spanish))
+```
+
+PPS has done this before. Until 2022-23, Spanish immersion ran at both **Bridger** (K-8, `r fmt_n(enr$spanish[enr$year == "2021-22"] - profiles$imm_spanish[profiles$year == "2021-22" & profiles$key == "lent"])` immersion students in 2021-22) and **Lent** (K-5, alongside a neighborhood program). In 2023-24 Bridger's program was consolidated into Lent, which became an all-immersion school. Kindergarten applications to the combined program fell by **`r fmt_pct(-pct("combined"))`** (average `r fmt_n(chg$combined[chg$period == "before"])` a year before, `r fmt_n(chg$combined[chg$period == "after"])` after), while applications to every other Spanish program changed by `r sub("^", ifelse(pct("other") > 0, "+", ""), fmt_pct(pct("other")))` over the same years. Spanish immersion enrollment at the two schools went from `r fmt_n(enr$spanish[enr$year == "2021-22"])` (2021-22) to `r fmt_n(enr$spanish[enr$year == "2025-26"])` at Lent (2025-26).
+
+```{r}
+#| label: fig-bridger
+#| fig-cap: "Kindergarten applications to Spanish immersion at Bridger and Lent, by lottery year. Bridger's program moved to Lent for 2023-24. Hover for offers and waitlists."
+bd <- lottery_k |> filter(key %in% bl_keys) |>
+  mutate(school = if_else(key == "lent", "Lent", "Bridger"),
+         tip = sprintf("<b>%s</b> %s<br>%s applications, %s offered, %s waitlisted", school, year, applications, offered, waitlisted))
+p <- plot_ly(bd, x = ~year, y = ~applications, color = ~school, colors = c(Bridger = PAL$light[["blue"]], Lent = PAL$light[["orange"]]),
+             type = "bar", text = ~tip, hoverinfo = "text", textposition = "none",
+             marker = list(line = list(color = "white", width = 2))) |>
+  add_annotations(data = bl, x = ~year, y = ~combined, text = ~combined, yanchor = "bottom", showarrow = FALSE,
+                  inherit = FALSE, font = list(size = 12, color = PAL$ink2))
+viz_layout(p, ytitle = "Kindergarten applications") |>
+  layout(barmode = "stack", bargap = 0.35, xaxis = list(type = "category"),
+         shapes = list(list(type = "line", x0 = 1.5, x1 = 1.5, y0 = 0, y1 = 1, yref = "paper", line = list(color = PAL$muted, dash = "dot", width = 1))),
+         annotations = list(list(x = 1.5, y = 1, yref = "paper", text = "program moves to Lent", showarrow = FALSE,
+                                 xanchor = "left", xshift = 4, font = list(size = 12, color = PAL$ink2))), height = 360)
+```
+
+Lottery applications don't capture everything (some families enter by transfer or petition, and Bridger's immersion count includes its middle grades), but the drop is large and lasting, and it happened while demand elsewhere held steady.
+
 ### Spanish waitlists over time
 
 ```{r}
