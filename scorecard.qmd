@@ -55,13 +55,34 @@ At **Lent** and **Rigler**, every student is in Spanish immersion, so children f
 ### A precedent: Bridger's Spanish program moved to Lent in 2023
 
 ```{r}
+#| label: tbl-bridger
+kg <- read_data("class_size_kg.csv") |> mutate(key = school_key(school))
+k_actual <- by_grade |> filter(grade == "K", language == "Spanish") |> group_by(year, key) |> summarise(k_actual = sum(enrollment), .groups = "drop")
 bl <- profiles |> filter(key %in% c("bridgercreativescience", "lent")) |>
-  select(year, key, imm_spanish) |> pivot_wider(names_from = key, values_from = imm_spanish, values_fill = 0)
+  select(year, key, school, imm_spanish) |>
+  inner_join(select(kg, year, key, kg_avg_class_size), by = c("year", "key")) |>
+  left_join(k_actual, by = c("year", "key")) |>
+  mutate(per_grade = imm_spanish / 6, k_est = coalesce(k_actual, per_grade), classes = k_est / kg_avg_class_size)
+bl_year <- bl |> group_by(year) |>
+  summarise(schools = paste0(school, " ", imm_spanish, collapse = " + "), per_grade = sum(per_grade),
+            k_actual = if (all(is.na(k_actual))) NA_real_ else sum(k_actual, na.rm = TRUE),
+            kg_size = paste(kg_avg_class_size, collapse = " / "), classes = sum(classes), .groups = "drop")
+before <- mean(bl_year$per_grade[bl_year$year < "2023-24"])
+after_k <- mean(bl_year$k_actual, na.rm = TRUE)
+district_k <- c(`2022-23` = 3152, by_grade |> filter(grade == "K") |> group_by(year) |> summarise(n = sum(enrollment)) |> tibble::deframe())
+district_chg <- mean(district_k[c("2024-25", "2025-26")]) / district_k[["2022-23"]] - 1
+bl_year |>
+  gt() |>
+  cols_label(year = "Year", schools = "Spanish immersion students", per_grade = "Per grade (÷ 6)",
+             k_actual = "Kindergarten (actual)", kg_size = "Avg K class size", classes = "Est. K immersion classes") |>
+  fmt_number(c(per_grade, classes), decimals = 1) |> fmt_number(k_actual, decimals = 0) |>
+  sub_missing(missing_text = "–") |>
+  tab_source_note("Immersion students: PPS Language Immersion Track Profiles. Avg K class size: PPS Class Size Detail (all kindergarten classes at the school). Classes = kindergarten immersion students (actual where published, otherwise the per-grade average) ÷ average K class size; an estimate, not a count.")
 ```
 
-PPS has consolidated Spanish immersion before. Until 2022-23 it ran at both **Bridger** (K-8; `r fmt_n(bl$bridgercreativescience[bl$year == "2021-22"])` immersion students in 2021-22) and **Lent** (K-5, alongside a neighborhood program; `r fmt_n(bl$lent[bl$year == "2021-22"])`). In 2023-24 Bridger's program moved to Lent, which became an all-immersion school. Spanish immersion enrollment at the two schools went from `r fmt_n(bl$bridgercreativescience[bl$year == "2021-22"] + bl$lent[bl$year == "2021-22"])` (2021-22) to `r fmt_n(bl$lent[bl$year == "2023-24"])` at Lent in its first year and `r fmt_n(bl$lent[bl$year == "2025-26"])` in 2025-26.
+PPS has consolidated Spanish immersion before. Until 2022-23 it ran at both **Bridger** and **Lent**, each a K-5 school with an immersion and a neighborhood program. In 2023-24 Bridger's program moved to Lent, which became all-immersion (Bridger became the K-8 Bridger Creative Science). Before the move the two schools had about **`r fmt_n(before)` Spanish immersion students per grade**, roughly three kindergarten classes. Lent has since enrolled **`r fmt_n(after_k)` immersion kindergartners a year** on average (2024-25 and 2025-26), two classes: about `r fmt_pct(1 - after_k / before)` fewer, while kindergarten enrollment district-wide fell about `r fmt_pct(-district_chg)`.
 
-That decline can't be read as lost demand on its own: Bridger's count included its middle grades (which did not move to Lent's K-5), and district enrollment has fallen over the same years. Lottery applications can't settle it either, because Lent's neighborhood families stopped applying once it became all-immersion (see the note above). Measuring what the consolidation cost would need grade-level immersion enrollment from before 2023, which PPS has not published in the reports used here.
+This is an estimate: before 2024-25 PPS publishes immersion counts by school but not by grade, so "per grade" is the school's immersion total divided by six grades, and kindergarten cohorts can be larger or smaller than the school average. Lottery applications can't be used for this comparison, because Lent's neighborhood families stopped applying once it became all-immersion (see the note above).
 
 ### Spanish waitlists over time
 

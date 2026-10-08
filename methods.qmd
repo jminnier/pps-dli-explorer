@@ -16,6 +16,7 @@ Every table on this site is built from public documents by scripts in [`data-raw
 | Enrollment forecasts | PSU Population Research Center forecasts for PPS | 2025-26 and 2026-27 editions | `parse_psu_forecast.py` |
 | Lottery applications, offers, waitlists | PPS [prior lottery results](https://www.pps.net/departments/enrollment-transfer/transfer-english/lottery/prior-transfer-data) | 2021-22 to 2026-27 | `parse_lottery.py` |
 | Immersion sites and program moves per scenario | PPS scenario maps and board memo (Oct 2026), as transcribed in [browniefed/pps-explorer](https://github.com/browniefed/pps-explorer) | Scenarios A, B | `export_dli_tables.mjs` |
+| Average kindergarten class size (Lent, Bridger) | PPS *Class Size Detail* logs ([archive](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/archives)) | 2018-19 to 2025-26 | `data/class_size_kg.csv` (transcribed) |
 | Home language by census tract | US Census ACS 5-year, tables C16001 and B16007 | 2020-2024 | `acs_language_access.R` |
 
 ## Definitions and caveats
