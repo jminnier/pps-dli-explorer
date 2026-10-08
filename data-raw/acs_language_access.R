@@ -14,13 +14,17 @@
 #   public/data/sq_k5.geojson, sq_68.geojson   status quo attendance areas
 #   data/dli_sites.csv           DLI sites per scenario, band and language (export_dli_tables.mjs)
 #
-# A tract is in the district when its interior point (sf::st_point_on_surface) is; distances run
-# from that point. Distances are straight-line, in miles, in Oregon North (EPSG:2838).
+# A tract is in the district when its interior point (sf::st_point_on_surface) is. Tract distances
+# (access_tract.csv) run from that point. The district summary (access_summary.csv) is finer: each
+# tract's speakers are spread over its 2020 census blocks in proportion to block population (age 5+
+# counts by total population, P1_001N; school-age counts by population under 18, P1_001N - P3_001N),
+# and distances run from each block's interior point. Distances are straight-line, in miles, in Oregon North (EPSG:2838).
 # The Census API is called without a key (fine at this volume); set CENSUS_API_KEY to use one.
 # Raw ACS results are cached in data-raw/acs/ so reruns don't call the API.
 #
 # Usage: Rscript data-raw/acs_language_access.R
-#   -> data/acs_language_tract.csv, data/tracts.geojson, data/access_tract.csv, data/access_area.csv
+#   -> data/acs_language_tract.csv, data/tracts.geojson, data/access_tract.csv, data/access_area.csv,
+#      data/access_summary.csv
 
 suppressPackageStartupMessages({
   library(tidycensus); library(sf); library(dplyr); library(tidyr); library(readr)
@@ -111,29 +115,45 @@ access_area <- nearest(area_pts, seq_len(nrow(areas))) |>
   select(area, band, scenario, language, nearest_school, dist_mi)
 write_csv(access_area, here("data", "access_area.csv"))
 
-# ---- summary -----------------------------------------------------------------------------------
-speakers <- lang_tract |>
-  # Mandarin <- all Chinese; Russian <- Russian, Polish or other Slavic; no tract count for Japanese
-  transmute(geoid, Spanish = spanish, Mandarin = chinese, Russian = slavic, Vietnamese = vietnamese) |>
-  pivot_longer(-geoid, names_to = "language", values_to = "speakers")
-summ <- access_tract |> filter(band == "K-5") |> inner_join(speakers, by = c("geoid", "language")) |>
-  group_by(language, scenario) |>
-  summarise(mean_mi = round(weighted.mean(dist_mi, speakers), 2),
-            within_1mi = round(100 * sum(speakers[dist_mi <= 1]) / sum(speakers)),
-            within_2mi = round(100 * sum(speakers[dist_mi <= 2]) / sum(speakers)),
-            speakers = sum(speakers), .groups = "drop") |>
-  arrange(factor(language, LANGUAGES), factor(scenario, c("sq", "a", "b")))
-cat(sprintf("%d tracts in district (ACS %d-%d 5-year)\n", nrow(tracts), ACS_YEAR - 4, ACS_YEAR))
-cat("Speakers (age 5+) by distance to nearest same-language K-5 DLI site:\n")
-print(as.data.frame(summ), row.names = FALSE)
-kids <- access_tract |> filter(band == "K-5", language == "Spanish") |>
-  inner_join(select(lang_tract, geoid, speakers = age5_17_spanish), by = "geoid") |>
-  group_by(scenario) |>
-  summarise(mean_mi = round(weighted.mean(dist_mi, speakers), 2),
-            within_1mi = round(100 * sum(speakers[dist_mi <= 1]) / sum(speakers)),
-            within_2mi = round(100 * sum(speakers[dist_mi <= 2]) / sum(speakers)),
-            speakers = sum(speakers), .groups = "drop") |>
-  arrange(factor(scenario, c("sq", "a", "b")))
-cat("School-age (5-17) Spanish speakers, same measure:\n")
-print(as.data.frame(kids), row.names = FALSE)
-cat("wrote data/acs_language_tract.csv, data/tracts.geojson, data/access_tract.csv, data/access_area.csv\n")
+# ---- block-level district summary -------------------------------------------------------------
+bcache <- here("data-raw", "acs", "decennial2020_blocks_u18.rds")
+if (!file.exists(bcache)) {
+  b <- get_decennial("block", variables = c(total = "P1_001N", adult = "P3_001N"), year = 2020, sumfile = "pl",
+                     state = "OR", county = COUNTIES, geometry = TRUE, output = "wide")
+  saveRDS(b, bcache)
+}
+blocks <- readRDS(bcache) |> st_transform(CRS) |>
+  mutate(u18 = pmax(total - adult, 0), tract = substr(GEOID, 1, 11)) |>
+  filter(tract %in% lang_tract$geoid)
+bpts <- st_point_on_surface(st_geometry(blocks))
+bw <- blocks |> st_drop_geometry() |> select(tract, total, u18) |>
+  group_by(tract) |>
+  mutate(w_all = if (sum(total) > 0) total / sum(total) else 1 / n(),
+         w_u18 = if (sum(u18) > 0) u18 / sum(u18) else 1 / n()) |> ungroup()
+
+groups <- tribble(
+  ~group, ~language, ~col, ~weight,
+  "Spanish", "Spanish", "spanish", "w_all",
+  "Spanish (ages 5-17)", "Spanish", "age5_17_spanish", "w_u18",
+  "Mandarin", "Mandarin", "chinese", "w_all",
+  "Vietnamese", "Vietnamese", "vietnamese", "w_all",
+  "Russian", "Russian", "slavic", "w_all"
+)
+k5 <- sites |> filter(band == "K-5")
+summary <- bind_rows(lapply(seq_len(nrow(groups)), function(i) {
+  g <- groups[i, ]
+  n <- bw[[g$weight]] * lang_tract[[g$col]][match(bw$tract, lang_tract$geoid)]
+  bind_rows(lapply(c("sq", "a", "b"), function(sc) {
+    s <- k5 |> filter(scenario == sc, language == g$language)
+    d <- apply(st_distance(bpts, s), 1, min) / M_PER_MI
+    tibble(group = g$group, language = g$language, scenario = sc, speakers = sum(n),
+           within_0.5mi = sum(n[d <= 0.5]) / sum(n), within_1mi = sum(n[d <= 1]) / sum(n),
+           within_2mi = sum(n[d <= 2]) / sum(n), mean_mi = weighted.mean(d, n))
+  }))
+}))
+write_csv(summary, here("data", "access_summary.csv"))
+
+cat(sprintf("%d tracts, %d blocks in district (ACS %d-%d 5-year; 2020 Census blocks)\n", nrow(tracts), nrow(blocks), ACS_YEAR - 4, ACS_YEAR))
+cat("Speakers by distance to nearest same-language K-5 DLI site (block-level):\n")
+print(as.data.frame(summary |> mutate(across(starts_with("within"), \(v) sprintf("%.0f%%", 100 * v)), mean_mi = round(mean_mi, 2), speakers = round(speakers))), row.names = FALSE)
+cat("wrote data/acs_language_tract.csv, data/tracts.geojson, data/access_tract.csv, data/access_area.csv, data/access_summary.csv\n")

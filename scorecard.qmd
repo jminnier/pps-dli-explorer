@@ -207,15 +207,10 @@ sites |> filter(change != "removed" | is.na(change)) |>
 
 ```{r}
 #| label: tbl-access
-speakers <- acs |> transmute(geoid, Spanish = spanish, `Spanish (ages 5-17)` = age5_17_spanish, Mandarin = chinese,
-                             Russian = slavic, Vietnamese = vietnamese) |>
-  pivot_longer(-geoid, names_to = "group", values_to = "n") |>
-  mutate(language = sub(" \\(.*", "", group))
-access_tract |> filter(band == "K-5") |>
-  inner_join(speakers, by = c("geoid", "language"), relationship = "many-to-many") |>
-  group_by(group, scenario) |>
-  summarise(within1 = sum(n[dist_mi <= 1]) / sum(n), mean_mi = weighted.mean(dist_mi, n), .groups = "drop") |>
-  pivot_wider(names_from = scenario, values_from = c(within1, mean_mi)) |>
+read_data("access_summary.csv") |>
+  select(group, scenario, within_1mi, mean_mi) |>
+  pivot_wider(names_from = scenario, values_from = c(within_1mi, mean_mi)) |>
+  rename_with(\(x) sub("within_1mi", "within1", x)) |>
   select(group, within1_sq, within1_a, within1_b, mean_mi_sq, mean_mi_a, mean_mi_b) |>
   mutate(group = factor(group, c("Spanish", "Spanish (ages 5-17)", "Mandarin", "Vietnamese", "Russian"))) |> arrange(group) |>
   gt() |>
@@ -224,6 +219,6 @@ access_tract |> filter(band == "K-5") |>
   tab_spanner("Within 1 mile of a K-5 site", starts_with("within1")) |>
   tab_spanner("Average distance (miles)", starts_with("mean_mi")) |>
   fmt_percent(starts_with("within1"), decimals = 0) |> fmt_number(starts_with("mean_mi"), decimals = 1) |>
-  tab_source_note("People age 5+ who speak each language at home (ACS 2020-2024), by census tract; straight-line distance from the tract to the nearest K-5 site of that language. Mandarin counts all Chinese speakers; Russian counts Russian, Polish and other Slavic languages. Japanese has no tract-level data.") |>
-  tab_source_note(md(cite("acs", "scenarios")))
+  tab_source_note("People age 5+ who speak each language at home (ACS 2020-2024 tract estimates, spread across each tract's 2020 census blocks by population; school-age Spanish by population under 18); straight-line distance from each block to the nearest K-5 site of that language. For school-age Spanish speakers, allowing for Census sampling error, the 90% range is 44-57% within 1 mile today and 29-41% in Scenarios A and B. Mandarin counts all Chinese speakers; Russian counts Russian, Polish and other Slavic languages. Japanese has no tract-level data.") |>
+  tab_source_note(md(cite("acs", "blocks", "scenarios")))
 ```

@@ -16,9 +16,8 @@ sp_from <- moving_k5 |> filter(language == "Spanish") |> distinct(from_key)
 sp_k <- lottery_k |> filter(language == "Spanish", year %in% LOTTERY_YEARS)
 sp_share <- sum(sp_k$applications[sp_k$key %in% sp_from$from_key]) / sum(sp_k$applications)
 
-kids <- access_tract |> filter(band == "K-5", language == "Spanish") |>
-  inner_join(select(acs, geoid, n = age5_17_spanish), by = "geoid") |>
-  group_by(scenario) |> summarise(within1 = sum(n[dist_mi <= 1]) / sum(n))
+acc <- read_data("access_summary.csv") |> filter(group == "Spanish (ages 5-17)")
+acc_ci <- read_data("access_robustness_ci.csv")
 ```
 
 PPS proposes to close or consolidate schools in two scenarios released for the board on October 6, 2026. Both scenarios move most of the district's **Spanish dual language immersion** programs into fewer schools, and move or add Mandarin and Vietnamese sites. This site puts numbers on what that means for immersion families, using PPS's own enrollment and lottery reports.
@@ -37,13 +36,13 @@ PPS proposes to close or consolidate schools in two scenarios released for the b
 [immersion students today in programs that move in Scenario A]{.label}
 :::
 ::: {.stat}
-[`r fmt_pct(kids$within1[kids$scenario == "sq"])` → `r fmt_pct(kids$within1[kids$scenario == "a"])`]{.num}
-[of school-age Spanish speakers living within 1 mile of a K-5 Spanish site]{.label}
+[`r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` → `r fmt_pct(acc$within_1mi[acc$scenario == "a"])`]{.num}
+[of school-age Spanish speakers live within 1 mile of a K-5 Spanish site (estimate; the drop is `r round(100 * acc_ci$lo[acc_ci$measure == "drop_points"])`–`r round(100 * acc_ci$hi[acc_ci$measure == "drop_points"])` points allowing for survey error)]{.label}
 :::
 :::
 
 ::: {.source}
-Tiles, left to right: (1) count of K-5 Spanish immersion sites on the status quo and scenario maps; (2) kindergarten lottery applications to Spanish programs that move in Scenario A, as a share of all Spanish kindergarten applications, pooled over the 2022-23 to 2026-27 lotteries; (3) October 2025 enrollment in each moving language program, in the grades that move, summed over Scenario A's moves; (4) school-age (5–17) Spanish speakers by census tract, share whose tract is within 1 mile (straight line) of a K-5 Spanish site. `r cite("scenarios", "lottery", "by_grade", "acs")`
+Tiles, left to right: (1) count of K-5 Spanish immersion sites on the status quo and scenario maps; (2) kindergarten lottery applications to Spanish programs that move in Scenario A, as a share of all Spanish kindergarten applications, pooled over the 2022-23 to 2026-27 lotteries; (3) October 2025 enrollment in each moving language program, in the grades that move, summed over Scenario A's moves; (4) school-age (5–17) Spanish speakers (Census survey estimates by tract, spread across each tract's census blocks by where children live), share living within 1 mile, straight line, of a K-5 Spanish site; the range is a 90% interval for the drop from Census sampling error. `r cite("scenarios", "lottery", "by_grade", "acs", "blocks")`
 :::
 
 ## What's here

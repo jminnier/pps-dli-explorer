@@ -95,6 +95,7 @@ SRC <- list(
   district_k = sprintf("district enrollment by grade: PPS, *Enrollment – Summary Comparison*, October 3, 2022 ([archive](%s)), and *Enrollment by Grade and Program Type*, 2024 and 2025", PPS_ARCHIVE),
   scenarios = "PPS board packet for October 6, 2026: scenario maps and *Rightsizing Update: Scenario Release* memo, as digitized and transcribed in [pps-explorer](https://github.com/browniefed/pps-explorer) by Jason Brown",
   acs = "US Census Bureau, American Community Survey 2020–2024 5-year estimates, tables C16001 and B16007, census tracts in Multnomah, Washington and Clackamas counties",
+  blocks = "US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, census blocks",
   methods = "Method details: [Sources & methods](methods.qmd)"
 )
 cite <- function(...) paste0("**Sources:** ", paste(unlist(SRC[c(...)]), collapse = "; "), ". ", SRC$methods, ".")

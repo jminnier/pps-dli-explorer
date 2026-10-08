@@ -25,6 +25,7 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 7 | District enrollment by grade (K–5), October 2022 | PPS, *Enrollment – Summary Comparison* (October 3, 2022), in *School Enrollment Profiles & Demographics* on the archive page | 2022-23 | – | the six grade totals, entered directly in `scorecard.qmd` |
 | 8 | Immersion sites and program moves in each scenario | PPS board packet for October 6, 2026: Status Quo, Scenario A and Scenario B attendance-area map PDFs, and the *Rightsizing Update: Scenario Release* memo (October 5, 2026) with the regional summaries; digitized and transcribed in [pps-explorer](https://github.com/browniefed/pps-explorer) | Scenarios released October 2026 | `public/data/*.geojson`, `src/lib/changes-data.mjs` | `export_dli_tables.mjs` → `dli_sites.csv`, `dli_moves.csv` |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
+| 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
 ## How each source was processed
 
@@ -131,12 +132,33 @@ Count of sites (source 8) for each language, grade band and scenario, excluding 
 
 ### Distance to the nearest site (table, overview tile 4)
 
-For every tract, language and scenario: the straight-line distance in miles from the tract's interior point to the nearest K-5 site of that language, computed in Oregon North state-plane coordinates (EPSG:2838).
+ACS language counts are only available for whole census tracts (about 4,000 residents each), and a tract can be over a mile across, so where people are placed inside a tract matters for a 1-mile measure.
 
-- **Within 1 mile** = speakers living in tracts within 1 mile ÷ all speakers of that language in the district.
-- **Average distance** = mean of tract distances weighted by the number of speakers.
-- Speakers are people aged 5 and older (C16001), or for "Spanish (ages 5–17)" school-age Spanish speakers (B16007).
-- Straight-line distance understates real travel, especially across freeways and rivers, and using one point per tract treats everyone in the tract as living at that point.
+1. **Spread each tract's speakers over its census blocks.** Each tract's count is divided among its 2020 census blocks in proportion to block population: all residents for the age 5+ counts (2020 Census table P1), and residents under 18 for school-age Spanish speakers (P1 total minus P3 adults). This assumes speakers are spread like the population within each tract. There are 10,866 blocks in the 135 district tracts.
+2. **Distance.** For each block, the straight-line distance in miles from its interior point to the nearest K-5 site of that language, in Oregon North state-plane coordinates (EPSG:2838), for the status quo and each scenario.
+3. **Within 1 mile** = speakers in blocks within 1 mile ÷ all speakers of that language in the district. **Average distance** = mean distance weighted by speakers.
+
+**Checks on the headline figure** (school-age Spanish speakers within 1 mile of a K-5 Spanish site), from `data-raw/check_access_robustness.R`:
+
+```{r}
+#| echo: false
+source("R/site_data.R")
+library(gt)
+read_data("access_robustness.csv") |>
+  filter(speakers == "Spanish, ages 5-17") |>
+  select(placement, miles, sq, a) |>
+  mutate(placement = recode(placement, `tract point` = "Whole tract at one point", `blocks by under-18 population` = "Spread over blocks (used)")) |>
+  gt(groupname_col = "placement") |>
+  cols_label(miles = "Within (miles)", sq = "Status quo", a = "Scenarios A and B") |>
+  fmt_percent(c(sq, a), decimals = 0) |>
+  tab_source_note("School-age (5-17) Spanish speakers living within each distance of a K-5 Spanish immersion site.")
+```
+
+- **Placement.** Putting each tract's whole population at one interior point (the first version of this site) gave 59% → 35% at 1 mile. That figure was sensitive to the threshold: at half a mile it gives 12%, because several large tracts sit just inside a mile from a site. Spreading speakers over blocks gives 52% → 36% and changes more smoothly with distance; it is the figure used.
+- **Survey error.** Each tract's school-age Spanish count was redrawn 2,000 times from a normal distribution with its ACS standard error (90% margin of error ÷ 1.645, floored at zero) and the share recomputed. 90% intervals: `r ci <- read_data("access_robustness_ci.csv"); sprintf("status quo %.0f–%.0f%%, Scenarios A and B %.0f–%.0f%%, drop %.0f–%.0f percentage points", 100*ci$lo[1], 100*ci$hi[1], 100*ci$lo[2], 100*ci$hi[2], 100*ci$lo[3], 100*ci$hi[3])`.
+- **Plausibility of the counts.** The ACS estimates 4,027 (±676) school-age Spanish speakers in the district's tracts, 7.0% of all residents aged 5–17. PPS counted 3,081 students with Spanish as their home language in October 2025, 7.1% of its enrollment; the ACS figure is larger because it also includes children in private and charter schools.
+- **Sites.** Today's K-5 Spanish sites: Ainsworth, Atkinson, Beach, César Chávez, James John, Lent, Rigler, Scott, Sitton. Scenarios A and B: Ainsworth, César Chávez, Lent, Rigler. Locations are the school icons on the PPS scenario maps (source 8).
+- **Limits.** Straight-line distance understates real travel, especially across freeways and rivers. The within-tract spread assumes speakers live where the general (or child) population does. Tract-level distances (`access_tract.csv`) are still published for mapping.
 
 ### Bridger → Lent precedent
 
@@ -166,6 +188,7 @@ python3 data-raw/parse_lottery.py
 python3 data-raw/parse_psu_forecast.py
 node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R
+Rscript data-raw/check_access_robustness.R
 quarto render
 ```
 
