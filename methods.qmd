@@ -29,6 +29,7 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 13 | Evaluation of the 2023 Southeast changes | Green, T. L., & Hanson, H. (2026, June 10). *Equity audit evaluation of Portland Public Schools' Southeast Enrollment and Program Balancing* | 2020-21 to 2025-26 | `data-raw/pps_transcripts/SEGC_Equity_Audit_Evaluation_Report.pdf` | quoted with page numbers |
 | 14 | Board meeting statements | Automated transcripts of PPS board and committee meetings compiled by [Save PDX Schools](https://savepdxschools.org/transcripts/), checked against the meeting video | Sept–Oct 2026 | `data-raw/pps_transcripts/*.json` | quoted with meeting, date and time |
 | 15 | Older enrollment forecasts | PSU Population Research Center, *Portland Public Schools Enrollment Forecasts*, 2022-23 (June 2022), 2023-24 (June 2023) and 2024-25 (July 2024) editions, Appendix C / Table 5.5 | 2019-20 to 2033-34 | `data-raw/pps_reports/PSU_PRC_Forecast_*_edition.pdf` | `extract_psu_premove.py` → `psu_forecast_premove.csv` |
+| 16 | Scenario projections by school | PPS, *How Could Your School Be Impacted?* ([page](https://www.pps.net/about/portland-public-schools-information/rightsize/how-could-your-school-be-impacted)): one 4-page "Family-Friendly School Guide" per school (82 PDFs, served from Google Drive through an Awesome Table list; metadata title "Confidential Draft", all dated October 8, 2026) | Projections 2027-28 to 2031-32 | `data-raw/pps_board/impact_page/*.pdf`, `drive_ids.txt` | `parse_school_guides.py` → `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -236,6 +237,16 @@ The precedent rate comes from one consolidation; other programs could fare bette
 - *Limits*: forecasts made one or two years ahead also miss for ordinary reasons. Other schools' Spanish programs missed by up to 10–27% in either direction (Rigler and Atkinson were under-forecast), so Lent's miss is notable for its size and persistence, not unique.
 - No edition states an assumed share of students following a moved program. The 98% figure (314 of 319) is implied by the numbers.
 
+### Share of a moved program PPS projects to follow it (sources 5 and 16)
+
+`parse_school_guides.py` reads page 4 of each guide (projected enrollment by option, 2027-28 to 2031-32; type of change; size and space goals; share within 1 mile; whole-school poverty, special education, multilingual and underserved-race shares) and the page 3 text. *Checks*: every school has a complete "No changes" row; option labels are from a known set; each printed row has five years; percentages are 0–100; the enrollment and school tables list the same school × option pairs. Closing schools are kept with status "closes". Re-downloading all 82 guides later on October 8 gave identical files.
+
+- The guides' "No changes" projections equal PSU's 2026-27 forecast school totals; `equity_analysis.R` stops if that fails for the schools used.
+- *Arrive* = receiving school's options projection − its "No changes" projection. *Share arriving* = arrive ÷ PSU's forecast of the moving program in the same year.
+- *Stay* = sending school's options projection − PSU's forecast of its remaining programs, only where the sending school has no other change (Scott in Scenario B; Clark).
+- Used only where the receiving school's sole change is the arriving program: Atkinson → Lent, Scott → Rigler, Clark → Woodstock. Arrive + stay comes to 100–111% of the program, so the split is approximate.
+- The guides state no follow rate. The shares are implied, and PPS's model may place non-following students in ways the guides don't show (for example, at other immersion sites).
+
 ## Reproducing the data
 
 From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
@@ -248,6 +259,7 @@ python3 data-raw/parse_lottery.py
 python3 data-raw/parse_psu_forecast.py
 python3 data-raw/extract_psu_premove.py
 python3 data-raw/parse_ethnicity_program.py
+python3 data-raw/parse_school_guides.py
 node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R
 Rscript data-raw/check_access_robustness.R

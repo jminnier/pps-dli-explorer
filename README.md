@@ -46,6 +46,7 @@ Each source is saved under `data-raw/`, and each script stops on any row that fa
 | `acs_language_access.R` | ACS 2020–2024 (C16001, B16007) + 2020 Census blocks | `acs_language_tract.csv`, `tracts.geojson`, `access_*.csv` |
 | `check_access_robustness.R` | same | `access_robustness*.csv` |
 | `equity_analysis.R` | the tables above + scenario maps + census blocks | `equity_*.csv` |
+| `parse_school_guides.py` | PPS *How Could Your School Be Impacted?* school guides (Oct 8, 2026) | `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
 | copied by hand | PPS *Class Size Detail*; PPS board slide 44 | `class_size_kg.csv`, `pps_slide44.csv` |
 
 Other saved documents: `data-raw/pps_board/` (October 2026 board packet: PowerPoint, memo, district and regional summaries, ethnicity-by-program reports) and `data-raw/savepdxschools/` (PPS metrics compiled by [Save PDX Schools](https://savepdxschools.org/); no license stated, so credit them if used).

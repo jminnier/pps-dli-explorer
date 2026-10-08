@@ -16,6 +16,7 @@
 #   data/equity_groups.csv     one row per scenario x group (DLI moves, closures, district)
 #   data/equity_changes.csv    one row per scenario x change (each program move or closure)
 #   data/equity_home_distance.csv  home-to-school distance before/after, per scenario x change
+#   data/equity_pps_follow.csv share of a moved program PPS's school guides project to arrive / stay (guide_enrollment.csv + psu_forecast.csv)
 #
 # Usage: Rscript data-raw/equity_analysis.R
 
@@ -299,3 +300,36 @@ fc <- bind_rows(
   select(target, vintage, note, year, forecast, actual, error, pct_error)
 write_csv(fc, here("data", "equity_forecast_check.csv"))
 cat("\nForecast vs actual (PSU):\n"); print(as.data.frame(fc |> mutate(pct_error = sprintf("%+.1f%%", 100 * pct_error)) |> select(-note)), row.names = FALSE)
+
+# ---- how many students does PPS's own scenario projection have following each moved program? ----
+# PPS's per-school guides (Oct 2026) print projected enrollment for 2027-28 to 2031-32 under "No changes"
+# and under the options. "No changes" equals PSU's 2026-27 forecast for every school checked, so the
+# options rows can be read against PSU's program forecasts. Only moves where the receiving school's
+# only change is the arriving program (and, where shown, the sending school's only change is losing
+# it) are used: Atkinson -> Lent, Scott -> Rigler (Scott in Scenario B), Clark -> Woodstock.
+# followed = receiving school (options - no changes) / moving program (PSU forecast);
+# stayed    = sending school (options - its other programs, PSU forecast) / moving program.
+ge <- read_csv(here("data", "guide_enrollment.csv"), show_col_types = FALSE)
+gv <- function(s, sc) ge |> filter(school == s, scenario == sc) |> select(year, enrollment)
+pp <- function(s, p) pf |> filter(forecast_vintage == "2026-27", table == "school_program", school == s, program == p, type == "forecast") |> select(year, enrollment)
+sq_check <- ge |> filter(scenario == "sq", school %in% c("Lent", "Rigler", "Scott", "Woodstock", "Clark", "Atkinson")) |>
+  inner_join(pf |> filter(forecast_vintage == "2026-27", table == "school_program", program == "Total", type == "forecast") |> select(school, year, psu = enrollment), by = c("school", "year"))
+if (any(sq_check$enrollment != sq_check$psu)) stop("guide 'No changes' differs from PSU 2026-27 forecast:\n", paste(capture.output(print(filter(sq_check, enrollment != psu))), collapse = "\n"))
+follow_one <- function(move, language, from, to, prog, scen, stay_school = NA, other_prog = NA) {
+  m <- pp(from, prog) |> rename(program = enrollment) |>
+    inner_join(gv(to, scen) |> rename(to_opt = enrollment), by = "year") |>
+    inner_join(gv(to, "sq") |> rename(to_sq = enrollment), by = "year") |>
+    mutate(move = move, language = language, scenario = scen, joined = to_opt - to_sq, followed = joined / program)
+  if (!is.na(stay_school)) m <- m |> inner_join(gv(stay_school, scen) |> rename(from_opt = enrollment), by = "year") |>
+    inner_join(pp(from, other_prog) |> rename(from_other = enrollment), by = "year") |>
+    mutate(stayed_n = from_opt - from_other, stayed = stayed_n / program)
+  m
+}
+pps_follow <- bind_rows(
+  follow_one("Atkinson → Lent", "Spanish", "Atkinson", "Lent", "Spanish", "a"),
+  follow_one("Scott → Rigler", "Spanish", "Scott", "Rigler", "Spanish", "b", "Scott", "Neighborhood"),
+  follow_one("Clark → Woodstock", "Mandarin", "Clark", "Woodstock", "Mandarin", "a", "Clark", "Neighborhood")
+) |> select(move, language, scenario, year, program, to_sq, to_opt, joined, followed, any_of(c("from_opt", "from_other", "stayed_n", "stayed")))
+write_csv(pps_follow, here("data", "equity_pps_follow.csv"))
+cat("\nPPS scenario projections: share of each moved program arriving at the receiving school:\n")
+print(as.data.frame(pps_follow |> mutate(across(c(followed, stayed), \(v) round(100 * v)))), row.names = FALSE)

@@ -31,6 +31,9 @@ opt_tot <- opt |> filter(scenario == "a") |> group_by(assumption) |>
 ot <- function(a, col) opt_tot[[col]][opt_tot$assumption == a]
 prec <- "Bridger to Lent precedent"
 displaced_a <- g("a", DLI, "students") + g("a", CLO, "students")
+fol <- read_data("equity_pps_follow.csv")
+fol1 <- fol |> filter(year == "2027-28")
+fol_range <- sprintf("%.0f–%.0f%%", 100 * min(fol1$followed), 100 * max(fol1$followed))
 ```
 
 ::: {.callout-important appearance="simple"}
@@ -40,7 +43,7 @@ displaced_a <- g("a", DLI, "students") + g("a", CLO, "students")
 - **The programs being moved are not short of families.** Atkinson draws `r fmt_n(dm("Atkinson", "applications"))` kindergarten applications a year for about `r fmt_n(dm("Atkinson", "offered"))` seats, and Beach `r fmt_n(dm("Beach", "applications"))` for `r fmt_n(dm("Beach", "offered"))` ([§2](#sec-demand)).
 - **The burden falls on schools serving underserved communities.** Schools losing an immersion program are `r fmt_pct(cp("a", SEND, "pct_hist_underserved"))` historically underserved and `r fmt_pct(cp("a", SEND, "pct_direct_cert"))` low-income. The schools closing outright are `r fmt_pct(cp("a", CLOS, "pct_white"))` white, with `r fmt_pct(cp("a", CLOS, "pct_hist_underserved"))` underserved. Students in the moving programs are `r round(g("a", DLI, "pct_spanish_home") / g("a", CLO, "pct_spanish_home"))` times as likely to speak Spanish at home as students at closing schools ([§3](#sec-who)).
 - **The moves are longer.** Their schools move farther (`r sprintf("%.1f", g("a", DLI, "school_miles"))` vs `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles), and the share of school-age Spanish speakers within a mile of a K-5 Spanish site falls from `r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` to `r fmt_pct(acc$within_1mi[acc$scenario == "a"])` ([§4](#sec-burden)).
-- **Moving a program loses the families who would have joined it.** After PPS moved Bridger's Spanish program to Lent in 2023, kindergarten immersion enrollment fell 31%, against 14% district-wide. PPS's forecast had Lent 14–16% higher than it turned out. Families who don't follow go to neighborhood schools, and PPS hasn't shown whether its projections account for them ([§5](#sec-optout)).
+- **Moving a program loses the families who would have joined it.** After PPS moved Bridger's Spanish program to Lent in 2023, kindergarten immersion enrollment fell 31%, against 14% district-wide. PPS's forecast had Lent 14–16% higher than it turned out. PPS's own school projections now expect only `r fol_range` of students in a moved program to follow it; the rest stay at neighborhood schools. By PPS's own numbers, the moves shrink immersion ([§5](#sec-optout)).
 - **PPS's equity check can't see any of this.** It reports one move rate per group. Even so, multilingual learners are already the most-moved group ([§6](#sec-pps)).
 :::
 
@@ -163,10 +166,30 @@ read_data("equity_forecast_check.csv") |>
   tab_spanner("2023-24", ends_with("2023-24")) |> tab_spanner("2024-25", ends_with("2024-25")) |> tab_spanner("2025-26", ends_with("2025-26")) |>
   fmt_number(c(starts_with("forecast"), starts_with("actual")), decimals = 0) |>
   fmt_percent(starts_with("pct_error"), decimals = 0, force_sign = TRUE) |>
+  cols_width(row ~ px(240)) |>
   tab_header(title = "Lent's enrollment fell well short of PPS's forecast") |>
   tab_source_note("Forecasts and October actual enrollment (kindergarten through grade 12) from the PSU Population Research Center forecasts for PPS. Error = (forecast − actual) ÷ actual. Other schools also miss their forecasts, in both directions; Lent's miss is unusually large and lasting for a school whose program was moved.") |>
   tab_source_note(md(cite("psu_premove")))
 ```
+
+This time PPS's projections do expect some families not to follow. PPS's per-school guides for the scenarios project each school's enrollment with no changes and under the options (`r SRC$guides`). Their "no changes" figures match PSU's 2026-27 forecast exactly, so the arrival of a moved program can be read against PSU's forecast of that program. In the three moves where nothing else changes at the receiving school, PPS projects that `r fol_range` of the program's students arrive. Where the guides show the sending school, the rest stay there as neighborhood students:
+
+```{r}
+#| label: tbl-pps-follow
+fol |> filter(year %in% c("2027-28", "2031-32")) |>
+  mutate(move = paste0(move, " (", language, ", Scenario ", toupper(scenario), ")")) |>
+  select(move, year, program, joined, followed, stayed_n, stayed) |>
+  gt(groupname_col = "move") |>
+  cols_label(year = "Year", program = "Program size (PSU forecast)", joined = "Arrive at new school",
+             followed = "Share arriving", stayed_n = "Stay at old school", stayed = "Share staying") |>
+  fmt_number(c(program, joined, stayed_n), decimals = 0) |> fmt_percent(c(followed, stayed), decimals = 0) |>
+  sub_missing(missing_text = "–") |>
+  tab_header(title = "PPS's projections have about one in five students not following a moved program") |>
+  tab_source_note("Arrive = receiving school's projected enrollment under the options minus its projection with no changes. Stay = sending school's projection under the options minus PSU's forecast of its other programs (shown only where the sending school has no other change: Scott in Scenario B, Clark). Program size = PSU's 2026-27 forecast of the moving program in that year. Other moves (to César Chávez, Sitton and Vestal) come with boundary or grade changes and can't be separated. The guides don't state a follow rate; these shares are implied by their numbers.") |>
+  tab_source_note(md(cite("guides", "psu_premove")))
+```
+
+That is close to the Bridger → Lent precedent, and far from the roughly 98% PSU assumed for that move in 2023. It also means the loss is part of the plan: PPS expects the consolidated programs to be smaller than the programs they replace.
 
 ```{r}
 #| label: tbl-optout
@@ -183,7 +206,7 @@ opt |> filter(scenario == "a") |>
   tab_source_note(md(cite("by_grade", "scenarios", "profiles", "class_size", "summary10")))
 ```
 
-If Scenario A loses families at the Bridger → Lent rate, about **`r fmt_n(ot(prec, "k"))` kindergartners a year** who would have joined these programs go elsewhere. The figure at 7% is `r fmt_n(ot("7% (figure cited in public comment)", "k"))`. Over six years of kindergarten classes that adds up to roughly `r fmt_n(6 * ot(prec, "k"))` children. Most would be expected to enroll at their neighborhood school instead. PPS hasn't published school-level enrollment or capacity projections for the scenarios, so whether those schools can absorb them can't be checked. If its projections assume families follow their program, the result would be immersion classes smaller than planned and more students than planned at neighborhood schools. Either one weakens the case that consolidated schools will be well resourced.
+If Scenario A loses families at the Bridger → Lent rate, about **`r fmt_n(ot(prec, "k"))` kindergartners a year** who would have joined these programs go elsewhere. The figure at 7% is `r fmt_n(ot("7% (figure cited in public comment)", "k"))`. Over six years of kindergarten classes that adds up to roughly `r fmt_n(6 * ot(prec, "k"))` children. Most would be expected to enroll at their neighborhood school instead. PPS's guides place these students at neighborhood schools and flag whether each school meets its size and space goals, but they publish no capacity figures, so how well those schools can absorb them can't be checked independently. Either way, the students lost would come from programs at schools that are about half historically underserved ([§3](#sec-who)).
 
 ## 6. Why PPS's equity check misses it {#sec-pps}
 
@@ -215,7 +238,7 @@ The data points to options that would take less from immersion families. Each of
 - **Move the neighborhood program instead of the immersion strand.** The plan already does this at César Chávez, where non-immersion students move to Rosa Parks so the school can become an immersion hub.
 - **Fill "underenrolled" immersion classrooms from the waitlists** instead of relocating them.
 - **Phase changes in and protect current families.** Let enrolled students finish where they are, and guarantee transportation to any relocated program.
-- **Do the equity analysis PPS hasn't published.** Report every change by immersion enrollment, home language, English-learner status, race and income. Include home-to-school distance before and after. Track how many families follow each moved program, so projections reflect what happened after 2023. PPS has the student-level data to do this.
+- **Do the equity analysis PPS hasn't published.** Report every change by immersion enrollment, home language, English-learner status, race and income. Include home-to-school distance before and after. Publish the share of families the projections assume will follow each moved program (about `r round(100 * mean(fol1$followed))`%, judging by the school guides), and track how many actually do. PPS has the student-level data to do this.
 
 ## Details {#sec-distance-detail}
 

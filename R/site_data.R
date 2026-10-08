@@ -104,6 +104,7 @@ SRC <- list(
   tle0908 = "PPS Board of Education Teaching, Learning, and Enrollment Committee, September 8, 2026, at 33:22 ([video](https://www.youtube.com/watch?v=S-pk57P6f_o&t=2002s); automated transcript via [Save PDX Schools](https://savepdxschools.org/transcripts/))",
   summary10 = "PPS, *October 2025 Enrollment Summary, 10-year detail*, footnote 6 (\"Bridger Spanish Immersion moved to Lent\")",
   psu_premove = sprintf("Portland State University Population Research Center, *Portland Public Schools Enrollment Forecasts*, 2022-23, 2023-24 and 2026-27 editions (Appendix C / Table 5.5; [archive](%s))", PPS_ARCHIVE),
+  guides = "PPS, *How Could Your School Be Impacted?* school guides (\"PPS Family-Friendly School Guide\", per-school PDFs dated October 8, 2026), page 4, projected enrollment 2027-28 to 2031-32 ([page](https://www.pps.net/about/portland-public-schools-information/rightsize/how-could-your-school-be-impacted))",
   methods = "Method details: [Sources & methods](methods.qmd)"
 )
 cite <- function(...) paste0("**Sources:** ", paste(unlist(SRC[c(...)]), collapse = "; "), ". ", SRC$methods, ".")
