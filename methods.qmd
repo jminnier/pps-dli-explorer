@@ -179,7 +179,7 @@ read_data("access_robustness.csv") |>
 
 ## Equity page {#equity}
 
-`data-raw/equity_analysis.R` produces `equity_changes.csv` (one row per closure or immersion move), `equity_groups.csv` (group totals) and `equity_home_distance.csv` / `equity_home_distance_summary.csv`.
+`data-raw/equity_analysis.R` produces `equity_changes.csv` (one row per closure or immersion move), `equity_groups.csv` (group totals), `equity_home_distance.csv` / `equity_home_distance_summary.csv` and `equity_home_sensitivity.csv`.
 
 **PPS's subgroup table** (source 11) is reproduced as printed. The slide gives no year and does not define a "move"; the district-wide comparison sheet labels the same totals "students who would change schools" and describes figures as 2031-32 projections unless noted. Whether students whose immersion program relocates are counted is not stated.
 
@@ -200,6 +200,7 @@ Boundary changes, which move most students in PPS's totals, are not included in 
 - *Closures*: blocks inside the closing school's status-quo attendance area (same grade band). Before = distance to the closing school; after = distance to the school whose attendance area contains the block on the scenario map.
 - *Immersion moves*: immersion families' addresses are not published. Each block is assigned to its nearest current immersion site of the same language and grade band (a catchment by proximity), and the blocks assigned to the sending program are used. Before = distance to the sending school; after = distance to the program's new school. For Spanish, a second version weights blocks by school-age Spanish speakers (ACS tract counts spread over blocks by population under 18).
 - Within each change, distances are averaged over children; averages across changes are weighted by each change's enrolled students.
+- **Sensitivity** (`equity_home_sensitivity.csv`): the immersion estimate is recomputed excluding Vietnamese (whose catchment is the whole district), for Spanish programs only, and for Spanish programs weighting blocks by school-age Spanish speakers; closures are also recomputed with Spanish-speaker weighting. The immersion increase stays between about +1.0 and +1.2 miles and the closure increase between about +0.3 and +0.5 miles. None of these versions can test the underlying assumption about where immersion families live; on the site this figure is presented as a model estimate, after the measured school-to-school distances.
 - Limitations: straight-line distances; proximity catchments are only a model of where immersion families live (immersion students often come from a wider area, and for languages with a single site, such as Vietnamese, the catchment is the whole district); moves of whole attendance areas between neighborhood schools by boundary change are not included.
 
 **Race and ethnicity.** PPS's *School/Neighborhood Enrollment by Ethnicity & Program* report gives each school's whole-school racial composition and its percentage in immersion, not the racial composition of immersion programs, so the race/ethnicity of students in moving programs cannot be computed from public reports.

@@ -172,3 +172,27 @@ hs <- home |> left_join(select(changes, scenario, from_school, to_school_c = to_
   mutate(change = after - before)
 print(as.data.frame(hs |> mutate(across(c(before, after, change), \(v) round(v, 2)))), row.names = FALSE)
 write_csv(hs, here("data", "equity_home_distance_summary.csv"))
+
+# ---- sensitivity of the home-to-school estimate --------------------------------------------------
+# The immersion estimate assumes families live in the area nearest their program's current school.
+# Report how the result changes with the programs included and with the weighting.
+hx <- home |> left_join(select(changes, scenario, from_school, language, students) |> distinct(scenario, from_school, language, .keep_all = TRUE),
+                        by = c("scenario", "from_school", "language"))
+sens1 <- function(d, variant, w = "children") {
+  d |> group_by(scenario) |>
+    summarise(variant = variant,
+              before = if (w == "spanish") weighted.mean(before_mi_spanish, students) else weighted.mean(before_mi, students),
+              after = if (w == "spanish") weighted.mean(after_mi_spanish, students) else weighted.mean(after_mi, students),
+              .groups = "drop") |> mutate(change = after - before)
+}
+dli_h <- filter(hx, type == "Immersion program moves"); clo_h <- filter(hx, type != "Immersion program moves")
+sens <- bind_rows(
+  sens1(dli_h, "Immersion moves: all (main estimate)"),
+  sens1(filter(dli_h, language != "Vietnamese"), "Immersion moves: excluding Vietnamese (one site, whole-district catchment)"),
+  sens1(filter(dli_h, language == "Spanish"), "Immersion moves: Spanish only"),
+  sens1(filter(dli_h, language == "Spanish"), "Immersion moves: Spanish only, weighted by Spanish-speaking children", "spanish"),
+  sens1(clo_h, "Closures: all (main estimate)"),
+  sens1(clo_h, "Closures: weighted by Spanish-speaking children", "spanish"))
+write_csv(sens, here("data", "equity_home_sensitivity.csv"))
+cat("\nSensitivity of the home-to-school estimate:\n")
+print(as.data.frame(sens |> mutate(across(c(before, after, change), \(v) round(v, 2)))), row.names = FALSE)

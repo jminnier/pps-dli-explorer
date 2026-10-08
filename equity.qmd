@@ -82,16 +82,34 @@ chg |> filter(scenario == "a") |>
 
 ## How far families would travel
 
-Two measures, both straight-line.
+### Measured: how far the school moves
 
-**How far the school moves.** Students at closing schools mostly move to the next school over: on average `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles in Scenario A. Immersion programs move farther: `r sprintf("%.1f", g("a", DLI, "school_miles"))` miles on average, with the Atkinson, Beach, James John and Sitton Spanish programs moving 1.6–2.5 miles (Scott → Rigler, at 0.7 miles, is the exception).
+The firmer measure is the straight-line distance from each student's current school to the school they would attend, using the school locations on the PPS scenario maps. Students at closing schools mostly move to the next school over: on average `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles in Scenario A. Immersion programs move farther: **`r sprintf("%.1f", g("a", DLI, "school_miles"))` miles** on average, with the Atkinson, Beach, James John and Sitton Spanish programs moving 1.6–2.5 miles (Scott → Rigler, at 0.7 miles, is the exception). Each change's distance is in the table above.
 
-**Estimated change in home-to-school distance.** Using where children live (2020 Census blocks), children in a closing school's attendance area would be `r sprintf("%.1f", h("a", CLO, "change"))` miles farther from school on average (from `r sprintf("%.1f", h("a", CLO, "before"))` to `r sprintf("%.1f", h("a", CLO, "after"))` miles). For immersion programs, where families already travel farther, the increase is about **`r sprintf("%.1f", h("a", DLI, "change"))` mile** (from `r sprintf("%.1f", h("a", DLI, "before"))` to `r sprintf("%.1f", h("a", DLI, "after"))` miles), roughly twice as much.
+```{r}
+#| label: tbl-school-miles
+grp |> filter(type != ALL) |>
+  mutate(type = if_else(type == DLI, "Immersion program moves", "School closures"), scenario = paste("Scenario", toupper(scenario))) |>
+  select(type, scenario, school_miles) |>
+  pivot_wider(names_from = scenario, values_from = school_miles) |>
+  gt() |>
+  cols_label(type = "") |>
+  fmt_number(-type, decimals = 1) |>
+  tab_header(title = "How far the school moves, miles (straight line)", subtitle = "Average over affected students") |>
+  tab_source_note("Distance from the current school to the new school, averaged over each change's enrolled students (October 2025). For closures split among several receiving schools, weighted by the share of the closing school's attendance area each receives.") |>
+  tab_source_note(md(cite("scenarios", "by_grade", "by_lang")))
+```
+
+### Estimated: change in distance from home
+
+Distance from home is what families experience, but PPS doesn't publish where students live, so this part is a **model estimate**, not a measurement. Children are placed where the 2020 Census counted them (census blocks). For a closing school, that is its attendance area, which is a good guide to where its students live. For an immersion program it has to be **assumed**: each program's families are taken to live in the area nearer to it than to any other site of the same language. Real immersion families often come from farther away, and for a language with a single site (Vietnamese) that area is the whole district.
+
+With that assumption, children near a closing school would be `r sprintf("%.1f", h("a", CLO, "change"))` miles farther from school on average (`r sprintf("%.1f", h("a", CLO, "before"))` → `r sprintf("%.1f", h("a", CLO, "after"))` miles), and children near a moving immersion program about `r sprintf("%.1f", h("a", DLI, "change"))` mile farther (`r sprintf("%.1f", h("a", DLI, "before"))` → `r sprintf("%.1f", h("a", DLI, "after"))` miles). The gap holds when the estimate is varied (below): `r sens <- read_data("equity_home_sensitivity.csv") |> filter(scenario == "a"); sprintf("+%.1f to +%.1f miles for immersion programs vs +%.1f to +%.1f for closures", min(sens$change[grepl("^Immersion", sens$variant)]), max(sens$change[grepl("^Immersion", sens$variant)]), min(sens$change[grepl("^Closures", sens$variant)]), max(sens$change[grepl("^Closures", sens$variant)]))`. Student address data from PPS would be needed to confirm it.
 
 ```{r}
 #| label: fig-home
 #| fig-height: 8
-#| fig-cap: "Estimated average home-to-school distance before and after each change in Scenario A, for children living in the closing school's attendance area or nearest to the immersion program's current school. Hover for details."
+#| fig-cap: "Model estimate, not measured: average home-to-school distance before and after each change in Scenario A, for children living in the closing school's attendance area, or in the area nearest the immersion program's current school (an assumption about where immersion families live). Hover for details."
 hd <- home |> filter(scenario == "a") |>
   mutate(grp = if_else(type == DLI, "Immersion program moves", "School closures"),
          label = if_else(type == DLI, paste0(from_school, " → ", to_school, " (", language, ")"), paste0(from_school, " (closes)"))) |>
@@ -108,7 +126,7 @@ for (k in names(col)) {
                    marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
                    text = ~sprintf("<b>%s</b><br>today %.1f mi → after %.1f mi (+%.1f)", label, before_mi, after_mi, change_mi), hoverinfo = "text")
 }
-viz_layout(p, xtitle = "Average distance from home to school (miles, straight line)") |>
+viz_layout(p, xtitle = "Estimated average distance from home to school (miles, straight line)") |>
   layout(xaxis = list(rangemode = "tozero"))
 ```
 
@@ -117,25 +135,23 @@ viz_layout(p, xtitle = "Average distance from home to school (miles, straight li
 :::
 
 ```{r}
-#| label: tbl-distance
-homes |>
-  left_join(grp |> select(scenario, type, school_miles), by = c("scenario", "type")) |>
-  mutate(type = if_else(type == DLI, "Immersion program moves", "School closures"), scenario = paste("Scenario", toupper(scenario))) |>
-  select(scenario, type, school_miles, before, after, change) |>
+#| label: tbl-sensitivity
+read_data("equity_home_sensitivity.csv") |>
+  mutate(scenario = paste("Scenario", toupper(scenario))) |>
+  select(scenario, variant, before, after, change) |>
   gt(groupname_col = "scenario") |>
-  cols_label(type = "", school_miles = "School moves", before = "Today", after = "After", change = "Increase") |>
-  tab_spanner("Home to school (estimated)", c(before, after, change)) |>
-  fmt_number(c(school_miles, before, after, change), decimals = 1) |>
-  tab_header(title = "Average distances, miles (straight line)") |>
-  tab_source_note("Averages across changes are weighted by each change's enrolled students. Home-to-school estimates use children under 18 by census block: for closures, children in the closing school's attendance area and the school their block is assigned to on the scenario map; for immersion moves, children whose nearest current site of that language is the moving program, and the program's new school. Immersion families' actual homes are not published, so this assumes they come from the area nearest their program.") |>
-  tab_source_note(md(cite("scenarios", "blocks", "by_grade")))
+  cols_label(variant = "Version of the estimate", before = "Today", after = "After", change = "Increase") |>
+  fmt_number(c(before, after, change), decimals = 1) |>
+  tab_header(title = "Estimated home-to-school distance, miles: how sensitive is it?", subtitle = "Model estimate; averages over affected students") |>
+  tab_source_note("All versions assume immersion families live in the area nearest their program's current site of that language; that assumption cannot be tested without student addresses. \"Weighted by Spanish-speaking children\" places children by ACS school-age Spanish speakers rather than all children.") |>
+  tab_source_note(md(cite("scenarios", "blocks", "acs", "by_grade")))
 ```
 
 ## What this does and doesn't show
 
-- **It shows** that the students PPS directly displaces through program moves are far more likely to be Spanish speakers than the students displaced by closures, and that their schools move farther. That pattern is invisible in a district-wide move rate.
+- **It shows** that the students PPS directly displaces through program moves are far more likely to be Spanish speakers than the students displaced by closures, and that their schools move farther (measured). That pattern is invisible in a district-wide move rate.
 - **It does not show race or ethnicity.** PPS publishes each school's racial makeup but not its immersion program's, so the share of Hispanic/Latino students in moving programs can't be computed from public reports. Home language is the closest available measure.
-- **Distances are estimates**: straight-line, and for immersion families based on where children live near each program rather than on actual addresses.
+- **Distances.** How far each school moves is measured from the scenario maps (straight line). How far families' trips grow is a model estimate: for immersion families it rests on an assumption about where they live, because PPS does not publish students' addresses. Both are straight-line, so real travel is longer.
 - **What would settle it**: PPS has student-level data. A request for the number of students affected by each change by race/ethnicity, home language and immersion enrollment, and for average home-to-school distance before and after, would let PPS's slide 44 be checked directly.
 
 See [Sources & methods](methods.qmd#equity) for details.

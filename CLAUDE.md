@@ -58,4 +58,5 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
 - **Lottery quirk:** the 2021-22 lottery report gives no grade for immersion rows, so lottery averages use 2022-23 to 2026-27.
 - **Access figures use block-level allocation.** Tract interior points were threshold-sensitive (59→35% vs 52→36%). Report the 90% intervals from `access_robustness_ci.csv`.
 - **Race of immersion programs isn't published.** PPS reports whole-school race only. Use home language (`enrollment_by_language.csv`) as the proxy, and say so.
+- **Measured vs modeled distances.** School-to-school distances (1.7 vs 1.2 mi) are measured from the maps. The home-to-school increase (about +1.0 vs +0.5 mi) is a model: immersion families are assumed to live in the area nearest their program's current site. Always lead with the measured distances, label the home figure an estimate, and cite `equity_home_sensitivity.csv`.
 - **PPS's subgroup table** is board PowerPoint slide 44 (K-8 students who move): multilingual learners 31%/28% vs all 27%/24%. PPS never defines "move".
