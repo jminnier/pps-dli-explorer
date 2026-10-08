@@ -24,7 +24,7 @@ demand <- k5_moves |>
 
 ## Demand: programs move away from where families apply
 
-Every immersion kindergarten seat is filled by lottery. The lottery reports show how many families applied to each program, how many got an offer and how many were waitlisted. Averaged over the last five lotteries (`r min(LOTTERY_YEARS)` to `r max(LOTTERY_YEARS)`), the Spanish programs that would move include the two with the **most applications and longest waitlists in the district**, Atkinson and Beach, and they would move to schools that have drawn far fewer applicants.
+Families who want a kindergarten immersion seat apply through the PPS school-choice lottery (the exception is the neighborhood families of all-immersion Lent and Rigler; see the note below). The lottery reports show how many families applied to each program, how many got an offer and how many were waitlisted. Averaged over the last five lotteries (`r min(LOTTERY_YEARS)` to `r max(LOTTERY_YEARS)`), the Spanish programs that would move include the two with the **most applications and longest waitlists in the district**, Atkinson and Beach, and they would move to schools that have drawn far fewer applicants.
 
 ```{r}
 #| label: fig-demand
@@ -45,11 +45,17 @@ viz_layout(p, xtitle = "Kindergarten applications per year", ytitle = NULL) |>
   layout(xaxis = list(rangemode = "tozero"), yaxis = list(tickfont = list(size = 12)), height = 380)
 ```
 
+::: {.source}
+`r cite("lottery", "scenarios")`
+:::
+
 Schools with no orange dot (Rigler, Boise-Eliot/Humboldt, Vestal) have no immersion lottery today: Boise-Eliot/Humboldt and Vestal would be new sites, and Rigler fills its Spanish program without appearing in the lottery reports.
 
 ::: {.callout-warning}
 ## Lottery numbers understate demand at whole-school immersion schools
 At **Lent** and **Rigler**, every student is in Spanish immersion, so children from the school's own neighborhood enroll without entering the lottery; only families from outside the neighborhood apply. In 2025-26 Lent enrolled `r k_enr("lent", "2025-26")` immersion kindergartners but made `r k_off("lent", "2025-26")` lottery offers, and Rigler enrolled `r k_enr("rigler", "2025-26")` with no lottery at all. So Lent's orange dot above counts only out-of-neighborhood applicants and is not directly comparable with the sending schools, which enroll about as many kindergartners as they offer lottery seats.
+
+`r cite("by_grade", "lottery")`
 :::
 
 ### A precedent: Bridger's Spanish program moved to Lent in 2023
@@ -69,20 +75,25 @@ bl_year <- bl |> group_by(year) |>
             kg_size = paste(kg_avg_class_size, collapse = " / "), classes = sum(classes), .groups = "drop")
 before <- mean(bl_year$per_grade[bl_year$year < "2023-24"])
 after_k <- mean(bl_year$k_actual, na.rm = TRUE)
-district_k <- c(`2022-23` = 3152, by_grade |> filter(grade == "K") |> group_by(year) |> summarise(n = sum(enrollment)) |> tibble::deframe())
-district_chg <- mean(district_k[c("2024-25", "2025-26")]) / district_k[["2022-23"]] - 1
+# Same baseline on both sides: an average across grades K-5 before the move vs kindergarten after.
+# District grades K-5, October 2022 (PPS Enrollment - Summary Comparison, Oct 3 2022).
+district_k5_2022 <- c(K = 3152, `1` = 3376, `2` = 3319, `3` = 3502, `4` = 3485, `5` = 3358)
+district_k_after <- by_grade |> filter(grade == "K", year %in% c("2024-25", "2025-26")) |> group_by(year) |> summarise(n = sum(enrollment)) |> pull(n)
+district_chg <- mean(district_k_after) / mean(district_k5_2022) - 1
+district_chg_kk <- mean(district_k_after) / district_k5_2022[["K"]] - 1
 bl_year |>
   gt() |>
   cols_label(year = "Year", schools = "Spanish immersion students", per_grade = "Per grade (÷ 6)",
              k_actual = "Kindergarten (actual)", kg_size = "Avg K class size", classes = "Est. K immersion classes") |>
   fmt_number(c(per_grade, classes), decimals = 1) |> fmt_number(k_actual, decimals = 0) |>
   sub_missing(missing_text = "–") |>
-  tab_source_note("Immersion students: PPS Language Immersion Track Profiles. Avg K class size: PPS Class Size Detail (all kindergarten classes at the school). Classes = kindergarten immersion students (actual where published, otherwise the per-grade average) ÷ average K class size; an estimate, not a count.")
+  tab_source_note("Classes = kindergarten immersion students (actual where published, otherwise the per-grade average) ÷ average kindergarten class size at the school (all kindergarten classes, both programs). An estimate, not a count.") |>
+  tab_source_note(md(cite("profiles", "by_grade", "class_size", "district_k")))
 ```
 
-PPS has consolidated Spanish immersion before. Until 2022-23 it ran at both **Bridger** and **Lent**, each a K-5 school with an immersion and a neighborhood program. In 2023-24 Bridger's program moved to Lent, which became all-immersion (Bridger became the K-8 Bridger Creative Science). Before the move the two schools had about **`r fmt_n(before)` Spanish immersion students per grade**, roughly three kindergarten classes. Lent has since enrolled **`r fmt_n(after_k)` immersion kindergartners a year** on average (2024-25 and 2025-26), two classes: about `r fmt_pct(1 - after_k / before)` fewer, while kindergarten enrollment district-wide fell about `r fmt_pct(-district_chg)`.
+PPS has consolidated Spanish immersion before. Until 2022-23 it ran at both **Bridger** and **Lent**, each a K-5 school with an immersion and a neighborhood program. In 2023-24 Bridger's program moved to Lent, which became all-immersion (Bridger became the K-8 Bridger Creative Science). Before the move the two schools had about **`r fmt_n(before)` Spanish immersion students per grade**, roughly three kindergarten classes. Lent has since enrolled **`r fmt_n(after_k)` immersion kindergartners a year** on average (2024-25 and 2025-26), two classes: about `r fmt_pct(1 - after_k / before)` fewer. Measured the same way district-wide (the October 2022 average across grades K-5 against kindergarten in 2024-25 and 2025-26), enrollment fell about `r fmt_pct(-district_chg)`; kindergarten to kindergarten, the district fell `r fmt_pct(-district_chg_kk)`.
 
-This is an estimate: before 2024-25 PPS publishes immersion counts by school but not by grade, so "per grade" is the school's immersion total divided by six grades, and kindergarten cohorts can be larger or smaller than the school average. Lottery applications can't be used for this comparison, because Lent's neighborhood families stopped applying once it became all-immersion (see the note above).
+This is an estimate: before 2024-25 PPS publishes immersion counts by school but not by grade, so "per grade" is the school's immersion total divided by six grades. District-wide, kindergarten classes run smaller than grades 1–5, so an all-grades average likely overstates the old kindergarten size; that is why the district comparison above uses the same all-grades baseline. Lottery applications can't be used for this comparison, because Lent's neighborhood families stopped applying once it became all-immersion (see the note above).
 
 ### Spanish waitlists over time
 
@@ -110,6 +121,10 @@ p <- add_annotations(p, data = last, x = ~year, y = ~waitlisted, text = ~school,
 viz_layout(p, ytitle = "Waitlisted applications") |> layout(xaxis = list(type = "category"), yaxis = list(rangemode = "tozero"), height = 400)
 ```
 
+::: {.source}
+`r cite("lottery", "scenarios")`
+:::
+
 ### Who is waitlisted
 
 The 2026-27 kindergarten lottery breaks each program's applicants down by where they live and their language background. At the programs with the longest waitlists, the families turned away are mostly **English-speaking families from the surrounding area**, the families a move puts farther away. Native Spanish speakers, who get priority, are almost always offered seats.
@@ -135,7 +150,8 @@ who |> filter(school %in% top) |>
   cols_label(residence = "Lives in", English = "English speakers", Heritage = "Heritage speakers", Native = "Native speakers") |>
   tab_spanner("Waitlisted of applied, by language background", any_of(c("English", "Heritage", "Native"))) |>
   tab_header(title = "2026-27 kindergarten Spanish immersion lottery", subtitle = "The four programs with the most waitlisted applicants") |>
-  tab_source_note("PPS lottery categories. A child can apply to several programs, so counts are applications, not children.") |>
+  tab_source_note("Neighborhood = lives in the host school's attendance area (NH); Regional area = lives in the set of schools forming the high-school Spanish immersion assignment area (RG); Elsewhere = any other PPS address (TR). Language background as recorded by PPS on the application. A child can apply to several programs, so counts are applications, not children.") |>
+  tab_source_note(md(cite("lottery26"))) |>
   cols_align("right", any_of(c("English", "Heritage", "Native")))
 ```
 
@@ -167,6 +183,7 @@ sc |>
   sub_missing(missing_text = "–") |>
   tab_spanner("K lottery, per year", c(from_apps, from_wait)) |>
   tab_source_note("Students: October 2025 enrollment in the language program, in the grades that move. Home language: share of the program's immersion students whose home language is the program language (Chinese for Mandarin). Lottery demand is shown for kindergarten entry only; middle-grade programs have no comparable lottery.") |>
+  tab_source_note(md(cite("scenarios", "by_grade", "by_lang", "lottery"))) |>
   opt_row_striping()
 ```
 
@@ -182,7 +199,8 @@ sites |> filter(change != "removed" | is.na(change)) |>
   gt(groupname_col = "language") |>
   cols_label(band = "Grades", sq = "Status quo", a = "Scenario A", b = "Scenario B") |>
   tab_style(style = cell_text(weight = "bold"), locations = cells_body(columns = c(a, b), rows = a != sq | b != sq)) |>
-  tab_source_note("Immersion sites on the PPS scenario maps. Bold: fewer or more sites than today.")
+  tab_source_note("A site is a school whose label on the scenario map names an immersion program in that language and grade band. Bold: fewer or more sites than today.") |>
+  tab_source_note(md(cite("scenarios")))
 ```
 
 ## Distance to the nearest site
@@ -206,5 +224,6 @@ access_tract |> filter(band == "K-5") |>
   tab_spanner("Within 1 mile of a K-5 site", starts_with("within1")) |>
   tab_spanner("Average distance (miles)", starts_with("mean_mi")) |>
   fmt_percent(starts_with("within1"), decimals = 0) |> fmt_number(starts_with("mean_mi"), decimals = 1) |>
-  tab_source_note("People age 5+ who speak each language at home (ACS 2020-2024), by census tract; straight-line distance from the tract to the nearest K-5 site of that language. Mandarin counts all Chinese speakers; Russian counts Russian, Polish and other Slavic languages. Japanese has no tract-level data.")
+  tab_source_note("People age 5+ who speak each language at home (ACS 2020-2024), by census tract; straight-line distance from the tract to the nearest K-5 site of that language. Mandarin counts all Chinese speakers; Russian counts Russian, Polish and other Slavic languages. Japanese has no tract-level data.") |>
+  tab_source_note(md(cite("acs", "scenarios")))
 ```

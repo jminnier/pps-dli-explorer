@@ -1,30 +1,172 @@
 ---
 title: "Sources & methods"
+subtitle: "Where every number comes from, how it was processed, and what it can't tell you"
+toc-depth: 3
 ---
 
-This site builds on **[pps-explorer](https://github.com/browniefed/pps-explorer) by [Jason Brown (@browniefed)](https://github.com/browniefed)**, an interactive map of the PPS boundary scenarios. Its georeferenced attendance areas, school locations and transcription of the October 2026 board memo (closures and program moves) are the basis for every scenario comparison here, and its address-lookup map is included with this site. pps-explorer in turn credits [ppsdata.info](https://ppsdata.info) by Alex Meub ([meub/pps-data](https://github.com/meub/pps-data)).
+## Credits
 
-Every table on this site is built from public documents by scripts in [`data-raw/`](https://github.com/jminnier/pps-dli-explorer/tree/main/data-raw); the cleaned tables are in `data/`.
+This site builds on **[pps-explorer](https://github.com/browniefed/pps-explorer) by [Jason Brown (@browniefed)](https://github.com/browniefed)**, an interactive map of the PPS boundary scenarios. Its georeferenced attendance areas and school locations (digitized from the PPS scenario map PDFs) and its transcription of the October 2026 board memo (closures, program moves and grade changes) are the basis for every scenario comparison on this site. pps-explorer in turn credits [ppsdata.info](https://ppsdata.info) by Alex Meub ([meub/pps-data](https://github.com/meub/pps-data)).
 
-## Sources
+This is an independent analysis, not a PPS publication. Where anything here differs from PPS documents, the PPS documents are authoritative.
 
-| Data | Source | Years | Script |
-|---|---|---|---|
-| Immersion enrollment by school and language | PPS Data & Reporting, *Language Immersion Track Profiles* ([current](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/data-and-reporting), [archive](https://www.pps.net/fs/pages/46482)) | 2021-22 to 2025-26 | `parse_immersion_profiles.py` |
-| Enrollment by school, program and grade | PPS, *Enrollment by Grade and Program Type* | 2024-25, 2025-26 | `parse_program_type.py` |
-| Enrollment by home language and program | PPS, *Enrollment by Language and School* | 2024-25, 2025-26 | `parse_language_by_school.py` |
-| Enrollment forecasts | PSU Population Research Center forecasts for PPS | 2025-26 and 2026-27 editions | `parse_psu_forecast.py` |
-| Lottery applications, offers, waitlists | PPS [prior lottery results](https://www.pps.net/departments/enrollment-transfer/transfer-english/lottery/prior-transfer-data) | 2021-22 to 2026-27 | `parse_lottery.py` |
-| Immersion sites and program moves per scenario | PPS scenario maps and board memo (Oct 2026), as transcribed in [browniefed/pps-explorer](https://github.com/browniefed/pps-explorer) | Scenarios A, B | `export_dli_tables.mjs` |
-| Average kindergarten class size (Lent, Bridger) | PPS *Class Size Detail* logs ([archive](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/archives)) | 2018-19 to 2025-26 | `data/class_size_kg.csv` (transcribed) |
-| Home language by census tract | US Census ACS 5-year, tables C16001 and B16007 | 2020-2024 | `acs_language_access.R` |
+## Data sources
 
-## Definitions and caveats
+All source documents are saved in the repository under `data-raw/`, and each is converted to a table in `data/` by the script listed. Scripts stop with an error, rather than guessing, when a row doesn't pass its checks.
 
-- **Lottery counts are applications, not children.** Families rank several programs, so one child can be waitlisted at more than one school, and "cancelled" means the child was placed at a program they ranked higher. Waitlists are spring snapshots; some waitlisted children are offered seats by September.
-- **Lottery applications measure demand only where families must apply.** At Lent and Rigler, which are all-immersion schools with their own neighborhoods, children from the neighborhood enroll without entering the lottery, so lottery applications count only out-of-neighborhood families. Lent enrolls roughly three times as many immersion kindergartners as it offers lottery seats; Rigler never appears in the lottery. Elsewhere, including Richmond (which has no neighborhood of its own) and schools with both an immersion and a neighborhood program, kindergarten enrollment is close to the number of lottery offers.
-- **Lottery demand is kindergarten only.** The 2021-22 report doesn't give grades for immersion rows, so averages use 2022-23 to 2026-27. Middle and high school immersion programs appear in only one year's lottery report (2024-25, with very small numbers), so middle-grade moves have no demand comparison. Rigler doesn't appear in any lottery report.
-- **Whole-school immersion.** Lent and Rigler (Spanish) and Richmond (Japanese) enroll only immersion students; some PPS reports print them as a single unlabelled row, and they are tagged with their language here.
-- **Home language** is the share of a program's immersion students whose home language (as recorded by PPS) is the program language. For Mandarin it counts all Chinese varieties, as PPS reports them together.
-- **Distances** are straight-line, from the interior point of each census tract to the nearest immersion site of the same language. Real travel distances are longer, especially across freeways and rivers. ACS publishes tract-level counts only for Spanish, Chinese and Vietnamese separately; Russian is approximated by "Russian, Polish or other Slavic" (which includes Ukrainian), and Japanese has no tract-level count.
-- **Scenario details** are from the October 2026 board packet as transcribed in the map project; where the transcription and PPS documents differ, PPS is right.
+| # | Data | Publisher and document | Years | Saved source files | Script → table |
+|---|---|---|---|---|---|
+| 1 | Immersion enrollment by school and language | PPS Data & Reporting, *Enrollment Details for Language Immersion Schools* ("Language Immersion Track Profiles"): 2024-25 and 2025-26 on the [Data & Reporting page](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/data-and-reporting), earlier years on the [archive page](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/archives) | October 2021 to October 2025 | `data-raw/pps_reports/*_Language_Immersion_Track_Profiles.pdf` | `parse_immersion_profiles.py` → `dli_track_profiles.csv` |
+| 2 | Enrollment by school, program and grade | PPS Data & Reporting, *Enrollment by Grade and Program Type* | October 2024, October 2025 | `data-raw/pps_reports/*_Enrollment_by_Grade_and_Program_Type.pdf` | `parse_program_type.py` → `enrollment_by_program_grade.csv` |
+| 3 | Enrollment by school, program and home language | PPS Data & Reporting, *Enrollment by Language and School* | October 2024, October 2025 | `data-raw/pps_reports/*_Enrollment_by_Language_and_School_Map.pdf` | `parse_language_by_school.py` → `enrollment_by_language.csv` |
+| 4 | Lottery applications, offers, waitlists | PPS Enrollment & Transfer, *Elementary School Lottery Results Summary*, *Kindergarten Lottery Results Summary* and *Middle & High School Lottery* reports, on the [prior lottery results page](https://www.pps.net/departments/enrollment-transfer/transfer-english/lottery/prior-transfer-data) | Lotteries for 2021-22 to 2026-27 | `data-raw/pps_lottery/*.pdf` (13 files) | `parse_lottery.py` → `lottery_results.csv` |
+| 5 | Enrollment forecasts (not yet shown on these pages) | Portland State University Population Research Center, *Portland Public Schools Enrollment Forecasts*, Tables 5.2–5.5 | 2025-26 and 2026-27 editions | `data-raw/pps_reports/PSU_PRC_Forecast_*.pdf` | `parse_psu_forecast.py` → `psu_forecast.csv` |
+| 6 | Average kindergarten class size | PPS, *Class Size Detail* (archive page and Data & Reporting page) | 2018-19 to 2025-26 | `data-raw/pps_reports/class_size/*.pdf` | copied by hand for Lent and Bridger → `class_size_kg.csv` |
+| 7 | District enrollment by grade (K–5), October 2022 | PPS, *Enrollment – Summary Comparison* (October 3, 2022), in *School Enrollment Profiles & Demographics* on the archive page | 2022-23 | – | the six grade totals, entered directly in `scorecard.qmd` |
+| 8 | Immersion sites and program moves in each scenario | PPS board packet for October 6, 2026: Status Quo, Scenario A and Scenario B attendance-area map PDFs, and the *Rightsizing Update: Scenario Release* memo (October 5, 2026) with the regional summaries; digitized and transcribed in [pps-explorer](https://github.com/browniefed/pps-explorer) | Scenarios released October 2026 | `public/data/*.geojson`, `src/lib/changes-data.mjs` | `export_dli_tables.mjs` → `dli_sites.csv`, `dli_moves.csv` |
+| 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
+
+## How each source was processed
+
+### 1. Immersion enrollment by school (Language Immersion Track Profiles)
+
+Each PDF lists every school with an immersion program on two lines: counts, then the same counts as a percentage of the school's total October enrollment. The columns are: total enrollment; students who are multilingual learners (ML) or in immersion; neither; total immersion students; immersion students by language (Spanish, Mandarin, Japanese, Russian, Vietnamese); total ML students; ML students by primary language (Spanish, Chinese, Japanese, Russian, Vietnamese, Somali, Other); students who are both ML and in immersion; and a final percentage.
+
+- **Reading the numbers.** Text was extracted with `pypdf`. In the 2021-22 and 2022-23 files the PDF's text layer runs adjacent numbers together (four zeros print as "0000"). Each school's digits were split every possible way, and the split kept is the one where every count matches its printed percentage of enrollment (within rounding, ±0.51 points) and the row identities hold: immersion total = sum of the five immersion languages; ML total = sum of the ML languages; "ML or immersion" = immersion + ML − both; "neither" = enrollment − "ML or immersion". Exactly one split must pass, or the script stops.
+- **ML-language columns.** In 2021-22 the text layer sometimes lists the ML-language counts out of column order; they are matched to columns by their printed percentages. In 21 school-years (2021-22 and 2022-23) the ML-language counts in the text layer don't add up to the school's own ML total; for those rows the ML-language breakdown is left blank and only the checked totals are kept. No figure on this site uses the ML-language breakdown.
+- **Mislabelled column.** The last column is headed "Percent of ML in Immersion (Both ML and Imm / ML)", but the printed values are *both ÷ total immersion* (Ainsworth 2025: 38 ÷ 287 = 13%, whereas 38 ÷ 59 = 64%). It is stored as `pct_immersion_ml`.
+- **Date typo.** The 2023-24 file's title reads "October 2022"; it is treated as 2023-24, matching the PPS archive's label and its contents.
+- **Page breaks.** Where a school's percentage line falls on the next page (Richmond, 2025-26), it is joined back to its count line.
+
+### 2. Enrollment by grade and program type
+
+Each school is listed by program (e.g. "Spanish Immersion", "Neighborhood Program") with enrollment in each grade PreK–12 and a total. Multi-program schools end with a school total row, and schools are grouped into sections (elementary, middle, high, alternative, community-based, special services, charter) with section totals and a district total.
+
+- Cells are read by position: the text layer prints every grade cell, blank where a grade isn't served. Counts over 999 contain commas, and one wrapped program name is rejoined.
+- **Checks (all pass for both years):** each row's grades sum to its total; each school's program rows sum to its school total in every grade; schools sum to their section totals; sections sum to the district total (44,086 in October 2024; 43,479 in October 2025).
+- **Whole-school immersion.** Lent, Rigler and Richmond print as a single unlabelled row. Source 1 shows all of their students in immersion, so they are tagged Spanish, Spanish and Japanese immersion respectively.
+- **Cross-check:** immersion enrollment summed from this report equals the immersion totals in source 1 for every school in both years.
+
+### 3. Enrollment by language and school
+
+For each school and program, students by home-language group (English, Spanish, Vietnamese, Chinese, Russian, Somali/Maay-Maay, Japanese, Other), as counts and percentages. "Chinese" includes Cantonese, Mandarin and other Chinese languages (report footnote).
+
+- Empty cells are omitted from the PDF text, so each number is assigned to a column by its x-position on the page, using column boundaries taken from the header row.
+- **Checks (all pass):** language counts sum to the program's enrollment; every count matches its printed percentage (±0.51 points); program rows sum to the school total row; all schools sum to the district total for every language.
+- **Cross-check:** immersion enrollment by school and language equals source 1 exactly (64 school-years compared, 0 differences).
+
+### 4. Lottery results
+
+PPS publishes a results summary for each lottery: for each school and program, the number of applications, offers, waitlisted applicants and cancelled applications, and in some years the number of seats ("slots") and applicants not placed. "Cancelled" means the applicant was placed at a program they ranked higher. Waitlists are as of the spring lottery; waitlisted applicants may still be offered a seat before the end of September.
+
+The layout differs every year, so each file was handled separately:
+
+| Lottery for | Layout notes | Columns available |
+|---|---|---|
+| 2021-22 | Plain text in order. Immersion rows have **no grade printed**; the MLK block is printed under the "Russian Immersion" heading but is Mandarin. | slots, applications, offered, waitlisted, cancelled, not placed |
+| 2022-23 | Empty cells omitted; columns recovered from x-positions. Applicant groups and grades. | applications, offered, waitlisted, cancelled, not offered |
+| 2023-24 | Complete cells; some split words rejoined. | slots, applications, offered, waitlisted, cancelled |
+| 2024-25 | Page coordinates run top-down; rows attached to the nearest school heading above. | offered ("slots filled"), applications, waitlisted, cancelled |
+| 2025-26 | Two-column pages; titles mixed into school-name lines. One non-immersion school (Buckman, grades 1–5) is printed with its columns out of order and was re-read so its rows add up. | as 2024-25 |
+| 2026-27 (kindergarten) | Section headings and school names are printed at the end of each page's text, so rows are read by position. Applicant groups by residence (NH, RG, TR) and language background (English, Heritage, Native). | offered, waitlisted, cancelled, applications |
+
+- **Language of each program** comes from a school-to-language list checked against the immersion sites on the status-quo map (source 8) and source 1.
+- **Checks:** applicant-group rows sum to the printed school total in every year that prints totals (103 school totals in 2022-23, 2023-24 and 2026-27), and the printed grand totals match (7). The identity applications = offered + waitlisted + cancelled (+ not placed) holds in 846 of 848 testable rows; the two exceptions are printed that way in the source.
+- **Coverage.** Every elementary immersion program appears in every year except Rigler, which appears in none. Middle and high school immersion appears in only one report (a small 2024-25 table without offers), so there is no lottery measure of demand for middle-grade programs.
+
+### 5. PSU enrollment forecasts
+
+Tables 5.2–5.4 (district by grade; medium, low and high scenarios) and 5.5 (by school and program, medium scenario only) were parsed. Printed subtotals and totals were checked, allowing up to 3 students of rounding in forecast years, and the base-year actuals match source 2 (435 comparisons). Richmond is printed with a total row only; a Japanese row equal to its total was added, as the report already does for Lent and Rigler. The forecasts will feed the projections page and are not yet used elsewhere.
+
+### 6. Kindergarten class size
+
+The *Class Size Detail* logs give each school's average class size overall and by grade group (kindergarten, grades 1–3, 4–5, …), as of mid-October. The kindergarten value for Lent and Bridger was copied by hand from each year's PDF into `data/class_size_kg.csv`, along with the file name it came from. It averages **all** kindergarten classes at the school, immersion and neighborhood alike.
+
+### 7. District enrollment by grade, October 2022
+
+Read from the district summary page of the October 2022 enrollment profile: kindergarten 3,152; grades 1–5: 3,376, 3,319, 3,502, 3,485, 3,358. October 2024 and 2025 district kindergarten totals are summed from source 2.
+
+### 8. Scenario sites and program moves
+
+`export_dli_tables.mjs` runs the map project's own code on its data, so these tables match the map:
+
+- **Sites.** For each scenario (status quo, A, B) and grade band (K-5, 6-8, 9-12), every school whose label on that map names an immersion program ("Rigler K-5 Spanish Immersion"; "Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion") is a site for each language named. Each scenario site is marked *kept* or *added* relative to the status quo, and status-quo sites missing from a scenario are recorded as *removed*. `own_area` records whether the school has its own attendance area on that map.
+- **Moves.** Every language program move in the memo transcription, with the grade band whose maps show both ends, plus one grade change that carries an immersion strand: César Chávez becomes K-5 and its grades 6-8, with their Spanish immersion students, move to George.
+- **Checks.** Every site removed in a scenario is explained by a memo move or grade change, and school names match source 1 (Brentwood appears as "Lane" in PPS enrollment reports).
+
+### 9. Home language by census tract
+
+- **Tables.** ACS table B16001 lists Russian and Japanese separately but is published only for states; its tract and county values are blank. Tract counts therefore come from **C16001**, which reports Spanish, Chinese (including Mandarin and Cantonese) and Vietnamese separately. Russian is approximated by "Russian, Polish or other Slavic languages", which in Portland also includes Ukrainian speakers. Japanese falls inside "Other Asian and Pacific Island languages" and has no tract count. School-age (5–17) counts come from **B16007**, which separates only Spanish, other Indo-European, Asian and Pacific Island, and other languages.
+- **Which tracts.** Tracts in Multnomah, Washington and Clackamas counties whose interior point (`sf::st_point_on_surface`) falls inside the district, defined as the union of the status-quo high school attendance areas: 135 tracts.
+- **Margins of error.** ACS counts are survey estimates; each estimate's margin of error is saved alongside it in `acs_language_tract.csv`. Margins are large for small groups and single tracts, so tract figures are approximate; district totals are more reliable.
+
+## How each figure and table is calculated
+
+### Joining across sources
+
+School names differ across sources ("Dr. Martin Luther King Jr." in the memo, "MLK Jr" in enrollment reports, "Cesar Chavez" in lottery reports). All joins use a normalized key, the same one the map uses: grade and school-type words are removed, accents stripped, letters lowercased and other characters dropped, with a short alias list (MLK variants → `mlkjr`, Lane → Brentwood).
+
+### Kindergarten lottery demand (demand chart, waitlist chart, scorecard lottery columns, overview tile 2)
+
+1. For each school and lottery year, take the elementary immersion rows for kindergarten (or with no grade printed). Use the printed school total row where the year prints one; otherwise sum the applicant-group rows.
+2. **Five-year average** = mean over the 2022-23 to 2026-27 lotteries in which the program appears. The 2021-22 lottery is left out because its immersion rows have no grade.
+3. **Overview tile 2** = applications to the Spanish programs that move in Scenario A ÷ all Spanish kindergarten applications, both summed over the same five lotteries.
+4. Counts are **applications, not children**: a family can apply to several programs, so one child can be waitlisted at more than one school.
+5. At **Lent and Rigler** (all-immersion schools with their own neighborhoods), neighborhood children enroll without applying, so lottery numbers there count only out-of-neighborhood families. Lent enrolled 43 immersion kindergartners in October 2025 but made 14 lottery offers; Rigler enrolls 50–57 a year and never appears in the lottery. At every other immersion school, including Richmond (which has no neighborhood of its own), October kindergarten enrollment is close to the number of lottery offers.
+
+### Who is waitlisted (2026-27 table)
+
+Applicant-group rows from the 2026-27 kindergarten report, summed by residence and by the language background PPS records (English, Heritage, Native). Residence groups: NH = lives in the host school's attendance area; RG = lives in the regional Spanish immersion area (the set of schools that feed a high-school Spanish immersion program); TR = lives elsewhere in PPS. The four Spanish programs with the most waitlisted applications are shown.
+
+### Scorecard of program moves
+
+- **Students:** October 2025 enrollment (source 2) in the moving language program at the sending school, in the grades of the move's band (K–5 or 6–8).
+- **K lottery, per year:** the five-year averages above, shown only for K-5 moves.
+- **Home language matches:** among a program's immersion students in October 2025 (source 3), the share whose home language is the program language; for Mandarin, the share whose home language is any Chinese language. Shown for the sending program and for the receiving school's existing program in that language.
+- **Scenario:** "A & B" when the move appears in both scenarios' memo transcription, otherwise the one it appears in.
+
+### Sites by language and grade band
+
+Count of sites (source 8) for each language, grade band and scenario, excluding *removed* rows.
+
+### Distance to the nearest site (table, overview tile 4)
+
+For every tract, language and scenario: the straight-line distance in miles from the tract's interior point to the nearest K-5 site of that language, computed in Oregon North state-plane coordinates (EPSG:2838).
+
+- **Within 1 mile** = speakers living in tracts within 1 mile ÷ all speakers of that language in the district.
+- **Average distance** = mean of tract distances weighted by the number of speakers.
+- Speakers are people aged 5 and older (C16001), or for "Spanish (ages 5–17)" school-age Spanish speakers (B16007).
+- Straight-line distance understates real travel, especially across freeways and rivers, and using one point per tract treats everyone in the tract as living at that point.
+
+### Bridger → Lent precedent
+
+- **Immersion students per grade** = each school's Spanish immersion total (source 1) ÷ 6, since both schools served K–5 in the years used. Before October 2024 PPS doesn't publish immersion enrollment by grade, so this is an average across grades; an actual kindergarten cohort can be larger or smaller.
+- **Kindergarten (actual)** = October kindergarten enrollment in Spanish immersion (source 2), 2024-25 and 2025-26.
+- **Estimated kindergarten immersion classes** = kindergarten immersion students (actual where published, otherwise the per-grade average) ÷ the school's average kindergarten class size (source 6).
+- **Change** = average actual kindergarten immersion enrollment at Lent in 2024-25 and 2025-26 ÷ average combined per-grade immersion enrollment of Bridger and Lent in 2021-22 and 2022-23, minus 1.
+- **District comparison, same baseline:** the before side for Lent is an average across grades K–5, and PPS kindergarten classes are smaller than grades 1–5 (October 2022: 3,152 kindergartners vs 3,319–3,502 in each of grades 1–5). So the district comparison also uses an all-grades baseline: average district kindergarten enrollment in October 2024 and October 2025 (source 2) ÷ the average enrollment per grade across grades K–5 in October 2022 (source 7), minus 1. The kindergarten-to-kindergarten district change is reported alongside for reference.
+- Lottery applications are deliberately not used here: before 2023 Lent's neighborhood families applied for immersion through the lottery, and afterwards they enroll directly, so before and after counts measure different groups.
+
+### Overview tiles
+
+1. K-5 Spanish immersion sites on the status-quo map and on the Scenario A and B maps (source 8).
+2. See *Kindergarten lottery demand*, step 3.
+3. Sum of *Students* (scorecard definition) over every move in Scenario A, including the César Chávez grade change.
+4. See *Distance to the nearest site*, for school-age Spanish speakers.
+
+## Reproducing the data
+
+From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
+
+```sh
+python3 data-raw/parse_immersion_profiles.py
+python3 data-raw/parse_program_type.py
+python3 data-raw/parse_language_by_school.py
+python3 data-raw/parse_lottery.py
+python3 data-raw/parse_psu_forecast.py
+node    data-raw/export_dli_tables.mjs
+Rscript data-raw/acs_language_access.R
+quarto render
+```
+
+Each parser prints its checks and stops on any failure.

@@ -81,5 +81,23 @@ heritage_share <- function(key, language) {
   sum(d$students[d$language == col]) / sum(d$students)
 }
 
+# Source citations (markdown), used under every table and figure. Details in methods.qmd.
+PPS_REPORTS <- "https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/data-and-reporting"
+PPS_ARCHIVE <- "https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/archives"
+PPS_LOTTERY <- "https://www.pps.net/departments/enrollment-transfer/transfer-english/lottery/prior-transfer-data"
+SRC <- list(
+  profiles = sprintf("PPS, *Enrollment Details for Language Immersion Schools* (Language Immersion Track Profiles), October 2021–October 2025 ([current](%s), [archive](%s))", PPS_REPORTS, PPS_ARCHIVE),
+  by_grade = sprintf("PPS, *Enrollment by Grade and Program Type*, October 2024 and October 2025 ([PPS Data & Reporting](%s))", PPS_REPORTS),
+  by_lang = sprintf("PPS, *Enrollment by Language and School*, October 2024 and October 2025 ([PPS Data & Reporting](%s))", PPS_REPORTS),
+  lottery = sprintf("PPS Enrollment & Transfer, *Elementary School / Kindergarten Lottery Results Summary*, lotteries for 2022-23 through 2026-27 ([prior lottery results](%s))", PPS_LOTTERY),
+  lottery26 = sprintf("PPS Enrollment & Transfer, *2026-27 Kindergarten Lottery Results Summary* ([prior lottery results](%s))", PPS_LOTTERY),
+  class_size = sprintf("PPS, *Class Size Detail*, 2021-22 through 2025-26 ([archive](%s), [current](%s))", PPS_ARCHIVE, PPS_REPORTS),
+  district_k = sprintf("district enrollment by grade: PPS, *Enrollment – Summary Comparison*, October 3, 2022 ([archive](%s)), and *Enrollment by Grade and Program Type*, 2024 and 2025", PPS_ARCHIVE),
+  scenarios = "PPS board packet for October 6, 2026: scenario maps and *Rightsizing Update: Scenario Release* memo, as digitized and transcribed in [pps-explorer](https://github.com/browniefed/pps-explorer) by Jason Brown",
+  acs = "US Census Bureau, American Community Survey 2020–2024 5-year estimates, tables C16001 and B16007, census tracts in Multnomah, Washington and Clackamas counties",
+  methods = "Method details: [Sources & methods](methods.qmd)"
+)
+cite <- function(...) paste0("**Sources:** ", paste(unlist(SRC[c(...)]), collapse = "; "), ". ", SRC$methods, ".")
+
 fmt_n <- function(x) formatC(round(x), format = "d", big.mark = ",")
 fmt_pct <- function(x) ifelse(is.na(x), "–", paste0(round(100 * x), "%"))

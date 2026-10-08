@@ -13,8 +13,8 @@ moving_students <- moves |> filter(scenario == "a") |> rowwise() |>
   mutate(n = strand_students(from_key, language, band)) |> pull(n) |> sum()
 
 sp_from <- moving_k5 |> filter(language == "Spanish") |> distinct(from_key)
-sp_apps_moving <- lottery_avg |> semi_join(sp_from, by = c(key = "from_key"))
-sp_apps_all <- lottery_avg |> filter(language == "Spanish")
+sp_k <- lottery_k |> filter(language == "Spanish", year %in% LOTTERY_YEARS)
+sp_share <- sum(sp_k$applications[sp_k$key %in% sp_from$from_key]) / sum(sp_k$applications)
 
 kids <- access_tract |> filter(band == "K-5", language == "Spanish") |>
   inner_join(select(acs, geoid, n = age5_17_spanish), by = "geoid") |>
@@ -29,8 +29,8 @@ PPS proposes to close or consolidate schools in two scenarios released for the b
 [elementary Spanish immersion sites, today → Scenario A or B]{.label}
 :::
 ::: {.stat}
-[`r fmt_pct(sum(sp_apps_moving$applications) / sum(sp_apps_all$applications))`]{.num}
-[of Spanish kindergarten lottery applications go to programs that would move (5-year average)]{.label}
+[`r fmt_pct(sp_share)`]{.num}
+[of Spanish kindergarten lottery applications went to programs that would move (2022-23 to 2026-27)]{.label}
 :::
 ::: {.stat}
 [`r fmt_n(moving_students)`]{.num}
@@ -40,6 +40,10 @@ PPS proposes to close or consolidate schools in two scenarios released for the b
 [`r fmt_pct(kids$within1[kids$scenario == "sq"])` → `r fmt_pct(kids$within1[kids$scenario == "a"])`]{.num}
 [of school-age Spanish speakers living within 1 mile of a K-5 Spanish site]{.label}
 :::
+:::
+
+::: {.source}
+Tiles, left to right: (1) count of K-5 Spanish immersion sites on the status quo and scenario maps; (2) kindergarten lottery applications to Spanish programs that move in Scenario A, as a share of all Spanish kindergarten applications, pooled over the 2022-23 to 2026-27 lotteries; (3) October 2025 enrollment in each moving language program, in the grades that move, summed over Scenario A's moves; (4) school-age (5–17) Spanish speakers by census tract, share whose tract is within 1 mile (straight line) of a K-5 Spanish site. `r cite("scenarios", "lottery", "by_grade", "acs")`
 :::
 
 ## What's here
