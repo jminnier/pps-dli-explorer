@@ -1,0 +1,171 @@
+---
+title: "Demand & scorecard"
+subtitle: "Where families apply for immersion, and what each scenario does to it"
+---
+
+```{r}
+source("R/site_data.R")
+source("R/charts.R")
+library(gt)
+
+k5_moves <- moves |> filter(band == "K-5", kind == "program") |>
+  distinct(language, from_school, from_key, to_school, to_key, .keep_all = FALSE) |>
+  mutate(in_a = TRUE)
+k5_moves$in_b <- paste(k5_moves$from_key, k5_moves$to_key) %in%
+  with(filter(moves, scenario == "b"), paste(from_key, to_key))
+
+demand <- k5_moves |>
+  left_join(select(lottery_avg, key, from_apps = applications, from_wait = waitlisted, from_years = years), by = c(from_key = "key")) |>
+  left_join(select(lottery_avg, key, to_apps = applications, to_wait = waitlisted, to_years = years), by = c(to_key = "key")) |>
+  arrange(desc(from_apps))
+```
+
+## Demand: programs move away from where families apply
+
+Every immersion kindergarten seat is filled by lottery. The lottery reports show how many families applied to each program, how many got an offer and how many were waitlisted. Averaged over the last five lotteries (`r min(LOTTERY_YEARS)` to `r max(LOTTERY_YEARS)`), the Spanish programs that would move include the two with the **most applications and longest waitlists in the district**, Atkinson and Beach, and they would move to schools that have drawn far fewer applicants.
+
+```{r}
+#| label: fig-demand
+#| fig-cap: "Kindergarten lottery applications per year (5-year average) at each program that moves, and at the school it moves to. Hover for offers and waitlists."
+d <- demand |> filter(!is.na(from_apps)) |>
+  mutate(label = paste0(from_school, " → ", to_school, " (", language, if_else(in_b, "", ", A only"), ")"),
+         label = factor(label, levels = rev(label)))
+hover <- function(school, apps, wait, role) sprintf("<b>%s</b> (%s)<br>%s applications/yr<br>%s waitlisted/yr", school, role, fmt_n(apps), fmt_n(wait))
+p <- plot_ly(d, y = ~label) |>
+  add_segments(x = ~from_apps, xend = ~coalesce(to_apps, from_apps), yend = ~label, showlegend = FALSE,
+               line = list(color = PAL$grid, width = 2), hoverinfo = "skip") |>
+  add_markers(x = ~from_apps, name = "School losing the program", marker = list(color = PAL$light[["blue"]], size = 11, line = list(color = "white", width = 2)),
+              text = ~hover(from_school, from_apps, from_wait, "losing the program"), hoverinfo = "text") |>
+  add_markers(data = filter(d, !is.na(to_apps)), x = ~to_apps, name = "School receiving it (its own lottery today)",
+              marker = list(color = PAL$light[["orange"]], size = 11, line = list(color = "white", width = 2)),
+              text = ~hover(to_school, to_apps, to_wait, "receiving the program"), hoverinfo = "text")
+viz_layout(p, xtitle = "Kindergarten applications per year", ytitle = NULL) |>
+  layout(xaxis = list(rangemode = "tozero"), yaxis = list(tickfont = list(size = 12)), height = 380)
+```
+
+Schools with no orange dot (Rigler, Boise-Eliot/Humboldt, Vestal) have no immersion lottery today: Boise-Eliot/Humboldt and Vestal would be new sites, and Rigler fills its Spanish program without appearing in the lottery reports.
+
+### Spanish waitlists over time
+
+```{r}
+#| label: fig-waitlist
+#| fig-cap: "Kindergarten waitlist at each Spanish immersion program, by lottery year. Blue: program moves away in both scenarios. Orange: school receives a moved program. Gray: unchanged."
+sending <- unique(demand$from_key[demand$language == "Spanish"])
+receiving <- unique(demand$to_key[demand$language == "Spanish"])
+w <- lottery_k |> filter(language == "Spanish", year %in% LOTTERY_YEARS) |>
+  mutate(role = case_when(key %in% sending ~ "Program moves away", key %in% receiving ~ "Receives a moved program", TRUE ~ "Unchanged"),
+         col = c("Program moves away" = PAL$light[["blue"]], "Receives a moved program" = PAL$light[["orange"]], "Unchanged" = PAL$muted)[role])
+p <- plot_ly()
+for (s in unique(w$key)) {
+  ws <- filter(w, key == s)
+  p <- add_trace(p, data = ws, x = ~year, y = ~waitlisted, type = "scatter", mode = "lines+markers",
+                 name = ws$role[1], legendgroup = ws$role[1],
+                 showlegend = !(ws$role[1] %in% w$role[match(unique(w$key), w$key)][seq_len(match(s, unique(w$key)) - 1)]),
+                 line = list(color = ws$col[1], width = 2), marker = list(color = ws$col[1], size = 8),
+                 text = ~sprintf("<b>%s</b> %s<br>%s applications, %s offered, %s waitlisted", school, year, applications, offered, waitlisted),
+                 hoverinfo = "text")
+}
+last <- w |> filter(year == max(year), waitlisted >= 8)
+p <- add_annotations(p, data = last, x = ~year, y = ~waitlisted, text = ~school, xanchor = "left", showarrow = FALSE,
+                     xshift = 8, font = list(size = 12, color = PAL$ink2))
+viz_layout(p, ytitle = "Waitlisted applications") |> layout(xaxis = list(type = "category"), yaxis = list(rangemode = "tozero"), height = 400)
+```
+
+### Who is waitlisted
+
+The 2026-27 kindergarten lottery breaks each program's applicants down by where they live and their language background. At the programs with the longest waitlists, the families turned away are mostly **English-speaking families from the surrounding area**, the families a move puts farther away. Native Spanish speakers, who get priority, are almost always offered seats.
+
+```{r}
+#| label: tbl-who
+who <- lottery |>
+  filter(year == "2026-27", level == "ES", language == "Spanish", !is_total, residence %in% c("NH", "RG", "TR"),
+         background %in% c("English", "Heritage", "Native")) |>
+  mutate(residence = recode(residence, NH = "Neighborhood", RG = "Regional area", TR = "Elsewhere in PPS")) |>
+  group_by(school = coalesce(pps_school, school), residence, background) |>
+  summarise(applications = sum(applications), offered = sum(offered), waitlisted = sum(waitlisted), .groups = "drop")
+top <- who |> group_by(school) |> summarise(w = sum(waitlisted)) |> slice_max(w, n = 4) |> pull(school)
+who |> filter(school %in% top) |>
+  mutate(cell = sprintf("%d of %d", waitlisted, applications)) |>
+  select(school, residence, background, cell) |>
+  pivot_wider(names_from = background, values_from = cell, values_fill = "–") |>
+  mutate(school = factor(school, levels = top),
+         residence = factor(residence, c("Neighborhood", "Regional area", "Elsewhere in PPS"))) |>
+  arrange(school, residence) |>
+  select(school, residence, any_of(c("English", "Heritage", "Native"))) |>
+  gt(groupname_col = "school") |>
+  cols_label(residence = "Lives in", English = "English speakers", Heritage = "Heritage speakers", Native = "Native speakers") |>
+  tab_spanner("Waitlisted of applied, by language background", any_of(c("English", "Heritage", "Native"))) |>
+  tab_header(title = "2026-27 kindergarten Spanish immersion lottery", subtitle = "The four programs with the most waitlisted applicants") |>
+  tab_source_note("PPS lottery categories. A child can apply to several programs, so counts are applications, not children.") |>
+  cols_align("right", any_of(c("English", "Heritage", "Native")))
+```
+
+## Scorecard: every program move
+
+```{r}
+#| label: tbl-moves
+sc <- moves |>
+  group_by(kind, language, band, from_school, from_key, to_school, to_key, from_closes) |>
+  summarise(scen = paste(toupper(sort(unique(scenario))), collapse = " & "), .groups = "drop") |>
+  rowwise() |>
+  mutate(students = strand_students(from_key, language, band),
+         from_her = heritage_share(from_key, language), to_her = heritage_share(to_key, language)) |>
+  ungroup() |>
+  left_join(select(lottery_avg, key, from_apps = applications, from_wait = waitlisted), by = c(from_key = "key")) |>
+  mutate(across(c(from_apps, from_wait), \(x) if_else(band == "K-5", x, NA_real_)),
+         move = paste(from_school, "→", to_school),
+         note = case_when(kind == "grades" ~ "School becomes K-5", from_closes ~ "Sending school closes", TRUE ~ "")) |>
+  arrange(factor(language, LANGUAGES), band, desc(students))
+sc |>
+  select(language, move, band, scen, students, from_apps, from_wait, from_her, to_her, note) |>
+  gt(groupname_col = "language") |>
+  cols_label(move = "Move", band = "Grades", scen = "Scenario", students = "Students",
+             from_apps = "Applied", from_wait = "Waitlisted", from_her = "Sending", to_her = "Receiving", note = "Note") |>
+  tab_spanner("Home language matches", c(from_her, to_her)) |>
+  cols_width(move ~ px(230), note ~ px(170)) |>
+  fmt_number(c(students, from_apps, from_wait), decimals = 0) |>
+  fmt_percent(c(from_her, to_her), decimals = 0) |>
+  sub_missing(missing_text = "–") |>
+  tab_spanner("K lottery, per year", c(from_apps, from_wait)) |>
+  tab_source_note("Students: October 2025 enrollment in the language program, in the grades that move. Home language: share of the program's immersion students whose home language is the program language (Chinese for Mandarin). Lottery demand is shown for kindergarten entry only; middle-grade programs have no comparable lottery.") |>
+  opt_row_striping()
+```
+
+## Sites by language and grade band
+
+```{r}
+#| label: tbl-sites
+sites |> filter(change != "removed" | is.na(change)) |>
+  count(language, band, scenario) |>
+  pivot_wider(names_from = scenario, values_from = n, values_fill = 0) |>
+  select(language, band, sq, a, b) |>
+  mutate(language = factor(language, LANGUAGES), band = factor(band, BANDS)) |> arrange(language, band) |>
+  gt(groupname_col = "language") |>
+  cols_label(band = "Grades", sq = "Status quo", a = "Scenario A", b = "Scenario B") |>
+  tab_style(style = cell_text(weight = "bold"), locations = cells_body(columns = c(a, b), rows = a != sq | b != sq)) |>
+  tab_source_note("Immersion sites on the PPS scenario maps. Bold: fewer or more sites than today.")
+```
+
+## Distance to the nearest site
+
+```{r}
+#| label: tbl-access
+speakers <- acs |> transmute(geoid, Spanish = spanish, `Spanish (ages 5-17)` = age5_17_spanish, Mandarin = chinese,
+                             Russian = slavic, Vietnamese = vietnamese) |>
+  pivot_longer(-geoid, names_to = "group", values_to = "n") |>
+  mutate(language = sub(" \\(.*", "", group))
+access_tract |> filter(band == "K-5") |>
+  inner_join(speakers, by = c("geoid", "language"), relationship = "many-to-many") |>
+  group_by(group, scenario) |>
+  summarise(within1 = sum(n[dist_mi <= 1]) / sum(n), mean_mi = weighted.mean(dist_mi, n), .groups = "drop") |>
+  pivot_wider(names_from = scenario, values_from = c(within1, mean_mi)) |>
+  select(group, within1_sq, within1_a, within1_b, mean_mi_sq, mean_mi_a, mean_mi_b) |>
+  mutate(group = factor(group, c("Spanish", "Spanish (ages 5-17)", "Mandarin", "Vietnamese", "Russian"))) |> arrange(group) |>
+  gt() |>
+  cols_label(group = "Home language", within1_sq = "Status quo", within1_a = "A", within1_b = "B",
+             mean_mi_sq = "Status quo", mean_mi_a = "A", mean_mi_b = "B") |>
+  tab_spanner("Within 1 mile of a K-5 site", starts_with("within1")) |>
+  tab_spanner("Average distance (miles)", starts_with("mean_mi")) |>
+  fmt_percent(starts_with("within1"), decimals = 0) |> fmt_number(starts_with("mean_mi"), decimals = 1) |>
+  tab_source_note("People age 5+ who speak each language at home (ACS 2020-2024), by census tract; straight-line distance from the tract to the nearest K-5 site of that language. Mandarin counts all Chinese speakers; Russian counts Russian, Polish and other Slavic languages. Japanese has no tract-level data.")
+```

@@ -12,3 +12,9 @@ src/routeTree.gen.ts
 scripts/pipeline/.venv/
 scripts/pipeline/.work/
 data-raw/acs/
+
+/_site/
+/.quarto/
+/_freeze/
+
+**/*.quarto_ipynb

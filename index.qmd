@@ -1,0 +1,54 @@
+---
+title: "Dual language immersion and the PPS rightsizing scenarios"
+subtitle: "What Scenarios A and B (released October 2026) would change for immersion families"
+toc: false
+---
+
+```{r}
+source("R/site_data.R")
+
+sp_k5 <- sites |> filter(language == "Spanish", band == "K-5", change != "removed" | is.na(change)) |> count(scenario)
+moving_k5 <- moves |> filter(scenario == "a", band == "K-5", kind == "program")
+moving_students <- moves |> filter(scenario == "a") |> rowwise() |>
+  mutate(n = strand_students(from_key, language, band)) |> pull(n) |> sum()
+
+sp_from <- moving_k5 |> filter(language == "Spanish") |> distinct(from_key)
+sp_apps_moving <- lottery_avg |> semi_join(sp_from, by = c(key = "from_key"))
+sp_apps_all <- lottery_avg |> filter(language == "Spanish")
+
+kids <- access_tract |> filter(band == "K-5", language == "Spanish") |>
+  inner_join(select(acs, geoid, n = age5_17_spanish), by = "geoid") |>
+  group_by(scenario) |> summarise(within1 = sum(n[dist_mi <= 1]) / sum(n))
+```
+
+PPS proposes to close or consolidate schools in two scenarios released for the board on October 6, 2026. Both scenarios move most of the district's **Spanish dual language immersion** programs into fewer schools, and move or add Mandarin and Vietnamese sites. This site puts numbers on what that means for immersion families, using PPS's own enrollment and lottery reports.
+
+::: {.stat-row}
+::: {.stat}
+[`r sp_k5$n[sp_k5$scenario == "sq"]` → `r sp_k5$n[sp_k5$scenario == "a"]`]{.num}
+[elementary Spanish immersion sites, today → Scenario A or B]{.label}
+:::
+::: {.stat}
+[`r fmt_pct(sum(sp_apps_moving$applications) / sum(sp_apps_all$applications))`]{.num}
+[of Spanish kindergarten lottery applications go to programs that would move (5-year average)]{.label}
+:::
+::: {.stat}
+[`r fmt_n(moving_students)`]{.num}
+[immersion students today in programs that move in Scenario A]{.label}
+:::
+::: {.stat}
+[`r fmt_pct(kids$within1[kids$scenario == "sq"])` → `r fmt_pct(kids$within1[kids$scenario == "a"])`]{.num}
+[of school-age Spanish speakers living within 1 mile of a K-5 Spanish site]{.label}
+:::
+:::
+
+## What's here
+
+- **[Demand & scorecard](scorecard.qmd)**: how many families apply to each immersion program, compared with the schools the programs would move to; then, for every language, the sites, students and pathways in each scenario.
+- **[Sources & methods](methods.qmd)**: where every number comes from and what it can't tell you.
+
+Coming next: access and travel distance, five-year enrollment history (Lent and César Chávez in focus), enrollment projections with adjustable assumptions, and the address lookup map.
+
+::: {.callout-note}
+This is an independent analysis, not a PPS publication. Scenario details are as transcribed from the October 2026 board packet; check the [PPS rightsizing materials](https://meetings.boardbook.org/Public/Agenda/915?meeting=769955) for the official versions.
+:::

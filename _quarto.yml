@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - scorecard.qmd
+    - methods.qmd
+  resources:
+    - data/*.csv
+    - data/*.geojson
+
+website:
+  title: "PPS Dual Language Immersion & Rightsizing"
+  description: "How the Portland Public Schools rightsizing scenarios (Oct 2026) change dual language immersion: demand, sites, access and enrollment."
+  navbar:
+    left:
+      - href: index.qmd
+        text: Overview
+      - href: scorecard.qmd
+        text: Demand & scorecard
+      - href: methods.qmd
+        text: Sources & methods
+  page-footer:
+    center: "Data: PPS Data & Reporting, PPS lottery results, PSU Population Research Center, US Census ACS. Boundary maps and board-memo transcription from browniefed/pps-explorer."
+
+format:
+  html:
+    theme: [cosmo, styles/site.scss]
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-summary: "R code"
+    fig-width: 8
+    fig-height: 4.5
+
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: auto

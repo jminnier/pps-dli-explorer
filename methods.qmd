@@ -1,0 +1,26 @@
+---
+title: "Sources & methods"
+---
+
+Every table on this site is built from public documents by scripts in [`data-raw/`](https://github.com/jminnier/pps-dli-explorer/tree/main/data-raw); the cleaned tables are in `data/`.
+
+## Sources
+
+| Data | Source | Years | Script |
+|---|---|---|---|
+| Immersion enrollment by school and language | PPS Data & Reporting, *Language Immersion Track Profiles* ([current](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/data-and-reporting), [archive](https://www.pps.net/fs/pages/46482)) | 2021-22 to 2025-26 | `parse_immersion_profiles.py` |
+| Enrollment by school, program and grade | PPS, *Enrollment by Grade and Program Type* | 2024-25, 2025-26 | `parse_program_type.py` |
+| Enrollment by home language and program | PPS, *Enrollment by Language and School* | 2024-25, 2025-26 | `parse_language_by_school.py` |
+| Enrollment forecasts | PSU Population Research Center forecasts for PPS | 2025-26 and 2026-27 editions | `parse_psu_forecast.py` |
+| Lottery applications, offers, waitlists | PPS [prior lottery results](https://www.pps.net/departments/enrollment-transfer/transfer-english/lottery/prior-transfer-data) | 2021-22 to 2026-27 | `parse_lottery.py` |
+| Immersion sites and program moves per scenario | PPS scenario maps and board memo (Oct 2026), as transcribed in [browniefed/pps-explorer](https://github.com/browniefed/pps-explorer) | Scenarios A, B | `export_dli_tables.mjs` |
+| Home language by census tract | US Census ACS 5-year, tables C16001 and B16007 | 2020-2024 | `acs_language_access.R` |
+
+## Definitions and caveats
+
+- **Lottery counts are applications, not children.** Families rank several programs, so one child can be waitlisted at more than one school, and "cancelled" means the child was placed at a program they ranked higher. Waitlists are spring snapshots; some waitlisted children are offered seats by September.
+- **Lottery demand is kindergarten only.** The 2021-22 report doesn't give grades for immersion rows, so averages use 2022-23 to 2026-27. Middle and high school immersion programs appear in only one year's lottery report (2024-25, with very small numbers), so middle-grade moves have no demand comparison. Rigler doesn't appear in any lottery report.
+- **Whole-school immersion.** Lent and Rigler (Spanish) and Richmond (Japanese) enroll only immersion students; some PPS reports print them as a single unlabelled row, and they are tagged with their language here.
+- **Home language** is the share of a program's immersion students whose home language (as recorded by PPS) is the program language. For Mandarin it counts all Chinese varieties, as PPS reports them together.
+- **Distances** are straight-line, from the interior point of each census tract to the nearest immersion site of the same language. Real travel distances are longer, especially across freeways and rivers. ACS publishes tract-level counts only for Spanish, Chinese and Vietnamese separately; Russian is approximated by "Russian, Polish or other Slavic" (which includes Ukrainian), and Japanese has no tract-level count.
+- **Scenario details** are from the October 2026 board packet as transcribed in the map project; where the transcription and PPS documents differ, PPS is right.
