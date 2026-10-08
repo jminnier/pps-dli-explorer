@@ -97,8 +97,12 @@ SRC <- list(
   acs = "US Census Bureau, American Community Survey 2020–2024 5-year estimates, tables C16001 and B16007, census tracts in Multnomah, Washington and Clackamas counties",
   blocks = "US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, census blocks",
   slide44 = "PPS Board of Education, *10/06/26 PowerPoint*, slide 44, \"Balance and Impact: Kindergarten – 8th Grade Students Who Move\" ([BoardBook](https://meetings.boardbook.org/Documents/DownloadPDF/14511742?org=915))",
-  memo = "PPS, *Rightsizing Update: Scenario Release* board memo, October 5, 2026, p. 1 ([BoardBook](https://meetings.boardbook.org/Documents/DownloadPDF/14509719?org=915))",
+  memo = "PPS, *Rightsizing Update: Scenario Release* board memo, October 5, 2026, pp. 1–2 ([BoardBook](https://meetings.boardbook.org/Documents/DownloadPDF/14509719?org=915))",
   closures = "school closures and receiving schools: PPS scenario maps and memo (October 2026) as transcribed in [pps-explorer](https://github.com/browniefed/pps-explorer)",
+  demographics = sprintf("PPS, *School/Neighborhood Enrollment by Ethnicity & Program*, October 2025 (School rows; [PPS Data & Reporting](%s))", PPS_REPORTS),
+  audit = "Green, T. L., & Hanson, H. (2026, June 10). *Equity audit evaluation of Portland Public Schools' Southeast Enrollment and Program Balancing*",
+  tle0908 = "PPS Board of Education Teaching, Learning, and Enrollment Committee, September 8, 2026, at 33:22 ([video](https://www.youtube.com/watch?v=S-pk57P6f_o&t=2002s); automated transcript via [Save PDX Schools](https://savepdxschools.org/transcripts/))",
+  summary10 = "PPS, *October 2025 Enrollment Summary, 10-year detail*, footnote 6 (\"Bridger Spanish Immersion moved to Lent\")",
   methods = "Method details: [Sources & methods](methods.qmd)"
 )
 cite <- function(...) paste0("**Sources:** ", paste(unlist(SRC[c(...)]), collapse = "; "), ". ", SRC$methods, ".")

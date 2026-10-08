@@ -196,3 +196,80 @@ sens <- bind_rows(
 write_csv(sens, here("data", "equity_home_sensitivity.csv"))
 cat("\nSensitivity of the home-to-school estimate:\n")
 print(as.data.frame(sens |> mutate(across(c(before, after, change), \(v) round(v, 2)))), row.names = FALSE)
+
+# ---- demand at each moving K-5 program (kindergarten lottery, 5-year average) -------------------
+demand_moves <- moves |> filter(band == "K-5", kind == "program") |>
+  distinct(scenario, language, from_school, from_key, to_school, to_key) |>
+  left_join(select(lottery_avg, key, years, applications, offered, waitlisted), by = c(from_key = "key")) |>
+  mutate(apps_per_offer = applications / offered)
+write_csv(demand_moves, here("data", "equity_demand_moves.csv"))
+
+# ---- multilingual learners inside moving programs vs closing schools ----------------------------
+P <- profiles |> filter(year == YEAR)
+ml_moving <- moves |> distinct(scenario, from_key, language, band) |>
+  left_join(select(P, key, immersion_total, ml_and_immersion), by = c(from_key = "key")) |>
+  group_by(scenario) |>
+  summarise(group = "Immersion programs that move (whole program, all grades)",
+            students = sum(immersion_total[!duplicated(from_key)], na.rm = TRUE),
+            ml = sum(ml_and_immersion[!duplicated(from_key)], na.rm = TRUE), .groups = "drop")
+# closing schools: ML share of the whole school from the immersion profiles where present; otherwise not available
+write_csv(ml_moving |> mutate(pct_ml = ml / students), here("data", "equity_ml_moving.csv"))
+
+# ---- opt-out: families who may stay in neighborhood schools rather than follow a moved program --
+# Excess loss implied by the 2023-24 Bridger -> Lent consolidation (same method as scorecard.qmd):
+# Lent kindergarten immersion (2024-25, 2025-26 average) vs Bridger + Lent immersion per grade
+# (2021-22, 2022-23 average), relative to the district change on the same baseline.
+bl <- profiles |> filter(key %in% c("bridgercreativescience", "lent"), year %in% c("2021-22", "2022-23")) |>
+  group_by(year) |> summarise(per_grade = sum(imm_spanish) / 6)
+lent_k <- by_grade |> filter(key == "lent", grade == "K", language == "Spanish", year %in% c("2024-25", "2025-26")) |>
+  group_by(year) |> summarise(k = sum(enrollment))
+district_k5_2022 <- c(3152, 3376, 3319, 3502, 3485, 3358)   # PPS Enrollment - Summary Comparison, Oct 3 2022
+district_k_after <- by_grade |> filter(grade == "K", year %in% c("2024-25", "2025-26")) |> group_by(year) |> summarise(n = sum(enrollment))
+lent_ratio <- mean(lent_k$k) / mean(bl$per_grade)
+district_ratio <- mean(district_k_after$n) / mean(district_k5_2022)
+precedent_excess <- 1 - lent_ratio / district_ratio
+cat(sprintf("\nBridger->Lent precedent: Lent K / prior per-grade = %.2f; district = %.2f; excess loss = %.0f%%\n",
+            lent_ratio, district_ratio, 100 * precedent_excess))
+
+rates <- c(`Everyone follows` = 0, `7% (figure cited in public comment)` = 0.07, `Bridger to Lent precedent` = precedent_excess)
+k_now <- by_grade |> filter(year == YEAR, grade == "K") |> group_by(key, language) |> summarise(k = sum(enrollment), .groups = "drop")
+optout <- moves |> filter(kind == "program") |> rowwise() |>
+  mutate(students = strand_students(from_key, language, band)) |> ungroup() |>
+  left_join(rename(k_now, k_entry = k), by = c(from_key = "key", "language")) |>
+  mutate(k_entry = if_else(band == "K-5", k_entry, NA_real_)) |>
+  tidyr::crossing(tibble(assumption = names(rates), rate = unname(rates))) |>
+  mutate(students_lost = students * rate, k_lost_per_year = k_entry * rate) |>
+  select(scenario, language, band, from_school, to_school, students, k_entry, assumption, rate, students_lost, k_lost_per_year)
+write_csv(optout, here("data", "equity_optout.csv"))
+cat("Opt-out totals (students now in moving programs who might stay in neighborhood schools):\n")
+print(as.data.frame(optout |> group_by(scenario, assumption) |>
+  summarise(rate = first(rate), students = sum(students), students_lost = round(sum(students_lost)),
+            k_lost_per_year = round(sum(k_lost_per_year, na.rm = TRUE)), .groups = "drop")), row.names = FALSE)
+
+# ---- whole-school composition: schools losing an immersion program vs closing schools ----------
+# PPS School/Neighborhood Enrollment by Ethnicity & Program (October 2025, School rows). This is the
+# composition of the whole school, not of its immersion program (PPS doesn't publish race by
+# program). Each school is counted once: schools that both close and lose an immersion program
+# (Beach, James John, Rose City Park in A) are in "lose an immersion program". Clark is not printed
+# in the report and is left out.
+demo <- read_csv(here("data", "school_demographics.csv"), show_col_types = FALSE) |>
+  filter(year == YEAR, row_type == "School") |> mutate(key = school_key(name))
+pct_cols <- c("pct_latino", "pct_white", "pct_african_american", "pct_direct_cert", "pct_ell", "pct_hist_underserved", "pct_immersion")
+comp <- bind_rows(lapply(c("a", "b"), function(sc) {
+  send <- unique(moves$from_key[moves$scenario == sc])
+  recv <- setdiff(unique(moves$to_key[moves$scenario == sc]), send)
+  clo <- setdiff(closures$key[closures$scenario == sc], send)
+  groups <- list(`Schools losing an immersion program` = send, `Schools receiving an immersion program` = recv,
+                 `Schools closing (no immersion program)` = clo, `All PPS schools` = NULL)
+  bind_rows(lapply(names(groups), function(g) {
+    d <- if (is.null(groups[[g]])) read_csv(here("data", "school_demographics.csv"), show_col_types = FALSE) |>
+      filter(year == YEAR, row_type == "Grand Total") else filter(demo, key %in% groups[[g]])
+    missing <- setdiff(groups[[g]], demo$key)
+    tibble(scenario = sc, group = g, schools = nrow(d), enrollment = sum(d$enrollment),
+           missing = paste(missing, collapse = "; "),
+           !!!setNames(lapply(pct_cols, \(col) weighted.mean(d[[col]], d$enrollment)), pct_cols))
+  }))
+}))
+write_csv(comp, here("data", "equity_school_composition.csv"))
+cat("\nWhole-school composition (October 2025, enrollment-weighted):\n")
+print(as.data.frame(comp |> mutate(across(all_of(pct_cols), \(v) round(100 * v))) |> select(-missing)), row.names = FALSE)
