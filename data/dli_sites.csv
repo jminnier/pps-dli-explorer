@@ -1,0 +1,112 @@
+scenario,band,language,school,school_key,pps_school,change,own_area,map_label,lon,lat
+sq,6-8,Spanish,Beaumont,beaumont,Beaumont,,true,Beaumont Middle School Spanish Immersion,-122.620928,45.548721
+sq,6-8,Spanish,César Chávez,cesarchavez,César Chávez,,true,César Chávez K-8 Spanish Immersion,-122.719197,45.584465
+sq,6-8,Spanish,George,george,George,,true,George Middle School Spanish Immersion,-122.736155,45.596054
+sq,6-8,Spanish,Kellogg,kellogg,Kellogg,,true,Kellogg Middle School Spanish Immersion,-122.591734,45.498783
+sq,6-8,Spanish,Ockley Green,ockleygreen,Ockley Green,,true,Ockley Green Middle School Spanish Immersion,-122.680411,45.567027
+sq,6-8,Spanish,Roseway Heights,rosewayheights,Roseway Heights,,true,"Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion",-122.587482,45.544152
+sq,6-8,Spanish,West Sylvan,westsylvan,West Sylvan,,true,West Sylvan Middle School Spanish Immersion,-122.760886,45.504704
+sq,6-8,Mandarin,Harriet Tubman,harriettubman,Harriet Tubman,,true,Harriet Tubman Middle School Mandarin Immersion,-122.669042,45.538996
+sq,6-8,Mandarin,Harrison Park,harrisonpark,Harrison Park,,true,Harrison Park Middle School Mandarin Immersion,-122.574712,45.506758
+sq,6-8,Japanese,Mt Tabor,mttabor,Mt Tabor,,true,Mt Tabor Middle School Japanese Immersion,-122.603787,45.521058
+sq,6-8,Russian,Brentwood,brentwood,Lane,,true,Brentwood Middle School Russian Immersion,-122.601575,45.471369
+sq,6-8,Vietnamese,Roseway Heights,rosewayheights,Roseway Heights,,true,"Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion",-122.587482,45.544152
+sq,9-12,Spanish,Franklin,franklin,Franklin,,true,"Franklin High School Russian Immersion, Spanish Immersion",-122.60685,45.502113
+sq,9-12,Spanish,Lincoln,lincoln,Lincoln,,true,Lincoln High School Spanish Immersion,-122.688918,45.518854
+sq,9-12,Spanish,McDaniel,mcdaniel,McDaniel,,true,"McDaniel High School Spanish Immersion, Vietnamese Immersion",-122.580604,45.541994
+sq,9-12,Spanish,Roosevelt,roosevelt,Roosevelt,,true,Roosevelt High School Spanish Immersion,-122.738069,45.589349
+sq,9-12,Mandarin,Cleveland,cleveland,Cleveland,,true,Cleveland High School Mandarin Immersion,-122.638949,45.498561
+sq,9-12,Mandarin,Jefferson,jefferson,Jefferson,,true,Jefferson High School Mandarin Immersion,-122.671876,45.560412
+sq,9-12,Japanese,Grant,grant,Grant,,true,Grant High School Japanese Immersion,-122.626865,45.539149
+sq,9-12,Russian,Franklin,franklin,Franklin,,true,"Franklin High School Russian Immersion, Spanish Immersion",-122.60685,45.502113
+sq,9-12,Vietnamese,McDaniel,mcdaniel,McDaniel,,true,"McDaniel High School Spanish Immersion, Vietnamese Immersion",-122.580604,45.541994
+sq,K-5,Spanish,Ainsworth,ainsworth,Ainsworth,,true,Ainsworth K-5 Spanish Immersion,-122.699467,45.509843
+sq,K-5,Spanish,Atkinson,atkinson,Atkinson,,true,Atkinson K-5 Spanish Immersion,-122.604573,45.505022
+sq,K-5,Spanish,Beach,beach,Beach,,true,Beach K-5 Spanish Immersion,-122.685219,45.558084
+sq,K-5,Spanish,César Chávez,cesarchavez,César Chávez,,true,César Chávez K-8 Spanish Immersion,-122.719196,45.584465
+sq,K-5,Spanish,James John,jamesjohn,James John,,true,James John K-5 Spanish Immersion,-122.751687,45.59038
+sq,K-5,Spanish,Lent,lent,Lent,,true,Lent K-5 Spanish Immersion,-122.564179,45.485333
+sq,K-5,Spanish,Rigler,rigler,Rigler,,true,Rigler K-5 Spanish Immersion,-122.60759,45.556047
+sq,K-5,Spanish,Scott,scott,Scott,,true,Scott K-5 Spanish Immersion,-122.594008,45.555123
+sq,K-5,Spanish,Sitton,sitton,Sitton,,true,Sitton K-5 Spanish Immersion,-122.758136,45.59994
+sq,K-5,Mandarin,Clark,clark,Clark,,true,Clark K-5 Mandarin Immersion,-122.56975,45.513681
+sq,K-5,Mandarin,MLK Jr,mlkjr,MLK Jr,,true,MLK Jr K-5 Mandarin Immersion,-122.658957,45.558179
+sq,K-5,Mandarin,Woodstock,woodstock,Woodstock,,true,Woodstock K-5 Mandarin Immersion,-122.611819,45.48209
+sq,K-5,Japanese,Richmond,richmond,Richmond,,false,Richmond K-5 Japanese Immersion,-122.604573,45.505022
+sq,K-5,Russian,Kelly,kelly,Kelly,,true,Kelly K-5 Russian Immersion,-122.570762,45.472519
+sq,K-5,Vietnamese,Rose City Park,rosecitypark,Rose City Park,,true,Rose City Park K-5 Vietnamese Immersion,-122.603949,45.53934
+a,6-8,Spanish,Beaumont,beaumont,Beaumont,removed,,Beaumont Middle School Spanish Immersion,-122.620928,45.548721
+a,6-8,Spanish,César Chávez,cesarchavez,César Chávez,removed,,César Chávez K-8 Spanish Immersion,-122.719197,45.584465
+a,6-8,Spanish,George,george,George,kept,true,George Middle School Spanish Immersion,-122.736155,45.596054
+a,6-8,Spanish,Kellogg,kellogg,Kellogg,kept,true,Kellogg Middle School Spanish Immersion,-122.591733,45.498783
+a,6-8,Spanish,Ockley Green,ockleygreen,Ockley Green,removed,,Ockley Green Middle School Spanish Immersion,-122.680411,45.567027
+a,6-8,Spanish,Roseway Heights,rosewayheights,Roseway Heights,kept,true,"Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion",-122.587481,45.544152
+a,6-8,Spanish,West Sylvan,westsylvan,West Sylvan,kept,true,West Sylvan Middle School Spanish Immersion,-122.760886,45.504704
+a,6-8,Mandarin,Harriet Tubman,harriettubman,Harriet Tubman,kept,true,Harriet Tubman Middle School Mandarin Immersion,-122.669041,45.538996
+a,6-8,Mandarin,Harrison Park,harrisonpark,Harrison Park,kept,true,Harrison Park Middle School Mandarin Immersion,-122.574712,45.506758
+a,6-8,Japanese,Mt Tabor,mttabor,Mt Tabor,kept,true,Mt Tabor Middle School Japanese Immersion,-122.603787,45.521058
+a,6-8,Russian,Brentwood,brentwood,Lane,kept,true,Brentwood Middle School Russian Immersion,-122.601575,45.471368
+a,6-8,Vietnamese,Roseway Heights,rosewayheights,Roseway Heights,kept,true,"Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion",-122.587481,45.544152
+a,9-12,Spanish,Franklin,franklin,Franklin,kept,true,"Franklin High School Russian Immersion, Spanish Immersion",-122.60685,45.502113
+a,9-12,Spanish,Lincoln,lincoln,Lincoln,kept,true,Lincoln High School Spanish Immersion,-122.688918,45.518854
+a,9-12,Spanish,McDaniel,mcdaniel,McDaniel,kept,true,"McDaniel High School Spanish Immersion, Vietnamese Immersion",-122.580604,45.541994
+a,9-12,Spanish,Roosevelt,roosevelt,Roosevelt,kept,true,Roosevelt High School Spanish Immersion,-122.738069,45.589349
+a,9-12,Mandarin,Cleveland,cleveland,Cleveland,kept,true,Cleveland High School Mandarin Immersion,-122.638949,45.498561
+a,9-12,Mandarin,Jefferson,jefferson,Jefferson,kept,true,Jefferson High School Mandarin Immersion,-122.671876,45.560412
+a,9-12,Japanese,Grant,grant,Grant,kept,true,Grant High School Japanese Immersion,-122.626865,45.539149
+a,9-12,Russian,Franklin,franklin,Franklin,kept,true,"Franklin High School Russian Immersion, Spanish Immersion",-122.60685,45.502113
+a,9-12,Vietnamese,McDaniel,mcdaniel,McDaniel,kept,true,"McDaniel High School Spanish Immersion, Vietnamese Immersion",-122.580604,45.541994
+a,K-5,Spanish,Ainsworth,ainsworth,Ainsworth,kept,true,Ainsworth K-5 Spanish Immersion,-122.699467,45.509843
+a,K-5,Spanish,Atkinson,atkinson,Atkinson,removed,,Atkinson K-5 Spanish Immersion,-122.604573,45.505022
+a,K-5,Spanish,Beach,beach,Beach,removed,,Beach K-5 Spanish Immersion,-122.685219,45.558084
+a,K-5,Spanish,César Chávez,cesarchavez,César Chávez,kept,false,César Chávez K-5 Spanish Immersion,-122.719196,45.584465
+a,K-5,Spanish,James John,jamesjohn,James John,removed,,James John K-5 Spanish Immersion,-122.751687,45.59038
+a,K-5,Spanish,Lent,lent,Lent,kept,true,Lent K-5 Spanish Immersion,-122.564178,45.485332
+a,K-5,Spanish,Rigler,rigler,Rigler,kept,false,Rigler K-5 Spanish Immersion,-122.607589,45.556047
+a,K-5,Spanish,Scott,scott,Scott,removed,,Scott K-5 Spanish Immersion,-122.594008,45.555123
+a,K-5,Spanish,Sitton,sitton,Sitton,removed,,Sitton K-5 Spanish Immersion,-122.758136,45.59994
+a,K-5,Mandarin,Boise-Eliot/Humboldt,boiseeliothumboldt,Boise-Eliot/Humboldt,added,true,Boise-Eliot/Humboldt K-5 Mandarin Immersion,-122.672724,45.547763
+a,K-5,Mandarin,Clark,clark,Clark,removed,,Clark K-5 Mandarin Immersion,-122.56975,45.513681
+a,K-5,Mandarin,MLK Jr,mlkjr,MLK Jr,removed,,MLK Jr K-5 Mandarin Immersion,-122.658957,45.558179
+a,K-5,Mandarin,Woodstock,woodstock,Woodstock,kept,true,Woodstock K-5 Mandarin Immersion,-122.611819,45.48209
+a,K-5,Japanese,Richmond,richmond,Richmond,kept,false,Richmond K-5 Japanese Immersion,-122.604573,45.505056
+a,K-5,Russian,Kelly,kelly,Kelly,kept,false,Kelly K-5 Russian Immersion,-122.570762,45.472518
+a,K-5,Vietnamese,Rose City Park,rosecitypark,Rose City Park,removed,,Rose City Park K-5 Vietnamese Immersion,-122.603949,45.53934
+a,K-5,Vietnamese,Vestal,vestal,Vestal,added,true,Vestal K-5 Vietnamese Immersion,-122.579491,45.524546
+b,6-8,Spanish,Beaumont,beaumont,Beaumont,removed,,Beaumont Middle School Spanish Immersion,-122.620928,45.548721
+b,6-8,Spanish,César Chávez,cesarchavez,César Chávez,removed,,César Chávez K-8 Spanish Immersion,-122.719197,45.584465
+b,6-8,Spanish,George,george,George,kept,true,George Middle School Spanish Immersion,-122.736155,45.596054
+b,6-8,Spanish,Kellogg,kellogg,Kellogg,kept,true,Kellogg Middle School Spanish Immersion,-122.591733,45.498783
+b,6-8,Spanish,Ockley Green,ockleygreen,Ockley Green,removed,,Ockley Green Middle School Spanish Immersion,-122.680411,45.567027
+b,6-8,Spanish,Roseway Heights,rosewayheights,Roseway Heights,kept,true,"Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion",-122.587481,45.544152
+b,6-8,Spanish,West Sylvan,westsylvan,West Sylvan,kept,true,West Sylvan Middle School Spanish Immersion,-122.760886,45.504704
+b,6-8,Mandarin,Harriet Tubman,harriettubman,Harriet Tubman,kept,true,Harriet Tubman Middle School Mandarin Immersion,-122.669041,45.538996
+b,6-8,Mandarin,Harrison Park,harrisonpark,Harrison Park,kept,true,Harrison Park Middle School Mandarin Immersion,-122.574712,45.506758
+b,6-8,Japanese,Mt Tabor,mttabor,Mt Tabor,kept,true,Mt Tabor Middle School Japanese Immersion,-122.603787,45.521058
+b,6-8,Russian,Brentwood,brentwood,Lane,kept,true,Brentwood Middle School Russian Immersion,-122.601575,45.471368
+b,6-8,Vietnamese,Roseway Heights,rosewayheights,Roseway Heights,kept,true,"Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion",-122.587481,45.544152
+b,9-12,Spanish,Franklin,franklin,Franklin,kept,true,"Franklin High School Russian Immersion, Spanish Immersion",-122.60685,45.502113
+b,9-12,Spanish,Lincoln,lincoln,Lincoln,kept,true,Lincoln High School Spanish Immersion,-122.688918,45.518854
+b,9-12,Spanish,McDaniel,mcdaniel,McDaniel,kept,true,"McDaniel High School Spanish Immersion, Vietnamese Immersion",-122.580604,45.541994
+b,9-12,Spanish,Roosevelt,roosevelt,Roosevelt,kept,true,Roosevelt High School Spanish Immersion,-122.738069,45.589349
+b,9-12,Mandarin,Cleveland,cleveland,Cleveland,kept,true,Cleveland High School Mandarin Immersion,-122.638949,45.498561
+b,9-12,Mandarin,Jefferson,jefferson,Jefferson,kept,true,Jefferson High School Mandarin Immersion,-122.671876,45.560412
+b,9-12,Japanese,Grant,grant,Grant,kept,true,Grant High School Japanese Immersion,-122.626865,45.539149
+b,9-12,Russian,Franklin,franklin,Franklin,kept,true,"Franklin High School Russian Immersion, Spanish Immersion",-122.60685,45.502113
+b,9-12,Vietnamese,McDaniel,mcdaniel,McDaniel,kept,true,"McDaniel High School Spanish Immersion, Vietnamese Immersion",-122.580604,45.541994
+b,K-5,Spanish,Ainsworth,ainsworth,Ainsworth,kept,true,Ainsworth K-5 Spanish Immersion,-122.699467,45.509843
+b,K-5,Spanish,Atkinson,atkinson,Atkinson,removed,,Atkinson K-5 Spanish Immersion,-122.604573,45.505022
+b,K-5,Spanish,Beach,beach,Beach,removed,,Beach K-5 Spanish Immersion,-122.685219,45.558084
+b,K-5,Spanish,César Chávez,cesarchavez,César Chávez,kept,false,César Chávez K-5 Spanish Immersion,-122.719196,45.584465
+b,K-5,Spanish,James John,jamesjohn,James John,removed,,James John K-5 Spanish Immersion,-122.751687,45.59038
+b,K-5,Spanish,Lent,lent,Lent,kept,true,Lent K-5 Spanish Immersion,-122.564178,45.485332
+b,K-5,Spanish,Rigler,rigler,Rigler,kept,false,Rigler K-5 Spanish Immersion,-122.607589,45.556047
+b,K-5,Spanish,Scott,scott,Scott,removed,,Scott K-5 Spanish Immersion,-122.594008,45.555123
+b,K-5,Spanish,Sitton,sitton,Sitton,removed,,Sitton K-5 Spanish Immersion,-122.758136,45.59994
+b,K-5,Mandarin,Boise-Eliot/Humboldt,boiseeliothumboldt,Boise-Eliot/Humboldt,added,true,Boise-Eliot/Humboldt K-5 Mandarin Immersion,-122.672724,45.547763
+b,K-5,Mandarin,Clark,clark,Clark,removed,,Clark K-5 Mandarin Immersion,-122.56975,45.513681
+b,K-5,Mandarin,MLK Jr,mlkjr,MLK Jr,removed,,MLK Jr K-5 Mandarin Immersion,-122.658957,45.558179
+b,K-5,Mandarin,Woodstock,woodstock,Woodstock,kept,true,Woodstock K-5 Mandarin Immersion,-122.611819,45.48209
+b,K-5,Japanese,Richmond,richmond,Richmond,kept,false,Richmond K-5 Japanese Immersion,-122.604573,45.505056
+b,K-5,Russian,Kelly,kelly,Kelly,kept,false,Kelly K-5 Russian Immersion,-122.570762,45.472518
+b,K-5,Vietnamese,Rose City Park,rosecitypark,Rose City Park,kept,true,Rose City Park K-5 Vietnamese Immersion,-122.603949,45.53934
