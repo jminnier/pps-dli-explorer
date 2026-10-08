@@ -219,6 +219,12 @@ def validate_schools(vintage, years, schools, groups, medium_total):
             fail(f'{vintage} {y}: Table 5.5 TOTAL {t} != Table 5.2 total {medium_total[y]}')
 
 
+# Whole-school immersion schools that Table 5.5 prints with a Total row only (2025-26 note B:
+# Richmond). Every Richmond student is in Japanese immersion (dli_track_profiles.csv), so a
+# Japanese row equal to the Total is added, matching Lent and Rigler, which print both rows.
+WHOLE_SCHOOL = {'Richmond': 'Japanese'}
+
+
 def parse_file(path):
     vintage = re.search(r'Forecast_(\d{4}-\d{2})_to_', os.path.basename(path)).group(1)
     v0 = int(vintage[:4])
@@ -252,6 +258,10 @@ def parse_file(path):
     for name, stype, prog, span, nums in schools:
         for y, v in zip(years, nums):
             add('school_program', name, stype, prog, span, y, v, 'middle')
+        lang = WHOLE_SCHOOL.get(name)
+        if prog == 'Total' and lang and not any(n == name and p == lang for n, _, p, _, _ in schools):
+            for y, v in zip(years, nums):
+                add('school_program', name, stype, lang, span, y, v, 'middle')
     for label, nums in groups.items():
         for y, v in zip(years, nums):
             add('school_group_subtotal', label, '', '', '', y, v, 'middle')
