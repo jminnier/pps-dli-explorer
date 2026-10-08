@@ -28,6 +28,7 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 12 | School demographics | PPS, *School/Neighborhood Enrollment by Ethnicity & Program* (School and Neighborhood rows: race/ethnicity, direct certification, English learners, TAG, language immersion, focus/alternative, historically underserved) | October 2024, October 2025 | `data-raw/pps_board/school_neighborhood_enroll_ethnicity_program_*.pdf` | `parse_ethnicity_program.py` → `school_demographics.csv` |
 | 13 | Evaluation of the 2023 Southeast changes | Green, T. L., & Hanson, H. (2026, June 10). *Equity audit evaluation of Portland Public Schools' Southeast Enrollment and Program Balancing* | 2020-21 to 2025-26 | `data-raw/pps_transcripts/SEGC_Equity_Audit_Evaluation_Report.pdf` | quoted with page numbers |
 | 14 | Board meeting statements | Automated transcripts of PPS board and committee meetings compiled by [Save PDX Schools](https://savepdxschools.org/transcripts/), checked against the meeting video | Sept–Oct 2026 | `data-raw/pps_transcripts/*.json` | quoted with meeting, date and time |
+| 15 | Older enrollment forecasts | PSU Population Research Center, *Portland Public Schools Enrollment Forecasts*, 2022-23 (June 2022), 2023-24 (June 2023) and 2024-25 (July 2024) editions, Appendix C / Table 5.5 | 2019-20 to 2033-34 | `data-raw/pps_reports/PSU_PRC_Forecast_*_edition.pdf` | `extract_psu_premove.py` → `psu_forecast_premove.csv` |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -228,6 +229,13 @@ Boundary changes, which move most students in PPS's totals, are not included in 
 
 The precedent rate comes from one consolidation; other programs could fare better or worse. PPS's equity audit (source 13) found that students already enrolled in moved programs who stayed in PPS generally followed their program, so the loss in the precedent is likely concentrated among new kindergarten families. The six-year total multiplies the yearly kindergarten figure by six and ignores later-grade entry and exit.
 
+**Forecast check (sources 5 and 15).** For Lent, the 2023-24 forecast edition (June 2023, built on October 2022 enrollment) includes the move: "Bridger Spanish DLI (grades K-5) moved to Lent ES" (Appendix C, note 3). Its Lent forecasts for 2023-24 to 2025-26 are compared with PSU's own October actuals for those years, taken from the 2026-27 edition. The 2022-23 edition predates the move ("These changes are not incorporated in these enrollment forecasts"), so its Bridger and Lent Spanish rows are added together as the pre-move program. District totals from the same editions show the size of a typical forecast miss.
+
+- Actuals are kindergarten through grade 12. PPS's own school totals for Lent include pre-kindergarten (308 in October 2023 vs PSU's 273), so the two are not mixed.
+- *Text-layer checks*: in the 2023-24 edition, runs of zeros merge in the text layer, and a few rows are garbled (not Lent). Those rows were decoded from school totals minus the other program rows, and the subtotals and the TOTAL row then reconcile.
+- *Limits*: forecasts made one or two years ahead also miss for ordinary reasons. Other schools' Spanish programs missed by up to 10–27% in either direction (Rigler and Atkinson were under-forecast), so Lent's miss is notable for its size and persistence, not unique.
+- No edition states an assumed share of students following a moved program. The 98% figure (314 of 319) is implied by the numbers.
+
 ## Reproducing the data
 
 From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
@@ -238,6 +246,7 @@ python3 data-raw/parse_program_type.py
 python3 data-raw/parse_language_by_school.py
 python3 data-raw/parse_lottery.py
 python3 data-raw/parse_psu_forecast.py
+python3 data-raw/extract_psu_premove.py
 python3 data-raw/parse_ethnicity_program.py
 node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R

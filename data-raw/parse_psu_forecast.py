@@ -63,9 +63,12 @@ DISTRICT_GROUPS = {'K-2': ['K', '1', '2'], '3-5': ['3', '4', '5'], '6-8': ['6', 
                    '9-12': ['9', '10', '11', '12']}
 GROUP_ROWS = {'Elementary Schools Subtotal': 'ES', 'Middle Schools Subtotal': 'MS',
               'High Schools Subtotal': 'HS', 'Other (K-8, 2-8, and K-12)': None, 'TOTAL': 'ALL'}
+GROUP_ALIASES = {'Elementary and K-8 Subtotal': 'Elementary Schools Subtotal',
+                'Other (K-12 and 1-8)': 'Other (K-8, 2-8, and K-12)'}  # 2024-25 edition
 ROUND_TOL = 3  # rounding slack for sums of rounded forecast cells
 NUM = r'\d[\d,]*'
-SCHOOL_RE = re.compile(r'^(?P<name>.+?) (?P<stype>ES|MS|HS|K8|K12|G28|-) (?P<prog>[A-Za-z]+) (?P<span>\S+)$')
+# The 2024-25 edition prints ACCESS with no type token ("ACCESS 2-8 Total 2-8"); it is read as G28.
+SCHOOL_RE = re.compile(r'^(?P<name>.+?)(?: (?P<stype>ES|MS|HS|K8|K12|G28|-))? (?P<prog>[A-Za-z]+) (?P<span>\S+)$')
 # Schools whose program rows are printed as 0 (not split) in later years while the Total row continues:
 # Hosford 2025-26 report, 2028-29 onward (Neighborhood/Mandarin rows are 0 but Total is 404, 352, ...).
 UNSPLIT = {'Hosford'}
@@ -169,6 +172,7 @@ def parse_schools(page_lines, vintage):
                 continue
             label, nums = r
             label = re.sub(r'\s+', ' ', label)
+            label = GROUP_ALIASES.get(label, label)
             if label in GROUP_ROWS or label.endswith('Subtotal'):
                 if label not in GROUP_ROWS:
                     fail(f'{vintage}: unknown group row {label!r}')
@@ -177,7 +181,7 @@ def parse_schools(page_lines, vintage):
             m = SCHOOL_RE.match(label)
             if not m:
                 fail(f'{vintage}: cannot parse school row {l!r}')
-            schools.append((m.group('name'), m.group('stype'), m.group('prog'), m.group('span'), nums))
+            schools.append((m.group('name'), m.group('stype') or 'G28', m.group('prog'), m.group('span'), nums))
     if set(groups) != set(GROUP_ROWS):
         fail(f'{vintage}: group rows found {sorted(groups)}')
     return years, schools, groups
@@ -205,6 +209,10 @@ def validate_schools(vintage, years, schools, groups, medium_total):
             if got != progs['Total'][1]:
                 fail(f'{vintage}: {name} programs sum to {got}, Total row {progs["Total"][1]}')
         grp = stype if stype in ('ES', 'MS', 'HS', '-') else None  # '-' = closed Bridger, in no subtotal
+        if vintage == '2024-25' and stype == 'K8':
+            grp = 'ES'  # the 2024-25 edition's 'Elementary and K-8 Subtotal' includes the K-8 schools
+        if vintage == '2024-25' and stype == 'G28':
+            grp = '-'  # ACCESS (2-8) is in TOTAL but in no printed subtotal in the 2024-25 edition
         sums[grp] = [a + b for a, b in zip(sums[grp], progs['Total'][1])]
     for label, grp in GROUP_ROWS.items():
         if grp == 'ALL':
@@ -226,7 +234,7 @@ WHOLE_SCHOOL = {'Richmond': 'Japanese'}
 
 
 def parse_file(path):
-    vintage = re.search(r'Forecast_(\d{4}-\d{2})_to_', os.path.basename(path)).group(1)
+    vintage = re.search(r'Forecast_(\d{4}-\d{2})_(?:to|edition)', os.path.basename(path)).group(1)
     v0 = int(vintage[:4])
     reader = PdfReader(path)
     if len(reader.pages) != 40:
@@ -316,9 +324,10 @@ def cross_check(all_rows):
 
 
 def main():
-    paths = sorted(glob.glob(os.path.join(SRC, 'PSU_PRC_Forecast_*.pdf')))
+    # *_edition.pdf files (2022-23 to 2024-25 editions) are handled by extract_psu_premove.py
+    paths = sorted(glob.glob(os.path.join(SRC, 'PSU_PRC_Forecast_*_to_*.pdf')))
     if not paths:
-        fail(f'no PSU_PRC_Forecast_*.pdf in {SRC}')
+        fail(f'no PSU_PRC_Forecast_*_to_*.pdf in {SRC}')
     all_rows = []
     for p in paths:
         all_rows.extend(parse_file(p))

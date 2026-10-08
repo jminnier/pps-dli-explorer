@@ -38,9 +38,9 @@ displaced_a <- g("a", DLI, "students") + g("a", CLO, "students")
 
 - **The plan leans on moving immersion programs.** Scenario A moves `r fmt_n(g("a", DLI, "students"))` immersion students out of their schools. That is `r fmt_pct(g("a", DLI, "students") / displaced_a)` of the students directly displaced by a closure or program move ([§1](#sec-relies)).
 - **The programs being moved are not short of families.** Atkinson draws `r fmt_n(dm("Atkinson", "applications"))` kindergarten applications a year for about `r fmt_n(dm("Atkinson", "offered"))` seats, and Beach `r fmt_n(dm("Beach", "applications"))` for `r fmt_n(dm("Beach", "offered"))` ([§2](#sec-demand)).
-- **The burden falls on underserved communities.** Schools losing an immersion program are `r fmt_pct(cp("a", SEND, "pct_hist_underserved"))` historically underserved and `r fmt_pct(cp("a", SEND, "pct_direct_cert"))` low-income. The schools closing outright are `r fmt_pct(cp("a", CLOS, "pct_white"))` white, with `r fmt_pct(cp("a", CLOS, "pct_hist_underserved"))` underserved. Students in the moving programs are `r round(g("a", DLI, "pct_spanish_home") / g("a", CLO, "pct_spanish_home"))` times as likely to speak Spanish at home as students at closing schools ([§3](#sec-who)).
+- **The burden falls on schools serving underserved communities.** Schools losing an immersion program are `r fmt_pct(cp("a", SEND, "pct_hist_underserved"))` historically underserved and `r fmt_pct(cp("a", SEND, "pct_direct_cert"))` low-income. The schools closing outright are `r fmt_pct(cp("a", CLOS, "pct_white"))` white, with `r fmt_pct(cp("a", CLOS, "pct_hist_underserved"))` underserved. Students in the moving programs are `r round(g("a", DLI, "pct_spanish_home") / g("a", CLO, "pct_spanish_home"))` times as likely to speak Spanish at home as students at closing schools ([§3](#sec-who)).
 - **And it is heavier.** Their schools move farther (`r sprintf("%.1f", g("a", DLI, "school_miles"))` vs `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles), and the share of school-age Spanish speakers within a mile of a K-5 Spanish site falls from `r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` to `r fmt_pct(acc$within_1mi[acc$scenario == "a"])` ([§4](#sec-burden)).
-- **Moving a program loses the families who would have joined it.** After PPS moved Bridger's Spanish program to Lent in 2023, kindergarten immersion enrollment fell 31%, against 14% district-wide. Families who don't follow go to neighborhood schools, and PPS hasn't shown whether its projections account for them ([§5](#sec-optout)).
+- **Moving a program loses the families who would have joined it.** After PPS moved Bridger's Spanish program to Lent in 2023, kindergarten immersion enrollment fell 31%, against 14% district-wide. PPS's forecast had Lent 14–16% higher than it turned out. Families who don't follow go to neighborhood schools, and PPS hasn't shown whether its projections account for them ([§5](#sec-optout)).
 - **PPS's equity check can't see any of this.** It reports one move rate per group. Even so, multilingual learners are already the most-moved group ([§6](#sec-pps)).
 :::
 
@@ -89,7 +89,7 @@ comp |> filter(scenario == "a") |>
 
 The schools whose immersion programs move are **`r fmt_pct(cp("a", SEND, "pct_hist_underserved"))` historically underserved and `r fmt_pct(cp("a", SEND, "pct_direct_cert"))` low-income**. The district averages are `r fmt_pct(cp("a", DIST, "pct_hist_underserved"))` and `r fmt_pct(cp("a", DIST, "pct_direct_cert"))`. The schools that close outright are `r fmt_pct(cp("a", CLOS, "pct_white"))` white, `r fmt_pct(cp("a", CLOS, "pct_hist_underserved"))` underserved and `r fmt_pct(cp("a", CLOS, "pct_direct_cert"))` low-income. Scenario B shows the same pattern (`r fmt_pct(cp("b", SEND, "pct_hist_underserved"))` vs `r fmt_pct(cp("b", CLOS, "pct_hist_underserved"))` underserved).
 
-The race figures cover each whole school; PPS doesn't publish them by program. The immersion programs themselves can be measured by home language and English-learner status:
+These race and income figures describe **whole schools**, including students in their neighborhood programs, who don't move. PPS doesn't publish race or income for immersion programs alone, so they don't show that the students who move are half underserved. The moving students themselves can be measured by home language and English-learner status:
 
 ```{r}
 #| label: fig-who
@@ -146,6 +146,28 @@ When a program moves farther away, some families choose their neighborhood schoo
 
 The clearest test is the last time PPS consolidated Spanish immersion. In 2023-24, **Bridger's Spanish program moved to Lent** (`r SRC$summary10`). Before the move the two schools had about 55 immersion students per grade. Lent has since enrolled 32 and 43 immersion kindergartners. That is **31% fewer**, while kindergarten enrollment district-wide fell 14% on the same basis. That works out to about **one in five families lost to the program beyond the district trend** ([details](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)). The audit also found that the Southeast projections overestimated enrollment at 12 of 20 schools. Of the 7 schools still well short of target, 3 had a program relocation or grade change (`r SRC$audit`, p. 6).
 
+PPS's own enrollment forecasts did not anticipate this. The forecast PSU prepared for PPS in June 2023 built the Bridger → Lent move in (its notes read "Bridger Spanish DLI (grades K-5) moved to Lent ES"). It kept almost all of the combined program's 319 students: 314 for Lent in 2023-24. Lent enrolled 273. For three years running the forecast for Lent was `r fcl <- read_data("equity_forecast_check.csv"); a <- filter(fcl, target == "Lent", vintage == "2023-24"); d <- filter(fcl, target == "District", vintage == "2023-24"); sprintf("%.0f–%.0f%% too high, while its district-wide forecast was within %.0f%%", 100 * min(a$pct_error), 100 * max(a$pct_error), 100 * max(abs(d$pct_error)))`.
+
+```{r}
+#| label: tbl-forecast
+read_data("equity_forecast_check.csv") |>
+  filter(vintage == "2023-24" | target == "Lent") |>
+  mutate(row = case_when(target == "Lent" & vintage == "2023-24" ~ "Lent: forecast made with the move built in (June 2023)",
+                         target == "Lent" ~ "Bridger + Lent Spanish: forecast made before the move (June 2022)",
+                         TRUE ~ "District total: same June 2023 forecast")) |>
+  select(row, year, forecast, actual, pct_error) |>
+  pivot_wider(names_from = year, values_from = c(forecast, actual, pct_error), names_vary = "slowest") |>
+  gt() |>
+  cols_label(.list = c(list(row = ""), setNames(as.list(rep(c("Forecast", "Actual", "Error"), 3)),
+                                        paste0(rep(c("forecast_", "actual_", "pct_error_"), 3), rep(c("2023-24", "2024-25", "2025-26"), each = 3))))) |>
+  tab_spanner("2023-24", ends_with("2023-24")) |> tab_spanner("2024-25", ends_with("2024-25")) |> tab_spanner("2025-26", ends_with("2025-26")) |>
+  fmt_number(c(starts_with("forecast"), starts_with("actual")), decimals = 0) |>
+  fmt_percent(starts_with("pct_error"), decimals = 0, force_sign = TRUE) |>
+  tab_header(title = "Lent's enrollment fell well short of PPS's forecast") |>
+  tab_source_note("Forecasts and October actual enrollment (kindergarten through grade 12) from the PSU Population Research Center forecasts for PPS. Error = (forecast − actual) ÷ actual. Other schools also miss their forecasts, in both directions; Lent's miss is unusually large and lasting for a school whose program was moved.") |>
+  tab_source_note(md(cite("psu_premove")))
+```
+
 ```{r}
 #| label: tbl-optout
 opt |> filter(scenario == "a") |>
@@ -181,7 +203,7 @@ s44 |>
 
 Even this table shows **multilingual learners as the most-moved group** (31% in A, 28% in B, against 27% and 24% overall). It still understates the imbalance:
 
-- It averages each group over all kindergarten–8th grade students, most of whom are moved by boundary changes. That hides what this page shows: closures fall mostly on whiter, higher-income schools, and program moves on underserved, Spanish-speaking families.
+- It averages each group over all kindergarten–8th grade students, most of whom are moved by boundary changes. That hides what this page shows: closures fall mostly on whiter, higher-income schools, while program moves fall on schools that are about half underserved, and on students far more likely to speak Spanish at home.
 - A move to the next school over and a program relocated across town count the same.
 - It has no row for immersion students, Latino students or home language. It does not measure distance, and it does not account for families who stop following a program.
 

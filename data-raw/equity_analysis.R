@@ -273,3 +273,29 @@ comp <- bind_rows(lapply(c("a", "b"), function(sc) {
 write_csv(comp, here("data", "equity_school_composition.csv"))
 cat("\nWhole-school composition (October 2025, enrollment-weighted):\n")
 print(as.data.frame(comp |> mutate(across(all_of(pct_cols), \(v) round(100 * v))) |> select(-missing)), row.names = FALSE)
+
+# ---- did PPS's enrollment forecasts anticipate families not following the Bridger -> Lent move? --
+# PSU Population Research Center forecasts (prepared for PPS). The 2023-24 edition (June 2023,
+# based on October 2022) built the move in ("Bridger Spanish DLI (grades K-5) moved to Lent ES").
+# The 2022-23 edition predates it, so its Bridger + Lent Spanish rows are the like-for-like pre-move
+# program. Actuals are PSU's own K-12 October counts from the latest editions (Lent's PPS totals
+# also include pre-kindergarten).
+pm <- read_csv(here("data", "psu_forecast_premove.csv"), show_col_types = FALSE)
+pf <- read_csv(here("data", "psu_forecast.csv"), show_col_types = FALSE)
+actual <- bind_rows(
+  pf |> filter(table == "school_program", school == "Lent", program == "Total", type == "actual") |> transmute(target = "Lent", year, actual = enrollment),
+  pf |> filter(table == "district_by_grade", grade == "Total", scenario == "middle", type == "actual") |> transmute(target = "District", year, actual = enrollment)
+) |> distinct(target, year, .keep_all = TRUE)
+yrs <- c("2023-24", "2024-25", "2025-26")
+fc <- bind_rows(
+  pm |> filter(forecast_vintage == "2022-23", school %in% c("Lent", "Bridger"), program == "Spanish", year %in% yrs) |>
+    group_by(year) |> summarise(forecast = sum(enrollment)) |> mutate(vintage = "2022-23", target = "Lent", note = "Bridger + Lent Spanish, before the move was planned in"),
+  pm |> filter(forecast_vintage == "2023-24", school == "Lent", program == "Total", year %in% yrs) |>
+    transmute(year, forecast = enrollment, vintage = "2023-24", target = "Lent", note = "move built in"),
+  pm |> filter(school == "District", program == "Total", year %in% yrs, forecast_vintage %in% c("2022-23", "2023-24")) |>
+    transmute(year, forecast = enrollment, vintage = forecast_vintage, target = "District", note = "district total")
+) |> left_join(actual, by = c("target", "year")) |>
+  mutate(error = forecast - actual, pct_error = error / actual) |>
+  select(target, vintage, note, year, forecast, actual, error, pct_error)
+write_csv(fc, here("data", "equity_forecast_check.csv"))
+cat("\nForecast vs actual (PSU):\n"); print(as.data.frame(fc |> mutate(pct_error = sprintf("%+.1f%%", 100 * pct_error)) |> select(-note)), row.names = FALSE)
