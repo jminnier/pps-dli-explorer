@@ -21,7 +21,7 @@ website:
       - href: methods.qmd
         text: Sources & methods
   page-footer:
-    center: "Data: PPS Data & Reporting, PPS lottery results, PSU Population Research Center, US Census ACS. Boundary maps and board-memo transcription from browniefed/pps-explorer."
+    center: "Data: PPS Data & Reporting, PPS lottery results, PSU Population Research Center, US Census ACS. Scenario maps and board-memo transcription from pps-explorer by Jason Brown (github.com/browniefed/pps-explorer)."
 
 format:
   html:

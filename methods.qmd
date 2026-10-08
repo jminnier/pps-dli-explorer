@@ -2,6 +2,8 @@
 title: "Sources & methods"
 ---
 
+This site builds on **[pps-explorer](https://github.com/browniefed/pps-explorer) by [Jason Brown (@browniefed)](https://github.com/browniefed)**, an interactive map of the PPS boundary scenarios. Its georeferenced attendance areas, school locations and transcription of the October 2026 board memo (closures and program moves) are the basis for every scenario comparison here, and its address-lookup map is included with this site. pps-explorer in turn credits [ppsdata.info](https://ppsdata.info) by Alex Meub ([meub/pps-data](https://github.com/meub/pps-data)).
+
 Every table on this site is built from public documents by scripts in [`data-raw/`](https://github.com/jminnier/pps-dli-explorer/tree/main/data-raw); the cleaned tables are in `data/`.
 
 ## Sources
@@ -19,6 +21,7 @@ Every table on this site is built from public documents by scripts in [`data-raw
 ## Definitions and caveats
 
 - **Lottery counts are applications, not children.** Families rank several programs, so one child can be waitlisted at more than one school, and "cancelled" means the child was placed at a program they ranked higher. Waitlists are spring snapshots; some waitlisted children are offered seats by September.
+- **Lottery applications measure demand only where families must apply.** At Lent and Rigler, which are all-immersion schools with their own neighborhoods, children from the neighborhood enroll without entering the lottery, so lottery applications count only out-of-neighborhood families. Lent enrolls roughly three times as many immersion kindergartners as it offers lottery seats; Rigler never appears in the lottery. Elsewhere, including Richmond (which has no neighborhood of its own) and schools with both an immersion and a neighborhood program, kindergarten enrollment is close to the number of lottery offers.
 - **Lottery demand is kindergarten only.** The 2021-22 report doesn't give grades for immersion rows, so averages use 2022-23 to 2026-27. Middle and high school immersion programs appear in only one year's lottery report (2024-25, with very small numbers), so middle-grade moves have no demand comparison. Rigler doesn't appear in any lottery report.
 - **Whole-school immersion.** Lent and Rigler (Spanish) and Richmond (Japanese) enroll only immersion students; some PPS reports print them as a single unlabelled row, and they are tagged with their language here.
 - **Home language** is the share of a program's immersion students whose home language (as recorded by PPS) is the program language. For Mandarin it counts all Chinese varieties, as PPS reports them together.
