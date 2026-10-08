@@ -1,0 +1,141 @@
+---
+title: "Equity: who the changes fall on"
+subtitle: "PPS reports similar move rates across student groups. Program moves and closures affect very different students."
+---
+
+```{r}
+source("R/site_data.R")
+source("R/charts.R")
+library(gt)
+s44 <- read_data("pps_slide44.csv")
+grp <- read_data("equity_groups.csv")
+chg <- read_data("equity_changes.csv")
+home <- read_data("equity_home_distance.csv")
+homes <- read_data("equity_home_distance_summary.csv")
+g <- function(sc, ty, col) grp[[col]][grp$scenario == sc & grp$type == ty]
+DLI <- "Immersion program moves"; CLO <- "School closures (non-immersion students)"; ALL <- "All PPS students"
+h <- function(sc, ty, col) homes[[col]][homes$scenario == sc & homes$type == ty]
+```
+
+## What PPS reported
+
+PPS's equity check for the scenarios is one slide: the share of kindergarten–8th grade students in each group who would change schools. Its message is that impacts are spread across groups. The numbers are close, but not equal: **multilingual learners are the most-moved group in both scenarios**, about four points above the district average.
+
+```{r}
+#| label: tbl-slide44
+s44 |>
+  gt() |>
+  cols_label(group = "Student group", a_number = "Students", a_pct = "Share", b_number = "Students", b_pct = "Share") |>
+  tab_spanner("Scenario A", c(a_number, a_pct)) |> tab_spanner("Scenario B", c(b_number, b_pct)) |>
+  fmt_number(c(a_number, b_number), decimals = 0) |> fmt_percent(c(a_pct, b_pct), decimals = 0) |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = group == "Multilingual Learners")) |>
+  tab_source_note("As printed by PPS. The slide gives no year and does not define \"move\" (for example, whether a student whose immersion program relocates counts). Groups overlap.") |>
+  tab_source_note(md(cite("slide44")))
+```
+
+The slide has no row for **Hispanic/Latino students**, **home language**, or **dual language immersion students**, and the board packet has no analysis of **how far** students would travel. The scenario memo acknowledges the trade-off without measuring it: "consolidating an underenrolled immersion program may lengthen some students' trips" (`r SRC$memo`).
+
+District-wide move rates also blend very different kinds of change. Most moves come from boundary changes; within them sit two smaller groups that are directly displaced: students whose **school closes** and students whose **immersion program moves**. The rest of this page compares those two.
+
+## Who is in the programs that move
+
+```{r}
+#| label: fig-who
+#| fig-cap: "Share of students whose home language is Spanish, or any language other than English: students in immersion programs that move, students at schools that close (excluding their immersion programs), and all PPS students. October 2025 enrollment."
+d <- grp |> mutate(type = factor(type, c(DLI, CLO, ALL), c("Immersion program moves", "School closures", "All PPS students")),
+                   scen = paste0("Scenario ", toupper(scenario))) |>
+  filter(!(type == "All PPS students" & scenario == "b")) |>
+  mutate(scen = if_else(type == "All PPS students", "District", scen), label = paste0(type, if_else(scen == "District", "", paste0(", ", scen))))
+d$label <- factor(d$label, rev(unique(d$label[order(d$type, d$scen)])))
+tip <- function(x, what) sprintf("<b>%s</b><br>%s%% %s<br>%s students", d$label, round(100 * x), what, fmt_n(d$students))
+p <- plot_ly(d, y = ~label) |>
+  add_bars(x = ~pct_spanish_home, name = "Spanish at home", marker = list(color = PAL$light[["blue"]], line = list(color = "white", width = 2)),
+           text = tip(d$pct_spanish_home, "speak Spanish at home"), hoverinfo = "text", textposition = "none") |>
+  add_bars(x = ~pct_non_english_home, name = "Any non-English language at home", marker = list(color = PAL$light[["orange"]], line = list(color = "white", width = 2)),
+           text = tip(d$pct_non_english_home, "speak a language other than English at home"), hoverinfo = "text", textposition = "none")
+viz_layout(p, xtitle = "Share of students") |>
+  layout(barmode = "group", bargap = 0.3, xaxis = list(tickformat = ".0%", rangemode = "tozero"), height = 380)
+```
+
+::: {.source}
+`r cite("by_lang", "by_grade", "scenarios", "closures")`
+:::
+
+Students in the immersion programs that move are about **`r round(g("a", DLI, "pct_spanish_home") / g("a", CLO, "pct_spanish_home"))` times as likely** as students at closing schools to speak Spanish at home (`r fmt_pct(g("a", DLI, "pct_spanish_home"))` vs `r fmt_pct(g("a", CLO, "pct_spanish_home"))` in Scenario A), and about `r round(g("a", DLI, "pct_spanish_home") / g("a", ALL, "pct_spanish_home"))` times the district rate (`r fmt_pct(g("a", ALL, "pct_spanish_home"))`). Of the Spanish-speaking students directly displaced in Scenario A, by a closure or a program move, **`r fmt_pct(g("a", DLI, "spanish_home") / (g("a", DLI, "spanish_home") + g("a", CLO, "spanish_home")))` are in immersion programs** (`r fmt_n(g("a", DLI, "spanish_home"))` of `r fmt_n(g("a", DLI, "spanish_home") + g("a", CLO, "spanish_home"))`).
+
+```{r}
+#| label: tbl-changes
+chg |> filter(scenario == "a") |>
+  mutate(type = if_else(type == DLI, paste(language, "immersion moves"), "Schools that close"),
+         change = if_else(grepl("immersion", type), paste(from_school, "→", to_school), from_school)) |>
+  arrange(type != "Schools that close", type, desc(pct_spanish_home)) |>
+  select(type, change, band, students, pct_spanish_home, pct_non_english_home, school_miles) |>
+  gt(groupname_col = "type") |>
+  cols_label(change = "Change", band = "Grades", students = "Students", pct_spanish_home = "Spanish at home",
+             pct_non_english_home = "Non-English at home", school_miles = "School moves (mi)") |>
+  fmt_number(students, decimals = 0) |> fmt_percent(c(pct_spanish_home, pct_non_english_home), decimals = 0) |>
+  fmt_number(school_miles, decimals = 1) |>
+  tab_header(title = "Every closure and immersion move, Scenario A") |>
+  tab_source_note("Students: October 2025 enrollment; for immersion moves, students in the moving language program in the grades that move; for closures, the school's non-immersion students (its immersion students are counted under the program move). Home language: share of those students. School moves: straight-line distance from the current school to the new one; for closures split among several receiving schools, weighted by how much of the closing school's attendance area each receives.") |>
+  tab_source_note(md(cite("by_grade", "by_lang", "scenarios")))
+```
+
+## How far families would travel
+
+Two measures, both straight-line.
+
+**How far the school moves.** Students at closing schools mostly move to the next school over: on average `r sprintf("%.1f", g("a", CLO, "school_miles"))` miles in Scenario A. Immersion programs move farther: `r sprintf("%.1f", g("a", DLI, "school_miles"))` miles on average, with the Atkinson, Beach, James John and Sitton Spanish programs moving 1.6–2.5 miles (Scott → Rigler, at 0.7 miles, is the exception).
+
+**Estimated change in home-to-school distance.** Using where children live (2020 Census blocks), children in a closing school's attendance area would be `r sprintf("%.1f", h("a", CLO, "change"))` miles farther from school on average (from `r sprintf("%.1f", h("a", CLO, "before"))` to `r sprintf("%.1f", h("a", CLO, "after"))` miles). For immersion programs, where families already travel farther, the increase is about **`r sprintf("%.1f", h("a", DLI, "change"))` mile** (from `r sprintf("%.1f", h("a", DLI, "before"))` to `r sprintf("%.1f", h("a", DLI, "after"))` miles), roughly twice as much.
+
+```{r}
+#| label: fig-home
+#| fig-height: 8
+#| fig-cap: "Estimated average home-to-school distance before and after each change in Scenario A, for children living in the closing school's attendance area or nearest to the immersion program's current school. Hover for details."
+hd <- home |> filter(scenario == "a") |>
+  mutate(grp = if_else(type == DLI, "Immersion program moves", "School closures"),
+         label = if_else(type == DLI, paste0(from_school, " → ", to_school, " (", language, ")"), paste0(from_school, " (closes)"))) |>
+  arrange(grp, change_mi)
+hd$label <- factor(hd$label, hd$label)
+col <- c("Immersion program moves" = PAL$light[["blue"]], "School closures" = PAL$muted)
+p <- plot_ly(hd, y = ~label) |>
+  add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
+               line = list(color = PAL$grid, width = 2)) |>
+  add_markers(x = ~before_mi, name = "Today", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
+              text = ~sprintf("<b>%s</b><br>today: %.1f mi", label, before_mi), hoverinfo = "text")
+for (k in names(col)) {
+  p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("After:", tolower(k)),
+                   marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
+                   text = ~sprintf("<b>%s</b><br>today %.1f mi → after %.1f mi (+%.1f)", label, before_mi, after_mi, change_mi), hoverinfo = "text")
+}
+viz_layout(p, xtitle = "Average distance from home to school (miles, straight line)") |>
+  layout(xaxis = list(rangemode = "tozero"))
+```
+
+::: {.source}
+`r cite("scenarios", "blocks")`
+:::
+
+```{r}
+#| label: tbl-distance
+homes |>
+  left_join(grp |> select(scenario, type, school_miles), by = c("scenario", "type")) |>
+  mutate(type = if_else(type == DLI, "Immersion program moves", "School closures"), scenario = paste("Scenario", toupper(scenario))) |>
+  select(scenario, type, school_miles, before, after, change) |>
+  gt(groupname_col = "scenario") |>
+  cols_label(type = "", school_miles = "School moves", before = "Today", after = "After", change = "Increase") |>
+  tab_spanner("Home to school (estimated)", c(before, after, change)) |>
+  fmt_number(c(school_miles, before, after, change), decimals = 1) |>
+  tab_header(title = "Average distances, miles (straight line)") |>
+  tab_source_note("Averages across changes are weighted by each change's enrolled students. Home-to-school estimates use children under 18 by census block: for closures, children in the closing school's attendance area and the school their block is assigned to on the scenario map; for immersion moves, children whose nearest current site of that language is the moving program, and the program's new school. Immersion families' actual homes are not published, so this assumes they come from the area nearest their program.") |>
+  tab_source_note(md(cite("scenarios", "blocks", "by_grade")))
+```
+
+## What this does and doesn't show
+
+- **It shows** that the students PPS directly displaces through program moves are far more likely to be Spanish speakers than the students displaced by closures, and that their schools move farther. That pattern is invisible in a district-wide move rate.
+- **It does not show race or ethnicity.** PPS publishes each school's racial makeup but not its immersion program's, so the share of Hispanic/Latino students in moving programs can't be computed from public reports. Home language is the closest available measure.
+- **Distances are estimates**: straight-line, and for immersion families based on where children live near each program rather than on actual addresses.
+- **What would settle it**: PPS has student-level data. A request for the number of students affected by each change by race/ethnicity, home language and immersion enrollment, and for average home-to-school distance before and after, would let PPS's slide 44 be checked directly.
+
+See [Sources & methods](methods.qmd#equity) for details.

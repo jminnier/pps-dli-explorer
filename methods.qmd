@@ -24,6 +24,7 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 6 | Average kindergarten class size | PPS, *Class Size Detail* (archive page and Data & Reporting page) | 2018-19 to 2025-26 | `data-raw/pps_reports/class_size/*.pdf` | copied by hand for Lent and Bridger → `class_size_kg.csv` |
 | 7 | District enrollment by grade (K–5), October 2022 | PPS, *Enrollment – Summary Comparison* (October 3, 2022), in *School Enrollment Profiles & Demographics* on the archive page | 2022-23 | – | the six grade totals, entered directly in `scorecard.qmd` |
 | 8 | Immersion sites and program moves in each scenario | PPS board packet for October 6, 2026: Status Quo, Scenario A and Scenario B attendance-area map PDFs, and the *Rightsizing Update: Scenario Release* memo (October 5, 2026) with the regional summaries; digitized and transcribed in [pps-explorer](https://github.com/browniefed/pps-explorer) | Scenarios released October 2026 | `public/data/*.geojson`, `src/lib/changes-data.mjs` | `export_dli_tables.mjs` → `dli_sites.csv`, `dli_moves.csv` |
+| 11 | PPS subgroup move rates and scenario memo | PPS Board of Education, *10/06/26 PowerPoint* (slide 44, "Balance and Impact: Kindergarten – 8th Grade Students Who Move"; slide 13) and *Rightsizing Update: Scenario Release* memo (October 5, 2026), via [BoardBook](https://meetings.boardbook.org/Public/Agenda/915?meeting=769955); also compiled by [Save PDX Schools](https://savepdxschools.org/) | October 2026 | `data-raw/pps_board/`, `data-raw/savepdxschools/` | slide 44 table copied to `pps_slide44.csv` (checked against the PDF text) |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -176,6 +177,33 @@ read_data("access_robustness.csv") |>
 3. Sum of *Students* (scorecard definition) over every move in Scenario A, including the César Chávez grade change.
 4. See *Distance to the nearest site*, for school-age Spanish speakers.
 
+## Equity page {#equity}
+
+`data-raw/equity_analysis.R` produces `equity_changes.csv` (one row per closure or immersion move), `equity_groups.csv` (group totals) and `equity_home_distance.csv` / `equity_home_distance_summary.csv`.
+
+**PPS's subgroup table** (source 11) is reproduced as printed. The slide gives no year and does not define a "move"; the district-wide comparison sheet labels the same totals "students who would change schools" and describes figures as 2031-32 projections unless noted. Whether students whose immersion program relocates are counted is not stated.
+
+**Groups compared.**
+
+- *Immersion program moves*: for every language program move in a scenario (source 8), plus the César Chávez grades 6–8 Spanish strand moving to George: the October 2025 enrollment in that language program at the sending school, in the grades that move (source 2).
+- *School closures (non-immersion students)*: for every school the scenario closes (source 8), the October 2025 enrollment in its non-immersion programs (source 3). Immersion students at closing schools (Beach, James John, Rose City Park in A) are counted once, under their program's move.
+- *All PPS students*: October 2025 district enrollment (source 3).
+
+Boundary changes, which move most students in PPS's totals, are not included in either group; no public data gives the students or home languages in each area that changes.
+
+**Home language.** For each immersion move, the home-language mix of the sending program's immersion students (all grades of that program) is applied to the students who move. For closures, the mix of the school's non-immersion students. "Non-English" is any home language other than English.
+
+**How far the school moves.** Straight-line distance between school locations on the scenario maps. For a closure whose attendance area is split among several receiving schools, distances to each receiving school are weighted by the share of the closing school's attendance area (by land area) that each receives on the scenario map; receiving areas under 2% of the closing area are ignored.
+
+**Home-to-school distance (estimate).** Children are placed by census block using 2020 population under 18 (source 10).
+
+- *Closures*: blocks inside the closing school's status-quo attendance area (same grade band). Before = distance to the closing school; after = distance to the school whose attendance area contains the block on the scenario map.
+- *Immersion moves*: immersion families' addresses are not published. Each block is assigned to its nearest current immersion site of the same language and grade band (a catchment by proximity), and the blocks assigned to the sending program are used. Before = distance to the sending school; after = distance to the program's new school. For Spanish, a second version weights blocks by school-age Spanish speakers (ACS tract counts spread over blocks by population under 18).
+- Within each change, distances are averaged over children; averages across changes are weighted by each change's enrolled students.
+- Limitations: straight-line distances; proximity catchments are only a model of where immersion families live (immersion students often come from a wider area, and for languages with a single site, such as Vietnamese, the catchment is the whole district); moves of whole attendance areas between neighborhood schools by boundary change are not included.
+
+**Race and ethnicity.** PPS's *School/Neighborhood Enrollment by Ethnicity & Program* report gives each school's whole-school racial composition and its percentage in immersion, not the racial composition of immersion programs, so the race/ethnicity of students in moving programs cannot be computed from public reports.
+
 ## Reproducing the data
 
 From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
@@ -189,6 +217,7 @@ python3 data-raw/parse_psu_forecast.py
 node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R
 Rscript data-raw/check_access_robustness.R
+Rscript data-raw/equity_analysis.R
 quarto render
 ```
 

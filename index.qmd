@@ -48,6 +48,7 @@ Tiles, left to right: (1) count of K-5 Spanish immersion sites on the status quo
 ## What's here
 
 - **[Demand & scorecard](scorecard.qmd)**: how many families apply to each immersion program, compared with the schools the programs would move to; then, for every language, the sites, students and pathways in each scenario.
+- **[Equity](equity.qmd)**: PPS's own subgroup numbers, and who the closures and program moves actually fall on: home language and how far families would travel.
 - **[Sources & methods](methods.qmd)**: where every number comes from and what it can't tell you.
 
 Coming next: access and travel distance, five-year enrollment history (Lent and César Chávez in focus), enrollment projections with adjustable assumptions, and the address lookup map.
