@@ -26,8 +26,13 @@ website:
         text: Lent & César Chávez
       - href: methods.qmd
         text: Sources & methods
+    right:
+      - icon: github
+        href: https://github.com/jminnier/pps-dli-explorer
+        aria-label: Source code and data on GitHub
+        text: Code & data
   page-footer:
-    center: "Data: PPS Data & Reporting, PPS lottery results, PSU Population Research Center, US Census ACS. Scenario maps and board-memo transcription from pps-explorer by Jason Brown (github.com/browniefed/pps-explorer)."
+    center: "Code, source documents and data: [github.com/jminnier/pps-dli-explorer](https://github.com/jminnier/pps-dli-explorer). Data: PPS Data & Reporting, PPS lottery results, PSU Population Research Center, US Census ACS. Scenario maps and board-memo transcription from [pps-explorer](https://github.com/browniefed/pps-explorer) by Jason Brown."
 
 format:
   html:

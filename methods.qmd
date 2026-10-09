@@ -10,6 +10,8 @@ This site builds on **[pps-explorer](https://github.com/browniefed/pps-explorer)
 
 This is an independent analysis, not a PPS publication. Where anything here differs from PPS documents, the PPS documents are authoritative.
 
+All of the code, the saved source documents and the cleaned tables are on GitHub at [github.com/jminnier/pps-dli-explorer](https://github.com/jminnier/pps-dli-explorer). Corrections and questions are welcome there as issues.
+
 ## Data sources
 
 All source documents are saved in the repository under `data-raw/`, and each is converted to a table in `data/` by the script listed. Scripts stop with an error, rather than guessing, when a row doesn't pass its checks.
@@ -292,7 +294,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 
 ## Reproducing the data
 
-From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
+Clone [the repository](https://github.com/jminnier/pps-dli-explorer) and run these from its root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
 
 ```sh
 python3 data-raw/parse_immersion_profiles.py
