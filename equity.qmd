@@ -37,6 +37,11 @@ fol <- read_data("equity_pps_follow.csv")
 fol1 <- fol |> filter(year == "2027-28")
 ses <- read_data("equity_se_seats.csv"); sx <- function(k, col) ses[[col]][ses$key == k]
 sctx <- read_data("equity_site_context.csv"); sc <- function(k, col) sctx[[col]][sctx$key == k]
+rig_own <- sites |> filter(school_key == "rigler", language == "Spanish", band == "K-5") |> select(scenario, own_area)
+ge_r <- read_data("guide_enrollment.csv") |> filter(school == "Rigler", year %in% c("2027-28", "2031-32"))
+gr <- function(sc, yr) ge_r$enrollment[ge_r$scenario == sc & ge_r$year == yr]
+gs_r <- read_data("guide_school.csv") |> filter(school == "Rigler")
+gsr <- function(opt, col) gs_r[[col]][gs_r$option == opt]
 capt <- read_data("equity_capture.csv")
 cv <- function(gr, yr, col = "capture") capt[[col]][capt$group == gr & capt$year == yr]
 SE <- "Southeast (excluding Lent)"; REST <- "Rest of PPS"
@@ -53,7 +58,7 @@ fol_range <- sprintf("%.0f–%.0f%%", 100 * min(fol1$followed), 100 * max(fol1$f
 - **Moving a program loses the families who would have joined it.** After PPS moved Bridger's Spanish program to Lent in 2023, kindergarten immersion enrollment fell 31%, against 14% district-wide. The 2023 plan had projected Lent at 527 students; it has `r fmt_n(sum(by_grade$enrollment[by_grade$key == "lent" & by_grade$year == "2025-26"]))`. PPS's own school projections now expect only `r fol_range` of students in a moved program to follow it; the rest stay at neighborhood schools. By PPS's own numbers, the moves shrink immersion ([§5](#sec-optout)).
 - **The last round of changes moved neighborhood enrollment too.** Since the 2023 Southeast changes, the share of Southeast elementary children attending their own neighborhood school fell from `r fmt_pct(cv(SE, "2022-23"))` to `r fmt_pct(cv(SE, "2025-26"))`, while it rose elsewhere in PPS. Public data can't separate how much of that drop was built into the changes and how much was families' choice ([§6](#sec-capture)).
 - **PPS's equity check can't see any of this.** It reports one move rate per group. Even so, multilingual learners are already the most-moved group ([§7](#sec-pps)).
-- **Southeast Spanish immersion is undersized for its demand.** Richmond alone enrolls `r sx("richmond", "k_2025")` Japanese kindergartners a year, more than Southeast's two Spanish programs combined (`r sx("lent", "k_2025") + sx("atkinson", "k_2025")`), while Atkinson turns away about two applicants for every one it admits. Lent's problem is that it no longer serves its own neighborhood, not a shortage of families who want Spanish ([§8](#sec-southeast)).
+- **Southeast Spanish immersion is undersized for its demand.** Richmond alone enrolls `r sx("richmond", "k_2025")` Japanese kindergartners a year, more than Southeast's two Spanish programs combined (`r sx("lent", "k_2025") + sx("atkinson", "k_2025")`), while Atkinson turns away about two applicants for every one it admits. Lent's problem is that it no longer serves its own neighborhood, not a shortage of families who want Spanish, and the plan would do the same to Rigler ([§8](#sec-southeast)).
 :::
 
 ## 1. The plan leans on moving immersion programs {#sec-relies}
@@ -328,6 +333,8 @@ sctx |> filter(key %in% c("lent", "rigler", "atkinson")) |>
   tab_source_note(md(cite("by_residence", "scenarios", "acs", "blocks")))
 ```
 
+**The plan would make Rigler more like Lent.** Rigler's guide (p. 3) says it "would remain open as a focused regional Spanish DLI K-5 school" and that "Rigler's non-DLI neighborhood boundary would shift to Scott K-5" (`r SRC$guides`). On the scenario maps Rigler `r if (isTRUE(rig_own$own_area[rig_own$scenario == "sq"]) && !isTRUE(rig_own$own_area[rig_own$scenario == "a"])) "has its own attendance area today and none in either scenario" else "keeps an attendance area"` (`r SRC$scenarios`). Lent went through the same change in 2023, and it ended up with about half the enrollment PPS projected (527 projected, `r fmt_n(sc("lent", "enrolled_2025"))` in 2025). PPS's projection for Rigler doesn't show that risk. It has Rigler growing from `r fmt_n(gr("sq", "2027-28"))` students with no changes to `r fmt_n(gr("a", "2027-28"))` with Scott's program, and still `r fmt_n(gr("a", "2031-32"))` in 2031-32. That is Rigler's current enrollment plus the arriving program, as if its neighborhood families keep choosing it after new kindergartners from its area are assigned to Scott. The guide also projects Rigler's share of multilingual-learner students falling from `r fmt_pct(as.numeric(gsr("No changes", "pct_multilingual")))` to `r fmt_pct(as.numeric(gsr("Options A and B", "pct_multilingual")))`, and its share of students in poverty from `r fmt_pct(as.numeric(gsr("No changes", "pct_poverty")))` to `r fmt_pct(as.numeric(gsr("Options A and B", "pct_poverty")))`. The guides don't say whether Rigler-area families would keep any priority to enroll there.
+
 The buildings have room. PPS's 2021 facility plan gives each building a functional capacity: its classrooms times PPS's standard class size, minus rooms set aside for other uses.
 
 ```{r}
@@ -357,6 +364,7 @@ The data points to options that would take less from immersion families. Each of
 
 - **Keep high-demand programs where the families are.** Atkinson and Beach are oversubscribed every year. Consolidate only where demand is low (James John, Sitton, Clark).
 - **In the Southeast, grow Spanish immersion where the demand is and restore Lent's neighborhood program** ([§8](#sec-southeast)).
+- **Keep Rigler's neighborhood boundary**, the feature that makes it work today, or at least guarantee its neighborhood families a seat.
 - **Move the neighborhood program instead of the immersion strand.** The plan already does this at César Chávez, where non-immersion students move to Rosa Parks so the school can become an immersion hub.
 - **Fill "underenrolled" immersion classrooms from the waitlists** instead of relocating them.
 - **Phase changes in and protect current families.** Let enrolled students finish where they are, and guarantee transportation to any relocated program.
