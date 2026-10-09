@@ -32,7 +32,7 @@ sq,K-5,Spanish,Sitton,sitton,Sitton,,true,Sitton K-5 Spanish Immersion,-122.7581
 sq,K-5,Mandarin,Clark,clark,Clark,,true,Clark K-5 Mandarin Immersion,-122.56975,45.513681
 sq,K-5,Mandarin,MLK Jr,mlkjr,MLK Jr,,true,MLK Jr K-5 Mandarin Immersion,-122.658957,45.558179
 sq,K-5,Mandarin,Woodstock,woodstock,Woodstock,,true,Woodstock K-5 Mandarin Immersion,-122.611819,45.48209
-sq,K-5,Japanese,Richmond,richmond,Richmond,,false,Richmond K-5 Japanese Immersion,-122.604573,45.505022
+sq,K-5,Japanese,Richmond,richmond,Richmond,,false,Richmond K-5 Japanese Immersion,-122.620277,45.506806
 sq,K-5,Russian,Kelly,kelly,Kelly,,true,Kelly K-5 Russian Immersion,-122.570762,45.472519
 sq,K-5,Vietnamese,Rose City Park,rosecitypark,Rose City Park,,true,Rose City Park K-5 Vietnamese Immersion,-122.603949,45.53934
 a,6-8,Spanish,Beaumont,beaumont,Beaumont,removed,,Beaumont Middle School Spanish Immersion,-122.620928,45.548721
@@ -69,7 +69,7 @@ a,K-5,Mandarin,Boise-Eliot/Humboldt,boiseeliothumboldt,Boise-Eliot/Humboldt,adde
 a,K-5,Mandarin,Clark,clark,Clark,removed,,Clark K-5 Mandarin Immersion,-122.56975,45.513681
 a,K-5,Mandarin,MLK Jr,mlkjr,MLK Jr,removed,,MLK Jr K-5 Mandarin Immersion,-122.658957,45.558179
 a,K-5,Mandarin,Woodstock,woodstock,Woodstock,kept,true,Woodstock K-5 Mandarin Immersion,-122.611819,45.48209
-a,K-5,Japanese,Richmond,richmond,Richmond,kept,false,Richmond K-5 Japanese Immersion,-122.604573,45.505056
+a,K-5,Japanese,Richmond,richmond,Richmond,kept,false,Richmond K-5 Japanese Immersion,-122.620277,45.506806
 a,K-5,Russian,Kelly,kelly,Kelly,kept,false,Kelly K-5 Russian Immersion,-122.570762,45.472518
 a,K-5,Vietnamese,Rose City Park,rosecitypark,Rose City Park,removed,,Rose City Park K-5 Vietnamese Immersion,-122.603949,45.53934
 a,K-5,Vietnamese,Vestal,vestal,Vestal,added,true,Vestal K-5 Vietnamese Immersion,-122.579491,45.524546
@@ -107,6 +107,6 @@ b,K-5,Mandarin,Boise-Eliot/Humboldt,boiseeliothumboldt,Boise-Eliot/Humboldt,adde
 b,K-5,Mandarin,Clark,clark,Clark,removed,,Clark K-5 Mandarin Immersion,-122.56975,45.513681
 b,K-5,Mandarin,MLK Jr,mlkjr,MLK Jr,removed,,MLK Jr K-5 Mandarin Immersion,-122.658957,45.558179
 b,K-5,Mandarin,Woodstock,woodstock,Woodstock,kept,true,Woodstock K-5 Mandarin Immersion,-122.611819,45.48209
-b,K-5,Japanese,Richmond,richmond,Richmond,kept,false,Richmond K-5 Japanese Immersion,-122.604573,45.505056
+b,K-5,Japanese,Richmond,richmond,Richmond,kept,false,Richmond K-5 Japanese Immersion,-122.620277,45.506806
 b,K-5,Russian,Kelly,kelly,Kelly,kept,false,Kelly K-5 Russian Immersion,-122.570762,45.472518
 b,K-5,Vietnamese,Rose City Park,rosecitypark,Rose City Park,kept,true,Rose City Park K-5 Vietnamese Immersion,-122.603949,45.53934
