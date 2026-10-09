@@ -13,6 +13,7 @@ project:
 
 website:
   title: "PPS Dual Language Immersion & Rightsizing"
+  google-analytics: "G-12LM4TCE9C"
   description: "How the Portland Public Schools rightsizing scenarios (Oct 2026) change dual language immersion: demand, sites, access and enrollment."
   navbar:
     left:
