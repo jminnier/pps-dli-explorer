@@ -13,3 +13,8 @@ table { font-variant-numeric: tabular-nums; }
 .js-plotly-plot { margin-bottom: 0.5rem; }
 .source { font-size: 0.82rem; opacity: 0.85; margin: 0.25rem 0 1.5rem; }
 .source p { margin-bottom: 0; }
+main td code { white-space: normal !important; overflow-wrap: anywhere; }
+@media (max-width: 767.98px) {
+  main table.table { display: block; overflow-x: auto; }
+  .stat .num { font-size: 1.6rem; }
+}

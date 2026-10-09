@@ -28,10 +28,11 @@ Families who want a kindergarten immersion seat apply through the PPS school-cho
 
 ```{r}
 #| label: fig-demand
+#| fig-height: 5.4
 #| fig-cap: "Kindergarten lottery applications per year (5-year average) at each program that moves, and at the school it moves to. Hover for offers and waitlists. Lent's figure counts only applicants from outside its neighborhood (see note below)."
 d <- demand |> filter(!is.na(from_apps)) |>
   mutate(label = paste0(from_school, " → ", to_school, " (", language, if_else(in_b, "", ", A only"), ")"),
-         label = factor(label, levels = rev(label)))
+         label = wrap_label(label), label = factor(label, levels = rev(label)))
 hover <- function(school, apps, wait, role) sprintf("<b>%s</b> (%s)<br>%s applications/yr<br>%s waitlisted/yr", school, role, fmt_n(apps), fmt_n(wait))
 p <- plot_ly(d, y = ~label) |>
   add_segments(x = ~from_apps, xend = ~coalesce(to_apps, from_apps), yend = ~label, showlegend = FALSE,
@@ -41,8 +42,8 @@ p <- plot_ly(d, y = ~label) |>
   add_markers(data = filter(d, !is.na(to_apps)), x = ~to_apps, name = "School receiving it (its own lottery today)",
               marker = list(color = PAL$light[["orange"]], size = 11, line = list(color = "white", width = 2)),
               text = ~hover(to_school, to_apps, to_wait, "receiving the program"), hoverinfo = "text")
-viz_layout(p, xtitle = "Kindergarten applications per year", ytitle = NULL) |>
-  layout(xaxis = list(rangemode = "tozero"), yaxis = list(tickfont = list(size = 12)), height = 380)
+viz_layout(p, xtitle = "Applications per year", ytitle = NULL) |>
+  layout(xaxis = list(rangemode = "tozero"), yaxis = list(tickfont = list(size = 12)))
 ```
 
 ::: {.source}
@@ -99,6 +100,7 @@ This is an estimate: before 2024-25 PPS publishes immersion counts by school but
 
 ```{r}
 #| label: fig-waitlist
+#| fig-height: 5
 #| fig-cap: "Kindergarten waitlist at each Spanish immersion program, by lottery year. Blue: program moves away in both scenarios. Orange: school receives a moved program. Gray: unchanged."
 sending <- unique(demand$from_key[demand$language == "Spanish"])
 receiving <- unique(demand$to_key[demand$language == "Spanish"])
@@ -118,7 +120,7 @@ for (s in unique(w$key)) {
 last <- w |> filter(year == max(year), waitlisted >= 8)
 p <- add_annotations(p, data = last, x = ~year, y = ~waitlisted, text = ~school, xanchor = "left", showarrow = FALSE,
                      xshift = 8, font = list(size = 12, color = PAL$ink2))
-viz_layout(p, ytitle = "Waitlisted applications") |> layout(xaxis = list(type = "category"), yaxis = list(rangemode = "tozero"), height = 400)
+viz_layout(p, ytitle = "Waitlisted applications") |> layout(xaxis = list(type = "category"), yaxis = list(rangemode = "tozero"))
 ```
 
 ::: {.source}
