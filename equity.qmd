@@ -291,6 +291,8 @@ Even this table shows **multilingual learners as the most-moved group** (31% in 
 
 In Southeast Portland, PPS offers more kindergarten seats in Japanese than in Spanish. Richmond, a whole-school Japanese immersion school, enrolled `r sx("richmond", "k_2025")` kindergartners in October 2025 (`r fmt_n(sx("richmond", "school_total"))` students in all). Southeast's two Spanish programs, Lent and Atkinson, enrolled `r sx("lent", "k_2025") + sx("atkinson", "k_2025")` between them. Le Monde, a French immersion charter school, enrolled `r sx("lemonde", "k_2025")`, more than any Spanish program in the district except Rigler. District-wide, Spanish still has the most immersion seats; the gap is in the Southeast, home to the district's most oversubscribed Spanish program.
 
+The only other Spanish immersion option nearby is private. The International School of Portland, in South Waterfront across the river from inner Southeast, runs Spanish, Chinese and Japanese immersion tracks and charges tuition. It enrolled 376 students from preschool through 5th grade in 2023-24, including 72 kindergartners, but doesn't publish enrollment by language (`r SRC$isp`).
+
 ```{r}
 #| label: tbl-se-seats
 ses |>
