@@ -18,6 +18,8 @@
 #   data/equity_home_distance.csv  home-to-school distance before/after, per scenario x change
 #   data/equity_pps_follow.csv share of a moved program PPS's school guides project to arrive / stay (guide_enrollment.csv + psu_forecast.csv)
 #   data/equity_capture.csv    neighborhood capture rates: Lent, Southeast elementary areas, rest of PPS (capture_rate.csv)
+#   data/equity_se_seats.csv   Southeast Spanish vs Richmond / Le Monde kindergarten seats and lottery demand
+#   data/equity_site_context.csv  Lent, Rigler, Atkinson, Creston: distance to district edge, own-area share, nearby Spanish speakers
 #
 # Usage: Rscript data-raw/equity_analysis.R
 
@@ -353,3 +355,38 @@ cap <- cr |> filter(level == "Elementary", row_type == "school") |>
 write_csv(cap, here("data", "equity_capture.csv"))
 cat("\nNeighborhood capture rate, elementary areas:\n")
 print(as.data.frame(cap |> select(year, group, capture) |> mutate(capture = round(100 * capture, 1)) |> pivot_wider(names_from = group, values_from = capture)), row.names = FALSE)
+
+# ---- Southeast Spanish immersion: seats vs demand, and Lent vs Rigler as whole-school sites --------
+# Kindergarten immersion seats (October 2025 kindergarten enrollment) and five-year lottery averages
+# for Southeast Spanish (Atkinson, Lent), Richmond (Japanese) and Le Monde (French charter).
+# Site context for whole-school / candidate sites: distance to the district edge, share of students
+# living in the school's own area (Enrollment by Neighborhood of Residence), school-age Spanish speakers
+# within 1.5 miles. Richmond's point on the pps-explorer map duplicates Atkinson's, so no distance is
+# computed for Richmond.
+k25 <- by_grade |> filter(year == "2025-26", grade == "K")
+kseat <- function(k, lang = NULL) sum(k25$enrollment[k25$key == k & (is.null(lang) | k25$language %in% lang)])
+se_seats <- tibble(
+  program = c("Richmond (Japanese)", "Le Monde (French, charter)", "Lent (Spanish)", "Atkinson (Spanish)"),
+  key = c("richmond", "lemonde", "lent", "atkinson"),
+  k_2025 = c(kseat("richmond"), kseat("lemonde"), kseat("lent", "Spanish"), kseat("atkinson", "Spanish")),
+  school_total = vapply(c("richmond", "lemonde", "lent", "atkinson"), \(k) sum(by_grade$enrollment[by_grade$key == k & by_grade$year == "2025-26" &
+    (k %in% c("richmond", "lemonde", "lent") | by_grade$language %in% "Spanish")]), 0)) |>
+  left_join(select(lottery_avg, key, applications, offered, waitlisted, years), by = "key")
+stopifnot(all(se_seats$k_2025 > 0))
+write_csv(se_seats, here("data", "equity_se_seats.csv"))
+
+ebn25 <- read_csv(here("data", "enroll_by_neighborhood.csv"), show_col_types = FALSE) |> filter(year == "2025-26") |> mutate(key = school_key(school))
+site_keys <- c(Lent = "lent", Rigler = "rigler", Atkinson = "atkinson", Creston = "creston")
+spts <- st_read(here("public", "data", "sq_k5_schools.geojson"), quiet = TRUE) |> mutate(key = school_key(name)) |>
+  filter(key %in% site_keys) |> group_by(key) |> slice(1) |> ungroup() |> st_transform(CRS)
+edge <- st_boundary(st_union(st_make_valid(st_transform(st_read(here("public", "data", "sq_912.geojson"), quiet = TRUE), CRS))))
+dsp <- st_distance(bp, spts) / M_PER_MI
+site_ctx <- tibble(school = names(site_keys), key = site_keys) |>
+  left_join(tibble(key = spts$key, edge_mi = as.numeric(st_distance(spts, edge)) / M_PER_MI,
+                   spanish_517_within_1_5mi = vapply(seq_len(nrow(spts)), \(i) sum(blocks$sp517[as.numeric(dsp[, i]) <= 1.5]), 0)), by = "key") |>
+  left_join(ebn25 |> filter(program %in% c("Spanish Immersion") | (key == "rigler" & is.na(program))) |>
+              group_by(key) |> summarise(own_area = sum(students[area_level == "own_neighborhood"]),
+                                         out_of_district = sum(students[area_level == "other"]), students = first(row_total)), by = "key")
+write_csv(site_ctx, here("data", "equity_site_context.csv"))
+cat("\nSoutheast seats vs demand:\n"); print(as.data.frame(se_seats), row.names = FALSE)
+cat("\nWhole-school site context:\n"); print(as.data.frame(site_ctx), row.names = FALSE)

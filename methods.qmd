@@ -270,6 +270,15 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 
 - *Limits*: high-school areas are large, so students living outside their school's area are placed only roughly; César Chávez's row covers grades K-8 though only grades 6-8 move to George; straight-line distances.
 
+### Southeast seats, demand and site context (sources 2, 4, 9, 10, 19)
+
+- *Kindergarten seats* = October 2025 kindergarten enrollment (source 2): Richmond and Le Monde whole school; Lent and Atkinson Spanish immersion. *Program students* = all grades of the same programs. Lottery columns are the five-year averages defined above; Le Monde is a charter with its own admissions and isn't in the PPS lottery reports.
+- *Southeast Spanish* means the two Spanish immersion sites in the Franklin and Cleveland high-school areas, Lent and Atkinson.
+- *Miles to district edge*: straight line from the school's location on the status-quo map (source 8) to the boundary of the union of the high-school attendance areas.
+- *Own area*: Spanish immersion students living in the school's own attendance area (source 19); Rigler and Lent are whole-school.
+- *School-age Spanish speakers within 1.5 miles*: ACS tract counts spread over census blocks by population under 18 (sources 9 and 10), summed over blocks within 1.5 miles.
+- Richmond's point on the pps-explorer map is a copy of Atkinson's (SE 58th & Division); Richmond is actually on SE 41st/42nd, just north of Division. No distance on this site uses Richmond's point.
+
 ## Reproducing the data
 
 From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:

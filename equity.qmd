@@ -35,6 +35,8 @@ prec <- "Bridger to Lent precedent"
 displaced_a <- g("a", DLI, "students") + g("a", CLO, "students")
 fol <- read_data("equity_pps_follow.csv")
 fol1 <- fol |> filter(year == "2027-28")
+ses <- read_data("equity_se_seats.csv"); sx <- function(k, col) ses[[col]][ses$key == k]
+sctx <- read_data("equity_site_context.csv"); sc <- function(k, col) sctx[[col]][sctx$key == k]
 capt <- read_data("equity_capture.csv")
 cv <- function(gr, yr, col = "capture") capt[[col]][capt$group == gr & capt$year == yr]
 SE <- "Southeast (excluding Lent)"; REST <- "Rest of PPS"
@@ -51,6 +53,7 @@ fol_range <- sprintf("%.0f–%.0f%%", 100 * min(fol1$followed), 100 * max(fol1$f
 - **Moving a program loses the families who would have joined it.** After PPS moved Bridger's Spanish program to Lent in 2023, kindergarten immersion enrollment fell 31%, against 14% district-wide. The 2023 plan had projected Lent at 527 students; it has `r fmt_n(sum(by_grade$enrollment[by_grade$key == "lent" & by_grade$year == "2025-26"]))`. PPS's own school projections now expect only `r fol_range` of students in a moved program to follow it; the rest stay at neighborhood schools. By PPS's own numbers, the moves shrink immersion ([§5](#sec-optout)).
 - **The last round of changes moved neighborhood enrollment too.** Since the 2023 Southeast changes, the share of Southeast elementary children attending their own neighborhood school fell from `r fmt_pct(cv(SE, "2022-23"))` to `r fmt_pct(cv(SE, "2025-26"))`, while it rose elsewhere in PPS. Public data can't separate how much of that drop was built into the changes and how much was families' choice ([§6](#sec-capture)).
 - **PPS's equity check can't see any of this.** It reports one move rate per group. Even so, multilingual learners are already the most-moved group ([§7](#sec-pps)).
+- **Southeast Spanish immersion is undersized for its demand.** Richmond alone enrolls `r sx("richmond", "k_2025")` Japanese kindergartners a year, more than Southeast's two Spanish programs combined (`r sx("lent", "k_2025") + sx("atkinson", "k_2025")`), while Atkinson turns away about two applicants for every one it admits. Lent's problem is that it no longer serves its own neighborhood, not a shortage of families who want Spanish ([§8](#sec-southeast)).
 :::
 
 ## 1. The plan leans on moving immersion programs {#sec-relies}
@@ -284,11 +287,53 @@ Even this table shows **multilingual learners as the most-moved group** (31% in 
 - A move to the next school over and a program relocated across town count the same.
 - It has no row for immersion students, Latino students or home language. It does not measure distance, and it does not account for families who stop following a program.
 
-## 8. What a different solution could look like {#sec-alternatives}
+## 8. Southeast Spanish immersion is undersized for its demand {#sec-southeast}
+
+In Southeast Portland, PPS offers more kindergarten seats in Japanese than in Spanish. Richmond, a whole-school Japanese immersion school, enrolled `r sx("richmond", "k_2025")` kindergartners in October 2025 (`r fmt_n(sx("richmond", "school_total"))` students in all). Southeast's two Spanish programs, Lent and Atkinson, enrolled `r sx("lent", "k_2025") + sx("atkinson", "k_2025")` between them. Le Monde, a French immersion charter school, enrolled `r sx("lemonde", "k_2025")`, more than any Spanish program in the district except Rigler. District-wide, Spanish still has the most immersion seats; the gap is in the Southeast, home to the district's most oversubscribed Spanish program.
+
+```{r}
+#| label: tbl-se-seats
+ses |>
+  select(program, k_2025, school_total, applications, offered, waitlisted) |>
+  mutate(ratio = applications / offered) |>
+  gt() |>
+  cols_label(program = "", k_2025 = "Kindergartners, Oct 2025", school_total = "Program students, Oct 2025",
+             applications = "Applications", offered = "Offers", waitlisted = "Waitlisted", ratio = "Applications per offer") |>
+  tab_spanner("Kindergarten lottery, average per year", c(applications, offered, waitlisted, ratio)) |>
+  fmt_number(c(k_2025, school_total, applications, offered, waitlisted), decimals = 0) |> fmt_number(ratio, decimals = 1) |>
+  sub_missing(missing_text = "–") |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = program == "Atkinson (Spanish)")) |>
+  tab_header(title = "Southeast immersion: kindergarten seats and demand") |>
+  tab_source_note("Lottery: 2022-23 to 2026-27 average. Le Monde is a charter school and runs its own admissions, so it isn't in the PPS lottery reports. Lent's lottery counts only families from outside its neighborhood (see the Demand & scorecard page). Applications are not children: a family can apply to several programs.") |>
+  tab_source_note(md(cite("by_grade", "lottery")))
+```
+
+Richmond admits most of the families who apply; Atkinson admits about one in five. Atkinson's waitlist alone, about `r fmt_n(sx("atkinson", "waitlisted"))` applications a year, is larger than its kindergarten class. Because families can apply to several programs, this doesn't count children exactly, but it suggests a second Atkinson class each year could likely be filled from the waitlist alone. PPS's plan moves this program to Lent instead, and its school guide gives the reason: "Moving Atkinson DLI to Lent brings Lent's student numbers above steady target levels (400+ students)" (`r SRC$guides`).
+
+**Lent's problem is its neighborhood, not its distance from the center.** Lent sits about `r sprintf("%.1f", sc("lent", "edge_mi"))` miles from the district's edge, and families describe students crossing "205, 92nd and 82nd Ave" to reach Marysville, its old neighborhood program's new home (`r SRC$audit_schools`, p. 46). But Rigler is also about `r sprintf("%.1f", sc("rigler", "edge_mi"))` miles from the edge, and it works as a whole-school Spanish immersion school that serves its own neighborhood: `r sc("rigler", "own_area")` of its `r sc("rigler", "students")` students live in its attendance area. At Lent, after its neighborhood program was moved out, `r sc("lent", "own_area")` of `r sc("lent", "students")` do. Lent's surroundings aren't short of Spanish speakers either: about `r fmt_n(sc("lent", "spanish_517_within_1_5mi"))` school-age Spanish speakers live within 1.5 miles of it, against `r fmt_n(sc("atkinson", "spanish_517_within_1_5mi"))` near Atkinson. What Lent lacks is the English-speaking families who fill Atkinson's waitlist, and they live closer to Atkinson.
+
+```{r}
+#| label: tbl-sites-context
+sctx |> filter(key %in% c("lent", "rigler", "atkinson")) |>
+  mutate(school = factor(school, c("Rigler", "Lent", "Atkinson")), own = own_area / students) |> arrange(school) |>
+  select(school, edge_mi, students, own_area, own, spanish_517_within_1_5mi) |>
+  gt() |>
+  cols_label(school = "", edge_mi = "Miles to district edge", students = "Spanish immersion students", own_area = "Live in school's own area",
+             own = "Share", spanish_517_within_1_5mi = "School-age Spanish speakers within 1.5 mi") |>
+  fmt_number(edge_mi, decimals = 1) |> fmt_number(c(students, own_area, spanish_517_within_1_5mi), decimals = 0) |> fmt_percent(own, decimals = 0) |>
+  tab_header(title = "Two whole-school Spanish sites at the district's edge", subtitle = "October 2025; Atkinson for comparison") |>
+  tab_source_note("Distances are straight lines from the school's map location to the PPS boundary. School-age Spanish speakers are ACS estimates spread over census blocks (see methods).") |>
+  tab_source_note(md(cite("by_residence", "scenarios", "acs", "blocks")))
+```
+
+That points to a different plan for the Southeast. Put Spanish immersion where the demand is, by growing it at Atkinson or opening a Southeast Spanish site in a building the plan frees up, such as Creston, which closes in both scenarios (`r SRC$guides`). Then give Lent back a neighborhood program serving its own families, many of them Spanish speakers. Two questions need answers before that could work. PPS hasn't published building capacities, so whether Atkinson or Creston could hold a full school can't be checked here. And two-way immersion needs native speakers: about `r fmt_n(sc("creston", "spanish_517_within_1_5mi"))` school-age Spanish speakers live within 1.5 miles of Creston, fewer than near Atkinson or Lent, so a site there would need to recruit them.
+
+## 9. What a different solution could look like {#sec-alternatives}
 
 The data points to options that would take less from immersion families. Each of these deserves to be evaluated before a decision:
 
 - **Keep high-demand programs where the families are.** Atkinson and Beach are oversubscribed every year. Consolidate only where demand is low (James John, Sitton, Clark).
+- **In the Southeast, grow Spanish immersion where the demand is and restore Lent's neighborhood program** ([§8](#sec-southeast)).
 - **Move the neighborhood program instead of the immersion strand.** The plan already does this at César Chávez, where non-immersion students move to Rosa Parks so the school can become an immersion hub.
 - **Fill "underenrolled" immersion classrooms from the waitlists** instead of relocating them.
 - **Phase changes in and protect current families.** Let enrolled students finish where they are, and guarantee transportation to any relocated program.
