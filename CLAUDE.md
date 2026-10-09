@@ -12,7 +12,7 @@ This is an independent analysis of how the Portland Public Schools (PPS) rightsi
 - `data/`: cleaned tables, the only inputs the site reads.
 - `R/site_data.R`: loads every table, plus `school_key()` (the same normalization as the map's `schoolKey`, so map, PPS and lottery names join), lottery summaries (`lottery_k`, `lottery_avg`), `strand_students()`, `heritage_share()`, and the source citations `SRC` / `cite()`.
 - `R/charts.R`: `viz_layout()` for plotly styling.
-- Pages: `index.qmd`, `scorecard.qmd`, `equity.qmd`, `methods.qmd`. Register new pages in `_quarto.yml` (`project.render` and `navbar`).
+- Pages: `index.qmd`, `scorecard.qmd`, `equity.qmd`, `history.qmd`, `methods.qmd`. Register new pages in `_quarto.yml` (`project.render` and `navbar`).
 
 ## Commands
 

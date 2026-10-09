@@ -1,0 +1,155 @@
+---
+title: "Lent and César Chávez"
+subtitle: "Two Spanish immersion schools, from 2019 to PPS's 2031 projections"
+---
+
+```{r}
+source("R/site_data.R")
+source("R/charts.R")
+library(gt)
+he <- read_data("history_enrollment.csv")
+hp <- read_data("history_projection.csv")
+cr <- read_data("capture_rate.csv") |> filter(neighborhood %in% c("Lent", "César Chávez"), row_type == "school")
+ebn <- read_data("enroll_by_neighborhood.csv") |> filter(school %in% c("Lent", "César Chávez"), program == "Spanish Immersion")
+dem <- read_data("school_demographics.csv") |> filter(name %in% c("Lent", "César Chávez"), year == "2025-26")
+fcap <- read_data("facility_capacity_2021.csv")
+gs <- read_data("guide_school.csv") |> filter(school %in% c("Lent", "Cesar Chavez"))
+fcl <- read_data("equity_forecast_check.csv")
+v <- function(s, p, y) he$enrollment[he$school == s & he$program == p & he$year == y]
+pj <- function(s, sc, y) hp$enrollment[hp$school == s & hp$scenario == sc & hp$year == y]
+cap <- function(s, y, col = "own_neighborhood_school") cr[[col]][cr$neighborhood == s & cr$year == y]
+capr <- function(s, y) cap(s, y) / cap(s, y, "total")
+own <- function(s, y) { d <- ebn |> filter(school == s, year == y); sum(d$students[d$area_level == "own_neighborhood"]) / d$row_total[1] }
+dm <- function(s, rt, col) dem[[col]][dem$name == s & dem$row_type == rt]
+fc <- function(site) fcap$functional_capacity[fcap$site == site]
+cc_g <- by_grade |> filter(key == "cesarchavez", year == "2025-26", grade != "PK") |>
+  mutate(program = if_else(language %in% "Spanish", "Spanish immersion", "Neighborhood program"),
+         band = if_else(grade %in% c("6", "7", "8"), "Grades 6-8", "Grades K-5"))
+ccg <- function(p, b) sum(cc_g$enrollment[cc_g$program == p & cc_g$band == b])
+```
+
+Lent and César Chávez are the two schools that show what the scenarios would mean for Spanish immersion. **Lent** is the precedent. In 2023 PPS moved Bridger's Spanish program into Lent and moved Lent's neighborhood program out, making it an all-immersion school. **César Chávez** is the plan's main new hub. In both scenarios it becomes a K-5 regional Spanish immersion school, taking in the programs from Beach, Sitton and James John. Its neighborhood students move to Rosa Parks and its middle grades to George.
+
+## 1. Enrollment since 2019 {#sec-enrollment}
+
+```{r}
+#| label: fig-history
+#| fig-height: 4.6
+#| fig-cap: "October enrollment, kindergarten through grade 12, by program. Lent and Bridger were K-8 schools until 2021-22, when their middle grades moved out; César Chávez is still K-8. In 2023-24 Bridger's Spanish program moved to Lent and Lent's neighborhood program moved to Marysville. Hover for counts."
+d <- he |> filter(program != "Total", !(school == "Bridger" & year >= "2023-24"), !(school == "Lent" & program == "Neighborhood" & year >= "2023-24")) |>
+  mutate(series = paste(school, tolower(program)), series = sub("spanish", "Spanish immersion", series), series = sub("neighborhood$", "neighborhood program", series))
+lev <- c("Lent Spanish immersion", "Bridger Spanish immersion", "Lent neighborhood program", "César Chávez Spanish immersion", "César Chávez neighborhood program")
+col <- setNames(c(PAL$light[["blue"]], PAL$light[["aqua"]], PAL$light[["orange"]], PAL$light[["blue"]], PAL$light[["orange"]]), lev)
+dash <- setNames(c("solid", "solid", "solid", "dot", "dot"), lev)
+p <- plot_ly()
+for (s in lev) {
+  ds <- filter(d, series == s)
+  p <- add_trace(p, data = ds, x = ~year, y = ~enrollment, type = "scatter", mode = "lines+markers", name = s,
+                 line = list(color = col[[s]], width = 2, dash = dash[[s]]), marker = list(color = col[[s]], size = 8),
+                 text = ~sprintf("<b>%s</b> %s<br>%s students (%s school)", series, year, fmt_n(enrollment), grades), hoverinfo = "text")
+}
+viz_layout(p, ytitle = "Students (K-12)") |>
+  layout(xaxis = list(type = "category"), yaxis = list(rangemode = "tozero"),
+         annotations = list(list(x = "2023-24", y = 360, text = "Bridger's program moves to Lent", showarrow = FALSE, xanchor = "left", xshift = 4, font = list(size = 11, color = PAL$ink2))))
+```
+
+::: {.source}
+`r cite("psu_premove")`
+:::
+
+Before the move, the Spanish programs at Bridger and Lent together had `r fmt_n(v("Bridger", "Spanish", "2022-23") + v("Lent", "Spanish", "2022-23"))` students in grades K-5 (2022-23). The combined program at Lent opened with `r fmt_n(v("Lent", "Spanish", "2023-24"))` and has `r fmt_n(v("Lent", "Spanish", "2025-26"))` today. César Chávez's Spanish program has held steady at about `r round(mean(he$enrollment[he$school == "César Chávez" & he$program == "Spanish"]), -1)` students, while its neighborhood program has shrunk from `r fmt_n(v("César Chávez", "Neighborhood", "2019-20"))` to `r fmt_n(v("César Chávez", "Neighborhood", "2025-26"))`. (The drop from 2020-21 to 2021-22 at Lent and Bridger is their middle grades moving out, not lost students.)
+
+## 2. Lent after the 2023 move {#sec-lent}
+
+**Enrollment fell short of every projection.** PPS's 2023 plan expected Lent to reach "an estimated 527 students in 2025–26" (`r SRC$audit_schools`, p. 34). PSU's June 2023 forecast, built with the move, had Lent at `r fmt_n(fcl$forecast[fcl$target == "Lent" & fcl$vintage == "2023-24" & fcl$year == "2025-26"])` that year (`r SRC$psu_premove`). Lent enrolled `r fmt_n(v("Lent", "Total", "2025-26"))`. Kindergarten immersion fell about 31%, against 14% district-wide ([details](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)).
+
+**Lent no longer serves its neighborhood.** In 2022-23, `r fmt_pct(capr("Lent", "2022-23"))` of PPS students living in Lent's area attended Lent. After the conversion that fell to `r fmt_pct(capr("Lent", "2023-24"))`, mostly by design: Lent's non-immersion neighborhood children were assigned to Marysville. Today `r fmt_pct(own("Lent", "2025-26"))` of Lent's students live in its area. Lent's students are now `r fmt_pct(dm("Lent", "School", "pct_latino"))` Latino, while PPS students living in Lent's area are `r fmt_pct(dm("Lent", "Neighborhood", "pct_latino"))` Latino (`r SRC$demographics`).
+
+**Staff and families describe a hard transition.** "A lot of the parents who pushed from Bridger for their kids to come to the school didn't end up staying…they felt like it was out of their way [and that] their students didn't feel supported" (`r SRC$audit_schools`, p. 39). After 2022-23, 63% of Lent's staff left (p. 39). More accounts are on the [Equity page](equity.qmd#sec-optout).
+
+```{r}
+#| label: tbl-lent-capture
+cr |> filter(neighborhood == "Lent") |>
+  left_join(ebn |> filter(school == "Lent") |> group_by(year) |> summarise(own = sum(students[area_level == "own_neighborhood"]), students = first(row_total)), by = "year") |>
+  transmute(year, total, own_neighborhood_school, capture = own_neighborhood_school / total, students, own_share = own / students) |>
+  gt() |>
+  cols_label(year = "Year", total = "PPS students living in Lent's area", own_neighborhood_school = "Attend Lent",
+             capture = "Share (capture rate)", students = "Lent students", own_share = "Share living in Lent's area") |>
+  tab_spanner("Lent's neighborhood", c(total, own_neighborhood_school, capture)) |>
+  tab_spanner("Lent school", c(students, own_share)) |>
+  fmt_number(c(total, own_neighborhood_school, students), decimals = 0) |> fmt_percent(c(capture, own_share), decimals = 0) |>
+  sub_missing(missing_text = "–") |>
+  tab_header(title = "Lent and its neighborhood, 2019-20 to 2025-26") |>
+  tab_source_note("Capture rate: share of PPS students (K-12) living in the attendance area who attend the area's school. The 2023-24 drop is largely by design: Lent's non-immersion neighborhood children were assigned to Marysville, which PPS counts as another neighborhood school. Lent was K-8 until 2021-22. Where Lent's students live is published from 2023-24.") |>
+  tab_source_note(md(cite("capture", "by_residence")))
+```
+
+## 3. César Chávez today {#sec-chavez}
+
+César Chávez is a K-8 school with a Spanish immersion program and a smaller neighborhood program. In October 2025 it had `r fmt_n(ccg("Spanish immersion", "Grades K-5"))` immersion students in grades K-5 and `r fmt_n(ccg("Spanish immersion", "Grades 6-8"))` in grades 6-8, plus `r fmt_n(ccg("Neighborhood program", "Grades K-5") + ccg("Neighborhood program", "Grades 6-8"))` in its neighborhood program. `r fmt_pct(own("César Chávez", "2025-26"))` of its immersion students live in its own attendance area, and `r fmt_pct(capr("César Chávez", "2025-26"))` of PPS students living in its area attend it, up from `r fmt_pct(capr("César Chávez", "2019-20"))` in 2019-20.
+
+```{r}
+#| label: tbl-chavez
+tibble(program = c("Spanish immersion", "Neighborhood program")) |>
+  mutate(k5 = vapply(program, ccg, 0, b = "Grades K-5"), m = vapply(program, ccg, 0, b = "Grades 6-8"), total = k5 + m,
+         fate = c("Stays; joined by Beach, Sitton and James John immersion (grades 6-8 move to George)", "Grades K-5 move to Rosa Parks; grades 6-8 to George")) |>
+  gt() |>
+  cols_label(program = "", k5 = "Grades K-5", m = "Grades 6-8", total = "Total", fate = "In Scenarios A and B") |>
+  fmt_number(c(k5, m, total), decimals = 0) |>
+  tab_header(title = "César Chávez, October 2025") |>
+  tab_source_note(md(paste("Enrollment excludes pre-kindergarten. Scenario changes as described in César Chávez's school guide:", '"César Chávez would change from a K-8 to a focused K-5 regional Spanish DLI school."'))) |>
+  tab_source_note(md(cite("by_grade", "guides")))
+```
+
+```{r}
+#| label: tbl-demographics
+dem |> mutate(row_type = if_else(row_type == "School", "Attending the school", "Living in its attendance area")) |>
+  select(name, row_type, enrollment, pct_latino, pct_white, pct_direct_cert, pct_ell, pct_hist_underserved) |>
+  gt(groupname_col = "name") |>
+  cols_label(row_type = "PPS students", enrollment = "Students", pct_latino = "Latino", pct_white = "White",
+             pct_direct_cert = "Low-income (direct certification)", pct_ell = "English learners", pct_hist_underserved = "Historically underserved") |>
+  fmt_number(enrollment, decimals = 0) |> fmt_percent(starts_with("pct"), decimals = 0) |>
+  tab_header(title = "Who attends, and who lives nearby, October 2025") |>
+  tab_source_note("Whole-school figures, kindergarten through grade 12. \"Living in its attendance area\" counts PPS students who live in the school's area, whichever school they attend.") |>
+  tab_source_note(md(cite("demographics")))
+```
+
+## 4. What the scenarios would do {#sec-scenarios}
+
+```{r}
+#| label: fig-projection
+#| fig-height: 5.2
+#| fig-cap: "Total enrollment: October actuals through 2025-26, then PPS's projections from its school guides, with no changes and under Scenarios A and B (identical for these two schools). Hover for counts."
+act <- he |> filter(program == "Total", school %in% c("Lent", "César Chávez"), year >= "2021-22") |> transmute(school, year, enrollment, line = "Actual")
+prj <- hp |> filter(scenario %in% c("sq", "a")) |> transmute(school, year, enrollment, line = if_else(scenario == "sq", "PPS projection, no changes", "PPS projection, Scenarios A and B"))
+dd <- bind_rows(act, prj)
+yrs <- c("2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27", "2027-28", "2028-29", "2029-30", "2030-31", "2031-32")
+lcol <- c(Lent = PAL$light[["blue"]], `César Chávez` = PAL$light[["orange"]])
+ldash <- c(Actual = "solid", `PPS projection, no changes` = "dot", `PPS projection, Scenarios A and B` = "dash")
+p <- plot_ly()
+for (s in names(lcol)) for (l in names(ldash)) {
+  ds <- filter(dd, school == s, line == l)
+  if (!nrow(ds)) next
+  p <- add_trace(p, data = ds, x = ~year, y = ~enrollment, type = "scatter", mode = "lines+markers", name = paste0(s, ": ", sub("^PPS projection, ", "PPS projection, ", l)),
+                 line = list(color = lcol[[s]], width = 2, dash = ldash[[l]]), marker = list(color = lcol[[s]], size = 7),
+                 text = ~sprintf("<b>%s</b> %s<br>%s: %s students", school, year, line, fmt_n(enrollment)), hoverinfo = "text")
+}
+viz_layout(p, ytitle = "Students") |> layout(xaxis = list(type = "category", categoryarray = yrs, categoryorder = "array"), yaxis = list(rangemode = "tozero"),
+                                              legend = list(orientation = "h", x = 0, y = -0.18, xanchor = "left", yanchor = "top"))
+```
+
+::: {.source}
+`r cite("psu_premove", "guides")`
+:::
+
+PPS projects **Lent** at `r fmt_n(pj("Lent", "a", "2027-28"))` students in 2027-28 once Atkinson's program arrives, against `r fmt_n(pj("Lent", "sq", "2027-28"))` with no changes. Its guide says the move "brings Lent's student numbers above steady target levels (400+ students)" (`r SRC$guides`). That would still be `r fmt_pct(pj("Lent", "a", "2027-28") / fc("LENT"))` of Lent's capacity of `r fmt_n(fc("LENT"))` (`r SRC$lrfp`), below PPS's 70–100% space-use goal.
+
+**César Chávez** would go from `r fmt_n(pj("César Chávez", "sq", "2027-28"))` students with no changes to `r fmt_n(pj("César Chávez", "a", "2027-28"))`, all in Spanish immersion, which is `r fmt_pct(pj("César Chávez", "a", "2027-28") / fc("CHAVEZ"))` of its capacity of `r fmt_n(fc("CHAVEZ"))`. The guide projects its students in poverty falling from `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))` and its share of students from underserved racial groups from `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`. Those projections assume most families follow their programs. In the moves where it can be measured, PPS's projections have about 80% of students arriving ([Equity §5](equity.qmd#sec-optout)). After the 2023 move, Lent ended up at about half of the 527 PPS projected.
+
+::: {.callout-note collapse="true"}
+## Caveats
+- Enrollment is PSU's count of October enrollment, kindergarten through grade 12, as first reported in each forecast edition. PPS's own totals for Lent include pre-kindergarten (308 in 2023-24).
+- Lent and Bridger were K-8 schools until 2021-22, so earlier totals include middle grades.
+- Capture rates and demographics are whole-school or whole-area figures. PPS doesn't publish race or income for immersion programs alone.
+- PPS's projections are from school guides dated October 8, 2026 and labeled drafts. Capacities are from PPS's 2021 facility plan.
+:::

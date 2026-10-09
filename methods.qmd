@@ -282,6 +282,14 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - *Capacity* (source 21): functional capacity = permanent and modular classrooms × PPS station size, minus set-asides, as printed in the 2021 plan. *Parsing checks*: every row has three counts and five utilization percentages; all 71 sites match meub/pps-data's independent parse. *Share of capacity* = October 2025 K-5 enrollment (source 2), or PPS's 2027-28 Scenario A projection (source 16), ÷ functional capacity. PPS's operating utilization model gives different capacities for some buildings (Creston 282 without its annex; Lent 659), as noted in meub/pps-data. The "three classes per grade" figure is 3 × 6 grades × 24 students.
 - Richmond's point on the original pps-explorer map was a copy of Atkinson's (SE 58th & Division). It has been corrected in this copy to the Census Bureau geocode of its address, 2276 SE 41st Ave, just north of Division. No figure on this site depends on Richmond's location.
 
+## Lent & César Chávez page {#history}
+
+`data-raw/history_tables.R` writes `history_enrollment.csv` and `history_projection.csv`.
+
+- *Enrollment by program*, 2019-20 to 2025-26: October actuals (kindergarten through grade 12) printed in the PSU forecast editions (sources 5 and 15). Each year uses the first edition that prints it, because later editions sometimes restate past years under a school's new configuration (the 2024-25 edition prints Bridger's 2021-22 and 2022-23 totals with Creative Science included; César Chávez's totals differ by 3 between editions). Spanish immersion counts agree across editions, and the script stops if they don't. 2024-25 and 2025-26 match PPS's enrollment report (source 2, excluding pre-kindergarten) exactly.
+- *Grade configuration*: Lent and Bridger were K-8 until 2021-22, so their earlier totals include grades 6-8. César Chávez is K-8 throughout. Bridger is shown only for its Spanish program, which moved to Lent in 2023-24.
+- *Capture rate and where students live*: sources 18 and 19; *demographics*: source 12, School and Neighborhood rows; *projections*: source 16; *capacity*: source 21.
+
 ## Reproducing the data
 
 From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
@@ -303,6 +311,7 @@ Rscript data-raw/acs_language_access.R
 Rscript data-raw/check_access_robustness.R
 Rscript data-raw/equity_analysis.R
 Rscript data-raw/check_home_distance.R
+Rscript data-raw/history_tables.R
 quarto render
 ```
 

@@ -5,6 +5,7 @@ project:
     - index.qmd
     - scorecard.qmd
     - equity.qmd
+    - history.qmd
     - methods.qmd
   resources:
     - data/*.csv
@@ -21,6 +22,8 @@ website:
         text: Demand & scorecard
       - href: equity.qmd
         text: Equity
+      - href: history.qmd
+        text: Lent & César Chávez
       - href: methods.qmd
         text: Sources & methods
   page-footer:

@@ -49,9 +49,10 @@ Tiles, left to right: (1) count of K-5 Spanish immersion sites on the status quo
 
 - **[Demand & scorecard](scorecard.qmd)**: how many families apply to each immersion program, compared with the schools the programs would move to; then, for every language, the sites, students and pathways in each scenario.
 - **[Equity](equity.qmd)**: the case for a different solution for immersion families. Program moves fall on schools that are about half historically underserved, while closures fall mostly on whiter, higher-income schools. Programs with long waitlists are among those moved, and past moves lost families.
+- **[Lent & César Chávez](history.qmd)**: the 2023 Bridger → Lent move and César Chávez, the plan's new Spanish hub, from 2019 to PPS's 2031 projections.
 - **[Sources & methods](methods.qmd)**: where every number comes from and what it can't tell you.
 
-Coming next: access and travel distance, five-year enrollment history (Lent and César Chávez in focus), enrollment projections with adjustable assumptions, and the address lookup map.
+Coming next: a map of access to immersion sites, enrollment projections with adjustable assumptions, and the address lookup map.
 
 ::: {.callout-note}
 This is an independent analysis, not a PPS publication. Scenario details are as transcribed from the October 2026 board packet; check the [PPS rightsizing materials](https://meetings.boardbook.org/Public/Agenda/915?meeting=769955) for the official versions.

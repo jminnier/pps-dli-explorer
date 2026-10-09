@@ -13,9 +13,10 @@ This project builds on **[pps-explorer](https://github.com/browniefed/pps-explor
 | `index.qmd`: Overview | Four headline numbers: K-5 Spanish sites (9 → 4), share of Spanish kindergarten lottery applications going to programs that move, students in moving programs, and school-age Spanish speakers within 1 mile of a K-5 site |
 | `scorecard.qmd`: Demand & scorecard | Kindergarten lottery demand at each moving program vs its receiving school; the Bridger → Lent precedent (2023); Spanish waitlists over time; who is waitlisted; a scorecard of every program move; sites by language and grade band; distance to the nearest site |
 | `equity.qmd`: Equity | PPS's own subgroup move rates (board slide 44) next to who the closures and immersion moves actually fall on (home language), and how far families' schools would move |
+| `history.qmd`: Lent & César Chávez | Enrollment by program since 2019, the 2023 Bridger → Lent move and its projections, capture rates, César Chávez today, and PPS's projections for both schools to 2031-32 |
 | `methods.qmd`: Sources & methods | Every source, how each was parsed and checked, how each number is calculated, limitations, and how to reproduce |
 
-Planned: an access page with a map, Lent and César Chávez enrollment history, enrollment projections (Shinylive / R in the browser), the address-lookup map under `/map/`, and GitHub Pages deployment.
+Planned: an access map, enrollment projections with adjustable assumptions (likely Observable JS in Quarto rather than Shinylive), the address-lookup map under `/map/`, and GitHub Pages deployment (pending permission from the pps-explorer author).
 
 ## Repository layout
 
@@ -75,6 +76,7 @@ Rscript data-raw/acs_language_access.R      # caches Census downloads in data-ra
 Rscript data-raw/check_access_robustness.R
 Rscript data-raw/equity_analysis.R
 Rscript data-raw/check_home_distance.R
+Rscript data-raw/history_tables.R
 quarto render                               # -> _site/
 quarto preview                              # live local preview
 ```
