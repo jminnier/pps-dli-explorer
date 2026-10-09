@@ -1,0 +1,180 @@
+school,option,scenario,type_of_change,meets_size_goal,meets_space_goal,pct_within_1mi,within_1mi_raw,grades_programs,pct_poverty,pct_sped,pct_multilingual,pct_underserved_race,title1,current_program,district_size_goal,source_file,pdf_moddate
+ACCESS,No changes,sq,No changes,No,No,,Not Applicable,2-8 special-focus program,0.123,0.123,0.003,0.123,No,2-8 special-focus program,More than 500 students (general district goal),ACCESS.pdf,2026-10-08 11:40:51
+ACCESS,Options A and B,a/b,No changes proposed,No,No,,Not Applicable,2-8 special-focus program,0.123,0.123,0.003,0.123,No,2-8 special-focus program,More than 500 students (general district goal),ACCESS.pdf,2026-10-08 11:40:51
+Abernethy,No changes,sq,No changes,No,No,0.582,58.2%,K-5 neighborhood,0.112,0.145,0.015,0.149,No,K-5 neighborhood,More than 360 students,Abernethy.pdf,2026-10-08 11:40:50
+Abernethy,Options A and B,a/b,School boundary change,Yes,Yes,0.539,53.9%,K-5 neighborhood,0.175,0.159,0.027,0.177,No,K-5 neighborhood,More than 360 students,Abernethy.pdf,2026-10-08 11:40:50
+Ainsworth,No changes,sq,No changes,Yes,Yes,0.25,25.0%,K-5 neighborhood/language immersion,0.129,0.089,0.105,0.361,No,K-5 neighborhood/language immersion,More than 360 students,Ainsworth.pdf,2026-10-08 11:40:51
+Ainsworth,Options A and B,a/b,No changes proposed,Yes,Yes,0.25,25.0%,K-5 neighborhood/language immersion,0.127,0.092,0.104,0.357,No,K-5 neighborhood/language immersion,More than 360 students,Ainsworth.pdf,2026-10-08 11:40:51
+Alameda,No changes,sq,No changes,Yes,No,0.597,59.7%,K-5 neighborhood,0.06,0.189,0.012,0.138,No,K-5 neighborhood,More than 360 students,Alameda.pdf,2026-10-08 11:40:52
+Alameda,Options A and B,a/b,No changes proposed,Yes,No,0.597,59.7%,K-5 neighborhood,0.064,0.193,0.012,0.139,No,K-5 neighborhood,More than 360 students,Alameda.pdf,2026-10-08 11:40:52
+Arleta,No changes,sq,No changes,No,No,0.876,87.6%,K-5 neighborhood,0.248,0.252,0.039,0.296,No,K-5 neighborhood,More than 360 students,Arleta.pdf,2026-10-08 11:40:52
+Arleta,Options A and B,a/b,School boundary change,Yes,Yes,0.635,63.5%,K-5 neighborhood,0.369,0.243,0.077,0.369,Yes,K-5 neighborhood,More than 360 students,Arleta.pdf,2026-10-08 11:40:52
+Astor,No changes,sq,No changes,No,Yes,0.859,85.9%,K-8 neighborhood,0.298,0.243,0.028,0.365,No,K-8 neighborhood,More than 500 students,Astor.pdf,2026-10-08 11:40:53
+Astor,Options A and B,a/b,School boundary change,No,Yes,0.841,84.1%,K-8 neighborhood,0.319,0.247,0.038,0.379,No,K-8 neighborhood,More than 500 students,Astor.pdf,2026-10-08 11:40:53
+Atkinson,No changes,sq,No changes,Yes,Yes,0.859,85.9%,K-5 neighborhood/language immersion,0.322,0.199,0.213,0.44,No,K-5 neighborhood/language immersion,More than 360 students,Atkinson.pdf,2026-10-08 11:40:54
+Atkinson,Options A and B,a/b,School boundary change and Programs joining,Yes,Yes,0.582,58.2%,K-5 neighborhood,0.233,0.262,0.072,0.208,No,K-5 neighborhood/language immersion,More than 360 students,Atkinson.pdf,2026-10-08 11:40:54
+Beach,No changes,sq,No changes,No,No,0.942,94.2%,K-5 neighborhood/language immersion,0.347,0.142,0.125,0.483,Yes,K-5 neighborhood/language immersion,More than 360 students,Beach.pdf,2026-10-08 11:40:54
+Beach,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood/language immersion,More than 360 students,Beach.pdf,2026-10-08 11:40:54
+Beaumont,No changes,sq,No changes,No,No,0.742,74.2%,Middle School neighborhood/language immersion,0.236,0.2,0.115,0.329,No,Middle School neighborhood/language immersion,More than 500 students,Beaumont.pdf,2026-10-08 11:40:55
+Beaumont,Options A and B,a/b,School boundary change and Programs joining,No,No,0.595,59.5%,Middle School neighborhood,0.119,0.181,0.021,0.173,No,Middle School neighborhood/language immersion,More than 500 students,Beaumont.pdf,2026-10-08 11:40:55
+Benson,No changes,sq,No changes,Yes,No,,Not applicable,High School,0.321,0.232,0.069,0.445,No,High School,"More than 1,100 students",Benson.pdf,2026-10-08 11:40:56
+Benson,Options A and B,a/b,No changes proposed,Yes,No,,Not applicable,High School,0.321,0.232,0.069,0.445,No,High School,"More than 1,100 students",Benson.pdf,2026-10-08 11:40:56
+Beverly Cleary,No changes,sq,No changes,No,Yes,0.935,93.5%,K-8 neighborhood,0.113,0.14,0.038,0.158,No,K-8 neighborhood,More than 500 students,Beverly Cleary.pdf,2026-10-08 11:40:56
+Beverly Cleary,Options A and B,a/b,School boundary change and Grade changes,Yes,Yes,0.742,74.2%,K-5 neighborhood,0.15,0.168,0.037,0.219,No,K-8 neighborhood,More than 500 students,Beverly Cleary.pdf,2026-10-08 11:40:56
+Boise-Eliot-Humboldt,No changes,sq,No changes,No,No,0.789,78.9%,K-5 neighborhood,0.626,0.282,0.078,0.741,Yes,K-5 neighborhood,More than 360 students,Boise-Eliot-Humboldt.pdf,2026-10-08 11:40:57
+Boise-Eliot-Humboldt,Options A and B,a/b,Program Change,Yes,Yes,0.789,78.9%,K-5 neighborhood/language immersion,0.541,0.237,0.066,0.636,Yes,K-5 neighborhood,More than 360 students,Boise-Eliot-Humboldt.pdf,2026-10-08 11:40:57
+Brentwood,No changes,sq,No changes,No,No,0.276,27.6%,Middle School neighborhood/language immersion,0.575,0.257,0.186,0.465,Yes,Middle School neighborhood/language immersion,More than 500 students,Brentwood.pdf,2026-10-08 11:40:58
+Brentwood,Option A,a,School boundary change,No,No,0.321,32.1%,Middle School neighborhood/language immersion,0.321,0.216,0.09,0.269,No,Middle School neighborhood/language immersion,More than 500 students,Brentwood.pdf,2026-10-08 11:40:58
+Brentwood,Option B,b,School boundary change,Yes,Yes,0.277,27.7%,Middle School neighborhood/language immersion,0.306,0.202,0.092,0.255,No,Middle School neighborhood/language immersion,More than 500 students,Brentwood.pdf,2026-10-08 11:40:58
+Bridger-Creative Science,No changes,sq,No changes,No,Yes,0.979,97.9%,K-8 neighborhood & choice program,0.271,0.217,0.043,0.209,No,K-8 neighborhood & choice program,More than 500 students (general district goal),Bridger-Creative Science.pdf,2026-10-08 11:40:58
+Bridger-Creative Science,Options A and B,a/b,Grade changes,No,No,0.981,98.1%,K-5 neighborhood & choice program,0.239,0.204,0.035,0.185,No,K-8 neighborhood & choice program,More than 500 students (general district goal),Bridger-Creative Science.pdf,2026-10-08 11:40:58
+Bridlemile,No changes,sq,No changes,Yes,Yes,0.299,29.9%,K-5 neighborhood,0.135,0.217,0.021,0.168,No,K-5 neighborhood,More than 360 students,Bridlemile.pdf,2026-10-08 11:40:59
+Bridlemile,Options A and B,a/b,No changes proposed,Yes,Yes,0.299,29.9%,K-5 neighborhood,0.136,0.221,0.022,0.172,No,K-5 neighborhood,More than 360 students,Bridlemile.pdf,2026-10-08 11:40:59
+Buckman,No changes,sq,No changes,No,No,0.82,82.0%,K-5 neighborhood & choice program,0.364,0.258,0.071,0.297,Yes,K-5 neighborhood & arts choice program,More than 360 students (general district goal),Buckman.pdf,2026-10-08 11:41:00
+Buckman,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood & arts choice program,More than 360 students (general district goal),Buckman.pdf,2026-10-08 11:41:00
+Capitol Hill,No changes,sq,No changes,No,Yes,0.373,37.3%,K-5 neighborhood,0.188,0.135,0.005,0.234,No,K-5 neighborhood,More than 360 students,Capitol Hill.pdf,2026-10-08 11:41:00
+Capitol Hill,Option A,a,School boundary change,Yes,Yes,0.34,34.0%,K-5 neighborhood,0.169,0.138,0.005,0.218,No,K-5 neighborhood,More than 360 students,Capitol Hill.pdf,2026-10-08 11:41:00
+Capitol Hill,Option B,b,No changes proposed,No,Yes,0.373,37.3%,K-5 neighborhood,0.183,0.132,0.005,0.234,No,K-5 neighborhood,More than 360 students,Capitol Hill.pdf,2026-10-08 11:41:00
+Cesar Chavez,No changes,sq,No changes,No,No,0.828,82.8%,K-8 neighborhood/language immersion,0.657,0.21,0.357,0.815,Yes,K-8 neighborhood/language immersion,More than 500 students,Cesar Chavez.pdf,2026-10-08 11:41:04
+Cesar Chavez,Options A and B,a/b,Grade changes and Programs joining,Yes,Yes,,N/A,K-5 language immersion,0.478,0.145,0.428,0.691,Yes,K-8 neighborhood/language immersion,More than 500 students,Cesar Chavez.pdf,2026-10-08 11:41:04
+Chapman,No changes,sq,No changes,No,Yes,0.326,32.6%,K-5 neighborhood,0.531,0.179,0.088,0.412,Yes,K-5 neighborhood,More than 360 students,Chapman.pdf,2026-10-08 11:41:01
+Chapman,Options A and B,a/b,No changes proposed,No,Yes,0.326,32.6%,K-5 neighborhood,0.531,0.203,0.085,0.415,Yes,K-5 neighborhood,More than 360 students,Chapman.pdf,2026-10-08 11:41:01
+Chief Joseph,No changes,sq,No changes,No,No,0.788,78.8%,K-5 neighborhood,0.223,0.145,0.033,0.24,No,K-5 neighborhood,More than 360 students,Chief Joseph.pdf,2026-10-08 11:41:01
+Chief Joseph,Options A and B,a/b,School boundary change,Yes,Yes,0.594,59.4%,K-5 neighborhood,0.317,0.168,0.042,0.304,No,K-5 neighborhood,More than 360 students,Chief Joseph.pdf,2026-10-08 11:41:01
+Clark,No changes,sq,No changes,No,Yes,0.393,39.3%,K-5 neighborhood/language immersion,0.679,0.137,0.426,0.519,Yes,K-5 neighborhood/language immersion,More than 360 students,Clark.pdf,2026-10-08 11:41:02
+Clark,Options A and B,a/b,Programs joining,No,No,0.393,39.3%,K-5 neighborhood,0.706,0.183,0.363,0.637,Yes,K-5 neighborhood/language immersion,More than 360 students,Clark.pdf,2026-10-08 11:41:02
+Cleveland,No changes,sq,No changes,Yes,Yes,0.208,20.8%,High School,0.178,0.137,0.03,0.158,No,High School,"More than 1,100 students",Cleveland.pdf,2026-10-08 11:41:03
+Cleveland,Option A,a,School boundary change,Yes,Yes,0.206,20.6%,High School,0.168,0.129,0.029,0.149,No,High School,"More than 1,100 students",Cleveland.pdf,2026-10-08 11:41:03
+Cleveland,Option B,b,School boundary change,Yes,Yes,0.196,19.6%,High School,0.175,0.135,0.031,0.156,No,High School,"More than 1,100 students",Cleveland.pdf,2026-10-08 11:41:03
+Creston,No changes,sq,No changes,No,No,0.852,85.2%,K-5 neighborhood,0.239,0.31,0.136,0.221,No,K-5 neighborhood,More than 360 students,Creston.pdf,2026-10-08 11:41:03
+Creston,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Creston.pdf,2026-10-08 11:41:03
+Dr. Martin Luther King Jr.,No changes,sq,No changes,No,No,1.0,100.0%,K-5 neighborhood/language immersion,0.511,0.188,0.107,0.63,Yes,K-5 neighborhood/language immersion,More than 360 students,Dr. Martin Luther King Jr..pdf,2026-10-08 11:41:25
+Dr. Martin Luther King Jr.,Options A and B,a/b,School boundary change and Programs joining,Yes,No,0.647,64.7%,K-5 neighborhood,0.37,0.189,0.097,0.474,Yes,K-5 neighborhood/language immersion,More than 360 students,Dr. Martin Luther King Jr..pdf,2026-10-08 11:41:25
+Duniway,No changes,sq,No changes,No,No,0.664,66.4%,K-5 neighborhood,0.083,0.166,0.014,0.116,No,K-5 neighborhood,More than 360 students,Duniway.pdf,2026-10-08 11:41:05
+Duniway,Option A,a,School boundary change,Yes,Yes,0.726,72.6%,K-5 neighborhood,0.108,0.197,0.004,0.153,No,K-5 neighborhood,More than 360 students,Duniway.pdf,2026-10-08 11:41:05
+Duniway,Option B,b,No changes proposed,No,No,0.664,66.4%,K-5 neighborhood,0.084,0.174,0.014,0.12,No,K-5 neighborhood,More than 360 students,Duniway.pdf,2026-10-08 11:41:05
+Faubion,No changes,sq,No changes,Yes,Yes,0.514,51.4%,K-8 neighborhood,0.563,0.188,0.183,0.703,Yes,K-8 neighborhood,More than 500 students,Faubion.pdf,2026-10-08 11:41:06
+Faubion,Options A and B,a/b,Grade changes,Yes,No,0.547,54.7%,K-5 neighborhood,0.568,0.182,0.179,0.674,Yes,K-8 neighborhood,More than 500 students,Faubion.pdf,2026-10-08 11:41:06
+Forest Park,No changes,sq,No changes,No,No,0.494,49.4%,K-5 neighborhood,0.064,0.102,0.011,0.167,No,K-5 neighborhood,More than 360 students,Forest Park.pdf,2026-10-08 11:41:07
+Forest Park,Options A and B,a/b,No changes proposed,No,No,0.494,49.4%,K-5 neighborhood,0.063,0.103,0.011,0.166,No,K-5 neighborhood,More than 360 students,Forest Park.pdf,2026-10-08 11:41:07
+Franklin,No changes,sq,No changes,Yes,Yes,0.211,21.1%,High School,0.328,0.148,0.103,0.315,No,High School,"More than 1,100 students",Franklin.pdf,2026-10-08 11:41:07
+Franklin,Option A,a,School boundary change,Yes,Yes,0.216,21.6%,High School,0.337,0.157,0.106,0.325,No,High School,"More than 1,100 students",Franklin.pdf,2026-10-08 11:41:07
+Franklin,Option B,b,School boundary change,Yes,Yes,0.226,22.6%,High School,0.338,0.153,0.106,0.325,No,High School,"More than 1,100 students",Franklin.pdf,2026-10-08 11:41:07
+George,No changes,sq,No changes,No,No,0.411,41.1%,Middle School neighborhood/language immersion,0.707,0.268,0.304,0.768,Yes,Middle School neighborhood/language immersion,More than 500 students,George.pdf,2026-10-08 11:41:08
+George,Options A and B,a/b,School boundary change,Yes,No,0.286,28.6%,Middle School neighborhood/language immersion,0.593,0.24,0.242,0.723,Yes,Middle School neighborhood/language immersion,More than 500 students,George.pdf,2026-10-08 11:41:08
+Glencoe,No changes,sq,No changes,No,No,0.776,77.6%,K-5 neighborhood,0.174,0.165,0.032,0.198,No,K-5 neighborhood,More than 360 students,Glencoe.pdf,2026-10-08 11:41:09
+Glencoe,Options A and B,a/b,Program Change - Deaf and Hard of Hearing,No,No,0.776,77.6%,K-5 neighborhood,0.177,0.185,0.03,0.199,No,K-5 neighborhood,More than 360 students,Glencoe.pdf,2026-10-08 11:41:09
+Grant,No changes,sq,No changes,Yes,Yes,0.339,33.9%,High School,0.133,0.099,0.015,0.2,No,High School,"More than 1,100 students",Grant.pdf,2026-10-08 11:41:09
+Grant,Options A and B,a/b,No changes proposed,Yes,Yes,0.339,33.9%,High School,0.132,0.1,0.015,0.2,No,High School,"More than 1,100 students",Grant.pdf,2026-10-08 11:41:09
+Gray,No changes,sq,No changes,No,No,0.184,18.4%,Middle School neighborhood,0.206,0.148,0.056,0.213,No,Middle School neighborhood,More than 500 students,Gray.pdf,2026-10-08 11:41:10
+Gray,Options A and B,a/b,School boundary change,No,Yes,0.133,13.3%,Middle School neighborhood,0.199,0.14,0.043,0.201,No,Middle School neighborhood,More than 500 students,Gray.pdf,2026-10-08 11:41:10
+Grout,No changes,sq,No changes,No,No,0.852,85.2%,K-5 neighborhood,0.511,0.232,0.242,0.367,Yes,K-5 neighborhood,More than 360 students,Grout.pdf,2026-10-08 11:41:11
+Grout,Options A and B,a/b,No changes proposed,No,No,0.852,85.2%,K-5 neighborhood,0.511,0.232,0.242,0.367,Yes,K-5 neighborhood,More than 360 students,Grout.pdf,2026-10-08 11:41:11
+Harriet Tubman,No changes,sq,No changes,No,No,0.237,23.7%,Middle School neighborhood/language immersion,0.376,0.139,0.047,0.505,Yes,Middle School neighborhood/language immersion,More than 500 students,Harriet Tubman.pdf,2026-10-08 11:41:11
+Harriet Tubman,Options A and B,a/b,School boundary change,No,No,0.125,12.5%,Middle School neighborhood/language immersion,0.365,0.125,0.048,0.5,Yes,Middle School neighborhood/language immersion,More than 500 students,Harriet Tubman.pdf,2026-10-08 11:41:11
+Harrison Park,No changes,sq,No changes,No,No,0.421,42.1%,Middle School neighborhood/language immersion,0.463,0.107,0.181,0.365,Yes,Middle School neighborhood/language immersion,More than 500 students,Harrison Park.pdf,2026-10-08 11:41:12
+Harrison Park,Options A and B,a/b,School boundary change,Yes,No,0.268,26.8%,Middle School neighborhood/language immersion,0.527,0.149,0.19,0.429,Yes,Middle School neighborhood/language immersion,More than 500 students,Harrison Park.pdf,2026-10-08 11:41:12
+Hayhurst,No changes,sq,No changes,No,No,0.305,30.5%,K-5 neighborhood,0.262,0.248,0.086,0.286,No,K-5 neighborhood,More than 360 students,Hayhurst.pdf,2026-10-08 11:41:13
+Hayhurst,Options A and B,a/b,School boundary change,Yes,Yes,0.226,22.6%,K-5 neighborhood,0.155,0.208,0.04,0.189,No,K-5 neighborhood,More than 360 students,Hayhurst.pdf,2026-10-08 11:41:13
+Hosford,No changes,sq,No changes,No,No,0.456,45.6%,Middle School neighborhood,0.258,0.157,0.07,0.199,No,Middle School neighborhood,More than 500 students,Hosford.pdf,2026-10-08 11:41:13
+Hosford,Option A,a,School boundary change,Yes,Yes,0.329,32.9%,Middle School neighborhood,0.23,0.151,0.06,0.187,No,Middle School neighborhood,More than 500 students,Hosford.pdf,2026-10-08 11:41:13
+Hosford,Option B,b,School boundary change,Yes,Yes,0.372,37.2%,Middle School neighborhood,0.234,0.157,0.054,0.191,No,Middle School neighborhood,More than 500 students,Hosford.pdf,2026-10-08 11:41:13
+Ida B Wells,No changes,sq,No changes,Yes,Yes,0.119,11.9%,High School,0.173,0.124,0.03,0.198,No,High School,"More than 1,100 students",Ida B Wells.pdf,2026-10-08 11:41:14
+Ida B Wells,Options A and B,a/b,No changes proposed,Yes,Yes,0.119,11.9%,High School,0.172,0.123,0.03,0.199,No,High School,"More than 1,100 students",Ida B Wells.pdf,2026-10-08 11:41:14
+Irvington,No changes,sq,No changes,No,No,0.967,96.7%,K-5 neighborhood,0.208,0.224,0.046,0.32,No,K-5 neighborhood,More than 360 students,Irvington.pdf,2026-10-08 11:41:14
+Irvington,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Irvington.pdf,2026-10-08 11:41:14
+Jackson,No changes,sq,No changes,Yes,No,0.083,8.3%,Middle School neighborhood,0.221,0.144,0.06,0.26,No,Middle School neighborhood,More than 500 students,Jackson.pdf,2026-10-08 11:41:15
+Jackson,Options A and B,a/b,School boundary change,No,No,0.107,10.7%,Middle School neighborhood,0.217,0.145,0.069,0.275,No,Middle School neighborhood,More than 500 students,Jackson.pdf,2026-10-08 11:41:15
+James John,No changes,sq,No changes,No,Yes,0.709,70.9%,K-5 neighborhood/language immersion,0.545,0.192,0.266,0.638,Yes,K-5 neighborhood/language immersion,More than 360 students,James John.pdf,2026-10-08 11:41:16
+James John,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood/language immersion,More than 360 students,James John.pdf,2026-10-08 11:41:16
+Jefferson,No changes,sq,No changes,Yes,Yes,0.357,35.7%,High School,0.555,0.141,0.079,0.783,Yes,High School,"More than 1,100 students",Jefferson.pdf,2026-10-08 11:41:16
+Jefferson,Options A and B,a/b,School boundary change,Yes,Yes,0.371,37.1%,High School,0.557,0.144,0.08,0.768,Yes,High School,"More than 1,100 students",Jefferson.pdf,2026-10-08 11:41:16
+Kellogg,No changes,sq,No changes,No,No,0.317,31.7%,Middle School neighborhood/language immersion,0.443,0.186,0.169,0.469,Yes,Middle School neighborhood/language immersion,More than 500 students,Kellogg.pdf,2026-10-08 11:41:17
+Kellogg,Options A and B,a/b,School boundary change,Yes,Yes,0.388,38.8%,Middle School neighborhood/language immersion,0.352,0.199,0.123,0.381,Yes,Middle School neighborhood/language immersion,More than 500 students,Kellogg.pdf,2026-10-08 11:41:17
+Kelly,No changes,sq,No changes,Yes,No,0.582,58.2%,K-5 neighborhood/language immersion,0.676,0.136,0.465,0.423,Yes,K-5 neighborhood/language immersion,More than 360 students,Kelly.pdf,2026-10-08 11:41:18
+Kelly,Options A and B,a/b,School boundary change,Yes,No,0.582,58.2%,K-5 neighborhood/language immersion,0.667,0.156,0.394,0.441,Yes,K-5 neighborhood/language immersion,More than 360 students,Kelly.pdf,2026-10-08 11:41:18
+Laurelhurst,No changes,sq,No changes,Yes,Yes,0.993,99.3%,K-8 neighborhood,0.125,0.151,0.016,0.156,No,K-8 neighborhood,More than 500 students,Laurelhurst.pdf,2026-10-08 11:41:18
+Laurelhurst,Options A and B,a/b,Grade changes,No,No,0.997,99.7%,K-5 neighborhood,0.127,0.184,0.021,0.153,No,K-8 neighborhood,More than 500 students,Laurelhurst.pdf,2026-10-08 11:41:18
+Lent,No changes,sq,No changes,No,No,0.582,58.2%,K-5 language immersion,0.469,0.207,0.414,0.719,Yes,K-5 language immersion,More than 360 students,Lent.pdf,2026-10-08 11:41:19
+Lent,Options A and B,a/b,Programs joining,Yes,No,,N/A,K-5 language immersion,0.435,0.189,0.41,0.714,Yes,K-5 language immersion,More than 360 students,Lent.pdf,2026-10-08 11:41:19
+Lewis,No changes,sq,No changes,No,No,0.939,93.9%,K-5 neighborhood,0.22,0.232,0.019,0.216,No,K-5 neighborhood,More than 360 students,Lewis.pdf,2026-10-08 11:41:20
+Lewis,Option A,a,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Lewis.pdf,2026-10-08 11:41:20
+Lewis,Option B,b,School boundary change,No,No,0.742,74.2,K-5 neighborhood,0.325,0.237,0.061,0.298,No,K-5 neighborhood,More than 360 students,Lewis.pdf,2026-10-08 11:41:20
+Lincoln,No changes,sq,No changes,Yes,Yes,0.157,15.7%,High School,0.115,0.095,0.027,0.216,No,High School,"More than 1,100 students",Lincoln.pdf,2026-10-08 11:41:20
+Lincoln,Options A and B,a/b,School boundary change,Yes,No,0.173,17.3%,High School,0.121,0.097,0.028,0.218,No,High School,"More than 1,100 students",Lincoln.pdf,2026-10-08 11:41:20
+Llewellyn,No changes,sq,No changes,No,No,0.851,85.1%,K-5 neighborhood,0.133,0.252,0.014,0.151,No,K-5 neighborhood,More than 360 students,Llewellyn.pdf,2026-10-08 11:41:21
+Llewellyn,Option A,a,School boundary change,Yes,Yes,0.648,64.8%,K-5 neighborhood,0.148,0.221,0.022,0.152,No,K-5 neighborhood,More than 360 students,Llewellyn.pdf,2026-10-08 11:41:21
+Llewellyn,Option B,b,No changes proposed,No,No,0.851,85.1%,K-5 neighborhood,0.139,0.25,0.014,0.153,No,K-5 neighborhood,More than 360 students,Llewellyn.pdf,2026-10-08 11:41:21
+Maplewood,No changes,sq,No changes,No,No,0.449,44.9%,K-5 neighborhood,0.195,0.16,0.038,0.209,No,K-5 neighborhood,More than 360 students,Maplewood.pdf,2026-10-08 11:41:22
+Maplewood,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Maplewood.pdf,2026-10-08 11:41:22
+Markham,No changes,sq,No changes,No,No,0.472,47.2%,K-5 neighborhood,0.383,0.139,0.153,0.401,Yes,K-5 neighborhood,More than 360 students,Markham.pdf,2026-10-08 11:41:22
+Markham,Option A,a,School boundary change,Yes,Yes,0.295,29.5%,K-5 neighborhood,0.257,0.151,0.106,0.299,No,K-5 neighborhood,More than 360 students,Markham.pdf,2026-10-08 11:41:22
+Markham,Option B,b,No changes proposed,No,No,0.472,47.2%,K-5 neighborhood,0.349,0.144,0.142,0.378,Yes,K-5 neighborhood,More than 360 students,Markham.pdf,2026-10-08 11:41:22
+Marysville,No changes,sq,No changes,No,Yes,0.904,90.4%,K-5 neighborhood,0.583,0.221,0.14,0.505,Yes,K-5 neighborhood,More than 360 students,Marysville.pdf,2026-10-08 11:41:23
+Marysville,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Marysville.pdf,2026-10-08 11:41:23
+McDaniel,No changes,sq,No changes,Yes,Yes,0.106,10.6%,High School,0.419,0.14,0.2,0.487,No,High School,"More than 1,100 students",McDaniel.pdf,2026-10-08 11:41:24
+McDaniel,Options A and B,a/b,School boundary change,Yes,Yes,0.104,10.4%,High School,0.419,0.14,0.2,0.487,No,High School,"More than 1,100 students",McDaniel.pdf,2026-10-08 11:41:24
+Metropolitan Learning Center,No changes,sq,No changes,No,No,,Not applicable,K-8 choice program,0.211,0.309,0.011,0.215,No,K-12 alternative school,Alternative school setting,Metropolitan Learning Center.pdf,2026-10-08 11:41:24
+Metropolitan Learning Center,Options A and B,a/b,Grade changes,No,Yes,,Not applicable,K-8 choice program,0.193,0.294,0.013,0.223,No,K-12 alternative school,Alternative school setting,Metropolitan Learning Center.pdf,2026-10-08 11:41:24
+Mt. Tabor,No changes,sq,No changes,No,No,0.582,58.2%,Middle School neighborhood/language immersion,0.163,0.121,0.023,0.16,No,Middle School neighborhood/language immersion,More than 500 students,Mt. Tabor.pdf,2026-10-08 11:41:26
+Mt. Tabor,Options A and B,a/b,School boundary change,Yes,Yes,0.332,33.2%,Middle School neighborhood/language immersion,0.147,0.121,0.019,0.159,No,Middle School neighborhood/language immersion,More than 500 students,Mt. Tabor.pdf,2026-10-08 11:41:26
+Ockley Green,No changes,sq,No changes,No,No,0.385,38.5%,Middle School neighborhood/language immersion,0.359,0.152,0.076,0.483,Yes,Middle School neighborhood/language immersion,More than 500 students,Ockley Green.pdf,2026-10-08 13:41:43
+Ockley Green,Options A and B,a/b,School boundary change and Programs joining,Yes,Yes,0.301,30.1%,Middle School neighborhood,0.453,0.169,0.104,0.583,Yes,Middle School neighborhood/language immersion,More than 500 students,Ockley Green.pdf,2026-10-08 13:41:43
+Odyssey,No changes,sq,No changes,No,No,,Not applicable,K-8 choice program,0.078,0.18,0.014,0.124,No,K-8 choice program,More than 500 students (general district goal),Odyssey.pdf,2026-10-08 11:41:27
+Odyssey,Options A and B,a/b,Site moved to MLC,No,No,,Not applicable,K-8 choice program,0.078,0.18,0.014,0.124,No,K-8 choice program,More than 500 students (general district goal),Odyssey.pdf,2026-10-08 11:41:27
+Peninsula,No changes,sq,No changes,No,No,0.959,95.9%,K-5 neighborhood,0.381,0.301,0.059,0.481,Yes,K-5 neighborhood,More than 360 students,Peninsula.pdf,2026-10-08 11:41:28
+Peninsula,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Peninsula.pdf,2026-10-08 11:41:28
+Richmond,No changes,sq,No changes,Yes,No,,Not applicable,K-5 language immersion,0.066,0.109,0.07,0.104,No,K-5 language immersion,More than 360 students,Richmond.pdf,2026-10-08 11:41:28
+Richmond,Options A and B,a/b,No changes proposed,Yes,No,,Not applicable,K-5 language immersion,0.066,0.109,0.07,0.104,No,K-5 language immersion,More than 360 students,Richmond.pdf,2026-10-08 11:41:28
+Rieke,No changes,sq,No changes,No,No,0.737,73.7%,K-5 neighborhood,0.152,0.14,0.023,0.189,No,K-5 neighborhood,More than 360 students,Rieke.pdf,2026-10-08 11:41:29
+Rieke,Options A and B,a/b,School boundary change,Yes,Yes,0.638,63.8%,K-5 neighborhood,0.24,0.161,0.054,0.254,No,K-5 neighborhood,More than 360 students,Rieke.pdf,2026-10-08 11:41:29
+Rigler,No changes,sq,No changes,No,No,,N/A,K-5 neighborhood/language immersion,0.54,0.149,0.498,0.668,Yes,K-5 neighborhood/language immersion,More than 360 students,Rigler.pdf,2026-10-08 11:41:29
+Rigler,Options A and B,a/b,Programs joining,Yes,Yes,,N/A,K-5 neighborhood/language immersion,0.462,0.164,0.419,0.611,Yes,K-5 neighborhood/language immersion,More than 360 students,Rigler.pdf,2026-10-08 11:41:29
+Roosevelt,No changes,sq,No changes,Yes,Yes,0.225,22.5%,High School,0.447,0.161,0.18,0.578,No,High School,"More than 1,100 students",Roosevelt.pdf,2026-10-08 11:41:30
+Roosevelt,Options A and B,a/b,School boundary change,Yes,Yes,0.201,20.1%,High School,0.418,0.156,0.166,0.551,No,High School,"More than 1,100 students",Roosevelt.pdf,2026-10-08 11:41:30
+Rosa Parks,No changes,sq,No changes,No,No,1.0,100.0%,K-5 neighborhood,0.794,0.288,0.356,0.819,Yes,K-5 neighborhood,More than 360 students,Rosa Parks.pdf,2026-10-08 11:41:31
+Rosa Parks,Options A and B,a/b,School boundary change,Yes,Yes,0.552,55.2%,K-5 neighborhood,0.564,0.289,0.187,0.636,Yes,K-5 neighborhood,More than 360 students,Rosa Parks.pdf,2026-10-08 11:41:31
+Rose City Park,No changes,sq,No changes,Yes,No,0.93,93.0%,K-5 neighborhood/language immersion,0.329,0.134,0.216,0.168,No,K-5 neighborhood/language immersion,More than 360 students,Rose City Park.pdf,2026-10-08 11:41:31
+Rose City Park,Option A,a,School would close,,,,School would close,,,,,,,K-5 neighborhood/language immersion,More than 360 students,Rose City Park.pdf,2026-10-08 11:41:31
+Rose City Park,Option B,b,No changes proposed,Yes,No,0.93,93.0%,K-5 neighborhood/language immersion,0.323,0.142,0.206,0.167,No,K-5 neighborhood/language immersion,More than 360 students,Rose City Park.pdf,2026-10-08 11:41:31
+Roseway Heights,No changes,sq,No changes,No,No,0.336,33.6%,Middle School neighborhood/language immersion,0.439,0.163,0.166,0.416,Yes,Middle School neighborhood/language immersion,More than 500 students,Roseway Heights.pdf,2026-10-08 11:41:32
+Roseway Heights,Options A and B,a/b,School boundary change,Yes,Yes,0.319,31.9%,Middle School neighborhood/language immersion,0.464,0.171,0.193,0.474,Yes,Middle School neighborhood/language immersion,More than 500 students,Roseway Heights.pdf,2026-10-08 11:41:32
+Sabin,No changes,sq,No changes,No,No,1.0,100.0%,K-5 neighborhood,0.283,0.227,0.045,0.305,No,K-5 neighborhood,More than 360 students,Sabin.pdf,2026-10-08 11:41:33
+Sabin,Options A and B,a/b,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Sabin.pdf,2026-10-08 11:41:33
+Scott,No changes,sq,No changes,Yes,Yes,0.919,91.9%,K-5 neighborhood/language immersion,0.519,0.202,0.237,0.563,Yes,K-5 neighborhood/language immersion,More than 360 students,Scott.pdf,2026-10-08 13:44:16
+Scott,Option A,a,School boundary change and Programs joining,Yes,Yes,0.467,46.7%,K-5 neighborhood,0.494,0.227,0.112,0.425,Yes,K-5 neighborhood/language immersion,More than 360 students,Scott.pdf,2026-10-08 13:44:16
+Scott,Option B,b,Programs joining,No,No,0.919,91.9%,K-5 neighborhood,0.619,0.252,0.153,0.544,Yes,K-5 neighborhood/language immersion,More than 360 students,Scott.pdf,2026-10-08 13:44:16
+Sellwood,No changes,sq,No changes,No,No,0.331,33.1%,Middle School neighborhood,0.128,0.147,0.021,0.133,No,Middle School neighborhood,More than 500 students,Sellwood.pdf,2026-10-08 11:41:34
+Sellwood,Options A and B,a/b,School would close,,,,School would close,,,,,,,Middle School neighborhood,More than 500 students,Sellwood.pdf,2026-10-08 11:41:34
+Sitton,No changes,sq,No changes,No,Yes,0.706,70.6%,K-5 neighborhood/language immersion,0.6,0.235,0.313,0.629,Yes,K-5 neighborhood/language immersion,More than 360 students,Sitton.pdf,2026-10-08 11:41:35
+Sitton,Options A and B,a/b,School boundary change and Programs joining,Yes,No,0.456,45.6%,K-5 neighborhood,0.572,0.258,0.14,0.557,Yes,K-5 neighborhood/language immersion,More than 360 students,Sitton.pdf,2026-10-08 11:41:35
+Skyline,No changes,sq,No changes,No,No,0.077,7.7%,K-8 neighborhood,0.135,0.174,0.034,0.203,No,K-8 neighborhood,More than 500 students,Skyline.pdf,2026-10-08 11:41:35
+Skyline,Options A and B,a/b,High School Boundary Shift,No,No,0.077,7.7%,K-8 neighborhood,0.139,0.173,0.034,0.202,No,K-8 neighborhood,More than 500 students,Skyline.pdf,2026-10-08 11:41:35
+Stephenson,No changes,sq,No changes,No,No,0.292,29.2%,K-5 neighborhood,0.1,0.178,0.039,0.167,No,K-5 neighborhood,More than 360 students,Stephenson.pdf,2026-10-08 11:41:36
+Stephenson,Option A,a,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Stephenson.pdf,2026-10-08 11:41:36
+Stephenson,Option B,b,No changes proposed,No,No,0.292,29.2%,K-5 neighborhood,0.102,0.18,0.039,0.169,No,K-5 neighborhood,More than 360 students,Stephenson.pdf,2026-10-08 11:41:36
+Sunnyside,No changes,sq,No changes,No,Yes,0.968,96.8%,K-8 neighborhood & choice program,0.19,0.235,0.014,0.177,No,K-8 neighborhood & choice program,More than 360,Sunnyside.pdf,2026-10-08 13:29:08
+Sunnyside,Options A and B,a/b,"Grade changes, School boundary change and Programs joining",No,No,0.655,65.5%,K-5 neighborhood,0.301,0.167,0.065,0.264,No,K-8 neighborhood & choice program,More than 360,Sunnyside.pdf,2026-10-08 13:29:08
+Sunrise,No changes,sq,No changes,No,No,0.668,66.8%,K-5 neighborhood,0.454,0.339,0.108,0.442,Yes,K-5 neighborhood,More than 360 students,Sunrise.pdf,2026-10-08 11:41:37
+Sunrise,Options A and B,a/b,No changes proposed,No,No,0.668,66.8%,K-5 neighborhood,0.464,0.343,0.106,0.456,Yes,K-5 neighborhood,More than 360 students,Sunrise.pdf,2026-10-08 11:41:37
+Vernon,No changes,sq,No changes,No,Yes,0.607,60.7%,K-8 neighborhood,0.279,0.118,0.046,0.396,No,K-8 neighborhood,More than 500 students,Vernon.pdf,2026-10-08 11:41:38
+Vernon,Options A and B,a/b,Grade changes,No,No,0.589,58.9%,K-5 neighborhood,0.264,0.14,0.056,0.362,No,K-8 neighborhood,More than 500 students,Vernon.pdf,2026-10-08 11:41:38
+Vestal,No changes,sq,No changes,No,No,0.805,80.5%,K-5 neighborhood,0.438,0.244,0.191,0.463,Yes,K-5 neighborhood,More than 360 students,Vestal.pdf,2026-10-08 11:41:39
+Vestal,Option A,a,Program Change,Yes,Yes,0.805,80.5%,K-5 neighborhood/language immersion,0.391,0.189,0.258,0.301,Yes,K-5 neighborhood,More than 360 students,Vestal.pdf,2026-10-08 11:41:39
+Vestal,Option B,b,No changes proposed,No,No,0.805,80.5%,K-5 neighborhood,0.438,0.256,0.182,0.461,Yes,K-5 neighborhood,More than 360 students,Vestal.pdf,2026-10-08 11:41:39
+West Sylvan,No changes,sq,No changes,Yes,No,0.046,4.6%,Middle School neighborhood/language immersion,0.161,0.124,0.053,0.245,No,Middle School neighborhood/language immersion,More than 500 students,West Sylvan.pdf,2026-10-08 11:41:39
+West Sylvan,Options A and B,a/b,No changes proposed,Yes,No,0.046,4.6%,Middle School neighborhood/language immersion,0.165,0.127,0.051,0.242,No,Middle School neighborhood/language immersion,More than 500 students,West Sylvan.pdf,2026-10-08 11:41:39
+Whitman,No changes,sq,No changes,No,No,0.814,81.4%,K-5 neighborhood,0.644,0.284,0.18,0.505,Yes,K-5 neighborhood,More than 360 students,Whitman.pdf,2026-10-08 11:41:40
+Whitman,Option A,a,School boundary change,Yes,No,0.759,75.9%,K-5 neighborhood,0.561,0.276,0.197,0.467,Yes,K-5 neighborhood,More than 360 students,Whitman.pdf,2026-10-08 11:41:40
+Whitman,Option B,b,School boundary change,Yes,Yes,0.833,83.3%,K-5 neighborhood,0.584,0.286,0.229,0.489,Yes,K-5 neighborhood,More than 360 students,Whitman.pdf,2026-10-08 11:41:40
+Winterhaven,No changes,sq,No changes,No,No,,Not applicable,K-8 choice program,0.18,0.07,0.003,0.142,No,K-8 choice program,More than 500 students (general district goal),Winterhaven.pdf,2026-10-08 11:41:41
+Winterhaven,Options A and B,a/b,No changes proposed,No,No,,Not applicable,K-8 choice program,0.18,0.07,0.003,0.142,No,K-8 choice program,More than 500 students (general district goal),Winterhaven.pdf,2026-10-08 11:41:41
+Woodlawn,No changes,sq,No changes,No,No,0.819,81.9%,K-5 neighborhood,0.446,0.254,0.09,0.598,Yes,K-5 neighborhood,More than 360 students,Woodlawn.pdf,2026-10-08 11:41:41
+Woodlawn,Options A and B,a/b,No changes proposed,No,No,0.819,81.9%,K-5 neighborhood,0.443,0.252,0.085,0.581,Yes,K-5 neighborhood,More than 360 students,Woodlawn.pdf,2026-10-08 11:41:41
+Woodmere,No changes,sq,No changes,No,No,0.908,90.8%,K-5 neighborhood,0.59,0.304,0.251,0.52,Yes,K-5 neighborhood,More than 360 students,Woodmere.pdf,2026-10-08 11:41:42
+Woodmere,Option A,a,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Woodmere.pdf,2026-10-08 11:41:42
+Woodmere,Option B,b,School would close,,,,School would close,,,,,,,K-5 neighborhood,More than 360 students,Woodmere.pdf,2026-10-08 11:41:42
+Woodstock,No changes,sq,No changes,No,No,1.0,100.0%,K-5 neighborhood/language immersion,0.24,0.158,0.12,0.158,No,K-5 neighborhood/language immersion,More than 360 students,Woodstock.pdf,2026-10-08 11:41:42
+Woodstock,Options A and B,a/b,Programs joining,Yes,No,1.0,100.0%,K-5 neighborhood/language immersion,0.296,0.143,0.204,0.143,No,K-5 neighborhood/language immersion,More than 360 students,Woodstock.pdf,2026-10-08 11:41:42
+da Vinci,No changes,sq,No changes,No,No,,Not applicable,Middle School choice program,0.308,0.156,0.021,0.31,No,Middle School choice program,More than 500 students (general district goal),da Vinci.pdf,2026-10-08 11:41:05
+da Vinci,Options A and B,a/b,No changes proposed,No,No,,Not applicable,Middle School choice program,0.308,0.156,0.021,0.31,No,Middle School choice program,More than 500 students (general district goal),da Vinci.pdf,2026-10-08 11:41:05

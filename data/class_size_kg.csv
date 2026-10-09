@@ -1,0 +1,14 @@
+year,school,grades,class_avg,kg_avg_class_size,source_file
+2018-19,Bridger,K-8,18.8,18.5,ClassSize_DetailLogs_2018-19.pdf
+2018-19,Lent,K-8,19.5,12.0,ClassSize_DetailLogs_2018-19.pdf
+2019-20,Bridger,K-8,20.7,19.0,ClassSize_DetailLogs_2019-20.pdf
+2019-20,Lent,K-8,19.9,19.5,ClassSize_DetailLogs_2019-20.pdf
+2020-21,Bridger,K-8,20.9,21.0,ClassSize_DetailLogs_2020-21.pdf
+2020-21,Lent,K-8,21.3,11.0,ClassSize_DetailLogs_2020-21.pdf
+2021-22,Bridger,K-5,19.0,18.0,ClassSize_DetailLogs_2021-22.pdf
+2021-22,Lent,K-5,17.0,14.0,ClassSize_DetailLogs_2021-22.pdf
+2022-23,Bridger,K-5,19.4,16.0,ClassSize_DetailLogs_2022-23.pdf
+2022-23,Lent,K-5,18.4,18.0,ClassSize_DetailLogs_2022-23.pdf
+2023-24,Lent,K-5,19.5,13.0,ClassSize_DetailLogs_2023-24.pdf
+2024-25,Lent,K-5,21.4,16.0,ClassSize_DetailLogs_2024-25.pdf
+2025-26,Lent,K-5,21.4,21.5,ClassSize_DetailLogs_2025-26.pdf

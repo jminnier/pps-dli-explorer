@@ -1,0 +1,13 @@
+target,vintage,note,year,forecast,actual,error,pct_error
+Lent,2022-23,"Bridger + Lent Spanish, before the move was planned in",2023-24,333,273,60,0.21978021978021978
+Lent,2022-23,"Bridger + Lent Spanish, before the move was planned in",2024-25,335,256,79,0.30859375
+Lent,2022-23,"Bridger + Lent Spanish, before the move was planned in",2025-26,340,256,84,0.328125
+Lent,2023-24,move built in,2023-24,314,273,41,0.15018315018315018
+Lent,2023-24,move built in,2024-25,298,256,42,0.1640625
+Lent,2023-24,move built in,2025-26,291,256,35,0.13671875
+District,2022-23,district total,2023-24,44405,44005,400,0.009089876150437451
+District,2022-23,district total,2024-25,43789,43375,414,0.009544668587896253
+District,2022-23,district total,2025-26,42885,42622,263,0.006170522265496692
+District,2023-24,district total,2023-24,44288,44005,283,0.006431087376434496
+District,2023-24,district total,2024-25,43826,43375,451,0.010397694524495677
+District,2023-24,district total,2025-26,42950,42622,328,0.007695556285486368

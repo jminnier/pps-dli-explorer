@@ -1,0 +1,50 @@
+school,program,year,enrollment,forecast_vintage,grades
+Bridger,Spanish,2019-20,322,2022-23,K-8
+Bridger,Spanish,2020-21,319,2022-23,K-8
+Bridger,Spanish,2021-22,211,2022-23,K-5
+Bridger,Spanish,2022-23,190,2024-25,K-5
+Bridger,Spanish,2023-24,0,2024-25,K-8 (Bridger Creative Science)
+Bridger,Spanish,2024-25,0,2025-26,K-8 (Bridger Creative Science)
+Bridger,Spanish,2025-26,0,NA,K-8 (Bridger Creative Science)
+César Chávez,Neighborhood,2019-20,230,2022-23,K-8
+César Chávez,Neighborhood,2020-21,236,2022-23,K-8
+César Chávez,Neighborhood,2021-22,176,2022-23,K-8
+César Chávez,Neighborhood,2022-23,169,2023-24,K-8
+César Chávez,Neighborhood,2023-24,156,2024-25,K-8
+César Chávez,Neighborhood,2024-25,145,2025-26,K-8
+César Chávez,Neighborhood,2025-26,143,2026-27,K-8
+César Chávez,Spanish,2019-20,319,2022-23,K-8
+César Chávez,Spanish,2020-21,308,2022-23,K-8
+César Chávez,Spanish,2021-22,309,2022-23,K-8
+César Chávez,Spanish,2022-23,298,2023-24,K-8
+César Chávez,Spanish,2023-24,325,2024-25,K-8
+César Chávez,Spanish,2024-25,309,2025-26,K-8
+César Chávez,Spanish,2025-26,300,2026-27,K-8
+César Chávez,Total,2019-20,549,2022-23,K-8
+César Chávez,Total,2020-21,544,2022-23,K-8
+César Chávez,Total,2021-22,485,2022-23,K-8
+César Chávez,Total,2022-23,467,2023-24,K-8
+César Chávez,Total,2023-24,481,2024-25,K-8
+César Chávez,Total,2024-25,454,2025-26,K-8
+César Chávez,Total,2025-26,443,2026-27,K-8
+Lent,Neighborhood,2019-20,273,2022-23,K-8
+Lent,Neighborhood,2020-21,269,2022-23,K-8
+Lent,Neighborhood,2021-22,151,2022-23,K-5
+Lent,Neighborhood,2022-23,122,2023-24,K-5
+Lent,Neighborhood,2023-24,0,2024-25,K-5
+Lent,Neighborhood,2024-25,0,2025-26,K-5
+Lent,Neighborhood,2025-26,0,NA,K-5
+Lent,Spanish,2019-20,202,2022-23,K-8
+Lent,Spanish,2020-21,207,2022-23,K-8
+Lent,Spanish,2021-22,126,2022-23,K-5
+Lent,Spanish,2022-23,129,2023-24,K-5
+Lent,Spanish,2023-24,273,2024-25,K-5
+Lent,Spanish,2024-25,256,2025-26,K-5
+Lent,Spanish,2025-26,256,2026-27,K-5
+Lent,Total,2019-20,475,2022-23,K-8
+Lent,Total,2020-21,476,2022-23,K-8
+Lent,Total,2021-22,277,2022-23,K-5
+Lent,Total,2022-23,251,2023-24,K-5
+Lent,Total,2023-24,273,2024-25,K-5
+Lent,Total,2024-25,256,2025-26,K-5
+Lent,Total,2025-26,256,2026-27,K-5

@@ -1,0 +1,1141 @@
+area,band,scenario,language,nearest_school,dist_mi
+Astor K-8,6-8,sq,Spanish,César Chávez,0.654
+Beaumont Middle School,6-8,sq,Spanish,Beaumont,0.213
+Beverly Cleary K-8,6-8,sq,Spanish,Beaumont,0.765
+Brentwood Middle School,6-8,sq,Spanish,Kellogg,1.674
+Bridger Creative Science K-8,6-8,sq,Spanish,Kellogg,0.993
+César Chávez K-8,6-8,sq,Spanish,César Chávez,0.49
+Faubion K-8,6-8,sq,Spanish,César Chávez,2.244
+George Middle School,6-8,sq,Spanish,George,0.647
+Gray Middle School,6-8,sq,Spanish,West Sylvan,2.625
+Harriet Tubman Middle School,6-8,sq,Spanish,Ockley Green,1.665
+Harrison Park Middle School,6-8,sq,Spanish,Kellogg,1.405
+Hosford Middle School,6-8,sq,Spanish,Kellogg,2.622
+Jackson Middle School,6-8,sq,Spanish,West Sylvan,3.337
+Kellogg Middle School,6-8,sq,Spanish,Kellogg,0.813
+Laurelhurst K-8,6-8,sq,Spanish,Beaumont,1.465
+Mt Tabor Middle School,6-8,sq,Spanish,Kellogg,1.422
+Ockley Green Middle School,6-8,sq,Spanish,Ockley Green,0.451
+Roseway Heights Middle School,6-8,sq,Spanish,Roseway Heights,1.031
+Sellwood Middle School,6-8,sq,Spanish,Kellogg,2.882
+Skyline K-8,6-8,sq,Spanish,George,6.32
+Sunnyside Environmental K-8,6-8,sq,Spanish,Beaumont,2.158
+Vernon K-8,6-8,sq,Spanish,Beaumont,1.07
+West Sylvan Middle School,6-8,sq,Spanish,West Sylvan,2.707
+Astor K-8,6-8,sq,Mandarin,Harriet Tubman,3.777
+Beaumont Middle School,6-8,sq,Mandarin,Harriet Tubman,2.217
+Beverly Cleary K-8,6-8,sq,Mandarin,Harriet Tubman,2.103
+Brentwood Middle School,6-8,sq,Mandarin,Harrison Park,2.193
+Bridger Creative Science K-8,6-8,sq,Mandarin,Harrison Park,0.612
+César Chávez K-8,6-8,sq,Mandarin,Harriet Tubman,4.456
+Faubion K-8,6-8,sq,Mandarin,Harriet Tubman,4.52
+George Middle School,6-8,sq,Mandarin,Harriet Tubman,5.525
+Gray Middle School,6-8,sq,Mandarin,Harriet Tubman,4.291
+Harriet Tubman Middle School,6-8,sq,Mandarin,Harriet Tubman,0.737
+Harrison Park Middle School,6-8,sq,Mandarin,Harrison Park,0.47
+Hosford Middle School,6-8,sq,Mandarin,Harriet Tubman,2.581
+Jackson Middle School,6-8,sq,Mandarin,Harriet Tubman,5.664
+Kellogg Middle School,6-8,sq,Mandarin,Harrison Park,1.251
+Laurelhurst K-8,6-8,sq,Mandarin,Harriet Tubman,2.527
+Mt Tabor Middle School,6-8,sq,Mandarin,Harrison Park,1.661
+Ockley Green Middle School,6-8,sq,Mandarin,Harriet Tubman,2.232
+Roseway Heights Middle School,6-8,sq,Mandarin,Harrison Park,3.672
+Sellwood Middle School,6-8,sq,Mandarin,Harrison Park,3.872
+Skyline K-8,6-8,sq,Mandarin,Harriet Tubman,10.974
+Sunnyside Environmental K-8,6-8,sq,Mandarin,Harriet Tubman,2.336
+Vernon K-8,6-8,sq,Mandarin,Harriet Tubman,2.334
+West Sylvan Middle School,6-8,sq,Mandarin,Harriet Tubman,2.456
+Astor K-8,6-8,sq,Japanese,Mt Tabor,7.05
+Beaumont Middle School,6-8,sq,Japanese,Mt Tabor,2.14
+Beverly Cleary K-8,6-8,sq,Japanese,Mt Tabor,1.59
+Brentwood Middle School,6-8,sq,Japanese,Mt Tabor,3.317
+Bridger Creative Science K-8,6-8,sq,Japanese,Mt Tabor,1.112
+César Chávez K-8,6-8,sq,Japanese,Mt Tabor,7.561
+Faubion K-8,6-8,sq,Japanese,Mt Tabor,6.86
+George Middle School,6-8,sq,Japanese,Mt Tabor,8.745
+Gray Middle School,6-8,sq,Japanese,Mt Tabor,5.894
+Harriet Tubman Middle School,6-8,sq,Japanese,Mt Tabor,3.289
+Harrison Park Middle School,6-8,sq,Japanese,Mt Tabor,1.676
+Hosford Middle School,6-8,sq,Japanese,Mt Tabor,2.256
+Jackson Middle School,6-8,sq,Japanese,Mt Tabor,6.856
+Kellogg Middle School,6-8,sq,Japanese,Mt Tabor,2.438
+Laurelhurst K-8,6-8,sq,Japanese,Mt Tabor,0.888
+Mt Tabor Middle School,6-8,sq,Japanese,Mt Tabor,0.306
+Ockley Green Middle School,6-8,sq,Japanese,Mt Tabor,5.274
+Roseway Heights Middle School,6-8,sq,Japanese,Mt Tabor,2.553
+Sellwood Middle School,6-8,sq,Japanese,Mt Tabor,3.73
+Skyline K-8,6-8,sq,Japanese,Mt Tabor,14.327
+Sunnyside Environmental K-8,6-8,sq,Japanese,Mt Tabor,1.335
+Vernon K-8,6-8,sq,Japanese,Mt Tabor,3.141
+West Sylvan Middle School,6-8,sq,Japanese,Mt Tabor,5.57
+Astor K-8,6-8,sq,Russian,Brentwood,9.432
+Beaumont Middle School,6-8,sq,Russian,Brentwood,5.424
+Beverly Cleary K-8,6-8,sq,Russian,Brentwood,4.759
+Brentwood Middle School,6-8,sq,Russian,Brentwood,0.977
+Bridger Creative Science K-8,6-8,sq,Russian,Brentwood,2.942
+César Chávez K-8,6-8,sq,Russian,Brentwood,10.16
+Faubion K-8,6-8,sq,Russian,Brentwood,9.944
+George Middle School,6-8,sq,Russian,Brentwood,11.188
+Gray Middle School,6-8,sq,Russian,Brentwood,5.557
+Harriet Tubman Middle School,6-8,sq,Russian,Brentwood,5.981
+Harrison Park Middle School,6-8,sq,Russian,Brentwood,3.238
+Hosford Middle School,6-8,sq,Russian,Brentwood,3.168
+Jackson Middle School,6-8,sq,Russian,Brentwood,5.805
+Kellogg Middle School,6-8,sq,Russian,Brentwood,1.571
+Laurelhurst K-8,6-8,sq,Russian,Brentwood,3.976
+Mt Tabor Middle School,6-8,sq,Russian,Brentwood,3.147
+Ockley Green Middle School,6-8,sq,Russian,Brentwood,7.919
+Roseway Heights Middle School,6-8,sq,Russian,Brentwood,5.964
+Sellwood Middle School,6-8,sq,Russian,Brentwood,1.776
+Skyline K-8,6-8,sq,Russian,Brentwood,16.388
+Sunnyside Environmental K-8,6-8,sq,Russian,Brentwood,3.541
+Vernon K-8,6-8,sq,Russian,Brentwood,6.416
+West Sylvan Middle School,6-8,sq,Russian,Brentwood,6.935
+Astor K-8,6-8,sq,Vietnamese,Roseway Heights,7.076
+Beaumont Middle School,6-8,sq,Vietnamese,Roseway Heights,1.852
+Beverly Cleary K-8,6-8,sq,Vietnamese,Roseway Heights,1.901
+Brentwood Middle School,6-8,sq,Vietnamese,Roseway Heights,4.75
+Bridger Creative Science K-8,6-8,sq,Vietnamese,Roseway Heights,2.207
+César Chávez K-8,6-8,sq,Vietnamese,Roseway Heights,7.363
+Faubion K-8,6-8,sq,Vietnamese,Roseway Heights,6.164
+George Middle School,6-8,sq,Vietnamese,Roseway Heights,8.624
+Gray Middle School,6-8,sq,Vietnamese,Roseway Heights,7.362
+Harriet Tubman Middle School,6-8,sq,Vietnamese,Roseway Heights,3.53
+Harrison Park Middle School,6-8,sq,Vietnamese,Roseway Heights,2.286
+Hosford Middle School,6-8,sq,Vietnamese,Roseway Heights,3.846
+Jackson Middle School,6-8,sq,Vietnamese,Roseway Heights,8.45
+Kellogg Middle School,6-8,sq,Vietnamese,Roseway Heights,3.795
+Laurelhurst K-8,6-8,sq,Vietnamese,Roseway Heights,1.936
+Mt Tabor Middle School,6-8,sq,Vietnamese,Roseway Heights,2.084
+Ockley Green Middle School,6-8,sq,Vietnamese,Roseway Heights,5.22
+Roseway Heights Middle School,6-8,sq,Vietnamese,Roseway Heights,1.031
+Sellwood Middle School,6-8,sq,Vietnamese,Roseway Heights,5.51
+Skyline K-8,6-8,sq,Vietnamese,Roseway Heights,14.332
+Sunnyside Environmental K-8,6-8,sq,Vietnamese,Roseway Heights,2.767
+Vernon K-8,6-8,sq,Vietnamese,Roseway Heights,2.525
+West Sylvan Middle School,6-8,sq,Vietnamese,Roseway Heights,6.407
+Abernethy Elementary,K-5,sq,Spanish,Atkinson,1.959
+Ainsworth Elementary,K-5,sq,Spanish,Ainsworth,0.25
+Alameda Elementary,K-5,sq,Spanish,Rigler,1.014
+Arleta Elementary,K-5,sq,Spanish,Atkinson,1.235
+Astor K-8,K-5,sq,Spanish,César Chávez,0.654
+Atkinson Elementary,K-5,sq,Spanish,Atkinson,0.434
+Beach Elementary,K-5,sq,Spanish,Beach,0.53
+Beverly Cleary K-8,K-5,sq,Spanish,Rigler,1.516
+Boise-Eliot/Humboldt Elementary,K-5,sq,Spanish,Beach,1.083
+Bridger Creative Science K-8,K-5,sq,Spanish,Atkinson,1.091
+Bridlemile Elementary,K-5,sq,Spanish,Ainsworth,2.356
+Buckman Elementary,K-5,sq,Spanish,Ainsworth,2.533
+Capitol Hill Elementary,K-5,sq,Spanish,Ainsworth,2.646
+Chapman Elementary,K-5,sq,Spanish,Ainsworth,1.872
+Chief Joseph Elementary,K-5,sq,Spanish,Beach,0.891
+Clark Elementary,K-5,sq,Spanish,Lent,1.48
+Creston Elementary,K-5,sq,Spanish,Atkinson,0.785
+César Chávez K-8,K-5,sq,Spanish,César Chávez,0.49
+Duniway Elementary,K-5,sq,Spanish,Atkinson,2.815
+Faubion K-8,K-5,sq,Spanish,César Chávez,2.244
+Forest Park Elementary,K-5,sq,Spanish,James John,3.276
+Glencoe Elementary,K-5,sq,Spanish,Atkinson,0.899
+Grout Elementary,K-5,sq,Spanish,Atkinson,1.86
+Hayhurst Elementary,K-5,sq,Spanish,Ainsworth,2.453
+Irvington Elementary,K-5,sq,Spanish,Beach,2.17
+James John Elementary,K-5,sq,Spanish,James John,0.368
+Kelly Elementary,K-5,sq,Spanish,Lent,0.968
+Laurelhurst K-8,K-5,sq,Spanish,Atkinson,1.717
+Lent Elementary,K-5,sq,Spanish,Lent,0.148
+Lewis Elementary,K-5,sq,Spanish,Atkinson,2.408
+Llewellyn Elementary,K-5,sq,Spanish,Atkinson,3.083
+MLK Jr Elementary,K-5,sq,Spanish,Beach,1.345
+Maplewood Elementary,K-5,sq,Spanish,Ainsworth,3.14
+Markham Elementary,K-5,sq,Spanish,Ainsworth,4.393
+Marysville Elementary,K-5,sq,Spanish,Lent,0.887
+Peninsula Elementary,K-5,sq,Spanish,César Chávez,1.251
+Rieke Elementary,K-5,sq,Spanish,Ainsworth,1.781
+Rigler Elementary,K-5,sq,Spanish,Scott,0.962
+Rosa Parks Elementary,K-5,sq,Spanish,César Chávez,0.625
+Rose City Park Elementary,K-5,sq,Spanish,Scott,1.245
+Sabin Elementary,K-5,sq,Spanish,Beach,1.742
+Scott Elementary,K-5,sq,Spanish,Scott,0.212
+Sitton Elementary,K-5,sq,Spanish,Sitton,0.015
+Skyline K-8,K-5,sq,Spanish,Sitton,5.224
+Stephenson Elementary,K-5,sq,Spanish,Ainsworth,4.439
+Sunnyside Environmental K-8,K-5,sq,Spanish,Atkinson,1.576
+Sunrise Elementary,K-5,sq,Spanish,Scott,1.187
+Vernon K-8,K-5,sq,Spanish,Rigler,1.301
+Vestal Elementary,K-5,sq,Spanish,Atkinson,1.74
+Whitman Elementary,K-5,sq,Spanish,Lent,1.947
+Woodlawn Elementary,K-5,sq,Spanish,Beach,1.748
+Woodmere Elementary,K-5,sq,Spanish,Lent,1.458
+Woodstock Elementary,K-5,sq,Spanish,Atkinson,1.494
+Abernethy Elementary,K-5,sq,Mandarin,Woodstock,2.301
+Ainsworth Elementary,K-5,sq,Mandarin,MLK Jr,3.939
+Alameda Elementary,K-5,sq,Mandarin,MLK Jr,1.776
+Arleta Elementary,K-5,sq,Mandarin,Woodstock,0.915
+Astor K-8,K-5,sq,Mandarin,MLK Jr,3.484
+Atkinson Elementary,K-5,sq,Mandarin,Clark,1.397
+Beach Elementary,K-5,sq,Mandarin,MLK Jr,1.804
+Beverly Cleary K-8,K-5,sq,Mandarin,MLK Jr,2.124
+Boise-Eliot/Humboldt Elementary,K-5,sq,Mandarin,MLK Jr,0.881
+Bridger Creative Science K-8,K-5,sq,Mandarin,Clark,0.727
+Bridlemile Elementary,K-5,sq,Mandarin,MLK Jr,5.803
+Buckman Elementary,K-5,sq,Mandarin,MLK Jr,2.426
+Capitol Hill Elementary,K-5,sq,Mandarin,Woodstock,2.997
+Chapman Elementary,K-5,sq,Mandarin,MLK Jr,2.932
+Chief Joseph Elementary,K-5,sq,Mandarin,MLK Jr,1.422
+Clark Elementary,K-5,sq,Mandarin,Clark,0.562
+Creston Elementary,K-5,sq,Mandarin,Woodstock,1.154
+César Chávez K-8,K-5,sq,Mandarin,MLK Jr,3.874
+Duniway Elementary,K-5,sq,Mandarin,Woodstock,1.288
+Faubion K-8,K-5,sq,Mandarin,MLK Jr,3.344
+Forest Park Elementary,K-5,sq,Mandarin,MLK Jr,5.202
+Glencoe Elementary,K-5,sq,Mandarin,Clark,1.857
+Grout Elementary,K-5,sq,Mandarin,Woodstock,1.171
+Hayhurst Elementary,K-5,sq,Mandarin,Woodstock,5.332
+Irvington Elementary,K-5,sq,Mandarin,MLK Jr,1.37
+James John Elementary,K-5,sq,Mandarin,MLK Jr,4.752
+Kelly Elementary,K-5,sq,Mandarin,Woodstock,2.338
+Laurelhurst K-8,K-5,sq,Mandarin,Clark,2.602
+Lent Elementary,K-5,sq,Mandarin,Clark,2.076
+Lewis Elementary,K-5,sq,Mandarin,Woodstock,0.786
+Llewellyn Elementary,K-5,sq,Mandarin,Woodstock,2.067
+MLK Jr Elementary,K-5,sq,Mandarin,MLK Jr,0.073
+Maplewood Elementary,K-5,sq,Mandarin,Woodstock,5.611
+Markham Elementary,K-5,sq,Mandarin,Woodstock,6.094
+Marysville Elementary,K-5,sq,Mandarin,Woodstock,1.547
+Peninsula Elementary,K-5,sq,Mandarin,MLK Jr,2.445
+Rieke Elementary,K-5,sq,Mandarin,Woodstock,4.115
+Rigler Elementary,K-5,sq,Mandarin,MLK Jr,3.165
+Rosa Parks Elementary,K-5,sq,Mandarin,MLK Jr,3.342
+Rose City Park Elementary,K-5,sq,Mandarin,Clark,2.298
+Sabin Elementary,K-5,sq,Mandarin,MLK Jr,0.603
+Scott Elementary,K-5,sq,Mandarin,Clark,2.909
+Sitton Elementary,K-5,sq,Mandarin,MLK Jr,5.6
+Skyline K-8,K-5,sq,Mandarin,MLK Jr,10.768
+Stephenson Elementary,K-5,sq,Mandarin,Woodstock,4.675
+Sunnyside Environmental K-8,K-5,sq,Mandarin,Woodstock,2.667
+Sunrise Elementary,K-5,sq,Mandarin,Clark,2.001
+Vernon K-8,K-5,sq,Mandarin,MLK Jr,1.269
+Vestal Elementary,K-5,sq,Mandarin,Clark,1.154
+Whitman Elementary,K-5,sq,Mandarin,Woodstock,1.338
+Woodlawn Elementary,K-5,sq,Mandarin,MLK Jr,1.298
+Woodmere Elementary,K-5,sq,Mandarin,Woodstock,1.006
+Woodstock Elementary,K-5,sq,Mandarin,Woodstock,0.142
+Abernethy Elementary,K-5,sq,Japanese,Richmond,1.197
+Ainsworth Elementary,K-5,sq,Japanese,Richmond,3.664
+Alameda Elementary,K-5,sq,Japanese,Richmond,2.867
+Arleta Elementary,K-5,sq,Japanese,Richmond,1.759
+Astor K-8,K-5,sq,Japanese,Richmond,7.024
+Atkinson Elementary,K-5,sq,Japanese,Richmond,1.204
+Beach Elementary,K-5,sq,Japanese,Richmond,5.122
+Beverly Cleary K-8,K-5,sq,Japanese,Richmond,2.181
+Boise-Eliot/Humboldt Elementary,K-5,sq,Japanese,Richmond,3.664
+Bridger Creative Science K-8,K-5,sq,Japanese,Richmond,1.773
+Bridlemile Elementary,K-5,sq,Japanese,Richmond,6.131
+Buckman Elementary,K-5,sq,Japanese,Richmond,1.886
+Capitol Hill Elementary,K-5,sq,Japanese,Richmond,3.312
+Chapman Elementary,K-5,sq,Japanese,Richmond,4.811
+Chief Joseph Elementary,K-5,sq,Japanese,Richmond,5.342
+Clark Elementary,K-5,sq,Japanese,Richmond,2.299
+Creston Elementary,K-5,sq,Japanese,Richmond,0.601
+César Chávez K-8,K-5,sq,Japanese,Richmond,7.675
+Duniway Elementary,K-5,sq,Japanese,Richmond,2.7
+Faubion K-8,K-5,sq,Japanese,Richmond,7.338
+Forest Park Elementary,K-5,sq,Japanese,Richmond,7.437
+Glencoe Elementary,K-5,sq,Japanese,Richmond,0.983
+Grout Elementary,K-5,sq,Japanese,Richmond,1.462
+Hayhurst Elementary,K-5,sq,Japanese,Richmond,5.304
+Irvington Elementary,K-5,sq,Japanese,Richmond,2.661
+James John Elementary,K-5,sq,Japanese,Richmond,8.412
+Kelly Elementary,K-5,sq,Japanese,Richmond,3.59
+Laurelhurst K-8,K-5,sq,Japanese,Richmond,1.431
+Lent Elementary,K-5,sq,Japanese,Richmond,3.072
+Lewis Elementary,K-5,sq,Japanese,Richmond,2.481
+Llewellyn Elementary,K-5,sq,Japanese,Richmond,2.635
+MLK Jr Elementary,K-5,sq,Japanese,Richmond,3.997
+Maplewood Elementary,K-5,sq,Japanese,Richmond,5.768
+Markham Elementary,K-5,sq,Japanese,Richmond,6.574
+Marysville Elementary,K-5,sq,Japanese,Richmond,2.238
+Peninsula Elementary,K-5,sq,Japanese,Richmond,6.405
+Rieke Elementary,K-5,sq,Japanese,Richmond,4.018
+Rigler Elementary,K-5,sq,Japanese,Richmond,4.46
+Rosa Parks Elementary,K-5,sq,Japanese,Richmond,7.248
+Rose City Park Elementary,K-5,sq,Japanese,Richmond,2.329
+Sabin Elementary,K-5,sq,Japanese,Richmond,3.436
+Scott Elementary,K-5,sq,Japanese,Richmond,3.51
+Sitton Elementary,K-5,sq,Japanese,Richmond,9.274
+Skyline K-8,K-5,sq,Japanese,Richmond,14.176
+Stephenson Elementary,K-5,sq,Japanese,Richmond,5.501
+Sunnyside Environmental K-8,K-5,sq,Japanese,Richmond,0.948
+Sunrise Elementary,K-5,sq,Japanese,Richmond,3.181
+Vernon K-8,K-5,sq,Japanese,Richmond,3.834
+Vestal Elementary,K-5,sq,Japanese,Richmond,2.164
+Whitman Elementary,K-5,sq,Japanese,Richmond,3.02
+Woodlawn Elementary,K-5,sq,Japanese,Richmond,5.232
+Woodmere Elementary,K-5,sq,Japanese,Richmond,2.436
+Woodstock Elementary,K-5,sq,Japanese,Richmond,1.614
+Abernethy Elementary,K-5,sq,Russian,Kelly,4.277
+Ainsworth Elementary,K-5,sq,Russian,Kelly,6.529
+Alameda Elementary,K-5,sq,Russian,Kelly,5.856
+Arleta Elementary,K-5,sq,Russian,Kelly,1.617
+Astor K-8,K-5,sq,Russian,Kelly,10.398
+Atkinson Elementary,K-5,sq,Russian,Kelly,2.538
+Beach Elementary,K-5,sq,Russian,Kelly,8.497
+Beverly Cleary K-8,K-5,sq,Russian,Kelly,5.26
+Boise-Eliot/Humboldt Elementary,K-5,sq,Russian,Kelly,7.031
+Bridger Creative Science K-8,K-5,sq,Russian,Kelly,2.825
+Bridlemile Elementary,K-5,sq,Russian,Kelly,8.744
+Buckman Elementary,K-5,sq,Russian,Kelly,5.252
+Capitol Hill Elementary,K-5,sq,Russian,Kelly,4.973
+Chapman Elementary,K-5,sq,Russian,Kelly,8.067
+Chief Joseph Elementary,K-5,sq,Russian,Kelly,8.677
+Clark Elementary,K-5,sq,Russian,Kelly,2.305
+Creston Elementary,K-5,sq,Russian,Kelly,2.889
+César Chávez K-8,K-5,sq,Russian,Kelly,11.042
+Duniway Elementary,K-5,sq,Russian,Kelly,2.875
+Faubion K-8,K-5,sq,Russian,Kelly,10.552
+Forest Park Elementary,K-5,sq,Russian,Kelly,10.602
+Glencoe Elementary,K-5,sq,Russian,Kelly,3.605
+Grout Elementary,K-5,sq,Russian,Kelly,3.272
+Hayhurst Elementary,K-5,sq,Russian,Kelly,7.329
+Irvington Elementary,K-5,sq,Russian,Kelly,5.992
+James John Elementary,K-5,sq,Russian,Kelly,11.787
+Kelly Elementary,K-5,sq,Russian,Kelly,0.237
+Laurelhurst K-8,K-5,sq,Russian,Kelly,4.478
+Lent Elementary,K-5,sq,Russian,Kelly,0.805
+Lewis Elementary,K-5,sq,Russian,Kelly,2.18
+Llewellyn Elementary,K-5,sq,Russian,Kelly,4.038
+MLK Jr Elementary,K-5,sq,Russian,Kelly,7.275
+Maplewood Elementary,K-5,sq,Russian,Kelly,7.53
+Markham Elementary,K-5,sq,Russian,Kelly,7.823
+Marysville Elementary,K-5,sq,Russian,Kelly,1.265
+Peninsula Elementary,K-5,sq,Russian,Kelly,9.733
+Rieke Elementary,K-5,sq,Russian,Kelly,6.16
+Rigler Elementary,K-5,sq,Russian,Kelly,6.771
+Rosa Parks Elementary,K-5,sq,Russian,Kelly,10.596
+Rose City Park Elementary,K-5,sq,Russian,Kelly,4.77
+Sabin Elementary,K-5,sq,Russian,Kelly,6.705
+Scott Elementary,K-5,sq,Russian,Kelly,5.652
+Sitton Elementary,K-5,sq,Russian,Kelly,12.649
+Skyline K-8,K-5,sq,Russian,Kelly,17.512
+Stephenson Elementary,K-5,sq,Russian,Kelly,6.22
+Sunnyside Environmental K-8,K-5,sq,Russian,Kelly,4.306
+Sunrise Elementary,K-5,sq,Russian,Kelly,4.816
+Vernon K-8,K-5,sq,Russian,Kelly,6.857
+Vestal Elementary,K-5,sq,Russian,Kelly,3.78
+Whitman Elementary,K-5,sq,Russian,Kelly,1.22
+Woodlawn Elementary,K-5,sq,Russian,Kelly,8.439
+Woodmere Elementary,K-5,sq,Russian,Kelly,1.095
+Woodstock Elementary,K-5,sq,Russian,Kelly,2.175
+Abernethy Elementary,K-5,sq,Vietnamese,Rose City Park,3.045
+Ainsworth Elementary,K-5,sq,Vietnamese,Rose City Park,4.974
+Alameda Elementary,K-5,sq,Vietnamese,Rose City Park,1.2
+Arleta Elementary,K-5,sq,Vietnamese,Rose City Park,3.544
+Astor K-8,K-5,sq,Vietnamese,Rose City Park,6.447
+Atkinson Elementary,K-5,sq,Vietnamese,Rose City Park,2.416
+Beach Elementary,K-5,sq,Vietnamese,Rose City Park,4.662
+Beverly Cleary K-8,K-5,sq,Vietnamese,Rose City Park,1.06
+Boise-Eliot/Humboldt Elementary,K-5,sq,Vietnamese,Rose City Park,3.196
+Bridger Creative Science K-8,K-5,sq,Vietnamese,Rose City Park,2.093
+Bridlemile Elementary,K-5,sq,Vietnamese,Rose City Park,7.403
+Buckman Elementary,K-5,sq,Vietnamese,Rose City Park,2.534
+Capitol Hill Elementary,K-5,sq,Vietnamese,Rose City Park,5.49
+Chapman Elementary,K-5,sq,Vietnamese,Rose City Park,5.169
+Chief Joseph Elementary,K-5,sq,Vietnamese,Rose City Park,4.371
+Clark Elementary,K-5,sq,Vietnamese,Rose City Park,2.758
+Creston Elementary,K-5,sq,Vietnamese,Rose City Park,2.91
+César Chávez K-8,K-5,sq,Vietnamese,Rose City Park,6.82
+Duniway Elementary,K-5,sq,Vietnamese,Rose City Park,5.064
+Faubion K-8,K-5,sq,Vietnamese,Rose City Park,5.844
+Forest Park Elementary,K-5,sq,Vietnamese,Rose City Park,7.782
+Glencoe Elementary,K-5,sq,Vietnamese,Rose City Park,1.493
+Grout Elementary,K-5,sq,Vietnamese,Rose City Park,3.834
+Hayhurst Elementary,K-5,sq,Vietnamese,Rose City Park,7.111
+Irvington Elementary,K-5,sq,Vietnamese,Rose City Park,2.189
+James John Elementary,K-5,sq,Vietnamese,Rose City Park,7.718
+Kelly Elementary,K-5,sq,Vietnamese,Rose City Park,5.038
+Laurelhurst K-8,K-5,sq,Vietnamese,Rose City Park,1.115
+Lent Elementary,K-5,sq,Vietnamese,Rose City Park,4.255
+Lewis Elementary,K-5,sq,Vietnamese,Rose City Park,4.751
+Llewellyn Elementary,K-5,sq,Vietnamese,Rose City Park,4.952
+MLK Jr Elementary,K-5,sq,Vietnamese,Rose City Park,2.914
+Maplewood Elementary,K-5,sq,Vietnamese,Rose City Park,7.681
+Markham Elementary,K-5,sq,Vietnamese,Rose City Park,8.658
+Marysville Elementary,K-5,sq,Vietnamese,Rose City Park,3.63
+Peninsula Elementary,K-5,sq,Vietnamese,Rose City Park,5.325
+Rieke Elementary,K-5,sq,Vietnamese,Rose City Park,5.892
+Rigler Elementary,K-5,sq,Vietnamese,Rose City Park,2.089
+Rosa Parks Elementary,K-5,sq,Vietnamese,Rose City Park,6.248
+Rose City Park Elementary,K-5,sq,Vietnamese,Rose City Park,0.13
+Sabin Elementary,K-5,sq,Vietnamese,Rose City Park,2.414
+Scott Elementary,K-5,sq,Vietnamese,Rose City Park,1.153
+Sitton Elementary,K-5,sq,Vietnamese,Rose City Park,8.562
+Skyline K-8,K-5,sq,Vietnamese,Rose City Park,13.737
+Stephenson Elementary,K-5,sq,Vietnamese,Rose City Park,7.777
+Sunnyside Environmental K-8,K-5,sq,Vietnamese,Rose City Park,1.959
+Sunrise Elementary,K-5,sq,Vietnamese,Rose City Park,1.269
+Vernon K-8,K-5,sq,Vietnamese,Rose City Park,2.092
+Vestal Elementary,K-5,sq,Vietnamese,Rose City Park,1.276
+Whitman Elementary,K-5,sq,Vietnamese,Rose City Park,5.018
+Woodlawn Elementary,K-5,sq,Vietnamese,Rose City Park,3.799
+Woodmere Elementary,K-5,sq,Vietnamese,Rose City Park,4.301
+Woodstock Elementary,K-5,sq,Vietnamese,Rose City Park,3.836
+Astor K-8,6-8,a,Spanish,George,1.451
+Beaumont Middle School,6-8,a,Spanish,Roseway Heights,1.852
+Beverly Cleary K-8,6-8,a,Spanish,Roseway Heights,1.901
+Brentwood Middle School,6-8,a,Spanish,Kellogg,1.674
+Bridger Creative Science K-8,6-8,a,Spanish,Kellogg,0.993
+César Chávez K-8,6-8,a,Spanish,George,0.694
+Faubion K-8,6-8,a,Spanish,George,2.679
+George Middle School,6-8,a,Spanish,George,0.647
+Gray Middle School,6-8,a,Spanish,West Sylvan,2.625
+Harriet Tubman Middle School,6-8,a,Spanish,Roseway Heights,3.53
+Harrison Park Middle School,6-8,a,Spanish,Kellogg,1.405
+Hosford Middle School,6-8,a,Spanish,Kellogg,2.622
+Jackson Middle School,6-8,a,Spanish,West Sylvan,3.337
+Kellogg Middle School,6-8,a,Spanish,Kellogg,0.813
+Laurelhurst K-8,6-8,a,Spanish,Roseway Heights,1.936
+Mt Tabor Middle School,6-8,a,Spanish,Kellogg,1.422
+Ockley Green Middle School,6-8,a,Spanish,George,2.978
+Roseway Heights Middle School,6-8,a,Spanish,Roseway Heights,1.031
+Sellwood Middle School,6-8,a,Spanish,Kellogg,2.882
+Skyline K-8,6-8,a,Spanish,George,6.32
+Sunnyside Environmental K-8,6-8,a,Spanish,Kellogg,2.334
+Vernon K-8,6-8,a,Spanish,Roseway Heights,2.525
+West Sylvan Middle School,6-8,a,Spanish,West Sylvan,2.707
+Astor K-8,6-8,a,Mandarin,Harriet Tubman,3.777
+Beaumont Middle School,6-8,a,Mandarin,Harriet Tubman,2.217
+Beverly Cleary K-8,6-8,a,Mandarin,Harriet Tubman,2.103
+Brentwood Middle School,6-8,a,Mandarin,Harrison Park,2.193
+Bridger Creative Science K-8,6-8,a,Mandarin,Harrison Park,0.612
+César Chávez K-8,6-8,a,Mandarin,Harriet Tubman,4.456
+Faubion K-8,6-8,a,Mandarin,Harriet Tubman,4.52
+George Middle School,6-8,a,Mandarin,Harriet Tubman,5.525
+Gray Middle School,6-8,a,Mandarin,Harriet Tubman,4.291
+Harriet Tubman Middle School,6-8,a,Mandarin,Harriet Tubman,0.737
+Harrison Park Middle School,6-8,a,Mandarin,Harrison Park,0.47
+Hosford Middle School,6-8,a,Mandarin,Harriet Tubman,2.581
+Jackson Middle School,6-8,a,Mandarin,Harriet Tubman,5.664
+Kellogg Middle School,6-8,a,Mandarin,Harrison Park,1.251
+Laurelhurst K-8,6-8,a,Mandarin,Harriet Tubman,2.527
+Mt Tabor Middle School,6-8,a,Mandarin,Harrison Park,1.661
+Ockley Green Middle School,6-8,a,Mandarin,Harriet Tubman,2.232
+Roseway Heights Middle School,6-8,a,Mandarin,Harrison Park,3.672
+Sellwood Middle School,6-8,a,Mandarin,Harrison Park,3.872
+Skyline K-8,6-8,a,Mandarin,Harriet Tubman,10.974
+Sunnyside Environmental K-8,6-8,a,Mandarin,Harriet Tubman,2.336
+Vernon K-8,6-8,a,Mandarin,Harriet Tubman,2.334
+West Sylvan Middle School,6-8,a,Mandarin,Harriet Tubman,2.456
+Astor K-8,6-8,a,Japanese,Mt Tabor,7.05
+Beaumont Middle School,6-8,a,Japanese,Mt Tabor,2.14
+Beverly Cleary K-8,6-8,a,Japanese,Mt Tabor,1.59
+Brentwood Middle School,6-8,a,Japanese,Mt Tabor,3.317
+Bridger Creative Science K-8,6-8,a,Japanese,Mt Tabor,1.112
+César Chávez K-8,6-8,a,Japanese,Mt Tabor,7.561
+Faubion K-8,6-8,a,Japanese,Mt Tabor,6.86
+George Middle School,6-8,a,Japanese,Mt Tabor,8.745
+Gray Middle School,6-8,a,Japanese,Mt Tabor,5.894
+Harriet Tubman Middle School,6-8,a,Japanese,Mt Tabor,3.289
+Harrison Park Middle School,6-8,a,Japanese,Mt Tabor,1.676
+Hosford Middle School,6-8,a,Japanese,Mt Tabor,2.256
+Jackson Middle School,6-8,a,Japanese,Mt Tabor,6.856
+Kellogg Middle School,6-8,a,Japanese,Mt Tabor,2.438
+Laurelhurst K-8,6-8,a,Japanese,Mt Tabor,0.888
+Mt Tabor Middle School,6-8,a,Japanese,Mt Tabor,0.306
+Ockley Green Middle School,6-8,a,Japanese,Mt Tabor,5.274
+Roseway Heights Middle School,6-8,a,Japanese,Mt Tabor,2.553
+Sellwood Middle School,6-8,a,Japanese,Mt Tabor,3.73
+Skyline K-8,6-8,a,Japanese,Mt Tabor,14.327
+Sunnyside Environmental K-8,6-8,a,Japanese,Mt Tabor,1.335
+Vernon K-8,6-8,a,Japanese,Mt Tabor,3.141
+West Sylvan Middle School,6-8,a,Japanese,Mt Tabor,5.57
+Astor K-8,6-8,a,Russian,Brentwood,9.432
+Beaumont Middle School,6-8,a,Russian,Brentwood,5.424
+Beverly Cleary K-8,6-8,a,Russian,Brentwood,4.759
+Brentwood Middle School,6-8,a,Russian,Brentwood,0.977
+Bridger Creative Science K-8,6-8,a,Russian,Brentwood,2.942
+César Chávez K-8,6-8,a,Russian,Brentwood,10.16
+Faubion K-8,6-8,a,Russian,Brentwood,9.944
+George Middle School,6-8,a,Russian,Brentwood,11.188
+Gray Middle School,6-8,a,Russian,Brentwood,5.557
+Harriet Tubman Middle School,6-8,a,Russian,Brentwood,5.981
+Harrison Park Middle School,6-8,a,Russian,Brentwood,3.238
+Hosford Middle School,6-8,a,Russian,Brentwood,3.168
+Jackson Middle School,6-8,a,Russian,Brentwood,5.805
+Kellogg Middle School,6-8,a,Russian,Brentwood,1.571
+Laurelhurst K-8,6-8,a,Russian,Brentwood,3.976
+Mt Tabor Middle School,6-8,a,Russian,Brentwood,3.147
+Ockley Green Middle School,6-8,a,Russian,Brentwood,7.919
+Roseway Heights Middle School,6-8,a,Russian,Brentwood,5.964
+Sellwood Middle School,6-8,a,Russian,Brentwood,1.776
+Skyline K-8,6-8,a,Russian,Brentwood,16.388
+Sunnyside Environmental K-8,6-8,a,Russian,Brentwood,3.541
+Vernon K-8,6-8,a,Russian,Brentwood,6.416
+West Sylvan Middle School,6-8,a,Russian,Brentwood,6.935
+Astor K-8,6-8,a,Vietnamese,Roseway Heights,7.076
+Beaumont Middle School,6-8,a,Vietnamese,Roseway Heights,1.852
+Beverly Cleary K-8,6-8,a,Vietnamese,Roseway Heights,1.901
+Brentwood Middle School,6-8,a,Vietnamese,Roseway Heights,4.75
+Bridger Creative Science K-8,6-8,a,Vietnamese,Roseway Heights,2.207
+César Chávez K-8,6-8,a,Vietnamese,Roseway Heights,7.363
+Faubion K-8,6-8,a,Vietnamese,Roseway Heights,6.164
+George Middle School,6-8,a,Vietnamese,Roseway Heights,8.624
+Gray Middle School,6-8,a,Vietnamese,Roseway Heights,7.362
+Harriet Tubman Middle School,6-8,a,Vietnamese,Roseway Heights,3.53
+Harrison Park Middle School,6-8,a,Vietnamese,Roseway Heights,2.286
+Hosford Middle School,6-8,a,Vietnamese,Roseway Heights,3.846
+Jackson Middle School,6-8,a,Vietnamese,Roseway Heights,8.45
+Kellogg Middle School,6-8,a,Vietnamese,Roseway Heights,3.795
+Laurelhurst K-8,6-8,a,Vietnamese,Roseway Heights,1.936
+Mt Tabor Middle School,6-8,a,Vietnamese,Roseway Heights,2.084
+Ockley Green Middle School,6-8,a,Vietnamese,Roseway Heights,5.22
+Roseway Heights Middle School,6-8,a,Vietnamese,Roseway Heights,1.031
+Sellwood Middle School,6-8,a,Vietnamese,Roseway Heights,5.51
+Skyline K-8,6-8,a,Vietnamese,Roseway Heights,14.332
+Sunnyside Environmental K-8,6-8,a,Vietnamese,Roseway Heights,2.767
+Vernon K-8,6-8,a,Vietnamese,Roseway Heights,2.525
+West Sylvan Middle School,6-8,a,Vietnamese,Roseway Heights,6.407
+Abernethy Elementary,K-5,a,Spanish,Ainsworth,2.663
+Ainsworth Elementary,K-5,a,Spanish,Ainsworth,0.25
+Alameda Elementary,K-5,a,Spanish,Rigler,1.014
+Arleta Elementary,K-5,a,Spanish,Lent,1.524
+Astor K-8,K-5,a,Spanish,César Chávez,0.654
+Atkinson Elementary,K-5,a,Spanish,Lent,2.037
+Beach Elementary,K-5,a,Spanish,César Chávez,2.12
+Beverly Cleary K-8,K-5,a,Spanish,Rigler,1.516
+Boise-Eliot/Humboldt Elementary,K-5,a,Spanish,Ainsworth,2.994
+Bridger Creative Science K-8,K-5,a,Spanish,Lent,2.107
+Bridlemile Elementary,K-5,a,Spanish,Ainsworth,2.356
+Buckman Elementary,K-5,a,Spanish,Ainsworth,2.533
+Capitol Hill Elementary,K-5,a,Spanish,Ainsworth,2.646
+Chapman Elementary,K-5,a,Spanish,Ainsworth,1.872
+Chief Joseph Elementary,K-5,a,Spanish,César Chávez,2.03
+Clark Elementary,K-5,a,Spanish,Lent,1.481
+Creston Elementary,K-5,a,Spanish,Lent,2.745
+César Chávez K-8,K-5,a,Spanish,César Chávez,0.49
+Duniway Elementary,K-5,a,Spanish,Lent,3.391
+Faubion K-8,K-5,a,Spanish,César Chávez,2.244
+Forest Park Elementary,K-5,a,Spanish,César Chávez,3.558
+Glencoe Elementary,K-5,a,Spanish,Rigler,2.636
+Grout Elementary,K-5,a,Spanish,Lent,3.414
+Hayhurst Elementary,K-5,a,Spanish,Ainsworth,2.453
+Irvington Elementary,K-5,a,Spanish,Rigler,2.31
+James John Elementary,K-5,a,Spanish,César Chávez,1.324
+Kelly Elementary,K-5,a,Spanish,Lent,0.968
+Laurelhurst K-8,K-5,a,Spanish,Rigler,2.054
+Lent Elementary,K-5,a,Spanish,Lent,0.148
+Lewis Elementary,K-5,a,Spanish,Lent,2.686
+Llewellyn Elementary,K-5,a,Spanish,Ainsworth,3.19
+MLK Jr Elementary,K-5,a,Spanish,Rigler,2.427
+Maplewood Elementary,K-5,a,Spanish,Ainsworth,3.14
+Markham Elementary,K-5,a,Spanish,Ainsworth,4.393
+Marysville Elementary,K-5,a,Spanish,Lent,0.887
+Peninsula Elementary,K-5,a,Spanish,César Chávez,1.251
+Rieke Elementary,K-5,a,Spanish,Ainsworth,1.781
+Rigler Elementary,K-5,a,Spanish,Rigler,1.068
+Rosa Parks Elementary,K-5,a,Spanish,César Chávez,0.625
+Rose City Park Elementary,K-5,a,Spanish,Rigler,1.275
+Sabin Elementary,K-5,a,Spanish,Rigler,2.099
+Scott Elementary,K-5,a,Spanish,Rigler,0.846
+Sitton Elementary,K-5,a,Spanish,César Chávez,2.162
+Skyline K-8,K-5,a,Spanish,César Chávez,7.365
+Stephenson Elementary,K-5,a,Spanish,Ainsworth,4.439
+Sunnyside Environmental K-8,K-5,a,Spanish,Rigler,2.845
+Sunrise Elementary,K-5,a,Spanish,Rigler,1.726
+Vernon K-8,K-5,a,Spanish,Rigler,1.301
+Vestal Elementary,K-5,a,Spanish,Rigler,2.321
+Whitman Elementary,K-5,a,Spanish,Lent,1.947
+Woodlawn Elementary,K-5,a,Spanish,César Chávez,2.863
+Woodmere Elementary,K-5,a,Spanish,Lent,1.458
+Woodstock Elementary,K-5,a,Spanish,Lent,2.344
+Abernethy Elementary,K-5,a,Mandarin,Woodstock,2.301
+Ainsworth Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,3.007
+Alameda Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,2.305
+Arleta Elementary,K-5,a,Mandarin,Woodstock,0.915
+Astor K-8,K-5,a,Mandarin,Boise-Eliot/Humboldt,3.249
+Atkinson Elementary,K-5,a,Mandarin,Woodstock,1.757
+Beach Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,1.352
+Beverly Cleary K-8,K-5,a,Mandarin,Boise-Eliot/Humboldt,2.375
+Boise-Eliot/Humboldt Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,0.192
+Bridger Creative Science K-8,K-5,a,Mandarin,Woodstock,2.467
+Bridlemile Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,4.824
+Buckman Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,1.979
+Capitol Hill Elementary,K-5,a,Mandarin,Woodstock,2.997
+Chapman Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,2.003
+Chief Joseph Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,1.655
+Clark Elementary,K-5,a,Mandarin,Woodstock,2.502
+Creston Elementary,K-5,a,Mandarin,Woodstock,1.154
+César Chávez K-8,K-5,a,Mandarin,Boise-Eliot/Humboldt,3.871
+Duniway Elementary,K-5,a,Mandarin,Woodstock,1.288
+Faubion K-8,K-5,a,Mandarin,Boise-Eliot/Humboldt,3.897
+Forest Park Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,4.447
+Glencoe Elementary,K-5,a,Mandarin,Woodstock,2.48
+Grout Elementary,K-5,a,Mandarin,Woodstock,1.171
+Hayhurst Elementary,K-5,a,Mandarin,Woodstock,5.332
+Irvington Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,1.28
+James John Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,4.621
+Kelly Elementary,K-5,a,Mandarin,Woodstock,2.338
+Laurelhurst K-8,K-5,a,Mandarin,Boise-Eliot/Humboldt,2.932
+Lent Elementary,K-5,a,Mandarin,Woodstock,2.218
+Lewis Elementary,K-5,a,Mandarin,Woodstock,0.786
+Llewellyn Elementary,K-5,a,Mandarin,Woodstock,2.067
+MLK Jr Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,1.044
+Maplewood Elementary,K-5,a,Mandarin,Woodstock,5.611
+Markham Elementary,K-5,a,Mandarin,Woodstock,6.094
+Marysville Elementary,K-5,a,Mandarin,Woodstock,1.547
+Peninsula Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,2.697
+Rieke Elementary,K-5,a,Mandarin,Woodstock,4.115
+Rigler Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,4.021
+Rosa Parks Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,3.474
+Rose City Park Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,3.495
+Sabin Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,1.118
+Scott Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,4
+Sitton Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,5.485
+Skyline K-8,K-5,a,Mandarin,Boise-Eliot/Humboldt,10.508
+Stephenson Elementary,K-5,a,Mandarin,Woodstock,4.675
+Sunnyside Environmental K-8,K-5,a,Mandarin,Woodstock,2.667
+Sunrise Elementary,K-5,a,Mandarin,Woodstock,4.453
+Vernon K-8,K-5,a,Mandarin,Boise-Eliot/Humboldt,2.14
+Vestal Elementary,K-5,a,Mandarin,Woodstock,3.311
+Whitman Elementary,K-5,a,Mandarin,Woodstock,1.338
+Woodlawn Elementary,K-5,a,Mandarin,Boise-Eliot/Humboldt,2.09
+Woodmere Elementary,K-5,a,Mandarin,Woodstock,1.006
+Woodstock Elementary,K-5,a,Mandarin,Woodstock,0.142
+Abernethy Elementary,K-5,a,Japanese,Richmond,1.197
+Ainsworth Elementary,K-5,a,Japanese,Richmond,3.664
+Alameda Elementary,K-5,a,Japanese,Richmond,2.867
+Arleta Elementary,K-5,a,Japanese,Richmond,1.759
+Astor K-8,K-5,a,Japanese,Richmond,7.024
+Atkinson Elementary,K-5,a,Japanese,Richmond,1.204
+Beach Elementary,K-5,a,Japanese,Richmond,5.122
+Beverly Cleary K-8,K-5,a,Japanese,Richmond,2.181
+Boise-Eliot/Humboldt Elementary,K-5,a,Japanese,Richmond,3.664
+Bridger Creative Science K-8,K-5,a,Japanese,Richmond,1.773
+Bridlemile Elementary,K-5,a,Japanese,Richmond,6.131
+Buckman Elementary,K-5,a,Japanese,Richmond,1.886
+Capitol Hill Elementary,K-5,a,Japanese,Richmond,3.312
+Chapman Elementary,K-5,a,Japanese,Richmond,4.811
+Chief Joseph Elementary,K-5,a,Japanese,Richmond,5.342
+Clark Elementary,K-5,a,Japanese,Richmond,2.299
+Creston Elementary,K-5,a,Japanese,Richmond,0.601
+César Chávez K-8,K-5,a,Japanese,Richmond,7.675
+Duniway Elementary,K-5,a,Japanese,Richmond,2.7
+Faubion K-8,K-5,a,Japanese,Richmond,7.338
+Forest Park Elementary,K-5,a,Japanese,Richmond,7.437
+Glencoe Elementary,K-5,a,Japanese,Richmond,0.983
+Grout Elementary,K-5,a,Japanese,Richmond,1.462
+Hayhurst Elementary,K-5,a,Japanese,Richmond,5.304
+Irvington Elementary,K-5,a,Japanese,Richmond,2.661
+James John Elementary,K-5,a,Japanese,Richmond,8.412
+Kelly Elementary,K-5,a,Japanese,Richmond,3.59
+Laurelhurst K-8,K-5,a,Japanese,Richmond,1.431
+Lent Elementary,K-5,a,Japanese,Richmond,3.072
+Lewis Elementary,K-5,a,Japanese,Richmond,2.481
+Llewellyn Elementary,K-5,a,Japanese,Richmond,2.635
+MLK Jr Elementary,K-5,a,Japanese,Richmond,3.997
+Maplewood Elementary,K-5,a,Japanese,Richmond,5.768
+Markham Elementary,K-5,a,Japanese,Richmond,6.574
+Marysville Elementary,K-5,a,Japanese,Richmond,2.238
+Peninsula Elementary,K-5,a,Japanese,Richmond,6.405
+Rieke Elementary,K-5,a,Japanese,Richmond,4.018
+Rigler Elementary,K-5,a,Japanese,Richmond,4.46
+Rosa Parks Elementary,K-5,a,Japanese,Richmond,7.248
+Rose City Park Elementary,K-5,a,Japanese,Richmond,2.329
+Sabin Elementary,K-5,a,Japanese,Richmond,3.436
+Scott Elementary,K-5,a,Japanese,Richmond,3.51
+Sitton Elementary,K-5,a,Japanese,Richmond,9.274
+Skyline K-8,K-5,a,Japanese,Richmond,14.176
+Stephenson Elementary,K-5,a,Japanese,Richmond,5.501
+Sunnyside Environmental K-8,K-5,a,Japanese,Richmond,0.948
+Sunrise Elementary,K-5,a,Japanese,Richmond,3.181
+Vernon K-8,K-5,a,Japanese,Richmond,3.834
+Vestal Elementary,K-5,a,Japanese,Richmond,2.164
+Whitman Elementary,K-5,a,Japanese,Richmond,3.02
+Woodlawn Elementary,K-5,a,Japanese,Richmond,5.232
+Woodmere Elementary,K-5,a,Japanese,Richmond,2.436
+Woodstock Elementary,K-5,a,Japanese,Richmond,1.614
+Abernethy Elementary,K-5,a,Russian,Kelly,4.277
+Ainsworth Elementary,K-5,a,Russian,Kelly,6.529
+Alameda Elementary,K-5,a,Russian,Kelly,5.856
+Arleta Elementary,K-5,a,Russian,Kelly,1.617
+Astor K-8,K-5,a,Russian,Kelly,10.398
+Atkinson Elementary,K-5,a,Russian,Kelly,2.538
+Beach Elementary,K-5,a,Russian,Kelly,8.497
+Beverly Cleary K-8,K-5,a,Russian,Kelly,5.26
+Boise-Eliot/Humboldt Elementary,K-5,a,Russian,Kelly,7.031
+Bridger Creative Science K-8,K-5,a,Russian,Kelly,2.825
+Bridlemile Elementary,K-5,a,Russian,Kelly,8.744
+Buckman Elementary,K-5,a,Russian,Kelly,5.252
+Capitol Hill Elementary,K-5,a,Russian,Kelly,4.973
+Chapman Elementary,K-5,a,Russian,Kelly,8.067
+Chief Joseph Elementary,K-5,a,Russian,Kelly,8.677
+Clark Elementary,K-5,a,Russian,Kelly,2.305
+Creston Elementary,K-5,a,Russian,Kelly,2.889
+César Chávez K-8,K-5,a,Russian,Kelly,11.042
+Duniway Elementary,K-5,a,Russian,Kelly,2.875
+Faubion K-8,K-5,a,Russian,Kelly,10.552
+Forest Park Elementary,K-5,a,Russian,Kelly,10.602
+Glencoe Elementary,K-5,a,Russian,Kelly,3.605
+Grout Elementary,K-5,a,Russian,Kelly,3.272
+Hayhurst Elementary,K-5,a,Russian,Kelly,7.329
+Irvington Elementary,K-5,a,Russian,Kelly,5.992
+James John Elementary,K-5,a,Russian,Kelly,11.787
+Kelly Elementary,K-5,a,Russian,Kelly,0.237
+Laurelhurst K-8,K-5,a,Russian,Kelly,4.478
+Lent Elementary,K-5,a,Russian,Kelly,0.805
+Lewis Elementary,K-5,a,Russian,Kelly,2.18
+Llewellyn Elementary,K-5,a,Russian,Kelly,4.038
+MLK Jr Elementary,K-5,a,Russian,Kelly,7.276
+Maplewood Elementary,K-5,a,Russian,Kelly,7.53
+Markham Elementary,K-5,a,Russian,Kelly,7.823
+Marysville Elementary,K-5,a,Russian,Kelly,1.265
+Peninsula Elementary,K-5,a,Russian,Kelly,9.733
+Rieke Elementary,K-5,a,Russian,Kelly,6.16
+Rigler Elementary,K-5,a,Russian,Kelly,6.771
+Rosa Parks Elementary,K-5,a,Russian,Kelly,10.597
+Rose City Park Elementary,K-5,a,Russian,Kelly,4.77
+Sabin Elementary,K-5,a,Russian,Kelly,6.705
+Scott Elementary,K-5,a,Russian,Kelly,5.652
+Sitton Elementary,K-5,a,Russian,Kelly,12.649
+Skyline K-8,K-5,a,Russian,Kelly,17.512
+Stephenson Elementary,K-5,a,Russian,Kelly,6.22
+Sunnyside Environmental K-8,K-5,a,Russian,Kelly,4.306
+Sunrise Elementary,K-5,a,Russian,Kelly,4.816
+Vernon K-8,K-5,a,Russian,Kelly,6.857
+Vestal Elementary,K-5,a,Russian,Kelly,3.78
+Whitman Elementary,K-5,a,Russian,Kelly,1.22
+Woodlawn Elementary,K-5,a,Russian,Kelly,8.439
+Woodmere Elementary,K-5,a,Russian,Kelly,1.095
+Woodstock Elementary,K-5,a,Russian,Kelly,2.175
+Abernethy Elementary,K-5,a,Vietnamese,Vestal,3.426
+Ainsworth Elementary,K-5,a,Vietnamese,Vestal,5.767
+Alameda Elementary,K-5,a,Vietnamese,Vestal,2.755
+Arleta Elementary,K-5,a,Vietnamese,Vestal,2.612
+Astor K-8,K-5,a,Vietnamese,Vestal,7.956
+Atkinson Elementary,K-5,a,Vietnamese,Vestal,1.57
+Beach Elementary,K-5,a,Vietnamese,Vestal,6.123
+Beverly Cleary K-8,K-5,a,Vietnamese,Vestal,2.433
+Boise-Eliot/Humboldt Elementary,K-5,a,Vietnamese,Vestal,4.613
+Bridger Creative Science K-8,K-5,a,Vietnamese,Vestal,0.884
+Bridlemile Elementary,K-5,a,Vietnamese,Vestal,8.261
+Buckman Elementary,K-5,a,Vietnamese,Vestal,3.473
+Capitol Hill Elementary,K-5,a,Vietnamese,Vestal,5.628
+Chapman Elementary,K-5,a,Vietnamese,Vestal,6.399
+Chief Joseph Elementary,K-5,a,Vietnamese,Vestal,5.916
+Clark Elementary,K-5,a,Vietnamese,Vestal,1.328
+Creston Elementary,K-5,a,Vietnamese,Vestal,2.59
+César Chávez K-8,K-5,a,Vietnamese,Vestal,8.369
+Duniway Elementary,K-5,a,Vietnamese,Vestal,4.586
+Faubion K-8,K-5,a,Vietnamese,Vestal,7.395
+Forest Park Elementary,K-5,a,Vietnamese,Vestal,9.061
+Glencoe Elementary,K-5,a,Vietnamese,Vestal,1.437
+Grout Elementary,K-5,a,Vietnamese,Vestal,3.665
+Hayhurst Elementary,K-5,a,Vietnamese,Vestal,7.609
+Irvington Elementary,K-5,a,Vietnamese,Vestal,3.532
+James John Elementary,K-5,a,Vietnamese,Vestal,9.252
+Kelly Elementary,K-5,a,Vietnamese,Vestal,3.727
+Laurelhurst K-8,K-5,a,Vietnamese,Vestal,1.958
+Lent Elementary,K-5,a,Vietnamese,Vestal,2.892
+Lewis Elementary,K-5,a,Vietnamese,Vestal,4.09
+Llewellyn Elementary,K-5,a,Vietnamese,Vestal,4.887
+MLK Jr Elementary,K-5,a,Vietnamese,Vestal,4.45
+Maplewood Elementary,K-5,a,Vietnamese,Vestal,8.092
+Markham Elementary,K-5,a,Vietnamese,Vestal,8.895
+Marysville Elementary,K-5,a,Vietnamese,Vestal,2.445
+Peninsula Elementary,K-5,a,Vietnamese,Vestal,6.886
+Rieke Elementary,K-5,a,Vietnamese,Vestal,6.329
+Rigler Elementary,K-5,a,Vietnamese,Vestal,3.167
+Rosa Parks Elementary,K-5,a,Vietnamese,Vestal,7.807
+Rose City Park Elementary,K-5,a,Vietnamese,Vestal,1.436
+Sabin Elementary,K-5,a,Vietnamese,Vestal,3.924
+Scott Elementary,K-5,a,Vietnamese,Vestal,2.049
+Sitton Elementary,K-5,a,Vietnamese,Vestal,10.102
+Skyline K-8,K-5,a,Vietnamese,Vestal,15.252
+Stephenson Elementary,K-5,a,Vietnamese,Vestal,7.747
+Sunnyside Environmental K-8,K-5,a,Vietnamese,Vestal,2.538
+Sunrise Elementary,K-5,a,Vietnamese,Vestal,1.212
+Vernon K-8,K-5,a,Vietnamese,Vestal,3.652
+Vestal Elementary,K-5,a,Vietnamese,Vestal,0.309
+Whitman Elementary,K-5,a,Vietnamese,Vestal,4.043
+Woodlawn Elementary,K-5,a,Vietnamese,Vestal,5.364
+Woodmere Elementary,K-5,a,Vietnamese,Vestal,3.298
+Woodstock Elementary,K-5,a,Vietnamese,Vestal,3.218
+Astor K-8,6-8,b,Spanish,George,1.451
+Beaumont Middle School,6-8,b,Spanish,Roseway Heights,1.852
+Beverly Cleary K-8,6-8,b,Spanish,Roseway Heights,1.901
+Brentwood Middle School,6-8,b,Spanish,Kellogg,1.674
+Bridger Creative Science K-8,6-8,b,Spanish,Kellogg,0.993
+César Chávez K-8,6-8,b,Spanish,George,0.694
+Faubion K-8,6-8,b,Spanish,George,2.679
+George Middle School,6-8,b,Spanish,George,0.647
+Gray Middle School,6-8,b,Spanish,West Sylvan,2.625
+Harriet Tubman Middle School,6-8,b,Spanish,Roseway Heights,3.53
+Harrison Park Middle School,6-8,b,Spanish,Kellogg,1.405
+Hosford Middle School,6-8,b,Spanish,Kellogg,2.622
+Jackson Middle School,6-8,b,Spanish,West Sylvan,3.337
+Kellogg Middle School,6-8,b,Spanish,Kellogg,0.813
+Laurelhurst K-8,6-8,b,Spanish,Roseway Heights,1.936
+Mt Tabor Middle School,6-8,b,Spanish,Kellogg,1.422
+Ockley Green Middle School,6-8,b,Spanish,George,2.978
+Roseway Heights Middle School,6-8,b,Spanish,Roseway Heights,1.031
+Sellwood Middle School,6-8,b,Spanish,Kellogg,2.882
+Skyline K-8,6-8,b,Spanish,George,6.32
+Sunnyside Environmental K-8,6-8,b,Spanish,Kellogg,2.334
+Vernon K-8,6-8,b,Spanish,Roseway Heights,2.525
+West Sylvan Middle School,6-8,b,Spanish,West Sylvan,2.707
+Astor K-8,6-8,b,Mandarin,Harriet Tubman,3.777
+Beaumont Middle School,6-8,b,Mandarin,Harriet Tubman,2.217
+Beverly Cleary K-8,6-8,b,Mandarin,Harriet Tubman,2.103
+Brentwood Middle School,6-8,b,Mandarin,Harrison Park,2.193
+Bridger Creative Science K-8,6-8,b,Mandarin,Harrison Park,0.612
+César Chávez K-8,6-8,b,Mandarin,Harriet Tubman,4.456
+Faubion K-8,6-8,b,Mandarin,Harriet Tubman,4.52
+George Middle School,6-8,b,Mandarin,Harriet Tubman,5.525
+Gray Middle School,6-8,b,Mandarin,Harriet Tubman,4.291
+Harriet Tubman Middle School,6-8,b,Mandarin,Harriet Tubman,0.737
+Harrison Park Middle School,6-8,b,Mandarin,Harrison Park,0.47
+Hosford Middle School,6-8,b,Mandarin,Harriet Tubman,2.581
+Jackson Middle School,6-8,b,Mandarin,Harriet Tubman,5.664
+Kellogg Middle School,6-8,b,Mandarin,Harrison Park,1.251
+Laurelhurst K-8,6-8,b,Mandarin,Harriet Tubman,2.527
+Mt Tabor Middle School,6-8,b,Mandarin,Harrison Park,1.661
+Ockley Green Middle School,6-8,b,Mandarin,Harriet Tubman,2.232
+Roseway Heights Middle School,6-8,b,Mandarin,Harrison Park,3.672
+Sellwood Middle School,6-8,b,Mandarin,Harrison Park,3.872
+Skyline K-8,6-8,b,Mandarin,Harriet Tubman,10.974
+Sunnyside Environmental K-8,6-8,b,Mandarin,Harriet Tubman,2.336
+Vernon K-8,6-8,b,Mandarin,Harriet Tubman,2.334
+West Sylvan Middle School,6-8,b,Mandarin,Harriet Tubman,2.456
+Astor K-8,6-8,b,Japanese,Mt Tabor,7.05
+Beaumont Middle School,6-8,b,Japanese,Mt Tabor,2.14
+Beverly Cleary K-8,6-8,b,Japanese,Mt Tabor,1.59
+Brentwood Middle School,6-8,b,Japanese,Mt Tabor,3.317
+Bridger Creative Science K-8,6-8,b,Japanese,Mt Tabor,1.112
+César Chávez K-8,6-8,b,Japanese,Mt Tabor,7.561
+Faubion K-8,6-8,b,Japanese,Mt Tabor,6.86
+George Middle School,6-8,b,Japanese,Mt Tabor,8.745
+Gray Middle School,6-8,b,Japanese,Mt Tabor,5.894
+Harriet Tubman Middle School,6-8,b,Japanese,Mt Tabor,3.289
+Harrison Park Middle School,6-8,b,Japanese,Mt Tabor,1.676
+Hosford Middle School,6-8,b,Japanese,Mt Tabor,2.256
+Jackson Middle School,6-8,b,Japanese,Mt Tabor,6.856
+Kellogg Middle School,6-8,b,Japanese,Mt Tabor,2.438
+Laurelhurst K-8,6-8,b,Japanese,Mt Tabor,0.888
+Mt Tabor Middle School,6-8,b,Japanese,Mt Tabor,0.306
+Ockley Green Middle School,6-8,b,Japanese,Mt Tabor,5.274
+Roseway Heights Middle School,6-8,b,Japanese,Mt Tabor,2.553
+Sellwood Middle School,6-8,b,Japanese,Mt Tabor,3.73
+Skyline K-8,6-8,b,Japanese,Mt Tabor,14.327
+Sunnyside Environmental K-8,6-8,b,Japanese,Mt Tabor,1.335
+Vernon K-8,6-8,b,Japanese,Mt Tabor,3.141
+West Sylvan Middle School,6-8,b,Japanese,Mt Tabor,5.57
+Astor K-8,6-8,b,Russian,Brentwood,9.432
+Beaumont Middle School,6-8,b,Russian,Brentwood,5.424
+Beverly Cleary K-8,6-8,b,Russian,Brentwood,4.759
+Brentwood Middle School,6-8,b,Russian,Brentwood,0.977
+Bridger Creative Science K-8,6-8,b,Russian,Brentwood,2.942
+César Chávez K-8,6-8,b,Russian,Brentwood,10.16
+Faubion K-8,6-8,b,Russian,Brentwood,9.944
+George Middle School,6-8,b,Russian,Brentwood,11.188
+Gray Middle School,6-8,b,Russian,Brentwood,5.557
+Harriet Tubman Middle School,6-8,b,Russian,Brentwood,5.981
+Harrison Park Middle School,6-8,b,Russian,Brentwood,3.238
+Hosford Middle School,6-8,b,Russian,Brentwood,3.168
+Jackson Middle School,6-8,b,Russian,Brentwood,5.805
+Kellogg Middle School,6-8,b,Russian,Brentwood,1.571
+Laurelhurst K-8,6-8,b,Russian,Brentwood,3.976
+Mt Tabor Middle School,6-8,b,Russian,Brentwood,3.147
+Ockley Green Middle School,6-8,b,Russian,Brentwood,7.919
+Roseway Heights Middle School,6-8,b,Russian,Brentwood,5.964
+Sellwood Middle School,6-8,b,Russian,Brentwood,1.776
+Skyline K-8,6-8,b,Russian,Brentwood,16.388
+Sunnyside Environmental K-8,6-8,b,Russian,Brentwood,3.541
+Vernon K-8,6-8,b,Russian,Brentwood,6.416
+West Sylvan Middle School,6-8,b,Russian,Brentwood,6.935
+Astor K-8,6-8,b,Vietnamese,Roseway Heights,7.076
+Beaumont Middle School,6-8,b,Vietnamese,Roseway Heights,1.852
+Beverly Cleary K-8,6-8,b,Vietnamese,Roseway Heights,1.901
+Brentwood Middle School,6-8,b,Vietnamese,Roseway Heights,4.75
+Bridger Creative Science K-8,6-8,b,Vietnamese,Roseway Heights,2.207
+César Chávez K-8,6-8,b,Vietnamese,Roseway Heights,7.363
+Faubion K-8,6-8,b,Vietnamese,Roseway Heights,6.164
+George Middle School,6-8,b,Vietnamese,Roseway Heights,8.624
+Gray Middle School,6-8,b,Vietnamese,Roseway Heights,7.362
+Harriet Tubman Middle School,6-8,b,Vietnamese,Roseway Heights,3.53
+Harrison Park Middle School,6-8,b,Vietnamese,Roseway Heights,2.286
+Hosford Middle School,6-8,b,Vietnamese,Roseway Heights,3.846
+Jackson Middle School,6-8,b,Vietnamese,Roseway Heights,8.45
+Kellogg Middle School,6-8,b,Vietnamese,Roseway Heights,3.795
+Laurelhurst K-8,6-8,b,Vietnamese,Roseway Heights,1.936
+Mt Tabor Middle School,6-8,b,Vietnamese,Roseway Heights,2.084
+Ockley Green Middle School,6-8,b,Vietnamese,Roseway Heights,5.22
+Roseway Heights Middle School,6-8,b,Vietnamese,Roseway Heights,1.031
+Sellwood Middle School,6-8,b,Vietnamese,Roseway Heights,5.51
+Skyline K-8,6-8,b,Vietnamese,Roseway Heights,14.332
+Sunnyside Environmental K-8,6-8,b,Vietnamese,Roseway Heights,2.767
+Vernon K-8,6-8,b,Vietnamese,Roseway Heights,2.525
+West Sylvan Middle School,6-8,b,Vietnamese,Roseway Heights,6.407
+Abernethy Elementary,K-5,b,Spanish,Ainsworth,2.663
+Ainsworth Elementary,K-5,b,Spanish,Ainsworth,0.25
+Alameda Elementary,K-5,b,Spanish,Rigler,1.014
+Arleta Elementary,K-5,b,Spanish,Lent,1.524
+Astor K-8,K-5,b,Spanish,César Chávez,0.654
+Atkinson Elementary,K-5,b,Spanish,Lent,2.037
+Beach Elementary,K-5,b,Spanish,César Chávez,2.12
+Beverly Cleary K-8,K-5,b,Spanish,Rigler,1.516
+Boise-Eliot/Humboldt Elementary,K-5,b,Spanish,Ainsworth,2.994
+Bridger Creative Science K-8,K-5,b,Spanish,Lent,2.107
+Bridlemile Elementary,K-5,b,Spanish,Ainsworth,2.356
+Buckman Elementary,K-5,b,Spanish,Ainsworth,2.533
+Capitol Hill Elementary,K-5,b,Spanish,Ainsworth,2.646
+Chapman Elementary,K-5,b,Spanish,Ainsworth,1.872
+Chief Joseph Elementary,K-5,b,Spanish,César Chávez,2.03
+Clark Elementary,K-5,b,Spanish,Lent,1.481
+Creston Elementary,K-5,b,Spanish,Lent,2.745
+César Chávez K-8,K-5,b,Spanish,César Chávez,0.49
+Duniway Elementary,K-5,b,Spanish,Lent,3.391
+Faubion K-8,K-5,b,Spanish,César Chávez,2.244
+Forest Park Elementary,K-5,b,Spanish,César Chávez,3.558
+Glencoe Elementary,K-5,b,Spanish,Rigler,2.636
+Grout Elementary,K-5,b,Spanish,Lent,3.414
+Hayhurst Elementary,K-5,b,Spanish,Ainsworth,2.453
+Irvington Elementary,K-5,b,Spanish,Rigler,2.31
+James John Elementary,K-5,b,Spanish,César Chávez,1.324
+Kelly Elementary,K-5,b,Spanish,Lent,0.968
+Laurelhurst K-8,K-5,b,Spanish,Rigler,2.054
+Lent Elementary,K-5,b,Spanish,Lent,0.148
+Lewis Elementary,K-5,b,Spanish,Lent,2.686
+Llewellyn Elementary,K-5,b,Spanish,Ainsworth,3.19
+MLK Jr Elementary,K-5,b,Spanish,Rigler,2.427
+Maplewood Elementary,K-5,b,Spanish,Ainsworth,3.14
+Markham Elementary,K-5,b,Spanish,Ainsworth,4.393
+Marysville Elementary,K-5,b,Spanish,Lent,0.887
+Peninsula Elementary,K-5,b,Spanish,César Chávez,1.251
+Rieke Elementary,K-5,b,Spanish,Ainsworth,1.781
+Rigler Elementary,K-5,b,Spanish,Rigler,1.068
+Rosa Parks Elementary,K-5,b,Spanish,César Chávez,0.625
+Rose City Park Elementary,K-5,b,Spanish,Rigler,1.275
+Sabin Elementary,K-5,b,Spanish,Rigler,2.099
+Scott Elementary,K-5,b,Spanish,Rigler,0.846
+Sitton Elementary,K-5,b,Spanish,César Chávez,2.162
+Skyline K-8,K-5,b,Spanish,César Chávez,7.365
+Stephenson Elementary,K-5,b,Spanish,Ainsworth,4.439
+Sunnyside Environmental K-8,K-5,b,Spanish,Rigler,2.845
+Sunrise Elementary,K-5,b,Spanish,Rigler,1.726
+Vernon K-8,K-5,b,Spanish,Rigler,1.301
+Vestal Elementary,K-5,b,Spanish,Rigler,2.321
+Whitman Elementary,K-5,b,Spanish,Lent,1.947
+Woodlawn Elementary,K-5,b,Spanish,César Chávez,2.863
+Woodmere Elementary,K-5,b,Spanish,Lent,1.458
+Woodstock Elementary,K-5,b,Spanish,Lent,2.344
+Abernethy Elementary,K-5,b,Mandarin,Woodstock,2.301
+Ainsworth Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,3.007
+Alameda Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,2.305
+Arleta Elementary,K-5,b,Mandarin,Woodstock,0.915
+Astor K-8,K-5,b,Mandarin,Boise-Eliot/Humboldt,3.249
+Atkinson Elementary,K-5,b,Mandarin,Woodstock,1.757
+Beach Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,1.352
+Beverly Cleary K-8,K-5,b,Mandarin,Boise-Eliot/Humboldt,2.375
+Boise-Eliot/Humboldt Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,0.192
+Bridger Creative Science K-8,K-5,b,Mandarin,Woodstock,2.467
+Bridlemile Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,4.824
+Buckman Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,1.979
+Capitol Hill Elementary,K-5,b,Mandarin,Woodstock,2.997
+Chapman Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,2.003
+Chief Joseph Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,1.655
+Clark Elementary,K-5,b,Mandarin,Woodstock,2.502
+Creston Elementary,K-5,b,Mandarin,Woodstock,1.154
+César Chávez K-8,K-5,b,Mandarin,Boise-Eliot/Humboldt,3.871
+Duniway Elementary,K-5,b,Mandarin,Woodstock,1.288
+Faubion K-8,K-5,b,Mandarin,Boise-Eliot/Humboldt,3.897
+Forest Park Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,4.447
+Glencoe Elementary,K-5,b,Mandarin,Woodstock,2.48
+Grout Elementary,K-5,b,Mandarin,Woodstock,1.171
+Hayhurst Elementary,K-5,b,Mandarin,Woodstock,5.332
+Irvington Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,1.28
+James John Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,4.621
+Kelly Elementary,K-5,b,Mandarin,Woodstock,2.338
+Laurelhurst K-8,K-5,b,Mandarin,Boise-Eliot/Humboldt,2.932
+Lent Elementary,K-5,b,Mandarin,Woodstock,2.218
+Lewis Elementary,K-5,b,Mandarin,Woodstock,0.786
+Llewellyn Elementary,K-5,b,Mandarin,Woodstock,2.067
+MLK Jr Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,1.044
+Maplewood Elementary,K-5,b,Mandarin,Woodstock,5.611
+Markham Elementary,K-5,b,Mandarin,Woodstock,6.094
+Marysville Elementary,K-5,b,Mandarin,Woodstock,1.547
+Peninsula Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,2.697
+Rieke Elementary,K-5,b,Mandarin,Woodstock,4.115
+Rigler Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,4.021
+Rosa Parks Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,3.474
+Rose City Park Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,3.495
+Sabin Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,1.118
+Scott Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,4
+Sitton Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,5.485
+Skyline K-8,K-5,b,Mandarin,Boise-Eliot/Humboldt,10.508
+Stephenson Elementary,K-5,b,Mandarin,Woodstock,4.675
+Sunnyside Environmental K-8,K-5,b,Mandarin,Woodstock,2.667
+Sunrise Elementary,K-5,b,Mandarin,Woodstock,4.453
+Vernon K-8,K-5,b,Mandarin,Boise-Eliot/Humboldt,2.14
+Vestal Elementary,K-5,b,Mandarin,Woodstock,3.311
+Whitman Elementary,K-5,b,Mandarin,Woodstock,1.338
+Woodlawn Elementary,K-5,b,Mandarin,Boise-Eliot/Humboldt,2.09
+Woodmere Elementary,K-5,b,Mandarin,Woodstock,1.006
+Woodstock Elementary,K-5,b,Mandarin,Woodstock,0.142
+Abernethy Elementary,K-5,b,Japanese,Richmond,1.197
+Ainsworth Elementary,K-5,b,Japanese,Richmond,3.664
+Alameda Elementary,K-5,b,Japanese,Richmond,2.867
+Arleta Elementary,K-5,b,Japanese,Richmond,1.759
+Astor K-8,K-5,b,Japanese,Richmond,7.024
+Atkinson Elementary,K-5,b,Japanese,Richmond,1.204
+Beach Elementary,K-5,b,Japanese,Richmond,5.122
+Beverly Cleary K-8,K-5,b,Japanese,Richmond,2.181
+Boise-Eliot/Humboldt Elementary,K-5,b,Japanese,Richmond,3.664
+Bridger Creative Science K-8,K-5,b,Japanese,Richmond,1.773
+Bridlemile Elementary,K-5,b,Japanese,Richmond,6.131
+Buckman Elementary,K-5,b,Japanese,Richmond,1.886
+Capitol Hill Elementary,K-5,b,Japanese,Richmond,3.312
+Chapman Elementary,K-5,b,Japanese,Richmond,4.811
+Chief Joseph Elementary,K-5,b,Japanese,Richmond,5.342
+Clark Elementary,K-5,b,Japanese,Richmond,2.299
+Creston Elementary,K-5,b,Japanese,Richmond,0.601
+César Chávez K-8,K-5,b,Japanese,Richmond,7.675
+Duniway Elementary,K-5,b,Japanese,Richmond,2.7
+Faubion K-8,K-5,b,Japanese,Richmond,7.338
+Forest Park Elementary,K-5,b,Japanese,Richmond,7.437
+Glencoe Elementary,K-5,b,Japanese,Richmond,0.983
+Grout Elementary,K-5,b,Japanese,Richmond,1.462
+Hayhurst Elementary,K-5,b,Japanese,Richmond,5.304
+Irvington Elementary,K-5,b,Japanese,Richmond,2.661
+James John Elementary,K-5,b,Japanese,Richmond,8.412
+Kelly Elementary,K-5,b,Japanese,Richmond,3.59
+Laurelhurst K-8,K-5,b,Japanese,Richmond,1.431
+Lent Elementary,K-5,b,Japanese,Richmond,3.072
+Lewis Elementary,K-5,b,Japanese,Richmond,2.481
+Llewellyn Elementary,K-5,b,Japanese,Richmond,2.635
+MLK Jr Elementary,K-5,b,Japanese,Richmond,3.997
+Maplewood Elementary,K-5,b,Japanese,Richmond,5.768
+Markham Elementary,K-5,b,Japanese,Richmond,6.574
+Marysville Elementary,K-5,b,Japanese,Richmond,2.238
+Peninsula Elementary,K-5,b,Japanese,Richmond,6.405
+Rieke Elementary,K-5,b,Japanese,Richmond,4.018
+Rigler Elementary,K-5,b,Japanese,Richmond,4.46
+Rosa Parks Elementary,K-5,b,Japanese,Richmond,7.248
+Rose City Park Elementary,K-5,b,Japanese,Richmond,2.329
+Sabin Elementary,K-5,b,Japanese,Richmond,3.436
+Scott Elementary,K-5,b,Japanese,Richmond,3.51
+Sitton Elementary,K-5,b,Japanese,Richmond,9.274
+Skyline K-8,K-5,b,Japanese,Richmond,14.176
+Stephenson Elementary,K-5,b,Japanese,Richmond,5.501
+Sunnyside Environmental K-8,K-5,b,Japanese,Richmond,0.948
+Sunrise Elementary,K-5,b,Japanese,Richmond,3.181
+Vernon K-8,K-5,b,Japanese,Richmond,3.834
+Vestal Elementary,K-5,b,Japanese,Richmond,2.164
+Whitman Elementary,K-5,b,Japanese,Richmond,3.02
+Woodlawn Elementary,K-5,b,Japanese,Richmond,5.232
+Woodmere Elementary,K-5,b,Japanese,Richmond,2.436
+Woodstock Elementary,K-5,b,Japanese,Richmond,1.614
+Abernethy Elementary,K-5,b,Russian,Kelly,4.277
+Ainsworth Elementary,K-5,b,Russian,Kelly,6.529
+Alameda Elementary,K-5,b,Russian,Kelly,5.856
+Arleta Elementary,K-5,b,Russian,Kelly,1.617
+Astor K-8,K-5,b,Russian,Kelly,10.398
+Atkinson Elementary,K-5,b,Russian,Kelly,2.538
+Beach Elementary,K-5,b,Russian,Kelly,8.497
+Beverly Cleary K-8,K-5,b,Russian,Kelly,5.26
+Boise-Eliot/Humboldt Elementary,K-5,b,Russian,Kelly,7.031
+Bridger Creative Science K-8,K-5,b,Russian,Kelly,2.825
+Bridlemile Elementary,K-5,b,Russian,Kelly,8.744
+Buckman Elementary,K-5,b,Russian,Kelly,5.252
+Capitol Hill Elementary,K-5,b,Russian,Kelly,4.973
+Chapman Elementary,K-5,b,Russian,Kelly,8.067
+Chief Joseph Elementary,K-5,b,Russian,Kelly,8.677
+Clark Elementary,K-5,b,Russian,Kelly,2.305
+Creston Elementary,K-5,b,Russian,Kelly,2.889
+César Chávez K-8,K-5,b,Russian,Kelly,11.042
+Duniway Elementary,K-5,b,Russian,Kelly,2.875
+Faubion K-8,K-5,b,Russian,Kelly,10.552
+Forest Park Elementary,K-5,b,Russian,Kelly,10.602
+Glencoe Elementary,K-5,b,Russian,Kelly,3.605
+Grout Elementary,K-5,b,Russian,Kelly,3.272
+Hayhurst Elementary,K-5,b,Russian,Kelly,7.329
+Irvington Elementary,K-5,b,Russian,Kelly,5.992
+James John Elementary,K-5,b,Russian,Kelly,11.787
+Kelly Elementary,K-5,b,Russian,Kelly,0.237
+Laurelhurst K-8,K-5,b,Russian,Kelly,4.478
+Lent Elementary,K-5,b,Russian,Kelly,0.805
+Lewis Elementary,K-5,b,Russian,Kelly,2.18
+Llewellyn Elementary,K-5,b,Russian,Kelly,4.038
+MLK Jr Elementary,K-5,b,Russian,Kelly,7.276
+Maplewood Elementary,K-5,b,Russian,Kelly,7.53
+Markham Elementary,K-5,b,Russian,Kelly,7.823
+Marysville Elementary,K-5,b,Russian,Kelly,1.265
+Peninsula Elementary,K-5,b,Russian,Kelly,9.733
+Rieke Elementary,K-5,b,Russian,Kelly,6.16
+Rigler Elementary,K-5,b,Russian,Kelly,6.771
+Rosa Parks Elementary,K-5,b,Russian,Kelly,10.597
+Rose City Park Elementary,K-5,b,Russian,Kelly,4.77
+Sabin Elementary,K-5,b,Russian,Kelly,6.705
+Scott Elementary,K-5,b,Russian,Kelly,5.652
+Sitton Elementary,K-5,b,Russian,Kelly,12.649
+Skyline K-8,K-5,b,Russian,Kelly,17.512
+Stephenson Elementary,K-5,b,Russian,Kelly,6.22
+Sunnyside Environmental K-8,K-5,b,Russian,Kelly,4.306
+Sunrise Elementary,K-5,b,Russian,Kelly,4.816
+Vernon K-8,K-5,b,Russian,Kelly,6.857
+Vestal Elementary,K-5,b,Russian,Kelly,3.78
+Whitman Elementary,K-5,b,Russian,Kelly,1.22
+Woodlawn Elementary,K-5,b,Russian,Kelly,8.439
+Woodmere Elementary,K-5,b,Russian,Kelly,1.095
+Woodstock Elementary,K-5,b,Russian,Kelly,2.175
+Abernethy Elementary,K-5,b,Vietnamese,Rose City Park,3.045
+Ainsworth Elementary,K-5,b,Vietnamese,Rose City Park,4.974
+Alameda Elementary,K-5,b,Vietnamese,Rose City Park,1.2
+Arleta Elementary,K-5,b,Vietnamese,Rose City Park,3.544
+Astor K-8,K-5,b,Vietnamese,Rose City Park,6.447
+Atkinson Elementary,K-5,b,Vietnamese,Rose City Park,2.416
+Beach Elementary,K-5,b,Vietnamese,Rose City Park,4.662
+Beverly Cleary K-8,K-5,b,Vietnamese,Rose City Park,1.06
+Boise-Eliot/Humboldt Elementary,K-5,b,Vietnamese,Rose City Park,3.196
+Bridger Creative Science K-8,K-5,b,Vietnamese,Rose City Park,2.093
+Bridlemile Elementary,K-5,b,Vietnamese,Rose City Park,7.403
+Buckman Elementary,K-5,b,Vietnamese,Rose City Park,2.534
+Capitol Hill Elementary,K-5,b,Vietnamese,Rose City Park,5.49
+Chapman Elementary,K-5,b,Vietnamese,Rose City Park,5.169
+Chief Joseph Elementary,K-5,b,Vietnamese,Rose City Park,4.371
+Clark Elementary,K-5,b,Vietnamese,Rose City Park,2.758
+Creston Elementary,K-5,b,Vietnamese,Rose City Park,2.91
+César Chávez K-8,K-5,b,Vietnamese,Rose City Park,6.82
+Duniway Elementary,K-5,b,Vietnamese,Rose City Park,5.064
+Faubion K-8,K-5,b,Vietnamese,Rose City Park,5.844
+Forest Park Elementary,K-5,b,Vietnamese,Rose City Park,7.782
+Glencoe Elementary,K-5,b,Vietnamese,Rose City Park,1.493
+Grout Elementary,K-5,b,Vietnamese,Rose City Park,3.834
+Hayhurst Elementary,K-5,b,Vietnamese,Rose City Park,7.111
+Irvington Elementary,K-5,b,Vietnamese,Rose City Park,2.189
+James John Elementary,K-5,b,Vietnamese,Rose City Park,7.718
+Kelly Elementary,K-5,b,Vietnamese,Rose City Park,5.038
+Laurelhurst K-8,K-5,b,Vietnamese,Rose City Park,1.115
+Lent Elementary,K-5,b,Vietnamese,Rose City Park,4.255
+Lewis Elementary,K-5,b,Vietnamese,Rose City Park,4.751
+Llewellyn Elementary,K-5,b,Vietnamese,Rose City Park,4.952
+MLK Jr Elementary,K-5,b,Vietnamese,Rose City Park,2.914
+Maplewood Elementary,K-5,b,Vietnamese,Rose City Park,7.681
+Markham Elementary,K-5,b,Vietnamese,Rose City Park,8.658
+Marysville Elementary,K-5,b,Vietnamese,Rose City Park,3.63
+Peninsula Elementary,K-5,b,Vietnamese,Rose City Park,5.325
+Rieke Elementary,K-5,b,Vietnamese,Rose City Park,5.892
+Rigler Elementary,K-5,b,Vietnamese,Rose City Park,2.089
+Rosa Parks Elementary,K-5,b,Vietnamese,Rose City Park,6.248
+Rose City Park Elementary,K-5,b,Vietnamese,Rose City Park,0.13
+Sabin Elementary,K-5,b,Vietnamese,Rose City Park,2.414
+Scott Elementary,K-5,b,Vietnamese,Rose City Park,1.153
+Sitton Elementary,K-5,b,Vietnamese,Rose City Park,8.562
+Skyline K-8,K-5,b,Vietnamese,Rose City Park,13.737
+Stephenson Elementary,K-5,b,Vietnamese,Rose City Park,7.777
+Sunnyside Environmental K-8,K-5,b,Vietnamese,Rose City Park,1.959
+Sunrise Elementary,K-5,b,Vietnamese,Rose City Park,1.269
+Vernon K-8,K-5,b,Vietnamese,Rose City Park,2.092
+Vestal Elementary,K-5,b,Vietnamese,Rose City Park,1.276
+Whitman Elementary,K-5,b,Vietnamese,Rose City Park,5.018
+Woodlawn Elementary,K-5,b,Vietnamese,Rose City Park,3.799
+Woodmere Elementary,K-5,b,Vietnamese,Rose City Park,4.301
+Woodstock Elementary,K-5,b,Vietnamese,Rose City Park,3.836

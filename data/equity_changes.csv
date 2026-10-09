@@ -1,0 +1,47 @@
+scenario,type,language,band,from_school,to_school,students,pct_spanish_home,pct_non_english_home,school_miles
+a,Immersion program moves,Spanish,K-5,Scott,Rigler,222,0.36486486486486486,0.3918918918918919,0.6619422277143444
+a,Immersion program moves,Spanish,6-8,Beaumont,Roseway Heights,101,0.5445544554455446,0.5742574257425742,1.6532729578685377
+a,Immersion program moves,Mandarin,K-5,Clark,Woodstock,91,0.01098901098901099,0.6263736263736264,2.98875433017586
+a,Immersion program moves,Spanish,K-5,Atkinson,Lent,178,0.4044943820224719,0.4101123595505618,2.386901252286821
+a,Immersion program moves,Spanish,K-5,Beach,César Chávez,155,0.2064516129032258,0.2064516129032258,2.456480180540102
+a,Immersion program moves,Spanish,K-5,James John,César Chávez,133,0.518796992481203,0.518796992481203,1.6274557054245777
+a,Immersion program moves,Spanish,K-5,Sitton,César Chávez,138,0.5434782608695652,0.5507246376811594,2.169360031095335
+a,Immersion program moves,Spanish,6-8,Ockley Green,George,63,0.15873015873015872,0.1746031746031746,3.3652096231996667
+a,Immersion program moves,Mandarin,K-5,MLK Jr.,Boise-Eliot/Humboldt,193,0.025906735751295335,0.07772020725388601,0.981564743567749
+a,Immersion program moves,Vietnamese,K-5,Rose City Park,Vestal,207,0.004830917874396135,0.4057971014492754,1.566111142123198
+a,Immersion program moves,Spanish,6-8,César Chávez,George,105,0.6166666666666667,0.6433333333333333,1.1473674369995666
+b,Immersion program moves,Spanish,K-5,Scott,Rigler,222,0.36486486486486486,0.3918918918918919,0.6619422277143444
+b,Immersion program moves,Spanish,6-8,Beaumont,Roseway Heights,101,0.5445544554455446,0.5742574257425742,1.6532729578685377
+b,Immersion program moves,Mandarin,K-5,Clark,Woodstock,91,0.01098901098901099,0.6263736263736264,2.98875433017586
+b,Immersion program moves,Spanish,K-5,Atkinson,Lent,178,0.4044943820224719,0.4101123595505618,2.386901252286821
+b,Immersion program moves,Spanish,K-5,Beach,César Chávez,155,0.2064516129032258,0.2064516129032258,2.456480180540102
+b,Immersion program moves,Spanish,K-5,James John,César Chávez,133,0.518796992481203,0.518796992481203,1.6274557054245777
+b,Immersion program moves,Spanish,K-5,Sitton,César Chávez,138,0.5434782608695652,0.5507246376811594,2.169360031095335
+b,Immersion program moves,Spanish,6-8,Ockley Green,George,63,0.15873015873015872,0.1746031746031746,3.3652096231996667
+b,Immersion program moves,Mandarin,K-5,MLK Jr.,Boise-Eliot/Humboldt,193,0.025906735751295335,0.07772020725388601,0.981564743567749
+b,Immersion program moves,Spanish,6-8,César Chávez,George,105,0.6166666666666667,0.6433333333333333,1.1473674369995666
+a,School closures (non-immersion students),NA,K-5,Maplewood,hayhurst; rieke,287,0.013937282229965157,0.03832752613240418,0.9298346530953461
+a,School closures (non-immersion students),NA,K-5,Irvington,beverlycleary,259,0.023166023166023165,0.03861003861003861,1.033909368500327
+a,School closures (non-immersion students),NA,K-5,Buckman,abernethy; sunnysideenvironmental,283,0.0176678445229682,0.0353356890459364,1.0288642140757502
+a,School closures (non-immersion students),NA,K-5,Creston,atkinson,213,0.04225352112676056,0.1267605633802817,0.7991432424259046
+a,School closures (non-immersion students),NA,K-5,Marysville,arleta,307,0.05211726384364821,0.1563517915309446,0.6274469992070253
+a,School closures (non-immersion students),NA,K-5,Woodmere,whitman,227,0.09251101321585903,0.21585903083700442,0.5401727671515665
+a,School closures (non-immersion students),NA,6-8,Sellwood,brentwood; hosford,564,0.005319148936170213,0.03368794326241135,2.8245203805120953
+a,School closures (non-immersion students),NA,K-5,Beach,chiefjoseph,133,0.015037593984962405,0.07518796992481203,1.0693932701394946
+a,School closures (non-immersion students),NA,K-5,James John,sitton,232,0.09051724137931035,0.1724137931034483,0.7326488152545935
+a,School closures (non-immersion students),NA,K-5,Peninsula,rosaparks,239,0.02510460251046025,0.0502092050209205,0.7360290837092903
+a,School closures (non-immersion students),NA,K-5,Sabin,mlkjr,269,0.01486988847583643,0.040892193308550186,0.6907231016978896
+a,School closures (non-immersion students),NA,K-5,Stephenson,capitolhill; markham,281,0.0071174377224199285,0.046263345195729534,1.4631496435209148
+a,School closures (non-immersion students),NA,K-5,Rose City Park,scott,210,0.009523809523809525,0.023809523809523808,1.194024110900895
+a,School closures (non-immersion students),NA,K-5,Lewis,duniway,259,0.007722007722007722,0.02702702702702703,0.6557132676054273
+b,School closures (non-immersion students),NA,K-5,Maplewood,hayhurst; rieke,287,0.013937282229965157,0.03832752613240418,0.9298346530953461
+b,School closures (non-immersion students),NA,K-5,Irvington,beverlycleary,259,0.023166023166023165,0.03861003861003861,1.033909368500327
+b,School closures (non-immersion students),NA,K-5,Buckman,abernethy; sunnysideenvironmental,283,0.0176678445229682,0.0353356890459364,1.0288642140757502
+b,School closures (non-immersion students),NA,K-5,Creston,atkinson,213,0.04225352112676056,0.1267605633802817,0.7991432424259046
+b,School closures (non-immersion students),NA,K-5,Marysville,arleta,307,0.05211726384364821,0.1563517915309446,0.6274469992070253
+b,School closures (non-immersion students),NA,K-5,Woodmere,whitman,227,0.09251101321585903,0.21585903083700442,0.5401727671515665
+b,School closures (non-immersion students),NA,6-8,Sellwood,brentwood; hosford,564,0.005319148936170213,0.03368794326241135,2.745598590287554
+b,School closures (non-immersion students),NA,K-5,Beach,chiefjoseph,133,0.015037593984962405,0.07518796992481203,1.0693932701394946
+b,School closures (non-immersion students),NA,K-5,James John,sitton,232,0.09051724137931035,0.1724137931034483,0.7326488152545935
+b,School closures (non-immersion students),NA,K-5,Peninsula,rosaparks,239,0.02510460251046025,0.0502092050209205,0.7360290837092903
+b,School closures (non-immersion students),NA,K-5,Sabin,mlkjr,269,0.01486988847583643,0.040892193308550186,0.6907231016978896

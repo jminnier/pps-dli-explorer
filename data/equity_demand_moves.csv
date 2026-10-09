@@ -1,0 +1,16 @@
+scenario,language,from_school,from_key,to_school,to_key,years,applications,offered,waitlisted,apps_per_offer
+a,Spanish,Scott,scott,Rigler,rigler,5,40.2,29,7.6,1.3862068965517242
+a,Mandarin,Clark,clark,Woodstock,woodstock,4,16.25,6.75,0,2.4074074074074074
+a,Spanish,Atkinson,atkinson,Lent,lent,5,120.6,24.4,49.2,4.942622950819672
+a,Spanish,Beach,beach,César Chávez,cesarchavez,5,96.4,23.4,45.6,4.11965811965812
+a,Spanish,James John,jamesjohn,César Chávez,cesarchavez,5,27.2,18.2,4.2,1.4945054945054945
+a,Spanish,Sitton,sitton,César Chávez,cesarchavez,5,24.8,18.6,4,1.3333333333333333
+a,Mandarin,MLK Jr.,mlkjr,Boise-Eliot/Humboldt,boiseeliothumboldt,5,59.4,45.6,4.8,1.3026315789473684
+a,Vietnamese,Rose City Park,rosecitypark,Vestal,vestal,5,33.2,29,0.6,1.1448275862068966
+b,Spanish,Scott,scott,Rigler,rigler,5,40.2,29,7.6,1.3862068965517242
+b,Mandarin,Clark,clark,Woodstock,woodstock,4,16.25,6.75,0,2.4074074074074074
+b,Spanish,Atkinson,atkinson,Lent,lent,5,120.6,24.4,49.2,4.942622950819672
+b,Spanish,Beach,beach,César Chávez,cesarchavez,5,96.4,23.4,45.6,4.11965811965812
+b,Spanish,James John,jamesjohn,César Chávez,cesarchavez,5,27.2,18.2,4.2,1.4945054945054945
+b,Spanish,Sitton,sitton,César Chávez,cesarchavez,5,24.8,18.6,4,1.3333333333333333
+b,Mandarin,MLK Jr.,mlkjr,Boise-Eliot/Humboldt,boiseeliothumboldt,5,59.4,45.6,4.8,1.3026315789473684

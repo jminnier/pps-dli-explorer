@@ -1,0 +1,13 @@
+scenario,variant,before,after,change
+a,Immersion moves: all (main estimate),1.848093606216847,2.8255480639678283,0.9774544577509814
+b,Immersion moves: all (main estimate),1.494233074102925,2.544750870816674,1.050517796713749
+a,"Immersion moves: excluding Vietnamese (one site, whole-district catchment)",1.494233074102925,2.544750870816674,1.050517796713749
+b,"Immersion moves: excluding Vietnamese (one site, whole-district catchment)",1.494233074102925,2.544750870816674,1.050517796713749
+a,Immersion moves: Spanish only,1.2689031930233556,2.4633525981556637,1.194449405132308
+b,Immersion moves: Spanish only,1.2689031930233556,2.4633525981556637,1.194449405132308
+a,"Immersion moves: Spanish only, weighted by Spanish-speaking children",1.135221008197617,2.1593215587959573,1.0241005505983403
+b,"Immersion moves: Spanish only, weighted by Spanish-speaking children",1.135221008197617,2.1593215587959573,1.0241005505983403
+a,Closures: all (main estimate),0.5476372399931628,1.0534935411553523,0.5058563011621895
+b,Closures: all (main estimate),0.5718070495268787,1.0404736403276122,0.4686665908007336
+a,Closures: weighted by Spanish-speaking children,0.6798947474148984,1.0332539606501077,0.35335921323520925
+b,Closures: weighted by Spanish-speaking children,0.7431523200573139,1.0257006420643922,0.28254832200707825

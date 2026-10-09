@@ -1,0 +1,897 @@
+year,level,school,pps_school,program_type,program,language,grade,residence,background,group,slots,applications,offered,waitlisted,cancelled,not_placed,is_total,source_file
+2021-22,ES,Buckman,,Focus Option,Buckman,,K,,,,35,117,35,20,36,26,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Creative Science,,Focus Option,Creative Science,,K,,,,48,132,48,25,46,13,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,MLC,,Focus Option,MLC,,K,,,,23,48,23,11,14,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Odyssey,,Focus Option,Odyssey,,K,,,,24,57,24,15,10,8,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Sunnyside,,Focus Option,Sunnyside,,K,,,,15,102,25,15,40,22,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Winterhaven,,Focus Option,Winterhaven,,K,,,,24,143,24,15,34,70,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Harrison Park,Harrison Park,Dual Language Immersion,Mandarin Immersion,Mandarin,,NH,Native,NH Native Chinese,12,9,6,0,3,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Harrison Park,Harrison Park,Dual Language Immersion,Mandarin Immersion,Mandarin,,NH,English,NH Native English,12,7,3,0,4,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,,NH,Native,NH Native Chinese,5,5,5,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,,NH,English,NH Native English,20,16,14,0,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,,TR,Native,TR Native Chinese,23,27,23,0,4,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,,TR,English,TR Native English,4,15,4,9,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,,,English,Native English,68,103,68,14,21,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,,,Native,Native Japanese,36,23,23,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,,,English,Native English,22,5,3,0,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,,,Native,Native Russian,22,4,4,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,MLK,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,,,Albina HS,Albina HS,15,7,6,0,1,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,MLK,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,,,Current MLK,Current MLK,6,5,4,0,1,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,MLK,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,,,Native,Native Chinese,4,6,3,0,3,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,MLK,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,,,English,Native English,23,29,22,0,7,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,,,English,Native English,24,16,14,0,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,,,Native,Native Vietnamese,24,13,13,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,19,37,19,16,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,6,6,6,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,,TR,English,TR Native English,11,82,11,25,16,30,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,,TR,Native,TR Native Spanish,14,23,14,4,5,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,10,17,8,6,3,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,2,1,1,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,,TR,English,TR Native English,4,84,4,25,32,23,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,,TR,Native,TR Native Spanish,8,22,10,3,9,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,19,32,19,10,3,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,3,3,3,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,,TR,English,TR Native English,10,49,10,24,13,2,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,,TR,Native,TR Native Spanish,16,23,16,0,7,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,20,14,14,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,4,1,1,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,,TR,English,TR Native English,4,54,4,25,22,3,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,,TR,Native,TR Native Spanish,20,8,5,0,3,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,8,3,3,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,14,1,1,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,,TR,English,TR Native English,14,33,14,8,11,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,,TR,Native,TR Native Spanish,8,10,5,0,5,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,10,14,10,2,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,12,7,6,0,1,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,8,8,7,0,1,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,3,3,3,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,,TR,English,TR Native English,3,19,3,12,4,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,,TR,Native,TR Native Spanish,8,5,3,0,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,22,20,17,0,3,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,22,4,4,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,,NH,English,NH Native English,7,12,7,3,2,0,FALSE,2021-22_Elementary_Lottery.pdf
+2021-22,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,,NH,Native,NH Native Spanish,15,7,7,0,0,0,FALSE,2021-22_Elementary_Lottery.pdf
+2022-23,ES,Buckman,,Focus Option,Buckman,,K,,,,,129,35,28,38,28,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Buckman,,Focus Option,Buckman,,1,,,,,25,7,9,9,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Buckman,,Focus Option,Buckman,,2,,,,,10,0,6,3,1,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Buckman,,Focus Option,Buckman,,3,,,,,10,6,2,2,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Buckman,,Focus Option,Buckman,,4,,,,,12,5,1,6,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Buckman,,Focus Option,Buckman,,5,,,,,4,4,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Buckman,,Focus Option,Buckman,,,,,,,190,57,46,58,29,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Creative Science,,Focus Option,Creative Science,,K,,,,,161,42,46,34,39,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Creative Science,,Focus Option,Creative Science,,1,,,,,19,3,11,5,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Creative Science,,Focus Option,Creative Science,,2,,,,,17,2,14,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Creative Science,,Focus Option,Creative Science,,3,,,,,21,6,11,4,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Creative Science,,Focus Option,Creative Science,,4,,,,,17,12,4,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Creative Science,,Focus Option,Creative Science,,5,,,,,10,7,0,3,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Creative Science,,Focus Option,Creative Science,,,,,,,245,72,86,48,39,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Odyssey,,Focus Option,Odyssey,,K,,,,,37,24,8,5,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Odyssey,,Focus Option,Odyssey,,1,,,,,6,2,4,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Odyssey,,Focus Option,Odyssey,,2,,,,,5,5,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Odyssey,,Focus Option,Odyssey,,3,,,,,9,1,6,2,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Odyssey,,Focus Option,Odyssey,,4,,,,,10,3,4,3,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Odyssey,,Focus Option,Odyssey,,5,,,,,3,1,0,2,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Odyssey,,Focus Option,Odyssey,,,,,,,70,36,22,12,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sunnyside,,Focus Option,Sunnyside,,K,,,,,113,20,36,37,20,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sunnyside,,Focus Option,Sunnyside,,1,,,,,23,14,2,6,1,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sunnyside,,Focus Option,Sunnyside,,2,,,,,9,0,8,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sunnyside,,Focus Option,Sunnyside,,3,,,,,6,4,0,2,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sunnyside,,Focus Option,Sunnyside,,,,,,,151,38,46,46,21,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Winterhaven,,Focus Option,Winterhaven,,K,,,,,159,23,46,49,41,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Winterhaven,,Focus Option,Winterhaven,,1,,,,,38,1,14,8,15,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Winterhaven,,Focus Option,Winterhaven,,2,,,,,28,2,12,4,10,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Winterhaven,,Focus Option,Winterhaven,,4,,,,,21,6,10,3,2,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Winterhaven,,Focus Option,Winterhaven,,,,,,,246,32,82,64,68,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,ACCESS,,Alternative,ACCESS,,1,,,,,43,0,43,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,ACCESS,,Alternative,ACCESS,,2,,,,,46,14,32,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,ACCESS,,Alternative,ACCESS,,3,,,,,32,23,9,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,ACCESS,,Alternative,ACCESS,,4,,,,,34,20,14,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,ACCESS,,Alternative,ACCESS,,5,,,,,28,4,24,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,MS,ACCESS,,Alternative,ACCESS,,6,,,,,35,7,28,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,MS,ACCESS,,Alternative,ACCESS,,7,,,,,13,8,5,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,MS,ACCESS,,Alternative,ACCESS,,8,,,,,6,6,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,ACCESS,,Alternative,ACCESS,,,,,,,237,82,155,0,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,MLC,,Alternative,MLC,,K,,,,,31,24,0,7,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,MLC,,Alternative,MLC,,1,,,,,8,5,2,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,MLC,,Alternative,MLC,,2,,,,,9,7,2,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,MLC,,Alternative,MLC,,3,,,,,9,4,3,2,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,MLC,,Alternative,MLC,,4,,,,,9,5,4,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,MLC,,Alternative,MLC,,5,,,,,6,2,3,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,MLC,,Alternative,MLC,,,,,,,72,47,14,11,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Harrison Park,Harrison Park,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR Native Chinese,,11,10,0,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Harrison Park,Harrison Park,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR Native English,,17,7,0,10,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Harrison Park,Harrison Park,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,,28,17,0,11,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,1,,,,,4,4,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Albina Head Start Mandarin,Albina Head Start Mandarin,,8,7,0,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Current King,Current King,,16,15,1,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Native,Native Chinese,,3,2,0,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,NH TR,NH TR,,43,22,9,12,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,,74,50,10,14,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Native,NH Native Chinese,,1,1,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH Native English,,20,14,5,1,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR Native Chinese,,19,15,0,4,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR Native English,,33,8,12,13,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,,73,38,17,18,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,English,Native English,,118,76,23,19,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Native,Native Japanese,,27,27,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,,,,,,145,103,23,19,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,English,Native English,,2,0,0,2,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,Native,Native Russian,,5,5,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,,,,,,7,5,0,2,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,English,Native English,,21,14,0,7,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,Native,Native Vietnamese,,16,16,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,,,,,,37,30,0,7,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,41,15,19,0,7,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,6,6,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,,78,9,25,13,31,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,,21,15,0,6,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,146,45,44,19,38,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,19,8,5,6,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,1,1,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,,83,4,23,34,22,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,,21,11,1,9,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,124,24,29,49,22,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,22,7,12,3,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,3,3,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,,71,7,31,21,12,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,,7,3,0,4,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,103,20,43,28,12,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,13,12,1,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,1,1,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,,37,12,5,17,3,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,,14,4,0,10,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Bridger,Bridger,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,65,29,6,27,3,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,5,5,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,,50,12,18,14,6,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,,9,6,0,3,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,64,23,18,17,6,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,21,12,6,3,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,6,6,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,27,18,6,3,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,6,6,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,5,5,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,,15,4,1,10,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,,10,5,0,5,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,36,20,1,15,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,27,24,0,3,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,8,8,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,35,32,0,3,0,TRUE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,,21,12,7,2,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,,3,3,0,0,0,FALSE,2022-23_Elementary_Lottery.pdf
+2022-23,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,24,15,7,2,0,TRUE,2022-23_Elementary_Lottery.pdf
+2023-24,ES,Access,,Alternative,Access,,2,,,,22,56,22,34,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Access,,Alternative,Access,,3,,,,24,74,24,50,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Access,,Alternative,Access,,4,,,,8,57,8,49,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Access,,Alternative,Access,,5,,,,3,23,3,20,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,MS,Access,,Alternative,Access,,6,,,,9,51,9,42,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,MS,Access,,Alternative,Access,,7,,,,6,22,6,16,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,MS,Access,,Alternative,Access,,8,,,,4,7,4,3,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,MLC K-8,,Alternative,MLC K-8,,K,,,,26,42,26,2,14,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,MLC K-8,,Alternative,MLC K-8,,1,,,,12,10,7,0,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,MLC K-8,,Alternative,MLC K-8,,2,,,,6,13,6,6,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,MLC K-8,,Alternative,MLC K-8,,3,,,,4,12,4,4,4,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,MLC K-8,,Alternative,MLC K-8,,4,,,,6,15,6,8,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,MLC K-8,,Alternative,MLC K-8,,5,,,,2,10,2,6,2,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Bridger - Creative Science,,Focus Option,Bridger - Creative Science,,K,,,,15,112,15,68,29,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Bridger - Creative Science,,Focus Option,Bridger - Creative Science,,1,,,,0,22,0,16,6,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Bridger - Creative Science,,Focus Option,Bridger - Creative Science,,2,,,,0,7,0,6,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Bridger - Creative Science,,Focus Option,Bridger - Creative Science,,3,,,,0,6,0,6,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Bridger - Creative Science,,Focus Option,Bridger - Creative Science,,4,,,,0,13,0,10,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Bridger - Creative Science,,Focus Option,Bridger - Creative Science,,5,,,,0,6,0,3,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Buckman,,Focus Option,Buckman,,K,,,,26,129,26,63,40,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Buckman,,Focus Option,Buckman,,1,,,,5,20,5,10,5,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Buckman,,Focus Option,Buckman,,2,,,,18,8,6,0,2,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Buckman,,Focus Option,Buckman,,3,,,,14,11,11,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Buckman,,Focus Option,Buckman,,4,,,,9,3,2,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Buckman,,Focus Option,Buckman,,5,,,,12,6,5,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Odyssey,,Focus Option,Odyssey,,K,,,,25,59,25,27,7,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Odyssey,,Focus Option,Odyssey,,1,,,,8,10,8,1,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Odyssey,,Focus Option,Odyssey,,2,,,,0,9,0,8,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Odyssey,,Focus Option,Odyssey,,3,,,,5,14,5,9,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Odyssey,,Focus Option,Odyssey,,4,,,,0,5,0,4,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Odyssey,,Focus Option,Odyssey,,5,,,,0,6,0,6,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sunnyside,,Focus Option,Sunnyside,,K,,,,15,71,15,28,28,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sunnyside,,Focus Option,Sunnyside,,1,,,,5,20,5,11,4,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sunnyside,,Focus Option,Sunnyside,,2,,,,22,6,6,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sunnyside,,Focus Option,Sunnyside,,3,,,,8,11,5,0,6,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sunnyside,,Focus Option,Sunnyside,,4,,,,16,12,11,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sunnyside,,Focus Option,Sunnyside,,5,,,,12,12,11,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Winterhaven,,Focus Option,Winterhaven,,K,,,,24,159,24,105,30,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Winterhaven,,Focus Option,Winterhaven,,1,,,,1,31,1,24,6,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Winterhaven,,Focus Option,Winterhaven,,2,,,,3,35,3,30,2,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Winterhaven,,Focus Option,Winterhaven,,3,,,,0,31,0,25,6,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Winterhaven,,Focus Option,Winterhaven,,4,,,,0,37,0,35,2,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Winterhaven,,Focus Option,Winterhaven,,5,,,,1,31,1,28,2,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Native,NH Native Chinese,13,10,5,0,5,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,NH Nati ve English,NH Nati ve English,12,2,1,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,25,12,6,0,6,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Albina Headstart,Albina Headstart,6,5,5,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Current King,Current King,15,11,10,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Native,Native Chinese,4,5,4,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,NH - TR,NH - TR,25,26,23,0,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,50,47,42,0,5,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,1,,,,3,5,3,0,2,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Native,NH Native Chinese,3,1,1,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH Native English,20,15,14,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR Native Chinese,23,38,23,1,14,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR Native English,6,18,6,12,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,52,72,44,13,15,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,English,Native English,83,99,83,16,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Native,Native Japanese,21,24,21,0,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,,,,,104,123,104,16,3,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,English,Native English,26,21,20,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,Native,Native Vietnamese,26,18,17,0,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,,,,,52,39,37,0,2,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,English,Native English,12,2,2,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,Native,Native Russian,13,4,4,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,,,,,25,6,6,0,0,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,18,27,18,8,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,8,3,3,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,8,95,8,73,14,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,18,25,17,0,8,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,,,,,52,150,46,81,23,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,10,29,10,15,4,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,3,3,3,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,3,75,3,49,23,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,10,20,10,6,4,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,,,,,26,127,26,70,31,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,9,34,9,24,1,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,3,3,3,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,4,64,4,45,15,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,10,15,9,0,6,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,,,,,26,116,25,69,22,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,12,3,3,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,13,4,4,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,13,30,13,8,9,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,12,18,12,0,6,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,,,,,50,55,32,8,15,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,12,13,10,0,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,13,6,6,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,,,,,25,19,16,0,3,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR Native English,22,19,16,0,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR Native Spanish,23,11,8,0,3,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,,,,,45,30,24,0,6,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,25,34,25,9,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,25,6,6,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,,,,,50,40,31,9,0,,TRUE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH Native English,9,7,7,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH Native Spanish,16,8,8,0,0,,FALSE,2023-24_Elementary_Lottery.pdf
+2023-24,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,,,,,25,15,15,0,0,,TRUE,2023-24_Elementary_Lottery.pdf
+2024-25,ES,ACCESS,,Alternative,ACCESS,,2,,,,,35,22,13,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,ACCESS,,Alternative,ACCESS,,3,,,,,57,22,35,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,ACCESS,,Alternative,ACCESS,,4,,,,,70,6,64,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,ACCESS,,Alternative,ACCESS,,5,,,,,93,4,89,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,MS,ACCESS,,Alternative,ACCESS,,6,,,,,102,10,92,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,MS,ACCESS,,Alternative,ACCESS,,7,,,,,35,3,32,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,MS,ACCESS,,Alternative,ACCESS,,8,,,,,24,3,21,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,MLC K-8,,Alternative,MLC K-8,,K,,,,,46,25,6,15,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,MLC K-8,,Alternative,MLC K-8,,1,,,,,4,2,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,MLC K-8,,Alternative,MLC K-8,,2,,,,,10,6,0,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,MLC K-8,,Alternative,MLC K-8,,3,,,,,8,6,1,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,MLC K-8,,Alternative,MLC K-8,,4,,,,,7,3,4,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,MLC K-8,,Alternative,MLC K-8,,5,,,,,14,3,11,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,K,,,,,97,26,38,33,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,1,,,,,19,12,3,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,2,,,,,15,7,4,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,3,,,,,13,5,6,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,4,,,,,9,0,9,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,5,,,,,9,0,4,5,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Buckman,,Focus Option,Buckman,,K,,,,,75,26,18,31,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Buckman,,Focus Option,Buckman,,1,,,,,9,5,0,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Buckman,,Focus Option,Buckman,,2,,,,,10,9,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Buckman,,Focus Option,Buckman,,3,,,,,8,0,6,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Buckman,,Focus Option,Buckman,,4,,,,,7,6,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Buckman,,Focus Option,Buckman,,5,,,,,7,0,5,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Odyssey,,Focus Option,Odyssey,,K,,,,,53,29,12,12,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Odyssey,,Focus Option,Odyssey,,1,,,,,9,3,5,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Odyssey,,Focus Option,Odyssey,,2,,,,,9,5,2,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Odyssey,,Focus Option,Odyssey,,3,,,,,4,0,3,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Odyssey,,Focus Option,Odyssey,,4,,,,,12,0,12,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Odyssey,,Focus Option,Odyssey,,5,,,,,6,0,6,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sunnyside,,Focus Option,Sunnyside,,K,,,,,97,26,27,44,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sunnyside,,Focus Option,Sunnyside,,1,,,,,11,5,0,6,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sunnyside,,Focus Option,Sunnyside,,2,,,,,21,7,9,5,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sunnyside,,Focus Option,Sunnyside,,3,,,,,16,12,0,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sunnyside,,Focus Option,Sunnyside,,4,,,,,12,4,4,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sunnyside,,Focus Option,Sunnyside,,5,,,,,17,12,5,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Winterhaven,,Focus Option,Winterhaven,,K,,,,,155,26,90,39,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Winterhaven,,Focus Option,Winterhaven,,1,,,,,29,3,19,7,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Winterhaven,,Focus Option,Winterhaven,,2,,,,,31,3,21,7,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Winterhaven,,Focus Option,Winterhaven,,3,,,,,32,2,28,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Winterhaven,,Focus Option,Winterhaven,,4,,,,,30,2,27,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Winterhaven,,Focus Option,Winterhaven,,5,,,,,46,0,44,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Native,NH - Native,,9,8,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH - English,,2,0,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR - English,,2,0,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Heritage,TR - Heritage,,2,0,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR - Native,,2,0,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,1,NH,Native,NH - Native,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,2,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,5,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Albina,Albina,,10,9,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Current King,Current King,,7,7,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Native,Native,,2,2,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,NH-TR,NH-TR,,25,19,0,6,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,1,,NH-TR,NH-TR,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH- English,,7,6,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Heritage,NH - Heritage,,2,2,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR - English,,26,6,12,8,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Heritage,TR - Heritage,,16,9,2,5,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR - Native,,22,13,1,8,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,1,TR,Native,TR - Native,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,2,TR,English,TR - English,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,4,TR,English,TR - English,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,English,English,,95,62,22,11,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Heritage,Heritage,,28,19,5,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Native,Native,,14,14,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,1,,English,English,,2,1,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,1,,Heritage,Heritage,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,1,,Native,Native,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,2,,Native,Native,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,2,,Heritage,Heritage,,2,0,1,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,3,,Heritage,Heritage,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,4,,Native,Native,,2,2,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,4,,English,English,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,5,,Heritage,Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,English,English,,14,11,0,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,Heritage,Heritage,,8,8,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,Native,Native,,9,9,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,English,English,,6,3,0,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,Heritage,Heritage,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,Native,Native,,2,2,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,29,9,18,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,10,9,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,7,7,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,35,4,27,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,15,12,1,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,10,9,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,17,0,11,6,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,7,0,5,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,9,0,7,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,English,NH - English,,4,0,3,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,Heritage,NH - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,English,Regional - English,,4,0,4,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,English,TR - English,,2,0,1,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,Heritage,TR - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,2,NH,Heritage,NH - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,2,RG,English,Regional - English,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,2,RG,Native,Regional - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,2,TR,English,TR - English,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,2,TR,Native,TR - Native,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,3,TR,Heritage,TR - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,3,TR,English,TR - English,,2,0,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,4,RG,English,Regional - English,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,4,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,10,6,1,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,5,3,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,42,2,19,21,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,19,2,15,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,17,10,3,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,5,1,2,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,11,0,6,5,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,5,0,1,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,English,NH - English,,2,0,1,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,Heritage,NH - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,English,Regional - English,,4,0,3,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,Heritage,Regional - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,2,RG,Native,Regional - Native,,3,3,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,2,RG,English,Regional - English,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,2,RG,Heritage,Regional - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,3,TR,English,TR - English,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,5,RG,Heritage,Regional - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,5,RG,Native,Regional - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,10,6,2,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,4,4,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,2,2,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,11,6,0,5,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,6,4,1,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,36,0,25,11,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,10,0,4,6,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,5,0,3,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,6,0,2,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,English,NH - English,,4,0,4,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,Native,NH - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,English,Regional - English,,3,0,2,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,Heritage,Regional - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,Native,Regional - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,English,TR - English,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,3,RG,Heritage,Regional - Heritage,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,3,TR,Heritage,TR - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,2,2,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,5,4,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,19,9,7,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,6,5,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,12,9,0,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,2,1,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,7,0,2,5,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,Heritage,Regional - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,English,TR - English,,2,0,1,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,3,RG,Heritage,Regional - Heritage,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,19,12,4,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,6,6,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,7,1,3,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,13,0,6,7,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,English,TR - English,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,4,NH,Native,NH - Native,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,4,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,5,NH,English,NH - English,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,9,2,7,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,10,1,7,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,11,8,0,3,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,2,0,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,1,RG,English,Regional - English,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,2,RG,Heritage,Regional - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,2,RG,Native,Regional - Native,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,24,15,5,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,8,7,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,5,5,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,10,0,6,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,9,0,5,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,2,0,2,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,English,NH - English,,2,0,2,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,Native,TR - Native,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,2,NH,English,NH - English,,2,0,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,3,TR,English,TR - English,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,7,7,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,2,2,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,10,10,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,4,2,0,2,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,7,0,3,4,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,English,NH - English,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,1,NH,Native,NH - Native,,1,1,0,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,1,TR,Heritage,TR - Heritage,,1,0,1,0,,FALSE,2024-25_Elementary_Lottery.pdf
+2024-25,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,3,TR,Heritage,TR - Heritage,,1,0,0,1,,FALSE,2024-25_Elementary_Lottery.pdf
+2025-26,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,K,,,,,83,26,29,28,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,1,,,,,5,3,0,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,2,,,,,3,2,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,3,,,,,11,0,5,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,4,,,,,4,0,0,4,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,5,,,,,8,5,0,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Buckman,,Focus Option,Buckman,,K,,,,,61,26,7,28,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Buckman,,Focus Option,Buckman,,1,,,,,15,9,0,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Buckman,,Focus Option,Buckman,,2,,,,,2,1,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Buckman,,Focus Option,Buckman,,3,,,,,8,6,0,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Buckman,,Focus Option,Buckman,,4,,,,,5,0,3,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Buckman,,Focus Option,Buckman,,5,,,,,3,0,1,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Odyssey,,Focus Option,Odyssey,,K,,,,,50,26,12,12,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Odyssey,,Focus Option,Odyssey,,1,,,,,6,6,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Odyssey,,Focus Option,Odyssey,,2,,,,,7,5,2,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Odyssey,,Focus Option,Odyssey,,3,,,,,13,8,3,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Odyssey,,Focus Option,Odyssey,,4,,,,,8,2,4,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Odyssey,,Focus Option,Odyssey,,5,,,,,8,0,7,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sunnyside,,Focus Option,Sunnyside,,K,,,,,50,26,12,12,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sunnyside,,Focus Option,Sunnyside,,1,,,,,13,3,3,7,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sunnyside,,Focus Option,Sunnyside,,2,,,,,6,4,0,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sunnyside,,Focus Option,Sunnyside,,3,,,,,20,7,0,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sunnyside,,Focus Option,Sunnyside,,4,,,,,14,13,7,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sunnyside,,Focus Option,Sunnyside,,5,,,,,12,8,0,4,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Winterhaven,,Focus Option,Winterhaven,,K,,,,,149,26,83,40,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Winterhaven,,Focus Option,Winterhaven,,1,,,,,24,4,16,4,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Winterhaven,,Focus Option,Winterhaven,,2,,,,,16,1,12,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Winterhaven,,Focus Option,Winterhaven,,3,,,,,31,3,22,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Winterhaven,,Focus Option,Winterhaven,,4,,,,,21,0,15,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Winterhaven,,Focus Option,Winterhaven,,5,,,,,27,2,20,5,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,ACCESS,,Alternative,ACCESS,,2,,,,,75,22,53,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,ACCESS,,Alternative,ACCESS,,3,,,,,116,23,93,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,ACCESS,,Alternative,ACCESS,,4,,,,,89,4,85,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,ACCESS,,Alternative,ACCESS,,5,,,,,92,3,89,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,MS,ACCESS,,Alternative,ACCESS,,6,,,,,118,10,108,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,MS,ACCESS,,Alternative,ACCESS,,7,,,,,37,3,34,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,MS,ACCESS,,Alternative,ACCESS,,8,,,,,30,3,27,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,MLC K-8,,Alternative,MLC K-8,,K,,,,,29,24,0,5,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,MLC K-8,,Alternative,MLC K-8,,1,,,,,4,4,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,MLC K-8,,Alternative,MLC K-8,,2,,,,,2,0,1,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,MLC K-8,,Alternative,MLC K-8,,3,,,,,1,0,1,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,MLC K-8,,Alternative,MLC K-8,,4,,,,,9,6,2,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,MLC K-8,,Alternative,MLC K-8,,5,,,,,4,4,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH-English,,3,2,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Native,NH-Native,,6,5,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR-English,,3,1,0,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Heritage,TR-Heritage,,3,0,0,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR-Native,,5,2,0,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Albina,Albina,,26,26,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Current King,Current King,,12,12,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Native,Native,,8,6,0,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Dr. Martin Luther King Jr,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,NH-TR,NH-TR,,22,7,9,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH-English,,5,5,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Heritage,NH-Heritage,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR-English,,18,12,0,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Heritage,TR-Heritage,,9,9,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR-Native,,16,11,0,5,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,English,English,,95,72,7,16,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Heritage,Heritage,,18,17,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Native,Native,,14,14,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,NH,English,NH-English,,8,7,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,NH,Native,NH-Native,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,TR,English,TR-English,,3,2,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,TR,Heritage,TR- Heritage,,5,5,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,TR,Native,TR-Native,,9,9,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,English,English,,1,0,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,Heritage,Heritage,,4,3,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,Native,Native,,3,3,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,20,19,1,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,5,5,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,2,2,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional-English,,23,2,16,5,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional-Heritage,,11,9,1,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional-Native,,11,11,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR-English,,22,0,13,9,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,6,0,4,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR-Native,,6,1,2,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,15,3,10,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,2,2,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,5,5,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional-English,,55,3,29,23,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional-Heritage,,12,0,9,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional-Native,,13,10,1,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR-English,,6,0,4,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,1,0,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR-Native,,4,0,0,4,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,21,4,16,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,10,4,4,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,14,11,0,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,31,4,19,8,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,5,0,3,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,1,0,1,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,2,0,0,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,6,6,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,2,2,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,14,7,4,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,4,4,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,12,8,0,4,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,2,0,1,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,9,0,5,4,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR - Heritage,,5,0,1,4,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,8,7,1,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,6,6,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,1,1,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,Regional - English,,21,4,11,6,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,Regional - Heritage,,6,1,5,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,Regional - Native,,10,9,0,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,2,0,2,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,2,0,0,2,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,21,10,8,3,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,6,5,1,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,7,7,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR - English,,2,2,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR - Native,,2,2,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH - English,,15,8,6,1,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH - Heritage,,4,4,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2025-26,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH - Native,,8,8,0,0,,FALSE,2025-26_Elementary_Lottery.pdf
+2026-27,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,,16,3,0,13,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH-English,,1,0,0,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Heritage,NH-Heritage,,3,1,0,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Native,NH-Native,,1,0,0,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR-English,,4,0,0,4,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Heritage,TR-Heritage,,6,1,0,5,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Clark,Clark,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR-Native,,1,1,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Dr. Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,,64,48,5,11,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Dr. Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Albina-DLI,Albina-DLI,,18,18,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Dr. Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Current-King,Current-King,,16,16,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Dr. Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Native,Native,,2,0,0,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Dr. Martin Luther King Jr.,MLK Jr,Dual Language Immersion,Mandarin Immersion,Mandarin,K,,Neighborhood-Transfer,Neighborhood-Transfer,,28,14,5,9,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,,,,,,65,43,8,14,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,English,NH-English,,15,12,1,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,NH,Heritage,NH-Heritage,,2,2,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,English,TR-English,,25,9,7,9,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Heritage,TR-Heritage,,14,11,0,3,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Woodstock,Woodstock,Dual Language Immersion,Mandarin Immersion,Mandarin,K,TR,Native,TR-Native,,9,9,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,,,,,,160,106,24,30,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,English,English,,128,77,24,27,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Heritage,Heritage,,19,16,0,3,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Richmond,Richmond,Dual Language Immersion,Japanese Immersion,Japanese,K,,Native,Native,,13,13,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,,,,,,33,26,3,4,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,English,English,,17,11,3,3,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,Heritage,Heritage,,5,5,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Rose City Park,Rose City Park,Dual Language Immersion,Vietnamese Immersion,Vietnamese,K,,Native,Native,,11,10,0,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,,,,,,6,4,0,2,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,English,English,,3,1,0,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Kelly,Kelly,Dual Language Immersion,Russian Immersion,Russian,K,,Native,Native,,3,3,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,110,49,41,20,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,23,21,0,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,5,5,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,2,2,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,RG-Native,,9,9,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,RG-Heritage,,11,5,6,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,RG-English,,28,5,16,7,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR-English,,20,0,13,7,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,5,2,2,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Ainsworth,Ainsworth,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR-Native,,7,0,4,3,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,125,25,47,53,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,18,4,7,7,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,4,4,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,RG-Native,,21,13,4,4,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,RG-Heritage,,14,2,7,5,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,RG-English,,62,2,24,36,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR-English,,3,0,2,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,1,0,1,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Atkinson,Atkinson,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR-Native,,2,0,2,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,87,25,36,26,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,16,4,11,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,1,1,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,2,2,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,RG-Native,,8,6,0,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,RG-Heritage,,13,8,1,4,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,RG-English,,37,4,23,10,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR-English,,4,0,0,4,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,4,0,1,3,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Beach,Beach,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR-Native,,2,0,0,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,55,33,8,14,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,7,6,0,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,1,1,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,4,4,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,RG-Native,,7,6,0,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,RG-Heritage,,4,2,0,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,RG-English,,16,10,3,3,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,English,TR-English,,9,1,4,4,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,4,0,1,3,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Cesar Chavez,César Chávez,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR-Native,,3,3,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,26,20,1,5,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,17,11,1,5,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,4,4,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,James John,James John,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,5,5,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,49,24,13,12,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Native,RG-Native,,26,17,0,9,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,Heritage,RG-Heritage,,10,5,3,2,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,RG,English,RG-English,,12,2,9,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Lent,Lent,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Native,TR-Native,,1,0,1,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,30,29,1,0,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,21,21,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,3,3,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,5,5,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Scott,Scott,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,1,0,1,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,,,,,,27,22,4,1,,TRUE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,English,NH-English,,12,7,4,1,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Heritage,NH-Heritage,,3,3,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,NH,Native,NH-Native,,11,11,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Sitton,Sitton,Dual Language Immersion,Spanish Immersion,Spanish,K,TR,Heritage,TR-Heritage,,1,1,0,0,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Bridger Creative Science,,Focus Option,Bridger Creative Science,,K,,,,,85,26,22,37,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Buckman,,Focus Option,Buckman,,K,,,,,63,26,0,37,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,MLC,,Focus Option,MLC,,K,,,,,28,18,0,10,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Odyssey,,Focus Option,Odyssey,,K,,,,,43,26,12,5,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Sunnyside,,Focus Option,Sunnyside,,K,,,,,125,26,47,52,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,Winterhaven,,Focus Option,Winterhaven,,K,,,,,143,26,70,47,,FALSE,2026-27_Kindergarten_Lottery.pdf
+2026-27,ES,MLC,,Alternative,MLC,,,,,,,36,31,0,5,,TRUE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,MLC,,Alternative,MLC,,1,,,,,8,7,0,1,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,MLC,,Alternative,MLC,,2,,,,,7,5,0,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,MLC,,Alternative,MLC,,3,,,,,5,5,0,0,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,MLC,,Alternative,MLC,,4,,,,,7,7,0,0,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,MLC,,Alternative,MLC,,5,,,,,9,7,0,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Bridger-Creative Science,,Focus Option,Bridger-Creative Science,,,,,,,41,14,16,11,,TRUE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Bridger-Creative Science,,Focus Option,Bridger-Creative Science,,1,,,,,12,5,5,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Bridger-Creative Science,,Focus Option,Bridger-Creative Science,,2,,,,,5,4,0,1,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Bridger-Creative Science,,Focus Option,Bridger-Creative Science,,3,,,,,6,5,0,1,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Bridger-Creative Science,,Focus Option,Bridger-Creative Science,,4,,,,,8,0,4,4,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Bridger-Creative Science,,Focus Option,Bridger-Creative Science,,5,,,,,10,0,7,3,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Buckman,,Focus Option,Buckman,,,,,,,17,2,8,7,,TRUE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Buckman,,Focus Option,Buckman,,1,,,,,4,0,3,1,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Buckman,,Focus Option,Buckman,,2,,,,,1,0,1,0,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Buckman,,Focus Option,Buckman,,3,,,,,6,2,0,4,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Buckman,,Focus Option,Buckman,,4,,,,,2,0,1,1,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Buckman,,Focus Option,Buckman,,5,,,,,4,0,3,1,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Odyssey,,Focus Option,Odyssey,,,,,,,39,17,14,8,,TRUE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Odyssey,,Focus Option,Odyssey,,1,,,,,4,3,0,1,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Odyssey,,Focus Option,Odyssey,,2,,,,,7,4,0,3,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Odyssey,,Focus Option,Odyssey,,3,,,,,8,0,8,0,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Odyssey,,Focus Option,Odyssey,,4,,,,,10,7,1,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Odyssey,,Focus Option,Odyssey,,5,,,,,10,3,5,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Sunnyside,,Focus Option,Sunnyside,,,,,,,70,44,10,16,,TRUE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Sunnyside,,Focus Option,Sunnyside,,1,,,,,16,5,9,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Sunnyside,,Focus Option,Sunnyside,,2,,,,,11,7,1,3,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Sunnyside,,Focus Option,Sunnyside,,3,,,,,18,12,0,6,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Sunnyside,,Focus Option,Sunnyside,,4,,,,,11,9,0,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Sunnyside,,Focus Option,Sunnyside,,5,,,,,14,11,0,3,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Winterhaven,,Focus Option,Winterhaven,,,,,,,117,18,80,19,,TRUE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Winterhaven,,Focus Option,Winterhaven,,1,,,,,27,4,19,4,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Winterhaven,,Focus Option,Winterhaven,,2,,,,,14,5,7,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Winterhaven,,Focus Option,Winterhaven,,3,,,,,28,2,18,8,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Winterhaven,,Focus Option,Winterhaven,,4,,,,,19,5,12,2,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2026-27,ES,Winterhaven,,Focus Option,Winterhaven,,5,,,,,29,2,24,3,,FALSE,2026-27_FocusMLC_Grades1-5_Lottery.pdf
+2021-22,HS,Benson,,Focus Option / Alternative,Benson (High School),,,,,,,314,294,,20,,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,HS,Benson,,Focus Option / Alternative,Benson (High School),,9,,,,300,313,293,,20,,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,HS,Benson,,Focus Option / Alternative,Benson (High School),,10,,,,25,1,1,,0,,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,HS,Jefferson,Jefferson,Focus Option / Alternative,Jefferson (High School),,,,,,,62,28,,34,,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,HS,Jefferson,Jefferson,Focus Option / Alternative,Jefferson (High School),,9,,,,150,62,28,,34,,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,HS,MLC,,Focus Option / Alternative,MLC (High School),,,,,,,53,27,,26,,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,HS,MLC,,Focus Option / Alternative,MLC (High School),,9,,,,30,53,27,,26,,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Creative Science,,Focus Option / Alternative,Creative Science (Middle School),,,,,,,57,8,23,14,12,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Creative Science,,Focus Option / Alternative,Creative Science (Middle School),,6,,,,4,49,4,20,13,12,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Creative Science,,Focus Option / Alternative,Creative Science (Middle School),,7,,,,4,8,4,3,1,0,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,DaVinci,,Focus Option / Alternative,DaVinci (Middle School),,,,,,,430,155,82,23,170,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,DaVinci,,Focus Option / Alternative,DaVinci (Middle School),,6,,,,150,384,150,73,20,141,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,DaVinci,,Focus Option / Alternative,DaVinci (Middle School),,7,,,,5,46,5,9,3,29,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,MLC,,Focus Option / Alternative,MLC (Middle School),,,,,,,72,26,34,12,0,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,MLC,,Focus Option / Alternative,MLC (Middle School),,6,,,,26,63,26,26,11,0,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,MLC,,Focus Option / Alternative,MLC (Middle School),,7,,,,0,9,0,8,1,0,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Odyssey,,Focus Option / Alternative,Odyssey (Middle School),,,,,,,17,0,5,5,7,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Odyssey,,Focus Option / Alternative,Odyssey (Middle School),,6,,,,0,17,0,5,5,7,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Sunnyside,,Focus Option / Alternative,Sunnyside (Middle School),,,,,,,57,15,14,19,9,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Sunnyside,,Focus Option / Alternative,Sunnyside (Middle School),,6,,,,15,57,15,14,19,9,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Winterhaven,,Focus Option / Alternative,Winterhaven (Middle School),,,,,,,158,28,26,27,77,TRUE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Winterhaven,,Focus Option / Alternative,Winterhaven (Middle School),,6,,,,26,143,26,21,24,72,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2021-22,MS,Winterhaven,,Focus Option / Alternative,Winterhaven (Middle School),,7,,,,2,15,2,5,3,5,FALSE,2021-22_MiddleHigh_Lottery.pdf
+2022-23,HS,Benson,,Focus Option / Alternative,Benson,,9,,,,300,319,299,0,20,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,HS,Benson,,Focus Option / Alternative,Benson,,10,,,,25,4,4,0,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,HS,Jefferson,Jefferson,Focus Option / Alternative,Jefferson,,9,,,,175,54,31,0,23,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,HS,Jefferson,Jefferson,Focus Option / Alternative,Jefferson,,10,,,,35,0,0,0,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,HS,MLC HS,,Focus Option / Alternative,MLC HS,,9,,,,30,50,27,0,23,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,HS,MLC HS,,Focus Option / Alternative,MLC HS,,10,,,,5,1,1,0,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Creative Science,,Focus Option / Alternative,Creative Science,,6,,,,8,61,8,37,16,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Creative Science,,Focus Option / Alternative,Creative Science,,7,,,,10,14,10,2,2,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Creative Science,,Focus Option / Alternative,Creative Science,,8,,,,11,6,6,0,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,DaVinci,,Focus Option / Alternative,DaVinci,,6,,,,150,414,150,75,21,168,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,DaVinci,,Focus Option / Alternative,DaVinci,,7,,,,5,53,5,47,1,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,DaVinci,,Focus Option / Alternative,DaVinci,,8,,,,0,0,0,13,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,MLC K-8,,Focus Option / Alternative,MLC K-8,,6,,,,26,78,26,29,23,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,MLC K-8,,Focus Option / Alternative,MLC K-8,,7,,,,0,0,0,11,2,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,MLC K-8,,Focus Option / Alternative,MLC K-8,,8,,,,0,0,0,6,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Odyssey,,Focus Option / Alternative,Odyssey,,6,,,,1,31,1,23,7,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Odyssey,,Focus Option / Alternative,Odyssey,,7,,,,6,4,3,0,1,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Sunnyside,,Focus Option / Alternative,Sunnyside,,6,,,,15,74,15,36,23,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Sunnyside,,Focus Option / Alternative,Sunnyside,,7,,,,0,0,0,6,1,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Sunnyside,,Focus Option / Alternative,Sunnyside,,8,,,,0,0,0,3,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Winterhaven,,Focus Option / Alternative,Winterhaven,,6,,,,25,195,25,35,34,101,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Winterhaven,,Focus Option / Alternative,Winterhaven,,7,,,,2,16,2,9,5,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2022-23,MS,Winterhaven,,Focus Option / Alternative,Winterhaven,,8,,,,0,0,0,4,0,0,FALSE,2022-23_MiddleHigh_Lottery.pdf
+2023-24,HS,Benson Polytechnic H.S. - Technical & Health Occupations,,Focus Option / Alternative,Benson Polytechnic H.S. - Technical & Health Occupations,,9,,,,300,315,304,0,11,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,HS,Benson Polytechnic H.S. - Technical & Health Occupations,,Focus Option / Alternative,Benson Polytechnic H.S. - Technical & Health Occupations,,10,,,,25,7,7,0,0,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,HS,Jefferson H.S. - Middle College for Advanced Studies,,Focus Option / Alternative,Jefferson H.S. - Middle College for Advanced Studies,,9,,,,175,31,15,0,16,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,9,,,,30,48,28,0,20,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,10,,,,11,1,1,0,0,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Bridger-Creative Science,,Focus Option / Alternative,Bridger-Creative Science,,6,,,,0,38,0,24,14,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Bridger-Creative Science,,Focus Option / Alternative,Bridger-Creative Science,,7,,,,0,3,0,3,0,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Bridger-Creative Science,,Focus Option / Alternative,Bridger-Creative Science,,8,,,,0,1,0,0,1,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,DaVinci Arts M.S. - Arts,,Focus Option / Alternative,DaVinci Arts M.S. - Arts,,6,,,,150,353,150,183,20,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,DaVinci Arts M.S. - Arts,,Focus Option / Alternative,DaVinci Arts M.S. - Arts,,7,,,,5,40,5,35,0,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,DaVinci Arts M.S. - Arts,,Focus Option / Alternative,DaVinci Arts M.S. - Arts,,8,,,,0,11,0,9,2,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,6,,,,26,66,26,13,27,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,7,,,,4,12,4,8,0,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,8,,,,3,3,3,0,0,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Odyssey Program K-8 - Focus Option,,Focus Option / Alternative,Odyssey Program K-8 - Focus Option,,6,,,,5,22,5,10,7,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Odyssey Program K-8 - Focus Option,,Focus Option / Alternative,Odyssey Program K-8 - Focus Option,,7,,,,0,3,0,3,0,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Sunnyside Environmental K-8 - Focus Option,,Focus Option / Alternative,Sunnyside Environmental K-8 - Focus Option,,6,,,,15,86,15,49,22,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Sunnyside Environmental K-8 - Focus Option,,Focus Option / Alternative,Sunnyside Environmental K-8 - Focus Option,,7,,,,0,5,0,4,1,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Winterhaven K-8 - Focus Option,,Focus Option / Alternative,Winterhaven K-8 - Focus Option,,6,,,,23,152,23,99,30,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2023-24,MS,Winterhaven K-8 - Focus Option,,Focus Option / Alternative,Winterhaven K-8 - Focus Option,,7,,,,0,11,0,10,1,,FALSE,2023-24_MiddleHigh_Lottery.pdf
+2024-25,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,9,,,,,503,325,174,4,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,10,,,,,6,6,,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,11,,,,,3,,3,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,12,,,,,1,,1,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,,,,,,513,331,178,4,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Jefferson H.S.,Jefferson,Focus Option / Alternative,Jefferson H.S.,,9,,,,,31,18,,13,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Jefferson H.S.,Jefferson,Focus Option / Alternative,Jefferson H.S.,,10,,,,,1,,,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Jefferson H.S.,Jefferson,Focus Option / Alternative,Jefferson H.S.,,,,,,,32,18,,14,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,9,,,,,49,27,2,20,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,10,,,,,2,,1,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,11,,,,,2,,2,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,,,,,,53,27,5,21,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,6,,,,,36,,21,15,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,7,,,,,5,,2,3,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,8,,,,,1,,1,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,,,,,,42,,24,18,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,6,,,,,402,143,227,32,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,7,,,,,38,12,24,2,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,8,,,,,22,10,10,2,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,,,,,,462,165,261,36,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,6,,,,,85,32,31,22,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,7,,,,,11,9,,2,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,8,,,,,10,8,,2,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,,,,,,106,49,31,26,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,6,,,,,35,2,21,12,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,7,,,,,2,,1,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,8,,,,,4,,3,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,,,,,,41,2,25,14,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,6,,,,,102,15,49,38,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,7,,,,,8,,5,3,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,8,,,,,5,,5,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,,,,,,115,15,59,41,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,6,,,,,160,26,98,36,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,7,,,,,6,,4,2,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,8,,,,,5,,4,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,,,,,,171,26,106,39,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Beaumont M.S.,Beaumont,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,6,,,,,5,,5,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Beaumont M.S.,Beaumont,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,7,,,,,1,,1,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Beaumont M.S.,Beaumont,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,,,,,,6,,6,,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Cesar Chavez K-8,César Chávez,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,6,,,,,2,,1,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Cesar Chavez K-8,César Chávez,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,,,,,,2,,1,1,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Cleveland H.S.,Cleveland,Dual Language Immersion,Dual Language Immersion (by school location),Mandarin,9,,,,,1,,1,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Cleveland H.S.,Cleveland,Dual Language Immersion,Dual Language Immersion (by school location),Mandarin,,,,,,1,,1,,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Franklin H.S.,Franklin,Dual Language Immersion,Dual Language Immersion (by school location),,9,,,,,4,,2,2,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Franklin H.S.,Franklin,Dual Language Immersion,Dual Language Immersion (by school location),,,,,,,4,,2,2,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Harrison Park M.S.,Harrison Park,Dual Language Immersion,Dual Language Immersion (by school location),Mandarin,6,,,,,2,,2,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Harrison Park M.S.,Harrison Park,Dual Language Immersion,Dual Language Immersion (by school location),Mandarin,,,,,,2,,2,,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Kellogg M.S.,Kellogg,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,6,,,,,2,,2,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Kellogg M.S.,Kellogg,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,,,,,,2,,2,,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Leodis V. McDaniel H.S.,McDaniel,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,9,,,,,6,,2,4,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Leodis V. McDaniel H.S.,McDaniel,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,,,,,,6,,2,4,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Lincoln H.S.,Lincoln,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,9,,,,,2,,2,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Lincoln H.S.,Lincoln,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,11,,,,,1,,1,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Lincoln H.S.,Lincoln,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,,,,,,3,,3,,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Mt Tabor M.S.,Mt Tabor,Dual Language Immersion,Dual Language Immersion (by school location),Japanese,6,,,,,1,,1,,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,Mt Tabor M.S.,Mt Tabor,Dual Language Immersion,Dual Language Immersion (by school location),Japanese,,,,,,1,,1,,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Roosevelt H.S.,Roosevelt,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,9,,,,,7,,6,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,HS,Roosevelt H.S.,Roosevelt,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,,,,,,7,,6,1,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,West Sylvan M.S.,West Sylvan,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,6,,,,,2,,1,1,,FALSE,2024-25_MiddleHigh_Lottery.pdf
+2024-25,MS,West Sylvan M.S.,West Sylvan,Dual Language Immersion,Dual Language Immersion (by school location),Spanish,,,,,,2,,1,1,,TRUE,2024-25_MiddleHigh_Lottery.pdf
+2025-26,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,9,,,,,604,361,236,7,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,10,,,,,9,8,,1,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,11,,,,,7,,7,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Benson Polytechnic H.S.,,Focus Option / Alternative,Benson Polytechnic H.S.,,,,,,,620,369,243,8,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Jefferson H.S.,Jefferson,Focus Option / Alternative,Jefferson H.S.,,9,,,,,34,17,,17,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Jefferson H.S.,Jefferson,Focus Option / Alternative,Jefferson H.S.,,11,,,,,1,,1,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Jefferson H.S.,Jefferson,Focus Option / Alternative,Jefferson H.S.,,,,,,,35,17,1,17,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,9,,,,,67,10,31,26,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,10,,,,,2,2,,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,11,,,,,1,,1,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,HS,Metropolitan Learning Ctr HS,,Focus Option / Alternative,Metropolitan Learning Ctr HS,,,,,,,70,12,32,26,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,6,,,,,54,5,25,24,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,7,,,,,5,4,1,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,8,,,,,1,1,,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Bridger Creative Science School,,Focus Option / Alternative,Bridger Creative Science School,,,,,,,60,10,26,24,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,6,,,,,415,150,249,16,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,7,,,,,38,8,29,1,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,8,,,,,11,5,6,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,DaVinci Arts M.S.,,Focus Option / Alternative,DaVinci Arts M.S.,,,,,,,464,163,284,17,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,6,,,,,80,50,17,13,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,7,,,,,7,7,,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,8,,,,,11,10,,1,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Metropolitan Learning Ctr K-8,,Focus Option / Alternative,Metropolitan Learning Ctr K-8,,,,,,,98,67,17,14,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,6,,,,,34,3,25,6,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,7,,,,,2,1,,1,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,8,,,,,4,2,1,1,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Odyssey Program K-8,,Focus Option / Alternative,Odyssey Program K-8,,,,,,,40,6,26,8,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,6,,,,,101,15,57,29,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,7,,,,,8,,8,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,8,,,,,2,,2,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Sunnyside Environmental K-8,,Focus Option / Alternative,Sunnyside Environmental K-8,,,,,,,111,15,67,29,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,6,,,,,165,22,124,19,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,7,,,,,8,1,7,,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,8,,,,,5,,3,2,,FALSE,2025-26_MiddleHigh_Lottery.pdf
+2025-26,MS,Winterhaven K-8,,Focus Option / Alternative,Winterhaven K-8,,,,,,,178,23,134,21,,TRUE,2025-26_MiddleHigh_Lottery.pdf
+2026-27,HS,Benson,,Focus Option / Alternative,Benson,,9,,,,,634,385,242,7,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,Benson,,Focus Option / Alternative,Benson,,10,,,,,18,10,7,1,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,Benson,,Focus Option / Alternative,Benson,,,,,,,652,395,249,8,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,Jefferson,Jefferson,Focus Option / Alternative,Jefferson,,9,,,,,39,17,,22,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,Jefferson,Jefferson,Focus Option / Alternative,Jefferson,,10,,,,,1,1,,,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,Jefferson,Jefferson,Focus Option / Alternative,Jefferson,,,,,,,40,18,,22,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,MLC HS,,Focus Option / Alternative,MLC HS,,9,,,,,47,15,11,21,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,MLC HS,,Focus Option / Alternative,MLC HS,,10,,,,,3,2,,1,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,MLC HS,,Focus Option / Alternative,MLC HS,,12,,,,,1,,1,,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,HS,MLC HS,,Focus Option / Alternative,MLC HS,,,,,,,51,17,12,22,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Bridger Creative Science,,Focus Option / Alternative,Bridger Creative Science,,6,,,,,53,10,25,18,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Bridger Creative Science,,Focus Option / Alternative,Bridger Creative Science,,7,,,,,6,5,,1,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Bridger Creative Science,,Focus Option / Alternative,Bridger Creative Science,,8,,,,,3,2,,1,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Bridger Creative Science,,Focus Option / Alternative,Bridger Creative Science,,,,,,,62,17,25,20,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,DaVinci,,Focus Option / Alternative,DaVinci,,6,,,,,353,150,183,20,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,DaVinci,,Focus Option / Alternative,DaVinci,,7,,,,,33,3,30,,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,DaVinci,,Focus Option / Alternative,DaVinci,,8,,,,,11,4,4,3,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,DaVinci,,Focus Option / Alternative,DaVinci,,,,,,,397,157,217,23,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,MLC K-8,,Focus Option / Alternative,MLC K-8,,6,,,,,52,30,8,14,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,MLC K-8,,Focus Option / Alternative,MLC K-8,,7,,,,,2,2,,,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,MLC K-8,,Focus Option / Alternative,MLC K-8,,8,,,,,5,5,,,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,MLC K-8,,Focus Option / Alternative,MLC K-8,,,,,,,59,37,8,14,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Odyssey,,Focus Option / Alternative,Odyssey,,6,,,,,40,1,25,14,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Odyssey,,Focus Option / Alternative,Odyssey,,7,,,,,4,1,1,2,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Odyssey,,Focus Option / Alternative,Odyssey,,,,,,,44,2,26,16,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Sunnyside,,Focus Option / Alternative,Sunnyside,,6,,,,,79,15,31,33,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Sunnyside,,Focus Option / Alternative,Sunnyside,,7,,,,,7,1,4,2,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Sunnyside,,Focus Option / Alternative,Sunnyside,,8,,,,,2,1,,1,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Sunnyside,,Focus Option / Alternative,Sunnyside,,,,,,,88,17,35,36,,TRUE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Winterhaven,,Focus Option / Alternative,Winterhaven,,6,,,,,128,24,80,24,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Winterhaven,,Focus Option / Alternative,Winterhaven,,7,,,,,13,,11,2,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Winterhaven,,Focus Option / Alternative,Winterhaven,,8,,,,,2,,2,,,FALSE,2026-27_MiddleHigh_Lottery.pdf
+2026-27,MS,Winterhaven,,Focus Option / Alternative,Winterhaven,,,,,,,143,24,93,26,,TRUE,2026-27_MiddleHigh_Lottery.pdf
