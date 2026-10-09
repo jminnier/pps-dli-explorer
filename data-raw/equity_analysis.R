@@ -19,7 +19,7 @@
 #   data/equity_pps_follow.csv share of a moved program PPS's school guides project to arrive / stay (guide_enrollment.csv + psu_forecast.csv)
 #   data/equity_capture.csv    neighborhood capture rates: Lent, Southeast elementary areas, rest of PPS (capture_rate.csv)
 #   data/equity_se_seats.csv   Southeast Spanish vs Richmond / Le Monde kindergarten seats and lottery demand
-#   data/equity_site_context.csv  Lent, Rigler, Atkinson, Creston: distance to district edge, own-area share, nearby Spanish speakers, capacity (facility_capacity_2021.csv)
+#   data/equity_site_context.csv  Lent, Rigler, Atkinson, Creston: distance to district edge, own-area share, nearby Spanish speakers, capacity (school_profiles_2025.csv; 2021 facility plan for comparison)
 #
 # Usage: Rscript data-raw/equity_analysis.R
 
@@ -387,17 +387,22 @@ site_ctx <- tibble(school = names(site_keys), key = site_keys) |>
   left_join(ebn25 |> filter(program %in% c("Spanish Immersion") | (key == "rigler" & is.na(program))) |>
               group_by(key) |> summarise(own_area = sum(students[area_level == "own_neighborhood"]),
                                          out_of_district = sum(students[area_level == "other"]), students = first(row_total)), by = "key")
-# building capacity (PPS Long-Range Facility Plan 2021) vs October 2025 enrollment and PPS's 2027-28 projection
+# building capacity vs October 2025 enrollment and PPS's 2027-28 projection. Current functional capacity and
+# utilization are from PPS's School Profiles dashboard (2025-26); the 2021 Long-Range Facility Plan figure is kept
+# for comparison.
 fcap <- read_csv(here("data", "facility_capacity_2021.csv"), show_col_types = FALSE) |> mutate(key = school_key(site))
+prof <- read_csv(here("data", "school_profiles_2025.csv"), show_col_types = FALSE) |> mutate(key = school_key(school)) |>
+  select(key, functional_capacity = functional_capacity, profile_enrollment_2025 = enrollment_2025, profile_use_2025 = utilization)
 gopt <- read_csv(here("data", "guide_enrollment.csv"), show_col_types = FALSE) |> filter(year == "2027-28", scenario == "a") |>
   mutate(key = school_key(school)) |> select(key, projected_2027_a = enrollment)
 site_ctx <- site_ctx |>
-  left_join(select(fcap, key, functional_capacity), by = "key") |>
+  left_join(prof, by = "key") |>
+  left_join(select(fcap, key, functional_capacity_2021 = functional_capacity), by = "key") |>
   left_join(by_grade |> filter(year == "2025-26", grade != "PK") |> group_by(key) |> summarise(enrolled_2025 = sum(enrollment)), by = "key") |>
   left_join(gopt, by = "key") |>
   mutate(use_2025 = enrolled_2025 / functional_capacity, use_2027_a = projected_2027_a / functional_capacity,
          mi_from_atkinson = as.numeric(st_distance(spts[match(key, spts$key), ], spts[spts$key == "atkinson", ])) / M_PER_MI)
-stopifnot(!anyNA(site_ctx$functional_capacity))
+stopifnot(!anyNA(site_ctx$functional_capacity), !anyNA(site_ctx$functional_capacity_2021))
 write_csv(site_ctx, here("data", "equity_site_context.csv"))
 cat("\nSoutheast seats vs demand:\n"); print(as.data.frame(se_seats), row.names = FALSE)
 cat("\nWhole-school site context:\n"); print(as.data.frame(site_ctx), row.names = FALSE)

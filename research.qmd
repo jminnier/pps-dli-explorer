@@ -129,7 +129,7 @@ k5 |> arrange(model, desc(per_grade)) |>
 PPS already runs larger strands. Ainsworth has about `r pg("Ainsworth")` Spanish immersion students per grade beside a neighborhood program of similar size, and it draws the most Spanish kindergarten lottery applications in the district: `r fmt_n(ains$applications)` a year on average over `r ains$years` lotteries. Many things drive Ainsworth's demand, including its neighborhood, so this shows that a two-class strand can be popular. It doesn't show that strands outperform whole schools. In the Southeast, Atkinson has room for a second Spanish class per grade without moving its neighborhood students ([Equity §8](equity.qmd#sec-southeast)).
 
 ::: {.source}
-`r cite("by_grade", "lottery", "lrfp")`
+`r cite("by_grade", "lottery", "profiles25")`
 :::
 
 ## PPS's own whole-school conversion: Lent {#sec-lent}

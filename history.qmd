@@ -12,7 +12,7 @@ hp <- read_data("history_projection.csv")
 cr <- read_data("capture_rate.csv") |> filter(neighborhood %in% c("Lent", "César Chávez"), row_type == "school")
 ebn <- read_data("enroll_by_neighborhood.csv") |> filter(school %in% c("Lent", "César Chávez"), program == "Spanish Immersion")
 dem <- read_data("school_demographics.csv") |> filter(name %in% c("Lent", "César Chávez"), year == "2025-26")
-fcap <- read_data("facility_capacity_2021.csv")
+prof <- read_data("school_profiles_2025.csv") |> mutate(key = school_key(school))
 gs <- read_data("guide_school.csv") |> filter(school %in% c("Lent", "Cesar Chavez"))
 fcl <- read_data("equity_forecast_check.csv")
 v <- function(s, p, y) he$enrollment[he$school == s & he$program == p & he$year == y]
@@ -21,7 +21,7 @@ cap <- function(s, y, col = "own_neighborhood_school") cr[[col]][cr$neighborhood
 capr <- function(s, y) cap(s, y) / cap(s, y, "total")
 own <- function(s, y) { d <- ebn |> filter(school == s, year == y); sum(d$students[d$area_level == "own_neighborhood"]) / d$row_total[1] }
 dm <- function(s, rt, col) dem[[col]][dem$name == s & dem$row_type == rt]
-fc <- function(site) fcap$functional_capacity[fcap$site == site]
+fc <- function(k) prof$functional_capacity[prof$key == k]
 cc_g <- by_grade |> filter(key == "cesarchavez", year == "2025-26", grade != "PK") |>
   mutate(program = if_else(language %in% "Spanish", "Spanish immersion", "Neighborhood program"),
          band = if_else(grade %in% c("6", "7", "8"), "Grades 6-8", "Grades K-5"))
@@ -141,14 +141,14 @@ viz_layout(p, ytitle = "Students") |> layout(xaxis = list(type = "category", cat
 `r cite("psu_premove", "guides")`
 :::
 
-PPS projects **Lent** at `r fmt_n(pj("Lent", "a", "2027-28"))` students in 2027-28 once Atkinson's program arrives, against `r fmt_n(pj("Lent", "sq", "2027-28"))` with no changes. Its guide says the move "brings Lent's student numbers above steady target levels (400+ students)" (`r SRC$guides`). That would still be `r fmt_pct(pj("Lent", "a", "2027-28") / fc("LENT"))` of Lent's capacity of `r fmt_n(fc("LENT"))` (`r SRC$lrfp`), below PPS's 70–100% space-use goal.
+PPS projects **Lent** at `r fmt_n(pj("Lent", "a", "2027-28"))` students in 2027-28 once Atkinson's program arrives, against `r fmt_n(pj("Lent", "sq", "2027-28"))` with no changes. Its guide says the move "brings Lent's student numbers above steady target levels (400+ students)" (`r SRC$guides`). That would still be `r fmt_pct(pj("Lent", "a", "2027-28") / fc("lent"))` of Lent's capacity of `r fmt_n(fc("lent"))` (`r SRC$profiles25`), below PPS's 70–100% space-use goal.
 
-**César Chávez** would go from `r fmt_n(pj("César Chávez", "sq", "2027-28"))` students with no changes to `r fmt_n(pj("César Chávez", "a", "2027-28"))`, all in Spanish immersion, which is `r fmt_pct(pj("César Chávez", "a", "2027-28") / fc("CHAVEZ"))` of its capacity of `r fmt_n(fc("CHAVEZ"))`. The guide projects its students in poverty falling from `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))` and its share of students from underserved racial groups from `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`. Those projections assume most families follow their programs. In the moves where it can be measured, PPS's projections have about 80% of students arriving ([Equity §5](equity.qmd#sec-optout)). After the 2023 move, Lent ended up at about half of the 527 PPS projected.
+**César Chávez** would go from `r fmt_n(pj("César Chávez", "sq", "2027-28"))` students with no changes to `r fmt_n(pj("César Chávez", "a", "2027-28"))`, all in Spanish immersion, which is `r fmt_pct(pj("César Chávez", "a", "2027-28") / fc("cesarchavez"))` of its capacity of `r fmt_n(fc("cesarchavez"))`. The guide projects its students in poverty falling from `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))` and its share of students from underserved racial groups from `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`. Those projections assume most families follow their programs. In the moves where it can be measured, PPS's projections have about 80% of students arriving ([Equity §5](equity.qmd#sec-optout)). After the 2023 move, Lent ended up at about half of the 527 PPS projected.
 
 ::: {.callout-note collapse="true"}
 ## Caveats
 - Enrollment is PSU's count of October enrollment, kindergarten through grade 12, as first reported in each forecast edition. PPS's own totals for Lent include pre-kindergarten (308 in 2023-24).
 - Lent and Bridger were K-8 schools until 2021-22, so earlier totals include middle grades.
 - Capture rates and demographics are whole-school or whole-area figures. PPS doesn't publish race or income for immersion programs alone.
-- PPS's projections are from school guides dated October 8, 2026 and labeled drafts. Capacities are from PPS's 2021 facility plan.
+- PPS's projections are from school guides dated October 8, 2026 and labeled drafts. Capacities are PPS's current (2025-26) figures from its School Profiles dashboard.
 :::
