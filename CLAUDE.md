@@ -4,7 +4,7 @@ Guidance for working in this repository. See README.md for what the project is a
 
 ## Project in one paragraph
 
-This is an independent analysis of how the Portland Public Schools (PPS) rightsizing Scenarios A and B (October 2026) affect dual language immersion (DLI). It is a Quarto website (R, plotly, gt) built from public PDFs that are parsed into tidy CSVs. It is a private copy of `browniefed/pps-explorer` by Jason Brown, which has no license. The `upstream` remote points to it, and its map app still lives at the repository root (`src/`, `public/`, `scripts/`, `tests/`). Keep the repository private, and always credit Jason Brown / pps-explorer, and ppsdata.info, which it credits.
+This is an independent analysis of how the Portland Public Schools (PPS) rightsizing Scenarios A and B (October 2026) affect dual language immersion (DLI). It is a Quarto website (R, plotly, gt) built from public PDFs that are parsed into tidy CSVs. It is a private copy of `browniefed/pps-explorer` by Jason Brown, which has no license. The `upstream` remote points to it, and its map app still lives at the repository root (`src/`, `public/`, `scripts/`, `tests/`). The repository is public and the site is published to GitHub Pages (https://jessicaminnier.com/pps-dli-explorer/) with `quarto publish gh-pages --no-prompt`; republish after site changes. Always credit Jason Brown / pps-explorer, and ppsdata.info, which it credits.
 
 ## Layout
 
@@ -46,7 +46,7 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
 ## Working style the user expects
 
 - Delegate PDF parsing and web searching to subagents with `model: sonnet`. Leave their output uncommitted, then review, re-run and spot-check it before committing it yourself.
-- Commit with clear messages ending in the Co-Authored-By line, and push to `origin main`. Don't contact upstream or publish anything without asking.
+- Commit with clear messages ending in the Co-Authored-By line, and push to `origin main`. Don't contact upstream without asking. Republish the live site (`quarto publish gh-pages --no-prompt`) only when the user asks.
 - Verify surprising claims before stating them, and say so plainly when a number was wrong.
 
 ## Substantive pitfalls (already made once; don't repeat)

@@ -34,7 +34,7 @@ Lent and César Chávez are the two schools that show what the scenarios would m
 
 ```{r}
 #| label: fig-history
-#| fig-height: 4.6
+#| fig-height: 5.4
 #| fig-cap: "October enrollment, kindergarten through grade 12, by program. Lent and Bridger were K-8 schools until 2021-22, when their middle grades moved out; César Chávez is still K-8. In 2023-24 Bridger's Spanish program moved to Lent and Lent's neighborhood program moved to Marysville. Hover for counts."
 d <- he |> filter(program != "Total", !(school == "Bridger" & year >= "2023-24"), !(school == "Lent" & program == "Neighborhood" & year >= "2023-24")) |>
   mutate(series = paste(school, tolower(program)), series = sub("spanish", "Spanish immersion", series), series = sub("neighborhood$", "neighborhood program", series))
@@ -50,6 +50,7 @@ for (s in lev) {
 }
 viz_layout(p, ytitle = "Students (K-12)") |>
   layout(xaxis = list(type = "category"), yaxis = list(rangemode = "tozero"),
+         legend = list(orientation = "h", x = 0, y = -0.15, xanchor = "left", yanchor = "top"),
          annotations = list(list(x = "2023-24", y = 360, text = "Bridger's program moves to Lent", showarrow = FALSE, xanchor = "left", xshift = 4, font = list(size = 11, color = PAL$ink2))))
 ```
 

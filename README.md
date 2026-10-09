@@ -4,7 +4,7 @@ An independent analysis of what Portland Public Schools' rightsizing scenarios (
 
 This project builds on **[pps-explorer](https://github.com/browniefed/pps-explorer) by Jason Brown (@browniefed)**. pps-explorer provides the georeferenced attendance areas, the school locations and the transcription of the board memo that every scenario comparison here uses. Its address-lookup map is still in this repository. pps-explorer in turn credits [ppsdata.info](https://ppsdata.info) by Alex Meub.
 
-> **Status:** private. The upstream repository has no license, so this copy stays private until reuse terms are clarified with its author.
+> **Live site:** <https://jessicaminnier.com/pps-dli-explorer/> (GitHub Pages; also <https://jminnier.github.io/pps-dli-explorer/>). The repository is public. The upstream pps-explorer repository has no license; its author is credited throughout, and reuse terms have not yet been confirmed with him.
 
 ## What the site shows
 
@@ -79,6 +79,7 @@ Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R
 quarto render                               # -> _site/
 quarto preview                              # live local preview
+quarto publish gh-pages --no-prompt         # render and publish to GitHub Pages (gh-pages branch)
 ```
 
 ## The pps-explorer map app
