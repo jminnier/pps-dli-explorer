@@ -37,8 +37,9 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
   - Thin marks, a hover tooltip on every mark, a legend for two or more series, text in ink colors.
   - Never use two y-axes.
   - The site is light theme only.
-- **Plotly sizing in Quarto:** set the height with the chunk option `#| fig-height:`, not `plot_ly(height = ...)`, which gets clipped by the container. If a chunk change doesn't take effect, delete `_freeze/<page>/`.
+- **Plotly sizing in Quarto:** set the height with the chunk option `#| fig-height:`, not `plot_ly(height = ...)`, which gets clipped by the container.
 - **dplyr gotcha:** in `summarise()`, compute weighted means before overwriting the weight column (e.g. don't write `students = sum(students)` first).
+- **No freeze.** `_quarto.yml` sets `freeze: false` so every render (and `quarto publish`, which renders first) re-runs every page against the current `data/`. Don't turn freeze back on: with `freeze: auto` a changed CSV doesn't trigger a re-run and the site shows stale numbers.
 - **zsh gotcha:** never use a variable named `path`; it overwrites `PATH`.
 - **Census:** B16001 (separate Russian/Japanese) is published for states only; use C16001 (tracts) and B16007 (ages 5–17). Census downloads are cached in `data-raw/acs/` (git-ignored). The key is in `~/.Renviron`.
 - **pps.net rate-limits** (HTTP 429): pause about 5 s between downloads. Current reports are at `/fs/resource-manager/view/<uuid>`; the old `/cms/lib/...` URLs return 404.

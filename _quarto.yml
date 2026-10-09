@@ -49,4 +49,4 @@ execute:
   echo: false
   warning: false
   message: false
-  freeze: auto
+  freeze: false   # always re-run pages so they match data/ (a full render takes ~15 s)
