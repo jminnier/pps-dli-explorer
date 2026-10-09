@@ -17,6 +17,7 @@
 #   data/equity_changes.csv    one row per scenario x change (each program move or closure)
 #   data/equity_home_distance.csv  home-to-school distance before/after, per scenario x change
 #   data/equity_pps_follow.csv share of a moved program PPS's school guides project to arrive / stay (guide_enrollment.csv + psu_forecast.csv)
+#   data/equity_capture.csv    neighborhood capture rates: Lent, Southeast elementary areas, rest of PPS (capture_rate.csv)
 #
 # Usage: Rscript data-raw/equity_analysis.R
 
@@ -333,3 +334,22 @@ pps_follow <- bind_rows(
 write_csv(pps_follow, here("data", "equity_pps_follow.csv"))
 cat("\nPPS scenario projections: share of each moved program arriving at the receiving school:\n")
 print(as.data.frame(pps_follow |> mutate(across(c(followed, stayed), \(v) round(100 * v)))), row.names = FALSE)
+
+# ---- neighborhood capture rates: Southeast elementary areas vs the rest of PPS --------------------
+# PPS "Neighborhood Capture Rate Metrics" (October counts, K-12 residents of each attendance area).
+# Southeast = the elementary areas around the 2023 Southeast Enrollment and Program Balancing changes.
+# Lent is shown separately: after 2023 its non-immersion neighborhood children were assigned to
+# Marysville, which the report counts as "other neighborhood school", so its drop is partly by design.
+cr <- read_csv(here("data", "capture_rate.csv"), show_col_types = FALSE)
+SE_AREAS <- c("Abernethy", "Atkinson", "Bridger", "Bridger Creative Science", "Creston", "Duniway", "Grout", "Lewis",
+              "Llewellyn", "Sunnyside Environmental", "Woodstock", "Marysville", "Kelly", "Arleta", "Whitman", "Woodmere")
+stopifnot(all(SE_AREAS %in% cr$neighborhood))
+cap_cols <- c("own_neighborhood_school", "other_neighborhood_school", "pps_alternative", "pps_charter", "total")
+cap <- cr |> filter(level == "Elementary", row_type == "school") |>
+  mutate(group = case_when(neighborhood == "Lent" ~ "Lent", neighborhood %in% SE_AREAS ~ "Southeast (excluding Lent)", TRUE ~ "Rest of PPS")) |>
+  bind_rows(cr |> filter(row_type == "grand_total") |> mutate(group = "All PPS, K-12")) |>
+  group_by(year, group) |> summarise(across(all_of(cap_cols), sum), areas = n(), .groups = "drop") |>
+  mutate(capture = own_neighborhood_school / total, other_neighborhood = other_neighborhood_school / total, alternative = pps_alternative / total)
+write_csv(cap, here("data", "equity_capture.csv"))
+cat("\nNeighborhood capture rate, elementary areas:\n")
+print(as.data.frame(cap |> select(year, group, capture) |> mutate(capture = round(100 * capture, 1)) |> pivot_wider(names_from = group, values_from = capture)), row.names = FALSE)

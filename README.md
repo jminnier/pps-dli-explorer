@@ -47,6 +47,7 @@ Each source is saved under `data-raw/`, and each script stops on any row that fa
 | `check_access_robustness.R` | same | `access_robustness*.csv` |
 | `equity_analysis.R` | the tables above + scenario maps + census blocks | `equity_*.csv` |
 | `parse_school_guides.py` | PPS *How Could Your School Be Impacted?* school guides (Oct 8, 2026) | `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
+| `parse_capture_rate.py` | PPS *Neighborhood Capture Rate Metrics*, Oct 2019–Oct 2025 | `capture_rate.csv` |
 | copied by hand | PPS *Class Size Detail*; PPS board slide 44 | `class_size_kg.csv`, `pps_slide44.csv` |
 
 Other saved documents: `data-raw/pps_board/` (October 2026 board packet: PowerPoint, memo, district and regional summaries, ethnicity-by-program reports) and `data-raw/savepdxschools/` (PPS metrics compiled by [Save PDX Schools](https://savepdxschools.org/); no license stated, so credit them if used).

@@ -30,6 +30,8 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 14 | Board meeting statements | Automated transcripts of PPS board and committee meetings compiled by [Save PDX Schools](https://savepdxschools.org/transcripts/), checked against the meeting video | Sept–Oct 2026 | `data-raw/pps_transcripts/*.json` | quoted with meeting, date and time |
 | 15 | Older enrollment forecasts | PSU Population Research Center, *Portland Public Schools Enrollment Forecasts*, 2022-23 (June 2022), 2023-24 (June 2023) and 2024-25 (July 2024) editions, Appendix C / Table 5.5 | 2019-20 to 2033-34 | `data-raw/pps_reports/PSU_PRC_Forecast_*_edition.pdf` | `extract_psu_premove.py` → `psu_forecast_premove.csv` |
 | 16 | Scenario projections by school | PPS, *How Could Your School Be Impacted?* ([page](https://www.pps.net/about/portland-public-schools-information/rightsize/how-could-your-school-be-impacted)): one 4-page "Family-Friendly School Guide" per school (82 PDFs, served from Google Drive through an Awesome Table list; metadata title "Confidential Draft", all dated October 8, 2026) | Projections 2027-28 to 2031-32 | `data-raw/pps_board/impact_page/*.pdf`, `drive_ids.txt` | `parse_school_guides.py` → `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
+| 17 | Audit school-by-school appendix | Green, T. L., & Hanson, H. (2026, June 29). *Equity audit evaluation of Portland Public Schools' Southeast Enrollment and Program Balancing initiative: School-by-school analysis*, from the [PPS SEGC documents page](https://www.pps.net/about/portland-public-schools-information/rightsize/segc-documents) | 2020-21 to 2025-26 | `data-raw/pps_transcripts/SEGC_Equity_Audit_School_by_School_Analysis.pdf` | quoted with page numbers |
+| 18 | Neighborhood capture rates | PPS, *Neighborhood Capture Rate Metrics* ("Enrollment Summary … by K-12 Students' Neighborhood and Type of School Attended"); 2024-25 and 2025-26 on the Data & Reporting page, earlier years on the archive page under "Neighborhood Attendance Patterns & Focus Distributions". The companion *School Enrollment by Neighborhood of Residence* reports are saved but not yet parsed | October 2019 to October 2025 | `data-raw/pps_reports/capture_rate/*.pdf` | `parse_capture_rate.py` → `capture_rate.csv` |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -247,6 +249,18 @@ The precedent rate comes from one consolidation; other programs could fare bette
 - Used only where the receiving school's sole change is the arriving program: Atkinson → Lent, Scott → Rigler, Clark → Woodstock. Arrive + stay comes to 100–111% of the program, so the split is approximate.
 - The guides state no follow rate. The shares are implied, and PPS's model may place non-following students in ways the guides don't show (for example, at other immersion sites).
 
+### Lent's 2023 projection and staff accounts (sources 13 and 17)
+
+The 527-student projection is quoted from the appendix's summary of PPS's Phase 2 school-by-school impact analysis (appendix p. 34; the appendix cites it as "Portland Public Schools. (n.d.). SE enrollment and program balancing phase 2 school-by-school impact analysis", p. 12). The appendix calls it "Lent's total enrollment" and does not say whether pre-kindergarten is included. It is compared with October 2025 kindergarten–5th grade enrollment (source 2). Staff and family quotes are verbatim from the appendix and the main report, with page numbers; ellipses and brackets are the report's own. The report identifies speakers only by school and role.
+
+### Neighborhood capture rates (source 18)
+
+Each report gives, for every attendance area, PPS K-12 students living there by the type of school they attend: their own neighborhood school (the capture rate), another neighborhood school, a PPS alternative, a community-based alternative, special services or a PPS charter. Pre-kindergarten is excluded. Immersion students attending their own area's school count as captured; immersion students attending another school's program count under "other neighborhood school" or "PPS alternative".
+
+- *Parsing checks*: categories sum to each row's total; printed percentages match counts (±0.51); level totals and the grand total (29,036 of 42,622 in October 2025) match the sums of their rows. Every year 2019-20 to 2025-26 uses the same layout.
+- *Groups* (`equity_capture.csv`): Southeast = the elementary areas of Abernethy, Atkinson, Bridger (Bridger Creative Science from 2023-24), Creston, Duniway, Grout, Lewis, Llewellyn, Sunnyside Environmental, Woodstock, Marysville, Kelly, Arleta, Whitman and Woodmere; Lent is shown separately; Rest of PPS = all other elementary areas. Group rates are total own-school students ÷ total residents.
+- *Limits*: boundaries changed in 2021-22 and 2023-24, so areas' resident counts jump; students allowed to stay at their former school after a boundary change count as "other neighborhood school"; Creative Science (a focus school) moved into the Bridger building in 2023-24; Lent's non-immersion neighborhood children were assigned to Marysville after 2023, which the report counts as "other neighborhood school".
+
 ## Reproducing the data
 
 From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
@@ -260,6 +274,7 @@ python3 data-raw/parse_psu_forecast.py
 python3 data-raw/extract_psu_premove.py
 python3 data-raw/parse_ethnicity_program.py
 python3 data-raw/parse_school_guides.py
+python3 data-raw/parse_capture_rate.py
 node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R
 Rscript data-raw/check_access_robustness.R
