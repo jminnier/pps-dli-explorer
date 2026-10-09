@@ -2,10 +2,10 @@
 $font-size-root: 17px;
 
 /*-- scss:rules --*/
-.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.25rem 0 1.75rem; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.25rem 0 1.75rem; }
 .stat { border: 1px solid rgba(128, 128, 128, 0.25); border-radius: 8px; padding: 0.9rem 1rem; }
 
-.stat .num { display: block; font-size: 2rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat .num { display: block; white-space: nowrap; font-size: 1.6rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stat .label { display: block; font-size: 0.9rem; opacity: 0.8; margin-top: 0.35rem; }
 .callout-note p:last-child { margin-bottom: 0; }
 table { font-variant-numeric: tabular-nums; }
@@ -16,5 +16,5 @@ table { font-variant-numeric: tabular-nums; }
 main td code { white-space: normal !important; overflow-wrap: anywhere; }
 @media (max-width: 767.98px) {
   main table.table { display: block; overflow-x: auto; }
-  .stat .num { font-size: 1.6rem; }
+  .stat .num { font-size: 1.5rem; }
 }
