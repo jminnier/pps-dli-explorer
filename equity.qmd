@@ -224,7 +224,7 @@ opt |> filter(scenario == "a") |>
 
 If Scenario A loses families at the Bridger → Lent rate, about **`r fmt_n(ot(prec, "k"))` kindergartners a year** who would have joined these programs go elsewhere. The figure at 7% is `r fmt_n(ot("7% (figure cited in public comment)", "k"))`. Over six years of kindergarten classes that adds up to roughly `r fmt_n(6 * ot(prec, "k"))` children. Most would be expected to enroll at their neighborhood school instead. PPS's guides place these students at neighborhood schools and flag whether each school meets its size and space goals, but they give no capacity figures. PPS publishes each building's current capacity separately, in its School Profiles dashboard ([§8](#sec-southeast)). Either way, the students lost would come from programs at schools that are about half historically underserved ([§3](#sec-who)).
 
-### What staff and families at Lent and Bridger described
+### What staff and families at Lent and Bridger described {#what-staff-and-families-at-lent-and-bridger-described}
 
 The audit's interviews and surveys describe what the 2023 move was like for the schools involved. The appendix identifies speakers only as participants or staff at each school.
 
@@ -381,7 +381,7 @@ The data points to options that would take less from immersion families. Each of
 
 ## Details {#sec-distance-detail}
 
-### Estimated home-to-school distance
+### Estimated home-to-school distance {#estimated-home-to-school-distance}
 
 Children are placed by 2020 census block. For closures, children living in the closing school's attendance area are used, and their new school is the one assigned on the scenario map. For immersion programs, children are those nearest the program's current site of that language (an assumption), and their new school is the program's new site.
 
@@ -448,7 +448,7 @@ read_data("equity_home_check.csv") |> filter(scenario == "a") |>
   tab_source_note(md(cite("by_residence", "scenarios", "blocks")))
 ```
 
-### Every closure and immersion move
+### Every closure and immersion move {#every-closure-and-immersion-move}
 
 ```{r}
 #| label: tbl-changes
@@ -467,7 +467,7 @@ chg |> filter(scenario == "a") |>
   tab_source_note(md(cite("by_grade", "by_lang", "scenarios")))
 ```
 
-### Caveats
+### Caveats {#caveats}
 
 - Lottery figures count applications, not children.
 - Race and income are whole-school figures; PPS doesn't publish them by program.

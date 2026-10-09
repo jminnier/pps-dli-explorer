@@ -127,7 +127,16 @@ SRC <- list(
   nasem = "National Academies of Sciences, Engineering, and Medicine. (2017). *Promoting the educational success of children and youth learning English: Promising futures*, ch. 8, p. 300 ([read online](https://nap.nationalacademies.org/read/24677/chapter/10))",
   methods = "Method details: [Sources & methods](methods.qmd)"
 )
-cite <- function(...) paste0("**Sources:** ", paste(unlist(SRC[c(...)]), collapse = "; "), ". ", SRC$methods, ".")
+# Spanish pages (es/) set options(site.lang = "es") before sourcing this file; their citations use the Spanish
+# wording in R/site_data_es.R (document titles stay in their original language).
+SITE_ES <- identical(getOption("site.lang"), "es")
+if (SITE_ES) {
+  source(file.path(here_root, "R", "site_data_es.R"))
+  missing_es <- setdiff(names(SRC), names(SRC_ES))
+  if (length(missing_es)) stop("R/site_data_es.R has no Spanish citation for: ", paste(missing_es, collapse = ", "))
+  SRC <- SRC_ES[names(SRC)]
+}
+cite <- function(...) paste0(if (SITE_ES) "**Fuentes:** " else "**Sources:** ", paste(unlist(SRC[c(...)]), collapse = "; "), ". ", SRC$methods, ".")
 
 fmt_n <- function(x) formatC(round(x), format = "d", big.mark = ",")
 fmt_pct <- function(x) ifelse(is.na(x), "–", paste0(round(100 * x), "%"))

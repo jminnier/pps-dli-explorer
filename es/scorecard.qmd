@@ -1,0 +1,234 @@
+---
+title: "Demanda y tabla comparativa"
+subtitle: "Dónde solicitan las familias inmersión y qué le hace cada escenario"
+---
+
+```{r}
+options(site.lang = "es")
+source("R/site_data.R")
+source("R/charts.R")
+library(gt)
+k_enr <- function(key, yr) fmt_n(sum(by_grade$enrollment[by_grade$key == key & by_grade$year == yr & by_grade$grade == "K" & by_grade$language %in% LANGUAGES]))
+k_off <- function(key, yr) fmt_n(sum(lottery_k$offered[lottery_k$key == key & lottery_k$year == yr]))
+
+k5_moves <- moves |> filter(band == "K-5", kind == "program") |>
+  distinct(language, from_school, from_key, to_school, to_key, .keep_all = FALSE) |>
+  mutate(in_a = TRUE)
+k5_moves$in_b <- paste(k5_moves$from_key, k5_moves$to_key) %in%
+  with(filter(moves, scenario == "b"), paste(from_key, to_key))
+
+demand <- k5_moves |>
+  left_join(select(lottery_avg, key, from_apps = applications, from_wait = waitlisted, from_years = years), by = c(from_key = "key")) |>
+  left_join(select(lottery_avg, key, to_apps = applications, to_wait = waitlisted, to_years = years), by = c(to_key = "key")) |>
+  arrange(desc(from_apps))
+```
+
+## Demanda: los programas se alejan de donde solicitan las familias {#demand-programs-move-away-from-where-families-apply}
+
+Las familias que quieren un lugar de inmersión en kínder lo solicitan a través del sorteo de selección de escuelas de PPS (la excepción son las familias del vecindario de Lent y Rigler, escuelas de inmersión completa; vea la nota más abajo). Los informes del sorteo muestran cuántas familias presentaron solicitud a cada programa, cuántas recibieron una oferta y cuántas quedaron en lista de espera. En promedio, en los últimos cinco sorteos (`r min(LOTTERY_YEARS)` a `r max(LOTTERY_YEARS)`), entre los programas de español que se trasladarían están los dos con **más solicitudes y las listas de espera más largas del distrito**, Atkinson y Beach, y se trasladarían a escuelas que han atraído a muchos menos solicitantes.
+
+::: {.callout-note appearance="minimal"}
+*Esta es una traducción del sitio en inglés. Las citas de documentos y reuniones en inglés están traducidas al español.*
+:::
+
+```{r}
+#| label: fig-demand
+#| fig-height: 5.4
+#| fig-cap: "Solicitudes por año en el sorteo de kínder (promedio de 5 años) en cada programa que se traslada y en la escuela a la que se traslada. Pase el cursor para ver ofertas y listas de espera. La cifra de Lent cuenta solo a solicitantes de fuera de su vecindario (vea la nota más abajo)."
+d <- demand |> filter(!is.na(from_apps)) |>
+  mutate(label = paste0(from_school, " → ", to_school, " (", tr_lang(language), if_else(in_b, "", ", solo A"), ")"),
+         label = wrap_label(label), label = factor(label, levels = rev(label)))
+hover <- function(school, apps, wait, role) sprintf("<b>%s</b> (%s)<br>%s solicitudes/año<br>%s en lista de espera/año", school, role, fmt_n(apps), fmt_n(wait))
+p <- plot_ly(d, y = ~label) |>
+  add_segments(x = ~from_apps, xend = ~coalesce(to_apps, from_apps), yend = ~label, showlegend = FALSE,
+               line = list(color = PAL$grid, width = 2), hoverinfo = "skip") |>
+  add_markers(x = ~from_apps, name = "Escuela que pierde el programa", marker = list(color = PAL$light[["blue"]], size = 11, line = list(color = "white", width = 2)),
+              text = ~hover(from_school, from_apps, from_wait, "pierde el programa"), hoverinfo = "text") |>
+  add_markers(data = filter(d, !is.na(to_apps)), x = ~to_apps, name = "Escuela que lo recibe (su propio sorteo actual)",
+              marker = list(color = PAL$light[["orange"]], size = 11, line = list(color = "white", width = 2)),
+              text = ~hover(to_school, to_apps, to_wait, "recibe el programa"), hoverinfo = "text")
+viz_layout(p, xtitle = "Solicitudes por año", ytitle = NULL) |>
+  layout(xaxis = list(rangemode = "tozero"), yaxis = list(tickfont = list(size = 12)))
+```
+
+::: {.source}
+`r cite("lottery", "scenarios")`
+:::
+
+Las escuelas sin punto anaranjado (Rigler, Boise-Eliot/Humboldt, Vestal) no tienen sorteo de inmersión hoy: Boise-Eliot/Humboldt y Vestal serían sedes nuevas, y Rigler llena su programa de español sin aparecer en los informes del sorteo.
+
+::: {.callout-warning}
+## Las cifras del sorteo subestiman la demanda en las escuelas de inmersión completa
+En **Lent** y **Rigler**, todos los estudiantes están en inmersión en español, así que los niños del propio vecindario de la escuela se inscriben sin pasar por el sorteo; solo las familias de fuera del vecindario presentan solicitud. En 2025-26, Lent inscribió a `r k_enr("lent", "2025-26")` estudiantes de kínder en inmersión pero hizo `r k_off("lent", "2025-26")` ofertas en el sorteo, y Rigler inscribió a `r k_enr("rigler", "2025-26")` sin ningún sorteo. Por eso, el punto anaranjado de Lent en la gráfica de arriba cuenta solo a solicitantes de fuera del vecindario y no se puede comparar directamente con las escuelas que envían programas, que inscriben en kínder aproximadamente tantos estudiantes como lugares ofrecen en el sorteo.
+
+`r cite("by_grade", "lottery")`
+:::
+
+### Un precedente: el programa de español de Bridger se trasladó a Lent en 2023 {#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023}
+
+```{r}
+#| label: tbl-bridger
+kg <- read_data("class_size_kg.csv") |> mutate(key = school_key(school))
+k_actual <- by_grade |> filter(grade == "K", language == "Spanish") |> group_by(year, key) |> summarise(k_actual = sum(enrollment), .groups = "drop")
+bl <- profiles |> filter(key %in% c("bridgercreativescience", "lent")) |>
+  select(year, key, school, imm_spanish) |>
+  inner_join(select(kg, year, key, kg_avg_class_size), by = c("year", "key")) |>
+  left_join(k_actual, by = c("year", "key")) |>
+  mutate(per_grade = imm_spanish / 6, k_est = coalesce(k_actual, per_grade), classes = k_est / kg_avg_class_size)
+bl_year <- bl |> group_by(year) |>
+  summarise(schools = paste0(school, " ", imm_spanish, collapse = " + "), per_grade = sum(per_grade),
+            k_actual = if (all(is.na(k_actual))) NA_real_ else sum(k_actual, na.rm = TRUE),
+            kg_size = paste(kg_avg_class_size, collapse = " / "), classes = sum(classes), .groups = "drop")
+before <- mean(bl_year$per_grade[bl_year$year < "2023-24"])
+after_k <- mean(bl_year$k_actual, na.rm = TRUE)
+# Same baseline on both sides: an average across grades K-5 before the move vs kindergarten after.
+# District grades K-5, October 2022 (PPS Enrollment - Summary Comparison, Oct 3 2022).
+district_k5_2022 <- c(K = 3152, `1` = 3376, `2` = 3319, `3` = 3502, `4` = 3485, `5` = 3358)
+district_k_after <- by_grade |> filter(grade == "K", year %in% c("2024-25", "2025-26")) |> group_by(year) |> summarise(n = sum(enrollment)) |> pull(n)
+district_chg <- mean(district_k_after) / mean(district_k5_2022) - 1
+district_chg_kk <- mean(district_k_after) / district_k5_2022[["K"]] - 1
+bl_year |>
+  gt() |>
+  cols_label(year = "Año", schools = "Estudiantes de inmersión en español", per_grade = "Por grado (÷ 6)",
+             k_actual = "Kínder (real)", kg_size = "Tamaño promedio de grupo de kínder", classes = "Grupos de kínder de inmersión (est.)") |>
+  fmt_number(c(per_grade, classes), decimals = 1) |> fmt_number(k_actual, decimals = 0) |>
+  sub_missing(missing_text = "–") |>
+  tab_source_note("Grupos = estudiantes de inmersión en kínder (cifra real donde se publica; si no, el promedio por grado) ÷ tamaño promedio de los grupos de kínder en la escuela (todos los grupos de kínder, de ambos programas). Es una estimación, no un conteo.") |>
+  tab_source_note(md(cite("profiles", "by_grade", "class_size", "district_k")))
+```
+
+PPS ya ha consolidado la inmersión en español antes. Hasta 2022-23 funcionaba tanto en **Bridger** como en **Lent**, cada una escuela de kínder a 5.º (K-5) con un programa de inmersión y un programa del vecindario. En 2023-24 el programa de Bridger se trasladó a Lent, que se convirtió en escuela de inmersión completa (Bridger pasó a ser Bridger Creative Science, de kínder a 8.º, K-8). Antes del traslado, las dos escuelas tenían unos **`r fmt_n(before)` estudiantes de inmersión en español por grado**, aproximadamente tres grupos de kínder. Desde entonces, Lent ha inscrito en promedio a **`r fmt_n(after_k)` estudiantes de kínder en inmersión por año** (2024-25 y 2025-26), dos grupos: alrededor de un `r fmt_pct(1 - after_k / before)` menos. Medida de la misma forma en todo el distrito (el promedio de octubre de 2022 en los grados de kínder a 5.º frente al kínder de 2024-25 y 2025-26), la matrícula bajó alrededor de un `r fmt_pct(-district_chg)`; comparando kínder con kínder, el distrito bajó un `r fmt_pct(-district_chg_kk)`.
+
+Esto es una estimación: antes de 2024-25, PPS publica la matrícula de inmersión por escuela pero no por grado, así que "por grado" es el total de inmersión de la escuela dividido entre seis grados. En todo el distrito, los grupos de kínder son más pequeños que los de 1.º a 5.º, así que un promedio de todos los grados probablemente sobreestima el tamaño anterior del kínder; por eso la comparación con el distrito de arriba usa la misma base de todos los grados. Las solicitudes del sorteo no sirven para esta comparación, porque las familias del vecindario de Lent dejaron de presentar solicitud cuando se convirtió en escuela de inmersión completa (vea la nota de arriba).
+
+### Listas de espera de español a lo largo del tiempo {#spanish-waitlists-over-time}
+
+```{r}
+#| label: fig-waitlist
+#| fig-height: 5
+#| fig-cap: "Lista de espera de kínder en cada programa de inmersión en español, por año del sorteo. Azul: el programa se traslada en ambos escenarios. Anaranjado: la escuela recibe un programa trasladado. Gris: sin cambios."
+sending <- unique(demand$from_key[demand$language == "Spanish"])
+receiving <- unique(demand$to_key[demand$language == "Spanish"])
+w <- lottery_k |> filter(language == "Spanish", year %in% LOTTERY_YEARS) |>
+  mutate(role = case_when(key %in% sending ~ "El programa se traslada", key %in% receiving ~ "Recibe un programa trasladado", TRUE ~ "Sin cambios"),
+         col = c("El programa se traslada" = PAL$light[["blue"]], "Recibe un programa trasladado" = PAL$light[["orange"]], "Sin cambios" = PAL$muted)[role])
+p <- plot_ly()
+for (s in unique(w$key)) {
+  ws <- filter(w, key == s)
+  p <- add_trace(p, data = ws, x = ~year, y = ~waitlisted, type = "scatter", mode = "lines+markers",
+                 name = ws$role[1], legendgroup = ws$role[1],
+                 showlegend = !(ws$role[1] %in% w$role[match(unique(w$key), w$key)][seq_len(match(s, unique(w$key)) - 1)]),
+                 line = list(color = ws$col[1], width = 2), marker = list(color = ws$col[1], size = 8),
+                 text = ~sprintf("<b>%s</b> %s<br>%s solicitudes, %s ofertas, %s en lista de espera", school, year, applications, offered, waitlisted),
+                 hoverinfo = "text")
+}
+last <- w |> filter(year == max(year), waitlisted >= 8)
+p <- add_annotations(p, data = last, x = ~year, y = ~waitlisted, text = ~school, xanchor = "left", showarrow = FALSE,
+                     xshift = 8, font = list(size = 12, color = PAL$ink2))
+viz_layout(p, ytitle = "Solicitudes en lista de espera") |> layout(xaxis = list(type = "category"), yaxis = list(rangemode = "tozero"))
+```
+
+::: {.source}
+`r cite("lottery", "scenarios")`
+:::
+
+### Quiénes quedan en lista de espera {#who-is-waitlisted}
+
+El sorteo de kínder de 2026-27 desglosa a los solicitantes de cada programa según dónde viven y su perfil lingüístico. En los programas con las listas de espera más largas, las familias que no obtienen lugar son en su mayoría **familias de habla inglesa de la zona cercana**, las familias a las que un traslado deja más lejos. Los hablantes nativos de español, que tienen prioridad, casi siempre reciben una oferta.
+
+```{r}
+#| label: tbl-who
+who <- lottery |>
+  filter(year == "2026-27", level == "ES", language == "Spanish", !is_total, residence %in% c("NH", "RG", "TR"),
+         background %in% c("English", "Heritage", "Native")) |>
+  mutate(residence = recode(residence, NH = "Vecindario", RG = "Área regional", TR = "Otro lugar de PPS")) |>
+  group_by(school = coalesce(pps_school, school), residence, background) |>
+  summarise(applications = sum(applications), offered = sum(offered), waitlisted = sum(waitlisted), .groups = "drop")
+top <- who |> group_by(school) |> summarise(w = sum(waitlisted)) |> slice_max(w, n = 4) |> pull(school)
+who |> filter(school %in% top) |>
+  mutate(cell = sprintf("%d de %d", waitlisted, applications)) |>
+  select(school, residence, background, cell) |>
+  pivot_wider(names_from = background, values_from = cell, values_fill = "–") |>
+  mutate(school = factor(school, levels = top),
+         residence = factor(residence, c("Vecindario", "Área regional", "Otro lugar de PPS"))) |>
+  arrange(school, residence) |>
+  select(school, residence, any_of(c("English", "Heritage", "Native"))) |>
+  gt(groupname_col = "school") |>
+  cols_label(residence = "Vive en", English = "Hablantes de inglés", Heritage = "Hablantes de herencia", Native = "Hablantes nativos") |>
+  tab_spanner("En lista de espera / solicitudes, por perfil lingüístico", any_of(c("English", "Heritage", "Native"))) |>
+  tab_header(title = "Sorteo de inmersión en español para kínder, 2026-27", subtitle = "Los cuatro programas con más solicitantes en lista de espera") |>
+  tab_source_note("Vecindario = vive en la zona de asistencia de la escuela sede (NH); Área regional = vive en el conjunto de escuelas que forman la zona de asignación de inmersión en español de la preparatoria (high school) (RG); Otro lugar = cualquier otra dirección de PPS (TR). Perfil lingüístico según lo registró PPS en la solicitud. Un niño puede presentar solicitud a varios programas, así que las cifras son solicitudes, no niños.") |>
+  tab_source_note(md(cite("lottery26"))) |>
+  cols_align("right", any_of(c("English", "Heritage", "Native")))
+```
+
+## Tabla comparativa: cada traslado de programa {#scorecard-every-program-move}
+
+```{r}
+#| label: tbl-moves
+sc <- moves |>
+  group_by(kind, language, band, from_school, from_key, to_school, to_key, from_closes) |>
+  summarise(scen = paste(toupper(sort(unique(scenario))), collapse = " y "), .groups = "drop") |>
+  rowwise() |>
+  mutate(students = strand_students(from_key, language, band),
+         from_her = heritage_share(from_key, language), to_her = heritage_share(to_key, language)) |>
+  ungroup() |>
+  left_join(select(lottery_avg, key, from_apps = applications, from_wait = waitlisted), by = c(from_key = "key")) |>
+  mutate(across(c(from_apps, from_wait), \(x) if_else(band == "K-5", x, NA_real_)),
+         move = paste(from_school, "→", to_school),
+         note = case_when(kind == "grades" ~ "La escuela pasa a ser K-5", from_closes ~ "La escuela que envía cierra", TRUE ~ "")) |>
+  arrange(factor(language, LANGUAGES), band, desc(students))
+sc |>
+  mutate(language = tr_lang(language)) |>
+  select(language, move, band, scen, students, from_apps, from_wait, from_her, to_her, note) |>
+  gt(groupname_col = "language") |>
+  cols_label(move = "Traslado", band = "Grados", scen = "Escenario", students = "Estudiantes",
+             from_apps = "Solicitudes", from_wait = "En lista de espera", from_her = "Escuela que envía", to_her = "Escuela receptora", note = "Nota") |>
+  tab_spanner("Coincide el idioma del hogar", c(from_her, to_her)) |>
+  cols_width(move ~ px(230), note ~ px(170)) |>
+  fmt_number(c(students, from_apps, from_wait), decimals = 0) |>
+  fmt_percent(c(from_her, to_her), decimals = 0) |>
+  sub_missing(missing_text = "–") |>
+  tab_spanner("Sorteo de kínder, por año", c(from_apps, from_wait)) |>
+  tab_source_note("Estudiantes: matrícula de octubre de 2025 en el programa de idioma, en los grados que se trasladan. Idioma del hogar: porcentaje de los estudiantes de inmersión del programa cuyo idioma del hogar es el idioma del programa (chino en el caso de mandarín). La demanda del sorteo se muestra solo para la entrada a kínder; los programas de grados intermedios no tienen un sorteo comparable.") |>
+  tab_source_note(md(cite("scenarios", "by_grade", "by_lang", "lottery"))) |>
+  opt_row_striping()
+```
+
+## Sedes por idioma y rango de grados {#sites-by-language-and-grade-band}
+
+```{r}
+#| label: tbl-sites
+sites |> filter(change != "removed" | is.na(change)) |>
+  count(language, band, scenario) |>
+  pivot_wider(names_from = scenario, values_from = n, values_fill = 0) |>
+  select(language, band, sq, a, b) |>
+  mutate(language = factor(language, LANGUAGES), band = factor(band, BANDS)) |> arrange(language, band) |>
+  mutate(language = tr_lang(as.character(language))) |>
+  gt(groupname_col = "language") |>
+  cols_label(band = "Grados", sq = SCENARIOS_ES[["sq"]], a = SCENARIOS_ES[["a"]], b = SCENARIOS_ES[["b"]]) |>
+  tab_style(style = cell_text(weight = "bold"), locations = cells_body(columns = c(a, b), rows = a != sq | b != sq)) |>
+  tab_source_note("Una sede es una escuela cuya etiqueta en el mapa del escenario nombra un programa de inmersión en ese idioma y rango de grados. En negrita: menos o más sedes que hoy.") |>
+  tab_source_note(md(cite("scenarios")))
+```
+
+## Distancia a la sede más cercana {#distance-to-the-nearest-site}
+
+```{r}
+#| label: tbl-access
+read_data("access_summary.csv") |>
+  select(group, scenario, within_1mi, mean_mi) |>
+  pivot_wider(names_from = scenario, values_from = c(within_1mi, mean_mi)) |>
+  rename_with(\(x) sub("within_1mi", "within1", x)) |>
+  select(group, within1_sq, within1_a, within1_b, mean_mi_sq, mean_mi_a, mean_mi_b) |>
+  mutate(group = factor(group, c("Spanish", "Spanish (ages 5-17)", "Mandarin", "Vietnamese", "Russian"))) |> arrange(group) |>
+  mutate(group = recode(tr_lang(as.character(group)), "Spanish (ages 5-17)" = "Español (de 5 a 17 años)")) |>
+  gt() |>
+  cols_label(group = "Idioma del hogar", within1_sq = SCENARIOS_ES[["sq"]], within1_a = "A", within1_b = "B",
+             mean_mi_sq = SCENARIOS_ES[["sq"]], mean_mi_a = "A", mean_mi_b = "B") |>
+  tab_spanner("A 1 milla o menos de una sede K-5", starts_with("within1")) |>
+  tab_spanner("Distancia promedio (millas)", starts_with("mean_mi")) |>
+  fmt_percent(starts_with("within1"), decimals = 0) |> fmt_number(starts_with("mean_mi"), decimals = 1) |>
+  tab_source_note("Personas de 5 años o más que hablan cada idioma en el hogar (estimaciones por sección censal de la ACS 2020-2024, repartidas entre las manzanas censales de 2020 de cada sección según su población; hablantes de español en edad escolar según la población menor de 18 años); distancia en línea recta desde cada manzana hasta la sede K-5 más cercana de ese idioma. Para los hablantes de español en edad escolar, tomando en cuenta el error de muestreo del censo, el rango del 90% es de 44-57% a 1 milla o menos hoy y de 29-41% en los Escenarios A y B. Mandarín incluye a todos los hablantes de chino; ruso incluye ruso, polaco y otros idiomas eslavos. No hay datos por sección censal para japonés.") |>
+  tab_source_note(md(cite("acs", "blocks", "scenarios")))
+```

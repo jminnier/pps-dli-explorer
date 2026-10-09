@@ -1,0 +1,3 @@
+# Spanish (Latin American) pages: Quarto UI strings in Spanish ("En esta página", "Figura", "Tabla"),
+# and R chunks run with options(site.lang = "es") set in each page's setup chunk.
+lang: es

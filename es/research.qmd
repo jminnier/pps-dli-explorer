@@ -1,0 +1,197 @@
+---
+title: "Inmersión en escuela completa o en programa paralelo: qué dice la investigación"
+subtitle: "Lo que se sabe sobre ofrecer la inmersión como escuela completa o como programa paralelo dentro de una escuela del vecindario"
+---
+
+```{r}
+options(site.lang = "es")
+source("R/site_data.R")
+library(gt)
+k5 <- by_grade |> filter(year == "2025-26", grade %in% c("K", as.character(1:5))) |>
+  group_by(school, key) |>
+  summarise(imm = sum(enrollment[!is.na(language)]), nbhd = sum(enrollment[is.na(language)]),
+            language = first(na.omit(language)), .groups = "drop") |>
+  filter(imm > 0) |>
+  mutate(model = if_else(nbhd == 0, "Escuela completa", "Programa paralelo"), per_grade = imm / 6)
+n_whole <- sum(k5$model == "Escuela completa"); n_sites <- nrow(k5)
+whole_names <- paste(sort(k5$school[k5$model == "Escuela completa"]), collapse = ", ")
+ains <- lottery_avg |> filter(key == "ainsworth", language == "Spanish")
+sp_apps <- lottery_avg |> filter(language == "Spanish") |> arrange(desc(applications))
+pg <- function(s) round(k5$per_grade[k5$school == s])
+```
+
+El personal y miembros de la Junta Educativa de PPS han descrito la escuela de inmersión completa como el mejor modelo: todos los grupos del edificio son de inmersión y no hay un programa del vecindario a su lado. En un programa paralelo (*strand*), en cambio, el programa de inmersión comparte el edificio con un programa regular del vecindario. Esta página pregunta qué evidencia respalda esa preferencia. Revisa la investigación publicada, las guías que se usan en el campo y lo que muestra la propia experiencia de PPS en Lent.
+
+::: {.callout-note appearance="minimal"}
+*Esta es una traducción del sitio en inglés. Las citas de documentos y reuniones en inglés están traducidas al español.*
+:::
+
+::: {.callout-note}
+## Respuesta corta
+
+- **No encontramos ningún estudio que compare los resultados de los estudiantes en programas de inmersión de escuela completa y en programas paralelos.** La investigación sólida sobre la inmersión compara a estudiantes *en* inmersión con estudiantes que *no* están en ella. Sus resultados positivos provienen de programas paralelos, de escuelas completas y de combinaciones de ambos.
+- **El argumento a favor de las escuelas completas se basa en el personal y la cultura escolar.** Las guías del campo describen los programas paralelos como viables cuando toda la escuela los apoya, y algunos estudios de caso describen tensiones en escuelas con programa paralelo. Ninguno de los dos mide resultados de los estudiantes.
+- **La conversión de Lent que hizo PPS es la evidencia local más cercana, y es mixta.** Los estudiantes que se quedaron después de que Lent se convirtió en escuela completa mejoraron, pero son el 43% de los estudiantes originales, no hay grupo de comparación y la auditoría dice que los resultados "no prueban causalidad". La conversión también trasladó a la mayoría de los estudiantes de la escuela, en una proporción desmedida niños afroamericanos y asiáticos, y en un año se fue el 63% del personal.
+- **La meta declarada de PPS es tener menos programas paralelos de *un solo* grupo por grado.** Dos grupos de inmersión por grado en una escuela compartida también cumplen esa meta, y PPS ya tiene programas paralelos de ese tamaño.
+
+`r cite("steele2017", "bibler", "utah2021", "nasem", "cal", "freire", "audit_schools", "board1006", "by_grade")`
+:::
+
+## Lo que ha dicho PPS {#sec-pps-said}
+
+En la sesión de la Junta del 6 de octubre de 2026, el personal explicó la consolidación de la inmersión en español en el norte de Portland:
+
+> "Tres de esos programas tienen en su mayoría un solo grupo por grado, tanto en el programa del vecindario como en la inmersión en español. Eso significa un maestro de inmersión en español por grado y un maestro del lado del vecindario en cada grado. … La propuesta aquí es tener menos programas de un solo grupo y más lugares donde los maestros puedan planificar, colaborar y tener con quién trabajar. … Sin hacer estos movimientos de consolidación de DLI en el norte, vamos a dejar programas de un solo grupo en todo nuestro sistema."
+
+Un mes antes, el personal le dijo al Comité de Enseñanza, Aprendizaje e Inscripción de la Junta que "la colaboración entre maestros del mismo grado es difícil, en particular en el edificio de DLI compartido, donde la inscripción es desigual y el currículo es diferente entre los programas".
+
+El problema planteado es el programa de *un solo* grupo por grado, es decir, un maestro de inmersión solo en cada grado, sin un colega que enseñe el mismo grado en el mismo idioma, y la carga de operar dos programas en un mismo edificio. No encontramos investigación citada para la elección del modelo en las transcripciones de las sesiones de la Junta y del comité de septiembre y octubre de 2026, ni en las guías de cada escuela.
+
+::: {.source}
+`r cite("board1006", "tle0908s", "guides")`
+:::
+
+## Qué pone a prueba la investigación sobre resultados {#sec-outcomes}
+
+La mejor evidencia sobre la inmersión viene de Portland. El estudio de RAND usó los sorteos de admisión de PPS, de modo que los ganadores y perdedores del sorteo eran similares en todo lo demás. Los ganadores superaron a los perdedores en lectura en inglés "por unos siete meses de aprendizaje en 5.º grado y nueve meses de aprendizaje en 8.º grado". En matemáticas y ciencias, los autores no encontraron "ningún beneficio estadísticamente significativo de la inmersión, pero tampoco ningún perjuicio". Los estudiantes aprendiendo inglés que ganaron un lugar tenían de 3 a 4 puntos porcentuales menos probabilidad de seguir clasificados como estudiantes aprendiendo inglés en 6.º y 7.º grado.
+
+El estudio revisó si los resultados variaban según el idioma de inmersión, entre programas unidireccionales (*one-way*) y bidireccionales (*two-way*), y según el idioma del hogar de los estudiantes. No comparó estructuras escolares. Buscamos en el texto completo "strand", "whole-school", "school-wide" y "magnet" y no encontramos coincidencias. Los autores señalan una razón por la que la estructura podría importar sin haberse medido: los estudiantes "que ganan lugares en inmersión pueden cambiar no solo de salón sino también de escuela, y es posible que las características de las escuelas de inmersión difieran en aspectos clave (como la cultura académica o la participación de los padres)" (p. 24).
+
+::: {.source}
+`r cite("steele2017")` Citas del manuscrito de acceso abierto: pp. 18, 22, 23, 24.
+:::
+
+Los demás estudios basados en sorteos y los estudios estatales también comparan la inmersión con la ausencia de inmersión:
+
+```{r}
+#| label: tbl-studies
+#| tbl-cap: "Estudios de resultados de la inmersión en dos idiomas, y si cada uno compara escuelas completas con programas paralelos."
+studies <- tribble(
+  ~study, ~setting, ~structure, ~compares, ~finding,
+  "Steele et al. (2017), RAND", "Portland Public Schools; sorteos de admisión", "Programas paralelos, según la descripción de Bibler (2016) de los programas de Portland", "Inmersión vs. sin inmersión", "Lectura: +7 meses en 5.º grado, +9 meses en 8.º grado; sin desventaja en matemáticas ni ciencias",
+  "Bibler (documento de trabajo 2016; publicado en Education Finance and Policy)", "Charlotte-Mecklenburg, Carolina del Norte; sorteos", "Escuelas magnet de escuela completa (\"todos los salones de la escuela son salones de dos idiomas\")", "Inmersión vs. sin inmersión", "Avances en matemáticas y lectura por cada año de asistencia",
+  "Steele et al. (2021)", "Expansión estatal en Utah", "Programas paralelos (\"prácticamente todas las escuelas de Utah que ofrecen programas de DLI también ofrecen programas paralelos sin DLI\")", "Inmersión vs. sin inmersión; unidireccional vs. bidireccional", "Sin efecto general en matemáticas y lectura de 3.º a 6.º grado; avances de 0.10-0.11 DE en programas bidireccionales",
+  "Watzinger-Tharp et al. (2018)", "Utah", "Programas paralelos (modelo 50/50 con dos maestros)", "Inmersión vs. sin inmersión", "Mismos puntajes de matemáticas en 3.º grado; mayor crecimiento en matemáticas",
+  "Morales (2025)", "10 programas con más solicitudes que lugares, sorteos (solo el resumen)", "No se indica en el resumen", "Inmersión vs. sin inmersión", "1.º a 4.º grado: +0.12 DE en lectura, +0.14 DE en matemáticas para hablantes nativos de inglés"
+)
+gt(studies) |>
+  cols_label(study = "Estudio", setting = "Contexto", structure = "Estructura escolar", compares = "Qué compara", finding = "Hallazgo principal") |>
+  tab_source_note(md(paste0("Ninguno de estos estudios compara escuelas completas con programas paralelos. Steele et al. (2017) no describen la estructura escolar de sus programas; Bibler (2016, p. 6) los describe como \"programas paralelos, es decir, que solo forman una parte de la escuela\". ",
+                            cite("steele2017", "bibler", "utah2021", "watzinger", "morales")))) |>
+  tab_options(table.font.size = "0.85rem")
+```
+
+La inmersión ha producido avances como programa paralelo (Utah, la mayoría de los programas de Portland) y como escuela completa (Charlotte). Esos estudios difieren en lugar, idioma, estudiantes y método, así que compararlos no dice nada sobre qué estructura funciona mejor. La revisión de 2017 de las Academias Nacionales sobre la investigación acerca de estudiantes aprendiendo inglés encontró "prácticamente ninguna investigación relacionada con las características de los programas de toda la escuela que conducen a mejores resultados para los estudiantes" (p. 300).
+
+::: {.source}
+`r cite("nasem")`
+:::
+
+## Qué dicen las guías del campo {#sec-guidance}
+
+La referencia estándar, *Guiding Principles for Dual Language Education* del Center for Applied Linguistics, considera legítimos ambos modelos. Usa "programa" para referirse a cualquier escuela con enseñanza en dos idiomas, "sin importar si el programa funciona como un programa paralelo dentro de una escuela o como una escuela completa". Les pide más a las escuelas con programa paralelo: "Si el programa de dos idiomas es un programa paralelo dentro de la escuela, la planificación del programa debe abarcar toda la escuela e incluir a maestros de todos los programas de la escuela". También advierte que donde la inmersión "existe junto a otros programas, el director puede estar demasiado ocupado con las necesidades de toda la escuela para dar el liderazgo pedagógico necesario específicamente para el programa de dos idiomas". No cita ningún estudio que compare resultados.
+
+La guía de planificación de la California Association for Bilingual Education presenta la elección entre "una escuela completa o un programa paralelo dentro de una escuela" como la primera decisión que toma un distrito. Señala un costo de cada lado:
+
+- **Programa paralelo:** "un programa separado que opera dentro de la escuela … puede hacer que el programa educativo de DLI se sienta desconectado de la escuela en su conjunto".
+- **Escuela completa:** "los estudiantes que viven en la zona de asistencia de la escuela y no quieren participar en el programa de DLI tendrían que asistir a otra escuela", y la conversión puede significar "menos puestos para maestros que no son de DLI en la escuela". Esto es lo que pasó en Lent.
+
+::: {.source}
+`r cite("cal", "cabe")`
+:::
+
+## Qué describen los estudios de caso {#sec-cases}
+
+Dos estudios cualitativos describen la carga que un programa paralelo puede imponer a una escuela:
+
+- Freire y Alemán (2021) siguieron a una escuela primaria urbana con un programa paralelo bidireccional de español e inglés. Escriben que "como la mayoría de los programas de educación bilingüe en dos idiomas (DLBE) de primaria se implementan como programas paralelos dentro de las escuelas, a menudo surgen tensiones relacionadas con desigualdades, distribución desigual de recursos, y diferencias de calidad académica y demográficas". Los maestros describieron el programa paralelo en términos de "elitismo y división".
+- de Jong y Bearse (2014) estudiaron un programa paralelo bidireccional en una escuela intermedia (middle school) y encontraron "un conflicto básico entre las prácticas eficaces de inmersión bidireccional (TWI) y la estructura de la escuela intermedia". Concluyeron que "se necesitan enfoques integrados e interdisciplinarios que cuenten con apoyo sistémico dentro de la escuela". Es un caso de secundaria, no de primaria.
+
+Estos son relatos de escuelas individuales. Muestran lo que puede salir mal en un programa paralelo y lo que un programa paralelo necesita (apoyo de toda la escuela y planificación compartida). No miden si los estudiantes aprenden más en un programa de escuela completa.
+
+Las observaciones de RAND en los salones de PPS encontraron que los maestros "implementaron de manera constante las prácticas pedagógicas clave que promovía el distrito escolar".
+
+::: {.source}
+`r cite("freire", "dejong", "rand_impl")`
+:::
+
+## Los programas de un solo grupo y las escuelas completas son problemas diferentes {#sec-single}
+
+El argumento de PPS se refiere al maestro de inmersión solo en cada grado. Una escuela con dos grupos de inmersión por grado le da a cada maestro un compañero del mismo grado y el mismo idioma, sin quitar el programa del vecindario. En octubre de 2025, `r n_whole` de los `r n_sites` sitios de inmersión de kínder a 5.º (K-5) del distrito eran escuelas completas (`r whole_names`). Los demás son programas paralelos de distintos tamaños:
+
+```{r}
+#| label: tbl-strands
+#| tbl-cap: "Sitios de inmersión de kínder a 5.º, octubre de 2025: estudiantes de inmersión por grado (promedio de K-5) y estudiantes en el programa del vecindario de la escuela."
+k5 |> arrange(desc(model), desc(per_grade)) |>
+  transmute(school, language = tr_lang(language), model, per_grade = round(per_grade), nbhd) |>
+  gt() |>
+  cols_label(school = "Escuela", language = "Idioma", model = "Modelo", per_grade = "Estudiantes de inmersión por grado", nbhd = "Programa del vecindario, K-5") |>
+  sub_zero(columns = nbhd, zero_text = "–") |>
+  tab_source_note(md(paste("PPS no publica el número de grupos por programa; el número de estudiantes por grado da una idea aproximada. El personal dijo en octubre de 2026 que César Chávez ya tiene dos grupos de español en la mayoría de los grados de kínder a 5.º.",
+                           cite("by_grade", "board1006"))))
+```
+
+PPS ya tiene programas paralelos más grandes. Ainsworth tiene unos `r pg("Ainsworth")` estudiantes de inmersión en español por grado junto a un programa del vecindario de tamaño similar, y recibe la mayor cantidad de solicitudes al sorteo de kínder de español del distrito: `r fmt_n(ains$applications)` al año en promedio en `r ains$years` sorteos. Muchos factores influyen en la demanda de Ainsworth, incluido su vecindario, así que esto muestra que un programa paralelo de dos grupos por grado puede ser popular. No muestra que los programas paralelos den mejores resultados que las escuelas completas. En el sureste, Atkinson tiene espacio para un segundo grupo de español por grado sin trasladar a sus estudiantes del vecindario ([Equidad §8](equity.qmd#sec-southeast)).
+
+::: {.source}
+`r cite("by_grade", "lottery", "profiles25")`
+:::
+
+## La propia conversión de PPS a escuela completa: Lent {#sec-lent}
+
+Lent se convirtió en una escuela de inmersión completa en español en 2023-24, cuando el programa de Bridger se trasladó allí y el programa del vecindario de Lent se trasladó a Marysville. La auditoría de equidad del distrito es el relato más detallado de lo que produjo una conversión a escuela completa en PPS, y reporta resultados en ambos sentidos.
+
+**Lo que salió bien.** Los participantes describieron el modelo de escuela completa "como más coherente, intencional, culturalmente afirmativo y profesionalmente sostenible para muchos estudiantes y familias latinos/as/x, educadores bilingües y personal de color". La moral del personal "parece haber mejorado con el tiempo". La auditoría siguió a los estudiantes de inmersión que ya estaban en Lent antes de la conversión y se quedaron. Comparado con su propio desempeño del año anterior, "el crecimiento en matemáticas llegó a +0.235 desviaciones estándar y en lengua y literatura en inglés (ELA) a +0.409 desviaciones estándar para 2024–25. El ausentismo crónico bajó de 42% a 24%", y la disciplina excluyente bajó a cero (análisis escuela por escuela, p. 47).
+
+Esta es la evidencia local más sólida a favor del modelo de escuela completa. Tiene límites:
+
+- La propia auditoría dice que "estos resultados no prueban causalidad".
+- No hay grupo de comparación. Nadie midió cómo cambiaron los estudiantes de inmersión de las escuelas con programa paralelo en esos mismos años, que fueron los años en que los puntajes se recuperaron después de la pandemia.
+- Solo incluye a los estudiantes que se quedaron: 113 de 265 (43%), "la mayoría de los cuales eran latinos/as/x o blancos" (p. 45, 47).
+
+**Lo que costó.** El informe principal de la auditoría llama a la conversión un ejemplo de "beneficio y carga simultáneos":
+
+- "casi el 60% de los estudiantes dejó la escuela después de 2022–23, principalmente hacia escuelas primarias e intermedias recién asignadas" (p. 50). De los 265 estudiantes que había en Lent en la primavera de 2023, 152 se fueron: 79 a Marysville, la escuela asignada a los estudiantes del vecindario; 39 que pasaron a la escuela intermedia en Kellogg, como lo hacen cada año los estudiantes de 5.º grado; y 13 a otras escuelas (escuela por escuela, p. 45). La mayoría de las salidas fueron por diseño o por rutina, no porque las familias decidieran irse.
+- "la inscripción de estudiantes afroamericanos bajó de 10% a 2%, mientras que la proporción de latinos/as/x subió de 49% a 69%" (p. 50).
+- Los estudiantes que se trasladaron a Marysville y Kellogg "mostraron un crecimiento nulo o negativo en los puntajes de matemáticas y ELA, y un ausentismo crónico en el rango de 39–43%" (escuela por escuela, p. 47).
+- El 63% del personal de Lent se fue después de 2022-23, "casi el doble del promedio de 32% de las escuelas de SEGC" (escuela por escuela, p. 39).
+- Lent tiene una matrícula de alrededor de la mitad de los 527 estudiantes que PPS proyectó para la escuela. Vea [Lent y Chávez](history.qmd#sec-lent) y [Equidad §5](equity.qmd#sec-optout).
+
+La conclusión de la auditoría es que Lent "demuestra la promesa de un modelo de DLI en español sólido y culturalmente afirmativo, pero también muestra los riesgos para la equidad racial de lograr ese modelo mediante un proceso que desplazó a otros estudiantes de color" (escuela por escuela, p. 47).
+
+::: {.source}
+`r cite("audit", "audit_schools")`
+:::
+
+## Datos que podrían responder la pregunta a nivel local {#sec-data}
+
+PPS tiene datos que podrían comparar sus propios programas de escuela completa y paralelos:
+
+- **Permanencia:** la proporción de cada grupo de inmersión de kínder que sigue inscrito en 5.º grado, por sitio y modelo. Este sitio solo puede aproximarla con conteos por grado, que incluyen a estudiantes que se unen después.
+- **Retención de maestros:** la rotación de maestros de inmersión en sitios con un solo grupo por grado, con dos grupos por grado y de escuela completa.
+- **Rendimiento por programa:** Oregon publica resultados de exámenes del estado, los distritos y las escuelas, desglosados por grupo de estudiantes pero no por programa, así que en una escuela con programa paralelo los estudiantes de inmersión y del vecindario aparecen mezclados. PPS tiene resultados a nivel de estudiante que podrían separarse por programa.
+- **Un grupo de comparación para Lent:** el crecimiento de los estudiantes de inmersión en escuelas con programa paralelo de 2023-24 a 2024-25, medido de la misma forma en que la auditoría midió Lent.
+
+::: {.source}
+`r cite("ode_assess", "audit_schools")`
+:::
+
+## Preguntas para la Junta {#sec-questions}
+
+Estas son preguntas de este sitio, basadas en la evidencia anterior:
+
+1. ¿Qué investigación o datos del distrito respaldan la inmersión en escuela completa por encima de la inmersión en programa paralelo?
+2. Si la preocupación son los programas de un solo grupo por grado, ¿por qué no programas paralelos de dos grupos por grado, que PPS ya tiene en Ainsworth y César Chávez?
+3. ¿Publicará PPS datos de permanencia, retención de maestros y rendimiento por programa para los sitios de escuela completa y de programa paralelo antes de decidir?
+4. Los avances de Lent son de los estudiantes que se quedaron. ¿Cómo toma en cuenta el plan a los estudiantes que una conversión traslada fuera de la escuela?
+
+::: {.source}
+`r cite("board1006", "by_grade", "audit_schools")`
+:::
+
+## Advertencias {#caveats}
+
+- **"No encontramos ningún estudio" significa que no encontramos ninguno en nuestra búsqueda**, que abarcó los artículos mencionados arriba, la revisión de las Academias Nacionales y las búsquedas descritas en [Fuentes y métodos](methods.qmd#research). Podría existir un estudio que no encontramos. Por favor, envíenoslo.
+- Algunas fuentes se leyeron solo en su resumen (Morales; Freire y Alemán; de Jong y Bearse). Las citas de esas fuentes provienen de los resúmenes.
+- Los estudiantes por grado (@tbl-strands) no son un conteo de grupos.
+- Los resultados de Lent provienen de la auditoría de equidad de PPS; no hemos visto los datos a nivel de estudiante en los que se basan.

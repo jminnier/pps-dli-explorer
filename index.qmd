@@ -45,7 +45,7 @@ PPS proposes to close or consolidate schools in two scenarios released for the b
 Tiles, left to right: (1) count of K-5 Spanish immersion sites on the status quo and scenario maps; (2) kindergarten lottery applications to Spanish programs that move in Scenario A, as a share of all Spanish kindergarten applications, pooled over the 2022-23 to 2026-27 lotteries; (3) October 2025 enrollment in each moving language program, in the grades that move, summed over Scenario A's moves; (4) school-age (5–17) Spanish speakers (Census survey estimates by tract, spread across each tract's census blocks by where children live), share living within 1 mile, straight line, of a K-5 Spanish site; the range is a 90% interval for the drop from Census sampling error. `r cite("scenarios", "lottery", "by_grade", "acs", "blocks")`
 :::
 
-## What's here
+## What's here {#whats-here}
 
 - **[Demand & scorecard](scorecard.qmd)**: how many families apply to each immersion program, compared with the schools the programs would move to; then, for every language, the sites, students and pathways in each scenario.
 - **[Equity](equity.qmd)**: the case for a different solution for immersion families. Program moves fall on schools that are about half historically underserved, while closures fall mostly on whiter, higher-income schools. Programs with long waitlists are among those moved, and past moves lost families.

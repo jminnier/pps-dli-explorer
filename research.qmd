@@ -184,7 +184,7 @@ These are this site's questions, based on the evidence above:
 `r cite("board1006", "by_grade", "audit_schools")`
 :::
 
-## Caveats
+## Caveats {#caveats}
 
 - **"No study found" means none found in our search**, which covered the papers listed above, the National Academies review and searches described in [Sources & methods](methods.qmd#research). A study we missed could exist. Please send it.
 - Some sources were read only in abstract (Morales; Freire and Alemán; de Jong and Bearse). Quotes from them are from the abstracts.

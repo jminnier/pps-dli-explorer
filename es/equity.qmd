@@ -1,0 +1,506 @@
+---
+title: "Equidad: a quién afectan los cambios"
+subtitle: "Por qué las familias de inmersión necesitan otra solución"
+---
+
+```{r}
+options(site.lang = "es")
+source("R/site_data.R")
+source("R/charts.R")
+library(gt)
+s44 <- read_data("pps_slide44.csv")
+grp <- read_data("equity_groups.csv")
+chg <- read_data("equity_changes.csv")
+home <- read_data("equity_home_distance.csv")
+homes <- read_data("equity_home_distance_summary.csv")
+comp <- read_data("equity_school_composition.csv")
+dem <- read_data("equity_demand_moves.csv")
+mlm <- read_data("equity_ml_moving.csv")
+opt <- read_data("equity_optout.csv")
+acc <- read_data("access_summary.csv") |> filter(group == "Spanish (ages 5-17)")
+acc_ci <- read_data("access_robustness_ci.csv")
+g <- function(sc, ty, col) grp[[col]][grp$scenario == sc & grp$type == ty]
+cp <- function(sc, grp_name, col) comp[[col]][comp$scenario == sc & comp$group == grp_name]
+DLI <- "Immersion program moves"; CLO <- "School closures (non-immersion students)"; ALL <- "All PPS students"
+SEND <- "Schools losing an immersion program"; RECV <- "Schools receiving an immersion program"
+CLOS <- "Schools closing (no immersion program)"; DIST <- "All PPS schools"
+h <- function(sc, ty, col) homes[[col]][homes$scenario == sc & homes$type == ty]
+hck <- read_data("equity_home_check_summary.csv")
+hc <- function(sc, col) hck[[col]][hck$scenario == sc]
+d_a <- dem |> filter(scenario == "a")
+dm <- function(school, col) d_a[[col]][d_a$from_school == school][1]
+opt_tot <- opt |> filter(scenario == "a") |> group_by(assumption) |>
+  summarise(rate = first(rate), lost = sum(students_lost), k = sum(k_lost_per_year, na.rm = TRUE))
+ot <- function(a, col) opt_tot[[col]][opt_tot$assumption == a]
+prec <- "Bridger to Lent precedent"
+displaced_a <- g("a", DLI, "students") + g("a", CLO, "students")
+fol <- read_data("equity_pps_follow.csv")
+fol1 <- fol |> filter(year == "2027-28")
+ses <- read_data("equity_se_seats.csv"); sx <- function(k, col) ses[[col]][ses$key == k]
+sctx <- read_data("equity_site_context.csv"); sc <- function(k, col) sctx[[col]][sctx$key == k]
+rig_own <- sites |> filter(school_key == "rigler", language == "Spanish", band == "K-5") |> select(scenario, own_area)
+ge_r <- read_data("guide_enrollment.csv") |> filter(school == "Rigler", year %in% c("2027-28", "2031-32"))
+gr <- function(sc, yr) ge_r$enrollment[ge_r$scenario == sc & ge_r$year == yr]
+gs_r <- read_data("guide_school.csv") |> filter(school == "Rigler")
+gsr <- function(opt, col) gs_r[[col]][gs_r$option == opt]
+capt <- read_data("equity_capture.csv")
+cv <- function(gr, yr, col = "capture") capt[[col]][capt$group == gr & capt$year == yr]
+SE <- "Southeast (excluding Lent)"; REST <- "Rest of PPS"
+fol_range <- sprintf("%.0f–%.0f%%", 100 * min(fol1$followed), 100 * max(fol1$followed))
+```
+
+::: {.callout-important appearance="simple"}
+## El argumento en breve
+
+- **El plan depende de trasladar programas de inmersión.** El Escenario A traslada a `r fmt_n(g("a", DLI, "students"))` estudiantes de inmersión fuera de sus escuelas. Eso es el `r fmt_pct(g("a", DLI, "students") / displaced_a)` de los estudiantes desplazados directamente por un cierre o por el traslado de un programa ([§1](#sec-relies)).
+- **A los programas que se trasladan no les faltan familias.** Atkinson recibe `r fmt_n(dm("Atkinson", "applications"))` solicitudes de kínder al año para unos `r fmt_n(dm("Atkinson", "offered"))` lugares, y Beach `r fmt_n(dm("Beach", "applications"))` para `r fmt_n(dm("Beach", "offered"))` ([§2](#sec-demand)).
+- **La carga recae en escuelas que atienden a comunidades desatendidas.** Las escuelas que pierden un programa de inmersión tienen un `r fmt_pct(cp("a", SEND, "pct_hist_underserved"))` de estudiantes históricamente desatendidos y un `r fmt_pct(cp("a", SEND, "pct_direct_cert"))` de bajos ingresos. Las escuelas que cierran por completo son `r fmt_pct(cp("a", CLOS, "pct_white"))` blancas, con un `r fmt_pct(cp("a", CLOS, "pct_hist_underserved"))` de estudiantes desatendidos. Los estudiantes de los programas que se trasladan tienen `r round(g("a", DLI, "pct_spanish_home") / g("a", CLO, "pct_spanish_home"))` veces más probabilidad de hablar español en casa que los estudiantes de las escuelas que cierran ([§3](#sec-who)).
+- **Los traslados son más largos.** Sus escuelas se mueven más lejos (`r sprintf("%.1f", g("a", DLI, "school_miles"))` frente a `r sprintf("%.1f", g("a", CLO, "school_miles"))` millas), y la proporción de hispanohablantes en edad escolar que viven a menos de una milla de un sitio de español de kínder a 5.º baja del `r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` al `r fmt_pct(acc$within_1mi[acc$scenario == "a"])` ([§4](#sec-burden)).
+- **Trasladar un programa pierde a las familias que se habrían unido a él.** Después de que PPS trasladó el programa de español de Bridger a Lent en 2023, la matrícula de kínder en inmersión bajó un 31%, frente a un 14% en todo el distrito. El plan de 2023 había proyectado 527 estudiantes para Lent; tiene `r fmt_n(sum(by_grade$enrollment[by_grade$key == "lent" & by_grade$year == "2025-26"]))`. Las propias proyecciones por escuela de PPS ahora esperan que solo entre el `r fol_range` de los estudiantes de un programa trasladado lo siga; el resto se queda en escuelas del vecindario. Según los propios números de PPS, los traslados reducen la inmersión ([§5](#sec-optout)).
+- **La última ronda de cambios también movió la inscripción del vecindario.** Desde los cambios de 2023 en el Sureste, la proporción de niños de primaria del Sureste que asisten a su propia escuela del vecindario bajó del `r fmt_pct(cv(SE, "2022-23"))` al `r fmt_pct(cv(SE, "2025-26"))`, mientras que subió en el resto de PPS. Los datos públicos no permiten separar qué parte de esa caída era parte del diseño de los cambios y qué parte fue decisión de las familias ([§6](#sec-capture)).
+- **La revisión de equidad de PPS no puede ver nada de esto.** Reporta una sola tasa de traslado por grupo. Aun así, los estudiantes multilingües ya son el grupo más trasladado ([§7](#sec-pps)).
+- **La inmersión en español del Sureste es demasiado pequeña para su demanda.** Solo Richmond inscribe a `r sx("richmond", "k_2025")` estudiantes de kínder de japonés al año, más que los dos programas de español del Sureste juntos (`r sx("lent", "k_2025") + sx("atkinson", "k_2025")`), mientras que Atkinson rechaza a unos dos solicitantes por cada uno que admite. El problema de Lent es que ya no atiende a su propio vecindario, no la falta de familias que quieren español, y el plan le haría lo mismo a Rigler ([§8](#sec-southeast)).
+:::
+
+::: {.callout-note appearance="minimal"}
+*Esta es una traducción del sitio en inglés. Las citas de documentos y reuniones en inglés están traducidas al español.*
+:::
+
+## 1. El plan depende de trasladar programas de inmersión {#sec-relies}
+
+El memorando de escenarios de PPS menciona "salones de inmersión en dos idiomas con baja inscripción" entre los problemas a los que responde el modelo. Llama a la consolidación de la inmersión un "factor principal" de los cambios en la región de Roosevelt/Jefferson (`r SRC$memo`). Ambos escenarios reducen los sitios de inmersión en español de primaria de nueve a cuatro y trasladan dos programas de mandarín. El Escenario A también traslada la inmersión en vietnamita.
+
+En el Escenario A, `r fmt_n(g("a", DLI, "students"))` estudiantes están en programas de inmersión que se trasladan. Otros `r fmt_n(g("a", CLO, "students"))` asisten a escuelas que cierran. Así, los estudiantes de inmersión son **el `r fmt_pct(g("a", DLI, "students") / displaced_a)` de todos los desplazados directamente**, mientras que los estudiantes de inmersión son el `r fmt_pct(cp("a", DIST, "pct_immersion"))` de la matrícula de PPS. Los cambios de límites de zona, que trasladan a muchos más estudiantes, no se cuentan en ninguno de los dos grupos. Su composición no se puede medir con datos públicos.
+
+## 2. "Baja inscripción" describe lugares, no demanda {#sec-demand}
+
+```{r}
+#| label: tbl-demand
+d_a |>
+  arrange(desc(applications)) |>
+  transmute(move = paste(from_school, "→", to_school), language = tr_lang(language), applications, offered, waitlisted, ratio = applications / offered) |>
+  gt() |>
+  cols_label(move = "Traslado del programa", language = "Idioma", applications = "Solicitudes", offered = "Ofertas",
+             waitlisted = "En lista de espera", ratio = "Solicitudes por oferta") |>
+  fmt_number(c(applications, offered, waitlisted), decimals = 0) |> fmt_number(ratio, decimals = 1) |>
+  tab_spanner("Sorteo de kínder, promedio anual", c(applications, offered, waitlisted, ratio)) |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = ratio >= 3)) |>
+  tab_header(title = "Demanda en los programas que se trasladan (Escenario A)") |>
+  tab_source_note("Promedio de los sorteos de 2022-23 a 2026-27 (menos años cuando un programa no estaba en el sorteo). Se cuentan solicitudes, no niños: una familia puede solicitar varios programas.") |>
+  tab_source_note(md(cite("lottery", "scenarios")))
+```
+
+Los dos programas de español con más solicitantes del distrito, **Atkinson y Beach**, reciben cada uno de cuatro a cinco solicitudes por cada lugar de kínder, y cada año decenas de familias quedan en lista de espera. Sus salones son pequeños porque PPS ofrece pocos lugares, no porque las familias no los pidan. Otros traslados son distintos. James John y Sitton reciben poco más de una solicitud por lugar, y Clark (cuyos solicitantes a menudo quedan asignados a programas que pusieron en un lugar más alto de su lista) no ha tenido lista de espera. El argumento para consolidar esos programas es más sólido. Un plan que tratara estos programas de manera diferente le quitaría menos a las familias de inmersión que uno que los traslada a todos. Hay más sobre la demanda, incluido por qué los números del propio sorteo de Lent subestiman su atractivo, en la página [Demanda y evaluación](scorecard.qmd).
+
+## 3. Sobre quién recae la carga {#sec-who}
+
+```{r}
+#| label: tbl-composition
+comp |> filter(scenario == "a") |>
+  mutate(group = factor(group, c(SEND, CLOS, RECV, DIST))) |> arrange(group) |>
+  select(group, enrollment, pct_hist_underserved, pct_direct_cert, pct_latino, pct_white, pct_ell) |>
+  mutate(bold = group %in% c(SEND, CLOS),
+         group = c("Schools losing an immersion program" = "Escuelas que pierden un programa de inmersión",
+                   "Schools closing (no immersion program)" = "Escuelas que cierran (sin programa de inmersión)",
+                   "Schools receiving an immersion program" = "Escuelas que reciben un programa de inmersión",
+                   "All PPS schools" = "Todas las escuelas de PPS")[as.character(group)]) |>
+  gt() |>
+  cols_hide(bold) |>
+  cols_label(group = "", enrollment = "Estudiantes", pct_hist_underserved = "Históricamente desatendidos",
+             pct_direct_cert = "Bajos ingresos (certificación directa)", pct_latino = "Latinos", pct_white = "Blancos", pct_ell = "Estudiantes aprendiendo inglés") |>
+  fmt_number(enrollment, decimals = 0) |> fmt_percent(starts_with("pct"), decimals = 0) |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = bold)) |>
+  tab_header(title = "Quiénes asisten a las escuelas afectadas (Escenario A)", subtitle = "Composición de toda la escuela, octubre de 2025, ponderada por matrícula") |>
+  tab_source_note("PPS define como históricamente desatendidos a los estudiantes latinos, afroamericanos, nativos americanos, de las islas del Pacífico y multirraciales (otros orígenes). Certificación directa: estudiantes que el estado ha identificado como elegibles para comidas gratuitas. Cada escuela se cuenta una vez: Beach, James John y Rose City Park, que cierran y pierden un programa de inmersión, se cuentan con las escuelas que pierden un programa de inmersión. Clark no aparece en el informe de PPS y se deja fuera. Son cifras de toda la escuela; PPS no publica raza ni ingresos por programa.") |>
+  tab_source_note(md(cite("demographics", "scenarios", "closures")))
+```
+
+Las escuelas cuyos programas de inmersión se trasladan tienen **un `r fmt_pct(cp("a", SEND, "pct_hist_underserved"))` de estudiantes históricamente desatendidos y un `r fmt_pct(cp("a", SEND, "pct_direct_cert"))` de bajos ingresos**. Los promedios del distrito son `r fmt_pct(cp("a", DIST, "pct_hist_underserved"))` y `r fmt_pct(cp("a", DIST, "pct_direct_cert"))`. Las escuelas que cierran por completo son `r fmt_pct(cp("a", CLOS, "pct_white"))` blancas, con un `r fmt_pct(cp("a", CLOS, "pct_hist_underserved"))` de estudiantes desatendidos y un `r fmt_pct(cp("a", CLOS, "pct_direct_cert"))` de bajos ingresos. El Escenario B muestra el mismo patrón (`r fmt_pct(cp("b", SEND, "pct_hist_underserved"))` frente a `r fmt_pct(cp("b", CLOS, "pct_hist_underserved"))` de estudiantes desatendidos).
+
+Estas cifras de raza e ingresos describen **escuelas completas**, incluidos los estudiantes de sus programas del vecindario, que no se trasladan. PPS no publica raza ni ingresos solo de los programas de inmersión, así que no muestran que la mitad de los estudiantes que se trasladan sean desatendidos. A los estudiantes que se trasladan sí se les puede medir por idioma del hogar y por si están aprendiendo inglés:
+
+```{r}
+#| label: fig-who
+#| fig-height: 4.6
+#| fig-cap: "Proporción de estudiantes cuyo idioma del hogar es el español, o cualquier idioma distinto del inglés: estudiantes de programas de inmersión que se trasladan, estudiantes de escuelas que cierran (sin contar sus programas de inmersión) y todos los estudiantes de PPS. Matrícula de octubre de 2025."
+d <- grp |> mutate(type = factor(type, c(DLI, CLO, ALL), c("Programas de inmersión trasladados", "Escuelas que cierran", "Todos los estudiantes de PPS")),
+                   scen = paste0("Escenario ", toupper(scenario))) |>
+  filter(!(type == "Todos los estudiantes de PPS" & scenario == "b")) |>
+  mutate(scen = if_else(type == "Todos los estudiantes de PPS", "Distrito", scen), label = paste0(type, if_else(scen == "Distrito", "", paste0(", ", scen))))
+d$label <- factor(wrap_label(d$label), rev(unique(wrap_label(d$label)[order(d$type, d$scen)])))
+tip <- function(x, what) sprintf("<b>%s</b><br>%s%% %s<br>%s estudiantes", d$label, round(100 * x), what, fmt_n(d$students))
+p <- plot_ly(d, y = ~label) |>
+  add_bars(x = ~pct_spanish_home, name = "Español en casa", marker = list(color = PAL$light[["blue"]], line = list(color = "white", width = 2)),
+           text = tip(d$pct_spanish_home, "habla español en casa"), hoverinfo = "text", textposition = "none") |>
+  add_bars(x = ~pct_non_english_home, name = "Cualquier idioma distinto del inglés en casa", marker = list(color = PAL$light[["orange"]], line = list(color = "white", width = 2)),
+           text = tip(d$pct_non_english_home, "habla en casa un idioma distinto del inglés"), hoverinfo = "text", textposition = "none")
+viz_layout(p, xtitle = "Proporción de estudiantes") |>
+  layout(barmode = "group", bargap = 0.3, xaxis = list(tickformat = ".0%", rangemode = "tozero"))
+```
+
+::: {.source}
+`r cite("by_lang", "by_grade", "scenarios", "closures")`
+:::
+
+En el Escenario A, **el `r fmt_pct(g("a", DLI, "pct_spanish_home"))` de los estudiantes de los programas que se trasladan habla español en casa** y el `r fmt_pct(g("a", DLI, "pct_non_english_home"))` habla un idioma distinto del inglés. En las escuelas que cierran, las cifras son `r fmt_pct(g("a", CLO, "pct_spanish_home"))` y `r fmt_pct(g("a", CLO, "pct_non_english_home"))`. El `r fmt_pct(mlm$pct_ml[mlm$scenario == "a"])` de los estudiantes de los programas que se trasladan son estudiantes multilingües que todavía reciben servicios de inglés. De los estudiantes hispanohablantes desplazados directamente en el Escenario A, **el `r fmt_pct(g("a", DLI, "spanish_home") / (g("a", DLI, "spanish_home") + g("a", CLO, "spanish_home")))` son estudiantes de inmersión**.
+
+De estos estudiantes depende la inmersión bidireccional (*two-way*). El modelo necesita hablantes nativos del idioma del programa en cada salón, junto con hablantes de inglés.
+
+## 4. Los programas de inmersión se alejan más de las familias {#sec-burden}
+
+**Cuánto se mueve la escuela (medido).** Los estudiantes de las escuelas que cierran se trasladan, en su mayoría, a la escuela de al lado, en promedio a `r sprintf("%.1f", g("a", CLO, "school_miles"))` millas. Los programas de inmersión se mueven más lejos: `r sprintf("%.1f", g("a", DLI, "school_miles"))` millas en promedio. Atkinson, Beach, James John y Sitton se mueven cada uno entre 1.6 y 2.5 millas; Scott → Rigler, a 0.7 millas, es la excepción.
+
+```{r}
+#| label: tbl-school-miles
+grp |> filter(type != ALL) |>
+  mutate(type = if_else(type == DLI, "Programas de inmersión trasladados", "Escuelas que cierran"), scenario = paste("Escenario", toupper(scenario))) |>
+  select(type, scenario, school_miles) |>
+  pivot_wider(names_from = scenario, values_from = school_miles) |>
+  gt() |>
+  cols_label(type = "") |>
+  fmt_number(-type, decimals = 1) |>
+  tab_header(title = "Cuánto se mueve la escuela, en millas (línea recta)", subtitle = "Promedio entre los estudiantes afectados") |>
+  tab_source_note("Distancia de la escuela actual a la nueva, promediada entre los estudiantes inscritos en cada cambio (octubre de 2025). Para los cierres que se reparten entre varias escuelas receptoras, se pondera por la parte de la zona de asistencia de la escuela que cierra que recibe cada una.") |>
+  tab_source_note(md(cite("scenarios", "by_grade", "by_lang")))
+```
+
+**Acceso (estimación).** Hoy, el `r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` de los hispanohablantes en edad escolar vive a menos de una milla de un sitio de inmersión en español de kínder a 5.º. En cualquiera de los dos escenarios, sería el `r fmt_pct(acc$within_1mi[acc$scenario == "a"])`. Teniendo en cuenta el error de la encuesta del Censo, la caída es de `r round(100 * acc_ci$lo[acc_ci$measure == "drop_points"])` a `r round(100 * acc_ci$hi[acc_ci$measure == "drop_points"])` puntos porcentuales.
+
+**Distancia desde el hogar (estimación de un modelo).** PPS no publica dónde viven los estudiantes. Los niños se ubican donde los contó el Censo de 2020. Para los programas de inmersión, se supone que las familias viven en la zona más cercana al sitio actual de su programa. Con esa base, la distancia del hogar a la escuela aumenta unas `r sprintf("%.1f", h("a", DLI, "change"))` millas para las familias de inmersión y `r sprintf("%.1f", h("a", CLO, "change"))` millas para las familias de las escuelas que cierran. El informe de PPS sobre dónde viven los estudiantes de cada programa permite una verificación: el `r fmt_pct(hc("a", "own_share"))` de los estudiantes de los programas que se trasladan vive en la propia zona de asistencia de su escuela, y del resto solo se reporta la zona de preparatoria. Ubicarlos allí da un aumento de `r sprintf("%.1f", hc("a", "change_mi"))` a `r sprintf("%.1f", hc("a", "change_mi_nearer"))` millas, cercano al modelo, aunque el modelo exagera qué tan lejos de la escuela viven hoy las familias (`r sprintf("%.1f", hc("a", "model_before_mi"))` millas frente a `r sprintf("%.1f", hc("a", "before_mi"))`). Los [detalles y las pruebas de sensibilidad](#sec-distance-detail) están al final de esta página.
+
+## 5. Trasladar un programa pierde a las familias que se habrían unido a él {#sec-optout}
+
+Cuando un programa se aleja, algunas familias eligen en su lugar la escuela del vecindario. El personal de PPS lo describió en una reunión de un comité de la Junta en septiembre: "cuando trasladamos, por ejemplo, un programa … no vimos que los estudiantes necesariamente dejaran el distrito, pero puede que no se hayan ido con el programa" (`r SRC$tle0908`). La auditoría de equidad de PPS sobre los cambios de 2023 en el Sureste encontró que los estudiantes de los programas trasladados que se quedaron en PPS en general siguieron a su programa (`r SRC$audit`, pp. 11, 48–49). Su descripción de quiénes dejaron los programas trasladados es menos clara. Dice que quienes se fueron "con más frecuencia se identificaban como blancos" (p. 11). La auditoría reporta a los estudiantes latinos/as/x como un grupo aparte junto a los estudiantes blancos, asiáticos y negros, así que lo más probable es que se refiera a estudiantes blancos no latinos, pero el informe no dice cómo se contó a los estudiantes que son blancos y latinos a la vez. Sobre el idioma del hogar, la auditoría se contradice: quienes se fueron "con más frecuencia hablan en casa un idioma distinto del inglés" (p. 11), pero "las familias que se fueron eran desproporcionadamente angloparlantes" (p. 49). Como los estudiantes inscritos en su mayoría siguieron a su programa, la pérdida mayor probablemente está entre las familias que todavía no se han unido: las familias de kínder que deciden si elegir un programa que ahora queda más lejos.
+
+La prueba más clara es la última vez que PPS consolidó la inmersión en español. En 2023-24, **el programa de español de Bridger se trasladó a Lent** (`r SRC$summary10`). Antes del traslado, las dos escuelas tenían unos 55 estudiantes de inmersión por grado. Desde entonces, Lent ha inscrito 32 y 43 estudiantes de kínder en inmersión. Eso es **un 31% menos**, mientras que la matrícula de kínder en todo el distrito bajó un 14% con la misma base. Eso equivale a **alrededor de una de cada cinco familias perdidas para el programa más allá de la tendencia del distrito** ([detalles](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)). La auditoría también encontró que las proyecciones del Sureste sobrestimaron la inscripción en 12 de 20 escuelas. De las 7 escuelas que siguen muy por debajo de la meta, 3 tuvieron un traslado de programa o un cambio de grados (`r SRC$audit`, p. 6).
+
+El propio plan de 2023 esperaba que Lent creciera, no que se redujera. El análisis de impacto de la Fase 2 de PPS, tal como lo resume el apéndice escuela por escuela de la auditoría, proyectaba que convertir Lent en una escuela de inmersión completa en español "agregando dos programas paralelos (*strands*) de inmersión en español desde Bridger" la llevaría "de 277 estudiantes en 2021–22 a unos 527 estudiantes estimados en 2025–26", con el uso del edificio subiendo "de 43.8% a 87.5%" (`r SRC$audit_schools`, p. 34). En octubre de 2025, Lent tenía `r fmt_n(sum(by_grade$enrollment[by_grade$key == "lent" & by_grade$year == "2025-26"]))` estudiantes inscritos, cerca de la mitad de esa proyección. (El apéndice no dice si los 527 incluyen prekínder; aun contando el prekínder de PPS, Lent queda muy por debajo.) De los 265 estudiantes que había en Lent la primavera antes de la conversión, tanto del programa del vecindario como de inmersión, 49 (18.5%) habían dejado PPS en un plazo de dos años (p. 45).
+
+Los pronósticos de matrícula de PSU tampoco anticiparon el déficit. El pronóstico que PSU preparó para PPS en junio de 2023 incluía el traslado de Bridger → Lent (sus notas dicen "Bridger Spanish DLI (grades K-5) moved to Lent ES", es decir, el DLI de español de Bridger, kínder a 5.º, se trasladó a la primaria Lent). Mantuvo casi todos los 319 estudiantes del programa combinado: 314 para Lent en 2023-24. Lent inscribió a 273. Tres años seguidos, el pronóstico para Lent fue `r fcl <- read_data("equity_forecast_check.csv"); a <- filter(fcl, target == "Lent", vintage == "2023-24"); d <- filter(fcl, target == "District", vintage == "2023-24"); sprintf("entre %.0f%% y %.0f%% demasiado alto, mientras que su pronóstico para todo el distrito tuvo un error de menos del %.0f%%", 100 * min(a$pct_error), 100 * max(a$pct_error), 100 * max(abs(d$pct_error)))`.
+
+```{r}
+#| label: tbl-forecast
+read_data("equity_forecast_check.csv") |>
+  filter(vintage == "2023-24" | target == "Lent") |>
+  mutate(row = case_when(target == "Lent" & vintage == "2023-24" ~ "Lent: pronóstico hecho con el traslado incluido (junio de 2023)",
+                         target == "Lent" ~ "Bridger + español de Lent: pronóstico hecho antes del traslado (junio de 2022)",
+                         TRUE ~ "Total del distrito: mismo pronóstico de junio de 2023")) |>
+  select(row, year, forecast, actual, pct_error) |>
+  pivot_wider(names_from = year, values_from = c(forecast, actual, pct_error), names_vary = "slowest") |>
+  gt() |>
+  cols_label(.list = c(list(row = ""), setNames(as.list(rep(c("Pronóstico", "Real", "Error"), 3)),
+                                        paste0(rep(c("forecast_", "actual_", "pct_error_"), 3), rep(c("2023-24", "2024-25", "2025-26"), each = 3))))) |>
+  tab_spanner("2023-24", ends_with("2023-24")) |> tab_spanner("2024-25", ends_with("2024-25")) |> tab_spanner("2025-26", ends_with("2025-26")) |>
+  fmt_number(c(starts_with("forecast"), starts_with("actual")), decimals = 0) |>
+  fmt_percent(starts_with("pct_error"), decimals = 0, force_sign = TRUE) |>
+  cols_width(row ~ px(240)) |>
+  tab_header(title = "La matrícula de Lent quedó muy por debajo del pronóstico de PPS") |>
+  tab_source_note("Pronósticos y matrícula real de octubre (kínder a 12.º grado) de los pronósticos del PSU Population Research Center para PPS. Error = (pronóstico − real) ÷ real. Otras escuelas también fallan sus pronósticos, en ambas direcciones; el error de Lent es inusualmente grande y persistente para una escuela cuyo programa fue trasladado.") |>
+  tab_source_note(md(cite("psu_premove")))
+```
+
+Esta vez, las proyecciones de PPS sí esperan que algunas familias no sigan al programa. Las guías por escuela de PPS para los escenarios proyectan la matrícula de cada escuela sin cambios y con las opciones (`r SRC$guides`). Sus cifras "sin cambios" coinciden exactamente con el pronóstico de PSU para 2026-27, así que la llegada de un programa trasladado se puede comparar con el pronóstico de PSU para ese programa. En los tres traslados en los que nada más cambia en la escuela receptora, PPS proyecta que llega entre el `r fol_range` de los estudiantes del programa. Donde las guías muestran la escuela de origen, el resto se queda allí como estudiantes del vecindario:
+
+```{r}
+#| label: tbl-pps-follow
+fol |> filter(year %in% c("2027-28", "2031-32")) |>
+  mutate(move = paste0(move, " (", tr_lang(language), ", Escenario ", toupper(scenario), ")")) |>
+  select(move, year, program, joined, followed, stayed_n, stayed) |>
+  gt(groupname_col = "move") |>
+  cols_label(year = "Año", program = "Tamaño del programa (pronóstico de PSU)", joined = "Llegan a la nueva escuela",
+             followed = "Proporción que llega", stayed_n = "Se quedan en la escuela anterior", stayed = "Proporción que se queda") |>
+  fmt_number(c(program, joined, stayed_n), decimals = 0) |> fmt_percent(c(followed, stayed), decimals = 0) |>
+  sub_missing(missing_text = "–") |>
+  tab_header(title = "En las proyecciones de PPS, alrededor de uno de cada cinco estudiantes no sigue a un programa trasladado") |>
+  tab_source_note("Llegan = matrícula proyectada de la escuela receptora con las opciones menos su proyección sin cambios. Se quedan = proyección de la escuela de origen con las opciones menos el pronóstico de PSU de sus otros programas (solo se muestra donde la escuela de origen no tiene otro cambio: Scott en el Escenario B, Clark). Tamaño del programa = pronóstico de PSU de 2026-27 del programa que se traslada en ese año. Otros traslados (a César Chávez, Sitton y Vestal) vienen con cambios de límites o de grados y no se pueden separar. Las guías no indican una tasa de seguimiento; estas proporciones se deducen de sus números.") |>
+  tab_source_note(md(cite("guides", "psu_premove")))
+```
+
+Eso se acerca al precedente de Bridger → Lent, y está lejos del 98% aproximado que PSU supuso para ese traslado en 2023. También significa que la pérdida es parte del plan: PPS espera que los programas consolidados sean más pequeños que los programas que reemplazan.
+
+```{r}
+#| label: tbl-optout
+opt |> filter(scenario == "a") |>
+  group_by(assumption) |>
+  summarise(rate = first(rate), students = sum(students), lost = sum(students_lost), k = sum(k_lost_per_year, na.rm = TRUE), .groups = "drop") |>
+  arrange(rate) |>
+  mutate(assumption = c("Everyone follows" = "Todos siguen al programa",
+                        "7% (figure cited in public comment)" = "7% (cifra citada en un comentario público)",
+                        "Bridger to Lent precedent" = "Precedente de Bridger a Lent")[assumption]) |>
+  gt() |>
+  cols_label(assumption = "Si esta proporción de familias no sigue al programa", rate = "Proporción",
+             students = "Estudiantes en programas que se trasladan", lost = "Estudiantes que no lo siguen", k = "Estudiantes de kínder que no se unen, por año") |>
+  fmt_percent(rate, decimals = 0) |> fmt_number(c(students, lost, k), decimals = 0) |>
+  tab_header(title = "Familias que podrían elegir una escuela del vecindario (Escenario A)", subtitle = "Estimación: estudiantes actuales e ingreso anual a kínder en los programas que se trasladan, con tres supuestos") |>
+  tab_source_note("Estudiantes: matrícula de octubre de 2025 en cada programa que se traslada, en los grados que se trasladan (solo traslados de programas). Estudiantes de kínder: matrícula de kínder en inmersión de octubre de 2025 en cada programa de origen de kínder a 5.º. La fila del 7% usa una cifra que una persona atribuyó a PPS en un comentario público en la sesión de la Junta del 6 de octubre de 2026 (la estimación de PPS de las familias que dejarían el distrito); no la encontramos en documentos de PPS. La fila del precedente aplica la pérdida adicional medida después del traslado de Bridger a Lent.") |>
+  tab_source_note(md(cite("by_grade", "scenarios", "profiles", "class_size", "summary10")))
+```
+
+Si el Escenario A pierde familias al ritmo de Bridger → Lent, unos **`r fmt_n(ot(prec, "k"))` estudiantes de kínder al año** que se habrían unido a estos programas irían a otro lugar. Con el 7%, la cifra es `r fmt_n(ot("7% (figure cited in public comment)", "k"))`. En seis generaciones de kínder, eso suma aproximadamente `r fmt_n(6 * ot(prec, "k"))` niños. Se esperaría que la mayoría se inscribiera en su escuela del vecindario. Las guías de PPS ubican a estos estudiantes en escuelas del vecindario e indican si cada escuela cumple sus metas de tamaño y espacio, pero no dan cifras de capacidad. PPS publica por separado la capacidad actual de cada edificio, en su tablero School Profiles ([§8](#sec-southeast)). En cualquier caso, los estudiantes perdidos vendrían de programas en escuelas donde cerca de la mitad de los estudiantes son históricamente desatendidos ([§3](#sec-who)).
+
+### Lo que describieron el personal y las familias de Lent y Bridger {#what-staff-and-families-at-lent-and-bridger-described}
+
+Las entrevistas y encuestas de la auditoría describen cómo fue el traslado de 2023 para las escuelas afectadas. El apéndice identifica a quienes hablan solo como participantes o personal de cada escuela.
+
+- **No todas las familias que impulsaron el traslado se quedaron.** Un participante de Lent: "Muchos de los padres que presionaron desde Bridger para que sus hijos vinieran a la escuela no terminaron quedándose…sentían que les quedaba fuera de camino [y que] sus estudiantes no se sentían apoyados" (`r SRC$audit_schools`, p. 39).
+- **No se cumplieron las promesas hechas a las familias.** Un participante de Lent: "los padres de cuarto grado estaban muy molestos… les prometieron que sería una escuela de tres grupos por grado…y los padres [empezaron] a traer las cartas con lo que les habían prometido" (p. 41). En el informe principal, las familias describieron personal o fondos para la transición que fueron "reducidos, retrasados o retirados por limitaciones de presupuesto" (`r SRC$audit`, p. 83).
+- **La transición fue dura para el personal y para el vecindario.** "Esos años fueron realmente terribles, esos primeros años…Hubo muchas lágrimas durante la transición" (apéndice, p. 36). Después de 2022-23, el 63% del personal de Lent dejó la escuela, frente a un promedio del 32% en las escuelas afectadas (p. 39). El personal describió hostilidad de familias del vecindario que perdieron el acceso: "Nos han insultado. Nos han gritado…padres que se mudaron al vecindario que no quieren que sus estudiantes hablen español, y que sienten que es injusto que sus estudiantes no puedan ir a su escuela del vecindario" (p. 41), y la pérdida de una escuela a la que se podía ir caminando: "Teníamos un autobús escolar a pie todos los días…Ya no tenemos eso, porque toda nuestra población se sube a un autobús para irse a casa al final del día" (p. 43).
+- **Las familias que se fueron con el programa lo pagaron en traslados.** "Las familias que se trasladaron de Bridger a Lent describieron la pérdida de poder ir caminando a la escuela, trayectos más largos, horarios de autobús muy temprano, incertidumbre sobre el transporte y la pérdida de conexión con el vecindario" (informe principal, p. 83).
+- **Bridger también cambió.** Los participantes "percibieron que el alumnado de Bridger se volvía más blanco y con más recursos económicos, mientras perdía también el personal adicional y el apoyo del Título I que antes acompañaban a una matrícula con más pobreza" (apéndice, p. 17).
+- **Se cuestionó a quién beneficiaba la consolidación.** Participantes de Marysville "señalaron que el programa paralelo de DLI se concentró en una escuela más lejos de muchas familias latinas/os/x, mientras que Atkinson, ubicada en un vecindario más blanco y con más recursos, conservó un programa de DLI de un solo grupo por grado", y observaron "que algunas familias inmigrantes quizá dudaron en inscribir a sus hijos en inmersión completa en español en el clima político general" (p. 61).
+
+Los padres resumieron lo que el traslado necesitaba: "El DLI en toda la escuela es excelente. Necesita financiamiento y necesita ser una prioridad" (informe principal, p. 84).
+
+## 6. A dónde van los niños del vecindario {#sec-capture}
+
+Las proyecciones de los escenarios ubican a la mayoría de los estudiantes en las escuelas que les asignan los nuevos límites de zona y sitios de programas. PPS mide con qué frecuencia ocurre eso: la tasa de captación es la proporción de niños que viven en la zona de asistencia de una escuela y asisten a esa escuela. En todo el distrito se ha mantenido cerca del `r fmt_pct(cv("All PPS, K-12", "2025-26"))` durante años, así que alrededor de un tercio de los estudiantes de PPS ya asiste a una escuela que no es la de su vecindario.
+
+```{r}
+#| label: fig-capture
+#| fig-height: 4.2
+#| fig-cap: "Tasa de captación del vecindario: proporción de estudiantes de kínder a 12.º que viven en cada zona de asistencia de primaria y asisten a la escuela de esa zona, conteos de octubre. Sureste = las 16 zonas de primaria alrededor de los cambios de 2023 en el Sureste, sin contar Lent. Pase el cursor para ver los conteos."
+cg <- capt |> filter(group %in% c(SE, REST, "Lent")) |>
+  mutate(group = factor(group, c(SE, REST, "Lent"), c("Zonas de primaria del Sureste (sin Lent)", "Resto de las zonas de primaria de PPS", "Zona de Lent")))
+colr <- c(PAL$light[["blue"]], PAL$muted, PAL$light[["orange"]])
+p <- plot_ly()
+for (i in seq_along(levels(cg$group))) {
+  d <- filter(cg, group == levels(cg$group)[i])
+  p <- add_trace(p, data = d, x = ~year, y = ~capture, type = "scatter", mode = "lines+markers", name = levels(cg$group)[i],
+                 line = list(color = colr[i], width = 2), marker = list(color = colr[i], size = 8),
+                 text = ~sprintf("<b>%s</b> %s<br>%s de %s niños asisten a su propia escuela del vecindario (%s)", group, year,
+                                 fmt_n(own_neighborhood_school), fmt_n(total), fmt_pct(capture)), hoverinfo = "text")
+}
+p <- add_segments(p, x = "2022-23", xend = "2022-23", y = 0, yend = 0.9, line = list(color = PAL$grid, width = 1, dash = "dot"), showlegend = FALSE, hoverinfo = "skip")
+viz_layout(p, ytitle = "Proporción en su propia escuela del vecindario") |>
+  layout(xaxis = list(type = "category"), yaxis = list(tickformat = ".0%", range = c(0, 0.92)),
+         annotations = list(list(x = "2022-23", y = 0.9, text = "Los cambios de 2023 en el Sureste<br>entran en vigor el año siguiente", align = "left", showarrow = FALSE, xanchor = "left", xshift = 4, font = list(size = 11, color = PAL$ink2))))
+```
+
+::: {.source}
+`r cite("capture")`
+:::
+
+Después de los cambios de 2023 en el Sureste, la captación en las zonas de primaria del Sureste bajó del `r fmt_pct(cv(SE, "2022-23"))` al `r fmt_pct(cv(SE, "2023-24"))` y se ha mantenido allí (`r fmt_pct(cv(SE, "2025-26"))` en 2025-26), mientras que en el resto de PPS subió del `r fmt_pct(cv(REST, "2022-23"))` al `r fmt_pct(cv(REST, "2025-26"))`. En el Sureste, la proporción que asiste a escuelas alternativas y de enfoque de PPS subió del `r fmt_pct(cv(SE, "2022-23", "alternative"))` al `r fmt_pct(cv(SE, "2025-26", "alternative"))`. Parte de esta caída era parte del diseño de los cambios y no refleja decisiones de las familias. Los niños a quienes se les permitió terminar en su escuela anterior después de que cambiaron los límites de zona cuentan como asistentes a "otra escuela del vecindario", y Creative Science, una escuela de enfoque, se mudó al edificio de Bridger, lo que puso una escuela alternativa dentro del Sureste. Los informes de PPS no desglosan la caída, así que no se puede medir qué parte se debe a decisiones de las familias. Si se tratara sobre todo de estudiantes que terminan en sus escuelas anteriores, debería ir desapareciendo a medida que avanzan de grado; tres años después, la captación del Sureste se ha recuperado solo `r sprintf("%.1f", 100 * (cv(SE, "2025-26") - cv(SE, "2023-24")))` puntos porcentuales.
+
+La zona de Lent muestra lo que una escuela de inmersión completa le hace a su vecindario. La captación allí bajó del `r fmt_pct(cv("Lent", "2022-23"))` al `r fmt_pct(cv("Lent", "2023-24"))` cuando Lent se convirtió. Esa caída fue sobre todo parte del diseño, no una señal de que las familias se fueran: los niños del vecindario de Lent que no estaban en inmersión fueron asignados a Marysville, y el informe de PPS los cuenta como asistentes a "otra escuela del vecindario". Hoy, `r fmt_n(cv("Lent", "2025-26", "own_neighborhood_school"))` de los `r fmt_n(sum(by_grade$enrollment[by_grade$key == "lent" & by_grade$year == "2025-26"]))` estudiantes de Lent viven en su zona, así que la mayoría de sus familias viene de otras partes. En ambos escenarios, tres de los cuatro sitios de español de kínder a 5.º (Lent, Rigler y César Chávez) serían escuelas de inmersión completa de este tipo.
+
+## 7. Por qué la revisión de equidad de PPS no lo detecta {#sec-pps}
+
+La revisión de equidad de PPS es una sola diapositiva: la proporción de estudiantes de kínder a 8.º grado de cada grupo que cambiaría de escuela.
+
+```{r}
+#| label: tbl-slide44
+s44 |>
+  mutate(group = c("All Students" = "Todos los estudiantes",
+                   "Students Experiencing Poverty" = "Estudiantes en situación de pobreza",
+                   "Students Receiving Special Education Services" = "Estudiantes que reciben servicios de educación especial",
+                   "Multilingual Learners" = "Estudiantes multilingües",
+                   "Historically Underserved by Race" = "Históricamente desatendidos por raza")[group]) |>
+  gt() |>
+  cols_label(group = "Grupo de estudiantes", a_number = "Estudiantes", a_pct = "Proporción", b_number = "Estudiantes", b_pct = "Proporción") |>
+  tab_spanner("Escenario A", c(a_number, a_pct)) |> tab_spanner("Escenario B", c(b_number, b_pct)) |>
+  fmt_number(c(a_number, b_number), decimals = 0) |> fmt_percent(c(a_pct, b_pct), decimals = 0) |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = group == "Estudiantes multilingües")) |>
+  tab_source_note("Tal como lo publica PPS (nombres de grupos traducidos). La diapositiva no indica el año ni define \"trasladarse\" (por ejemplo, si cuenta a un estudiante cuyo programa de inmersión se reubica). Los grupos se superponen.") |>
+  tab_source_note(md(cite("slide44")))
+```
+
+Incluso esta tabla muestra a **los estudiantes multilingües como el grupo más trasladado** (31% en A, 28% en B, frente a 27% y 24% en general). Aun así, subestima el desequilibrio:
+
+- Promedia cada grupo sobre todos los estudiantes de kínder a 8.º grado, la mayoría de los cuales se trasladan por cambios de límites de zona. Eso oculta lo que muestra esta página: los cierres recaen sobre todo en escuelas más blancas y de mayores ingresos, mientras que los traslados de programas recaen en escuelas donde cerca de la mitad de los estudiantes son desatendidos, y en estudiantes con mucha más probabilidad de hablar español en casa.
+- Un traslado a la escuela de al lado y un programa reubicado al otro lado de la ciudad cuentan igual.
+- No tiene una fila para estudiantes de inmersión, estudiantes latinos ni idioma del hogar. No mide la distancia y no toma en cuenta a las familias que dejan de seguir a un programa.
+
+## 8. La inmersión en español del Sureste es demasiado pequeña para su demanda {#sec-southeast}
+
+En el sureste de Portland, PPS ofrece más lugares de kínder en japonés que en español. Richmond, una escuela de inmersión completa en japonés, inscribió a `r sx("richmond", "k_2025")` estudiantes de kínder en octubre de 2025 (`r fmt_n(sx("richmond", "school_total"))` estudiantes en total). Los dos programas de español del Sureste, Lent y Atkinson, inscribieron a `r sx("lent", "k_2025") + sx("atkinson", "k_2025")` entre los dos. Le Monde, una escuela chárter de inmersión en francés, inscribió a `r sx("lemonde", "k_2025")`, más que cualquier programa de español del distrito excepto Rigler. En todo el distrito, el español sigue teniendo la mayor cantidad de lugares de inmersión; la brecha está en el Sureste, donde está el programa de español del distrito con más solicitudes en relación con sus lugares.
+
+La única otra opción de inmersión en español cercana es privada. La International School of Portland, en South Waterfront, al otro lado del río desde el sureste central, tiene programas de inmersión en español, chino y japonés y cobra colegiatura. Inscribió a 376 estudiantes de preescolar a 5.º grado en 2023-24, incluidos 72 de kínder, pero no publica la matrícula por idioma (`r SRC$isp`).
+
+```{r}
+#| label: tbl-se-seats
+ses |>
+  select(program, k_2025, school_total, applications, offered, waitlisted) |>
+  mutate(ratio = applications / offered, bold = program == "Atkinson (Spanish)",
+         program = c("Richmond (Japanese)" = "Richmond (japonés)", "Le Monde (French, charter)" = "Le Monde (francés, chárter)",
+                     "Lent (Spanish)" = "Lent (español)", "Atkinson (Spanish)" = "Atkinson (español)")[program]) |>
+  gt() |>
+  cols_hide(bold) |>
+  cols_label(program = "", k_2025 = "Estudiantes de kínder, oct. 2025", school_total = "Estudiantes del programa, oct. 2025",
+             applications = "Solicitudes", offered = "Ofertas", waitlisted = "En lista de espera", ratio = "Solicitudes por oferta") |>
+  tab_spanner("Sorteo de kínder, promedio anual", c(applications, offered, waitlisted, ratio)) |>
+  fmt_number(c(k_2025, school_total, applications, offered, waitlisted), decimals = 0) |> fmt_number(ratio, decimals = 1) |>
+  sub_missing(missing_text = "–") |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = bold)) |>
+  tab_header(title = "Inmersión en el Sureste: lugares de kínder y demanda") |>
+  tab_source_note("Sorteo: promedio de 2022-23 a 2026-27. Le Monde es una escuela chárter y maneja su propia admisión, así que no aparece en los informes del sorteo de PPS. El sorteo de Lent cuenta solo a las familias de fuera de su vecindario (vea la página Demanda y evaluación). Las solicitudes no son niños: una familia puede solicitar varios programas.") |>
+  tab_source_note(md(cite("by_grade", "lottery")))
+```
+
+Richmond admite a la mayoría de las familias que lo solicitan; Atkinson admite a alrededor de una de cada cinco. Solo la lista de espera de Atkinson, unas `r fmt_n(sx("atkinson", "waitlisted"))` solicitudes al año, es más grande que su grupo de kínder. Como las familias pueden solicitar varios programas, esto no cuenta niños con exactitud, pero sugiere que probablemente se podría llenar un segundo grupo en Atkinson cada año solo con la lista de espera. En cambio, el plan de PPS traslada este programa a Lent, y su guía de la escuela da la razón: "Trasladar el DLI de Atkinson a Lent eleva el número de estudiantes de Lent por encima de los niveles meta estables (400+ estudiantes)" (`r SRC$guides`).
+
+**El problema de Lent es su vecindario, no su distancia del centro.** Lent está a unas `r sprintf("%.1f", sc("lent", "edge_mi"))` millas del límite del distrito, y las familias describen estudiantes que cruzan "la 205, la 92 y la avenida 82" para llegar a Marysville, el nuevo hogar de su antiguo programa del vecindario (`r SRC$audit_schools`, p. 46). Pero Rigler también está a unas `r sprintf("%.1f", sc("rigler", "edge_mi"))` millas del límite, y funciona como una escuela de inmersión completa en español que atiende a su propio vecindario: `r sc("rigler", "own_area")` de sus `r sc("rigler", "students")` estudiantes viven en su zona de asistencia. En Lent, después de que su programa del vecindario se trasladó, viven allí `r sc("lent", "own_area")` de `r sc("lent", "students")`. Tampoco faltan hispanohablantes alrededor de Lent: unos `r fmt_n(sc("lent", "spanish_517_within_1_5mi"))` hispanohablantes en edad escolar viven a menos de 1.5 millas, frente a `r fmt_n(sc("atkinson", "spanish_517_within_1_5mi"))` cerca de Atkinson. Lo que le falta a Lent son las familias angloparlantes que llenan la lista de espera de Atkinson, y ellas viven más cerca de Atkinson.
+
+```{r}
+#| label: tbl-sites-context
+sctx |> filter(key %in% c("lent", "rigler", "atkinson")) |>
+  mutate(school = factor(school, c("Rigler", "Lent", "Atkinson")), own = own_area / students) |> arrange(school) |>
+  select(school, edge_mi, students, own_area, own, spanish_517_within_1_5mi) |>
+  gt() |>
+  cols_label(school = "", edge_mi = "Millas al límite del distrito", students = "Estudiantes de inmersión en español", own_area = "Viven en la zona de la escuela",
+             own = "Proporción", spanish_517_within_1_5mi = "Hispanohablantes en edad escolar a menos de 1.5 mi") |>
+  fmt_number(edge_mi, decimals = 1) |> fmt_number(c(students, own_area, spanish_517_within_1_5mi), decimals = 0) |> fmt_percent(own, decimals = 0) |>
+  tab_header(title = "Dos escuelas completas de español en el borde del distrito", subtitle = "Octubre de 2025; Atkinson como comparación") |>
+  tab_source_note("Las distancias son en línea recta desde la ubicación de la escuela en el mapa hasta el límite de PPS. Los hispanohablantes en edad escolar son estimaciones de la ACS repartidas entre bloques censales (vea los métodos).") |>
+  tab_source_note(md(cite("by_residence", "scenarios", "acs", "blocks")))
+```
+
+**El plan haría que Rigler se pareciera más a Lent.** La guía de Rigler (p. 3) dice que "permanecería abierta como una escuela regional enfocada de DLI en español de kínder a 5.º" y que "los límites de la zona del vecindario de Rigler para estudiantes que no están en DLI pasarían a Scott K-5" (`r SRC$guides`). En los mapas de los escenarios, Rigler `r if (isTRUE(rig_own$own_area[rig_own$scenario == "sq"]) && !isTRUE(rig_own$own_area[rig_own$scenario == "a"])) "tiene hoy su propia zona de asistencia y no tiene ninguna en ninguno de los dos escenarios" else "conserva una zona de asistencia"` (`r SRC$scenarios`). Lent pasó por el mismo cambio en 2023 y terminó con cerca de la mitad de la matrícula que PPS proyectó (527 proyectados, `r fmt_n(sc("lent", "enrolled_2025"))` en 2025). La proyección de PPS para Rigler no muestra ese riesgo. Muestra a Rigler creciendo de `r fmt_n(gr("sq", "2027-28"))` estudiantes sin cambios a `r fmt_n(gr("a", "2027-28"))` con el programa de Scott, y todavía `r fmt_n(gr("a", "2031-32"))` en 2031-32. Eso es la matrícula actual de Rigler más el programa que llega, como si las familias de su vecindario siguieran eligiéndola después de que los nuevos estudiantes de kínder de su zona sean asignados a Scott. La guía también proyecta que la proporción de estudiantes multilingües de Rigler baje del `r fmt_pct(as.numeric(gsr("No changes", "pct_multilingual")))` al `r fmt_pct(as.numeric(gsr("Options A and B", "pct_multilingual")))`, y su proporción de estudiantes en situación de pobreza del `r fmt_pct(as.numeric(gsr("No changes", "pct_poverty")))` al `r fmt_pct(as.numeric(gsr("Options A and B", "pct_poverty")))`. Las guías no dicen si las familias de la zona de Rigler conservarían alguna prioridad para inscribirse allí.
+
+Los edificios tienen espacio. El tablero School Profiles de PPS da la capacidad funcional actual de cada edificio y su porcentaje de uso en 2025-26. El Long-Range Facility Plan de 2021, que define la capacidad funcional como el número de salones de un edificio multiplicado por el tamaño de grupo estándar de PPS, menos los salones reservados para otros usos, se muestra como comparación.
+
+```{r}
+#| label: tbl-capacity
+sctx |>
+  mutate(school = factor(school, c("Atkinson", "Creston", "Lent", "Rigler"))) |> arrange(school) |>
+  select(school, functional_capacity_2021, functional_capacity, enrolled_2025, use_2025, projected_2027_a, use_2027_a) |>
+  gt() |>
+  cols_label(school = "", functional_capacity_2021 = "Plan de 2021", functional_capacity = "2025-26", enrolled_2025 = "Estudiantes", use_2025 = "Porcentaje de uso",
+             projected_2027_a = "Estudiantes", use_2027_a = "Porcentaje de uso") |>
+  tab_spanner("Capacidad funcional", c(functional_capacity_2021, functional_capacity)) |>
+  tab_spanner("Octubre de 2025", c(enrolled_2025, use_2025)) |>
+  tab_spanner("Proyección de PPS, 2027-28 (Escenario A)", c(projected_2027_a, use_2027_a)) |>
+  fmt_number(c(functional_capacity_2021, functional_capacity, enrolled_2025, projected_2027_a), decimals = 0) |> fmt_percent(c(use_2025, use_2027_a), decimals = 0) |>
+  sub_missing(missing_text = "cierra") |>
+  tab_header(title = "Capacidad de los edificios en los sitios de español del Sureste") |>
+  tab_source_note("Los porcentajes usan la capacidad actual (2025-26) de PPS. La meta de uso de espacio de PPS es del 70% al 100% del espacio disponible (guías de las escuelas). La cifra de 2021 de Creston contaba su anexo. La matrícula es de octubre de 2025, de kínder a 5.º grado, todos los programas; coincide con la matrícula del tablero para todas las escuelas.") |>
+  tab_source_note(md(cite("profiles25", "lrfp", "by_grade", "guides")))
+```
+
+Atkinson usa cerca del `r fmt_pct(sc("atkinson", "use_2025"))` de su capacidad, lo que deja espacio para unos `r fmt_n(round(sc("atkinson", "functional_capacity") - sc("atkinson", "enrolled_2025"), -1))` estudiantes más, unos `r fmt_n(round((sc("atkinson", "functional_capacity") - sc("atkinson", "enrolled_2025")) / 6))` por grado. Eso alcanzaría para un segundo grupo de español en cada grado sin trasladar a nadie, aunque no para duplicar por completo el programa actual, que tiene `r fmt_n(sum(by_grade$enrollment[by_grade$key == "atkinson" & by_grade$year == "2025-26" & by_grade$language %in% "Spanish" & by_grade$grade %in% c("K", 1:5)]))` estudiantes de inmersión en español de kínder a 5.º. (El plan de 2021 de PPS le daba más espacio a Atkinson: `r fmt_n(sc("atkinson", "functional_capacity_2021"))` lugares.) Un programa de español en toda la escuela no cabría a menos que los `r fmt_n(sum(by_grade$enrollment[by_grade$key == "atkinson" & by_grade$year == "2025-26" & !(by_grade$language %in% "Spanish")]))` estudiantes del programa del vecindario de Atkinson se fueran, que es lo que salió mal en Lent. Lent es el caso contrario: incluso después de que llegue el programa de Atkinson, PPS lo proyecta con `r fmt_n(sc("lent", "projected_2027_a"))` estudiantes, el `r fmt_pct(sc("lent", "use_2027_a"))` de su capacidad, todavía por debajo de la propia meta de uso de espacio de PPS; su guía marca la meta como no cumplida.
+
+Eso apunta a otras dos maneras de atender a las familias del Sureste, ambas más cerca de donde está la demanda:
+
+- **Agregar un segundo grupo de español en Atkinson**, llenado desde su lista de espera, y mantener su programa del vecindario. Esto cabe en el edificio actual, siempre que no se envíe también allí a los niños del vecindario de Creston.
+- **Convertir el edificio de Creston en una escuela de inmersión en español del Sureste.** Creston cierra en ambos escenarios, y PPS ya planea enviar a sus niños del vecindario a Atkinson (`r SRC$guides`). Trasladar el programa de inmersión de Atkinson a Creston en lugar de a Lent lo movería `r sprintf("%.1f", sc("creston", "mi_from_atkinson"))` millas en vez de `r sprintf("%.1f", sc("lent", "mi_from_atkinson"))`, y el edificio tiene espacio para unos `r fmt_n(round(sc("creston", "functional_capacity") / 6))` estudiantes por grado con la capacidad actual de PPS de `r fmt_n(sc("creston", "functional_capacity"))` (`r SRC$profiles25`), más del doble del programa de español de Atkinson hoy. Creston necesitaría obras primero: es un edificio de mampostería no reforzada que PPS ha señalado para una modernización sísmica, según los datos de instalaciones de PPS recopilados en [meub/pps-data](https://github.com/meub/pps-data).
+
+En cualquiera de los dos casos, Lent podría recuperar un programa del vecindario que atienda a sus propias familias, muchas de ellas hispanohablantes. Queda una pregunta. La inmersión bidireccional necesita hablantes nativos: unos `r fmt_n(sc("creston", "spanish_517_within_1_5mi"))` hispanohablantes en edad escolar viven a menos de 1.5 millas de Creston, menos que cerca de Atkinson o de Lent, así que un sitio en Creston tendría que reclutarlos.
+
+El argumento de PPS a favor de las escuelas completas es que los maestros necesitan compañeros del mismo grado. Un segundo grupo por grado en Atkinson les daría uno. Vea [Investigación](research.qmd#sec-single) para saber qué dice la evidencia sobre los programas de escuela completa y los programas paralelos.
+
+## 9. Cómo podría ser otra solución {#sec-alternatives}
+
+Los datos apuntan a opciones que le quitarían menos a las familias de inmersión. Cada una merece evaluarse antes de tomar una decisión:
+
+- **Mantener los programas de alta demanda donde están las familias.** Atkinson y Beach tienen más solicitudes que lugares cada año. Consolidar solo donde la demanda es baja (James John, Sitton, Clark).
+- **En el Sureste, ampliar la inmersión en español donde está la demanda**: un segundo grupo en Atkinson, o una escuela de inmersión del Sureste en el edificio de Creston, a 0.8 millas en vez de 2.4 hasta Lent. **Restablecer el programa del vecindario de Lent** ([§8](#sec-southeast)).
+- **Mantener los límites de la zona del vecindario de Rigler**, la característica que hace que funcione hoy, o al menos garantizar un lugar a las familias de su vecindario.
+- **Trasladar el programa del vecindario en lugar del programa paralelo de inmersión.** El plan ya hace esto en César Chávez, donde los estudiantes que no están en inmersión se trasladan a Rosa Parks para que la escuela se convierta en un centro de inmersión.
+- **Preferir programas paralelos de dos grupos por grado a las conversiones en escuelas completas** cuando el objetivo es la colaboración entre maestros. Ningún estudio que encontramos muestra que los programas de escuela completa tengan mejores resultados que los programas paralelos ([Investigación](research.qmd)).
+- **Llenar los salones de inmersión con "baja inscripción" desde las listas de espera** en lugar de reubicarlos.
+- **Introducir los cambios por etapas y proteger a las familias actuales.** Permitir que los estudiantes inscritos terminen donde están y garantizar transporte a cualquier programa reubicado.
+- **Hacer el análisis de equidad que PPS no ha publicado.** Reportar cada cambio por matrícula de inmersión, idioma del hogar, condición de estudiante aprendiendo inglés, raza e ingresos. Incluir la distancia del hogar a la escuela antes y después. Publicar la proporción de familias que las proyecciones suponen que seguirá a cada programa trasladado (alrededor del `r round(100 * mean(fol1$followed))`%, a juzgar por las guías de las escuelas), y medir cuántas realmente lo hacen. PPS tiene los datos a nivel de estudiante para hacerlo.
+
+## Detalles {#sec-distance-detail}
+
+### Distancia estimada del hogar a la escuela {#estimated-home-to-school-distance}
+
+Los niños se ubican por bloque censal de 2020. Para los cierres, se usan los niños que viven en la zona de asistencia de la escuela que cierra, y su nueva escuela es la asignada en el mapa del escenario. Para los programas de inmersión, se usan los niños más cercanos al sitio actual del programa de ese idioma (un supuesto), y su nueva escuela es el nuevo sitio del programa.
+
+```{r}
+#| label: fig-home
+#| fig-height: 9
+#| fig-cap: "Estimación de un modelo, no una medición: distancia promedio del hogar a la escuela antes y después de cada cambio en el Escenario A, para los niños que viven en la zona de asistencia de la escuela que cierra, o en la zona más cercana a la escuela actual del programa de inmersión (un supuesto sobre dónde viven las familias de inmersión). Pase el cursor para ver los detalles."
+hd <- home |> filter(scenario == "a") |>
+  mutate(grp = if_else(type == DLI, "Programas de inmersión trasladados", "Escuelas que cierran"),
+         label = if_else(type == DLI, paste0(from_school, " → ", to_school), paste0(from_school, " (cierra)")),
+         full = if_else(type == DLI, paste0(label, " (", tr_lang(language), ")"), label)) |>
+  arrange(grp, change_mi)
+hd$label <- factor(wrap_label(hd$label, 26), wrap_label(hd$label, 26))
+col <- c("Programas de inmersión trasladados" = PAL$light[["blue"]], "Escuelas que cierran" = PAL$muted)
+p <- plot_ly(hd, y = ~label) |>
+  add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
+               line = list(color = PAL$grid, width = 2)) |>
+  add_markers(x = ~before_mi, name = "Hoy", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
+              text = ~sprintf("<b>%s</b><br>hoy: %.1f mi", full, before_mi), hoverinfo = "text")
+for (k in names(col)) {
+  p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("Después:", tolower(k)),
+                   marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
+                   text = ~sprintf("<b>%s</b><br>hoy %.1f mi → después %.1f mi (+%.1f)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
+}
+viz_layout(p, xtitle = "Millas desde el hogar (estimación)") |>
+  layout(xaxis = list(rangemode = "tozero"))
+```
+
+::: {.source}
+`r cite("scenarios", "blocks")`
+:::
+
+```{r}
+#| label: tbl-sensitivity
+read_data("equity_home_sensitivity.csv") |>
+  mutate(scenario = paste("Escenario", toupper(scenario)),
+         variant = c("Immersion moves: all (main estimate)" = "Traslados de inmersión: todos (estimación principal)",
+                     "Immersion moves: excluding Vietnamese (one site, whole-district catchment)" = "Traslados de inmersión: sin vietnamita (un solo sitio, atiende a todo el distrito)",
+                     "Immersion moves: Spanish only" = "Traslados de inmersión: solo español",
+                     "Immersion moves: Spanish only, weighted by Spanish-speaking children" = "Traslados de inmersión: solo español, ponderado por niños hispanohablantes",
+                     "Closures: all (main estimate)" = "Cierres: todos (estimación principal)",
+                     "Closures: weighted by Spanish-speaking children" = "Cierres: ponderado por niños hispanohablantes")[variant]) |>
+  select(scenario, variant, before, after, change) |>
+  gt(groupname_col = "scenario") |>
+  cols_label(variant = "Versión de la estimación", before = "Hoy", after = "Después", change = "Aumento") |>
+  fmt_number(c(before, after, change), decimals = 1) |>
+  tab_header(title = "Distancia estimada del hogar a la escuela, en millas: ¿qué tan sensible es?", subtitle = "Estimación de un modelo; promedios entre los estudiantes afectados") |>
+  tab_source_note("Todas las versiones suponen que las familias de inmersión viven en la zona más cercana al sitio actual del programa de ese idioma; ese supuesto no se puede comprobar sin las direcciones de los estudiantes. \"Ponderado por niños hispanohablantes\" ubica a los niños según los hispanohablantes en edad escolar de la ACS en lugar de todos los niños.") |>
+  tab_source_note(md(cite("scenarios", "blocks", "acs", "by_grade")))
+```
+
+**Comparado con dónde viven los estudiantes.** El informe *School Enrollment by Neighborhood of Residence* de PPS cuenta a los estudiantes de cada programa que viven en la propia zona de asistencia de la escuela y, para el resto, la zona de preparatoria donde viven. Esos estudiantes se ubican en bloques censales dentro de esa zona, ya sea repartidos entre todos sus niños o entre la mitad que vive más cerca de la escuela actual del programa.
+
+```{r}
+#| label: tbl-home-check
+read_data("equity_home_check.csv") |> filter(scenario == "a") |>
+  mutate(move = paste0(from_school, " → ", to_school, " (", tr_lang(language), ", ", band, ")"), own = own_area / students) |>
+  arrange(desc(moving)) |>
+  select(move, students, own, before_mi, change_mi, change_mi_nearer, model_before_mi, model_change_mi) |>
+  gt() |>
+  cols_label(move = "Traslado", students = "Estudiantes", own = "Viven en la zona de la escuela", before_mi = "Hoy",
+             change_mi = "Aumento (promedio de la zona)", change_mi_nearer = "Aumento (mitad más cercana)",
+             model_before_mi = "Hoy", model_change_mi = "Aumento") |>
+  tab_spanner("Según dónde viven los estudiantes (informe de PPS)", c(before_mi, change_mi, change_mi_nearer)) |>
+  tab_spanner("Modelo", c(model_before_mi, model_change_mi)) |>
+  fmt_number(students, decimals = 0) |> fmt_percent(own, decimals = 0) |>
+  fmt_number(c(before_mi, change_mi, change_mi_nearer, model_before_mi, model_change_mi), decimals = 1) |>
+  tab_header(title = "Distancia estimada del hogar a la escuela: modelo frente a dónde viven los estudiantes (Escenario A, millas)") |>
+  tab_source_note("Estudiantes: todos los estudiantes del programa de origen, octubre de 2025 (la fila de César Chávez abarca de kínder a 8.º). De los estudiantes que viven fuera de la zona de su escuela solo se conoce la zona de preparatoria; las tres subzonas de Jefferson se aproximan según cuál de las zonas de Grant, McDaniel y Roosevelt está más cerca. Se dejan fuera las direcciones fuera del distrito y las no determinadas. Distancias en línea recta.") |>
+  tab_source_note(md(cite("by_residence", "scenarios", "blocks")))
+```
+
+### Todos los cierres y traslados de inmersión {#every-closure-and-immersion-move}
+
+```{r}
+#| label: tbl-changes
+chg |> filter(scenario == "a") |>
+  mutate(type = if_else(type == DLI, paste0("Traslados de inmersión en ", tolower(tr_lang(language))), "Escuelas que cierran"),
+         change = if_else(grepl("inmersión", type), paste(from_school, "→", to_school), from_school)) |>
+  arrange(type != "Escuelas que cierran", type, desc(pct_spanish_home)) |>
+  select(type, change, band, students, pct_spanish_home, pct_non_english_home, school_miles) |>
+  gt(groupname_col = "type") |>
+  cols_label(change = "Cambio", band = "Grados", students = "Estudiantes", pct_spanish_home = "Español en casa",
+             pct_non_english_home = "Otro idioma en casa", school_miles = "La escuela se mueve (mi)") |>
+  fmt_number(students, decimals = 0) |> fmt_percent(c(pct_spanish_home, pct_non_english_home), decimals = 0) |>
+  fmt_number(school_miles, decimals = 1) |>
+  tab_header(title = "Todos los cierres y traslados de inmersión, Escenario A") |>
+  tab_source_note("Estudiantes: matrícula de octubre de 2025; para los traslados de inmersión, estudiantes del programa del idioma que se traslada en los grados que se trasladan; para los cierres, los estudiantes de la escuela que no están en inmersión (sus estudiantes de inmersión se cuentan en el traslado del programa). Idioma del hogar: proporción de esos estudiantes. La escuela se mueve: distancia en línea recta de la escuela actual a la nueva; para los cierres que se reparten entre varias escuelas receptoras, ponderada por la parte de la zona de asistencia de la escuela que cierra que recibe cada una.") |>
+  tab_source_note(md(cite("by_grade", "by_lang", "scenarios")))
+```
+
+### Advertencias {#caveats}
+
+- Las cifras del sorteo cuentan solicitudes, no niños.
+- La raza y los ingresos son cifras de toda la escuela; PPS no las publica por programa.
+- Las distancias del hogar a la escuela y las familias que no siguen al programa son estimaciones.
+- No se incluyen los traslados por cambios de límites de zona.
+- Este es un análisis independiente, no una publicación de PPS.
+
+Vea [Fuentes y métodos](methods.qmd#equity) para las definiciones completas.

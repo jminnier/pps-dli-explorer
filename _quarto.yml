@@ -1,12 +1,15 @@
 project:
   type: website
   output-dir: _site
+  pre-render: python3 tools/check_es_sync.py
+  execute-dir: project   # es/ pages source R/ and data/ from the project root, like the English pages
   render:
     - index.qmd
     - scorecard.qmd
     - equity.qmd
     - history.qmd
     - research.qmd
+    - es/*.qmd
     - methods.qmd
   resources:
     - data/*.csv
@@ -41,6 +44,7 @@ website:
 format:
   html:
     theme: [flatly, styles/site.scss]
+    include-after-body: [lang-switch.html]
     toc: true
     toc-depth: 2
     code-fold: true

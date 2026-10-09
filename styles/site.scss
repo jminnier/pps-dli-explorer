@@ -18,3 +18,8 @@ main td code { white-space: normal !important; overflow-wrap: anywhere; }
   main table.table { display: block; overflow-x: auto; }
   .stat .num { font-size: 1.5rem; }
 }
+#quarto-header .navbar { position: relative; }
+.lang-switch-mobile { position: absolute; right: 4.1rem; top: 50%; transform: translateY(-50%); z-index: 2;
+  color: rgba(255, 255, 255, 0.85); font-weight: 600; font-size: 0.95rem; text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 4px; padding: 0.1rem 0.45rem; }
+.lang-switch-mobile:hover { color: #fff; border-color: #fff; }

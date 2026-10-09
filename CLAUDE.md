@@ -13,6 +13,7 @@ This is an independent analysis of how the Portland Public Schools (PPS) rightsi
 - `R/site_data.R`: loads every table, plus `school_key()` (the same normalization as the map's `schoolKey`, so map, PPS and lottery names join), lottery summaries (`lottery_k`, `lottery_avg`), `strand_students()`, `heritage_share()`, and the source citations `SRC` / `cite()`.
 - `R/charts.R`: `viz_layout()` for plotly styling.
 - Pages: `index.qmd`, `scorecard.qmd`, `equity.qmd`, `history.qmd`, `research.qmd`, `methods.qmd`. Register new pages in `_quarto.yml` (`project.render` and `navbar`).
+- Spanish site: `es/<page>.qmd` mirrors each English page (Latin American Spanish; terms in `es/GLOSSARY.md`). Spanish pages start their setup chunk with `options(site.lang = "es")`, which makes `cite()` use `SRC_ES` (`R/site_data_es.R`; every `SRC` key needs a Spanish entry or the render stops). `lang-switch.html` adds the Español/English button and relabels the shared navbar and footer on Spanish pages. `execute-dir: project` lets es/ pages source `R/` and `data/` the same way.
 
 ## Commands
 
@@ -39,6 +40,7 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
   - The site is light theme only.
 - **Plotly sizing in Quarto:** set the height with the chunk option `#| fig-height:`, not `plot_ly(height = ...)`, which gets clipped by the container.
 - **dplyr gotcha:** in `summarise()`, compute weighted means before overwriting the weight column (e.g. don't write `students = sum(students)` first).
+- **Every English page edit needs the same edit in `es/<page>.qmd`** (text, chunks, labels, anchors). `tools/check_es_sync.py` runs before each render and warns when chunk labels, anchors, inline `r` counts or `cite()` counts differ. Every heading has an explicit `{#id}`, identical in both languages, so links and the language button keep the reader's section; give new headings an explicit id in both. After a render, compare the numbers on each English and Spanish page (they should match exactly).
 - **No freeze.** `_quarto.yml` sets `freeze: false` so every render (and `quarto publish`, which renders first) re-runs every page against the current `data/`. Don't turn freeze back on: with `freeze: auto` a changed CSV doesn't trigger a re-run and the site shows stale numbers.
 - **zsh gotcha:** never use a variable named `path`; it overwrites `PATH`.
 - **Census:** B16001 (separate Russian/Japanese) is published for states only; use C16001 (tracts) and B16007 (ages 5–17). Census downloads are cached in `data-raw/acs/` (git-ignored). The key is in `~/.Renviron`.

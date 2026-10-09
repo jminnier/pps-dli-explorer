@@ -1,0 +1,74 @@
+<!-- Language switch (English <-> Latin American Spanish). Spanish pages live in es/ with the same file names.
+     The navbar and footer are shared by every page in a Quarto website, so on Spanish pages this script
+     relabels them and points the navbar at the es/ pages. -->
+<script>
+function langSwitch() {
+  var path = location.pathname;
+  var isEs = /\/es\/[^\/]*$/.test(path);
+  var file = path.split('/').pop() || 'index.html';
+  var base = (isEs ? '../' : 'es/') + file;
+  var target = base + location.hash;
+  // keep the reader's section: use the hash at the moment of the click
+  var keepHash = function (a) { a.addEventListener('click', function () { a.href = base + location.hash; }); };
+
+  var nav = document.querySelector('#navbarCollapse .navbar-nav.ms-auto') || document.querySelector('#navbarCollapse .navbar-nav');
+  if (nav) {
+    var li = document.createElement('li');
+    li.className = 'nav-item';
+    var a = document.createElement('a');
+    a.className = 'nav-link lang-switch';
+    a.href = target;
+    a.lang = isEs ? 'en' : 'es';
+    a.hreflang = isEs ? 'en' : 'es';
+    a.innerHTML = '<i class="bi bi-translate" role="img" aria-hidden="true"></i> <span class="menu-text">' + (isEs ? 'English' : 'Español') + '</span>';
+    a.setAttribute('aria-label', isEs ? 'Read this page in English' : 'Leer esta página en español');
+    keepHash(a);
+    li.appendChild(a);
+    nav.insertBefore(li, nav.firstChild);
+  }
+  // compact button beside the search icon, visible when the navbar is collapsed (phones, small tablets)
+  var search = document.getElementById('quarto-search');
+  if (search && search.parentNode) {
+    var m = document.createElement('a');
+    m.className = 'lang-switch-mobile d-lg-none';
+    m.href = target;
+    m.hreflang = isEs ? 'en' : 'es';
+    m.textContent = isEs ? 'EN' : 'ES';
+    m.setAttribute('aria-label', isEs ? 'Read this page in English' : 'Leer esta página en español');
+    keepHash(m);
+    (document.querySelector('#quarto-header .navbar') || search.parentNode).appendChild(m);
+  }
+  if (!isEs) return;
+
+  var labels = {
+    'index.html': 'Inicio', 'scorecard.html': 'Demanda', 'equity.html': 'Equidad',
+    'history.html': 'Lent y Chávez', 'research.html': 'Investigación', 'methods.html': 'Métodos'
+  };
+  document.querySelectorAll('#navbarCollapse a.nav-link, a.navbar-brand').forEach(function (l) {
+    if (l.classList.contains('lang-switch')) return;
+    var href = l.getAttribute('href') || '';
+    var m = href.match(/^\.\.\/([a-z]+\.html)(#.*)?$/);
+    if (m && labels[m[1]] !== undefined) {
+      l.setAttribute('href', './' + m[1] + (m[2] || ''));
+      var t = l.querySelector('.menu-text');
+      if (t) t.textContent = labels[m[1]];
+    } else if (m && l.classList.contains('navbar-brand')) {
+      l.setAttribute('href', './index.html');
+    }
+    if (/github\.com/.test(href)) {
+      var c = l.querySelector('.menu-text'); if (c) c.textContent = 'Código';
+      l.setAttribute('aria-label', 'Código fuente y datos en GitHub');
+    }
+  });
+  document.querySelectorAll('.navbar-title').forEach(function (t) {
+    t.textContent = 'Inmersión en dos idiomas en PPS';
+  });
+  var foot = document.querySelector('.nav-footer-center');
+  if (foot) {
+    foot.innerHTML = '<p>Código, documentos fuente y datos: <a href="https://github.com/jminnier/pps-dli-explorer">github.com/jminnier/pps-dli-explorer</a>. ' +
+      'Datos: PPS Data &amp; Reporting, resultados del sorteo de PPS, Population Research Center de PSU, Encuesta sobre la Comunidad Estadounidense (ACS) del Censo de EE. UU. ' +
+      'Mapas de escenarios y transcripción del memorando a la Junta: <a href="https://github.com/browniefed/pps-explorer">pps-explorer</a>, de Jason Brown.</p>';
+  }
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', langSwitch); else langSwitch();
+</script>

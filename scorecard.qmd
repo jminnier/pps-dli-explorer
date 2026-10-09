@@ -22,7 +22,7 @@ demand <- k5_moves |>
   arrange(desc(from_apps))
 ```
 
-## Demand: programs move away from where families apply
+## Demand: programs move away from where families apply {#demand-programs-move-away-from-where-families-apply}
 
 Families who want a kindergarten immersion seat apply through the PPS school-choice lottery (the exception is the neighborhood families of all-immersion Lent and Rigler; see the note below). The lottery reports show how many families applied to each program, how many got an offer and how many were waitlisted. Averaged over the last five lotteries (`r min(LOTTERY_YEARS)` to `r max(LOTTERY_YEARS)`), the Spanish programs that would move include the two with the **most applications and longest waitlists in the district**, Atkinson and Beach, and they would move to schools that have drawn far fewer applicants.
 
@@ -59,7 +59,7 @@ At **Lent** and **Rigler**, every student is in Spanish immersion, so children f
 `r cite("by_grade", "lottery")`
 :::
 
-### A precedent: Bridger's Spanish program moved to Lent in 2023
+### A precedent: Bridger's Spanish program moved to Lent in 2023 {#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023}
 
 ```{r}
 #| label: tbl-bridger
@@ -96,7 +96,7 @@ PPS has consolidated Spanish immersion before. Until 2022-23 it ran at both **Br
 
 This is an estimate: before 2024-25 PPS publishes immersion counts by school but not by grade, so "per grade" is the school's immersion total divided by six grades. District-wide, kindergarten classes run smaller than grades 1–5, so an all-grades average likely overstates the old kindergarten size; that is why the district comparison above uses the same all-grades baseline. Lottery applications can't be used for this comparison, because Lent's neighborhood families stopped applying once it became all-immersion (see the note above).
 
-### Spanish waitlists over time
+### Spanish waitlists over time {#spanish-waitlists-over-time}
 
 ```{r}
 #| label: fig-waitlist
@@ -127,7 +127,7 @@ viz_layout(p, ytitle = "Waitlisted applications") |> layout(xaxis = list(type = 
 `r cite("lottery", "scenarios")`
 :::
 
-### Who is waitlisted
+### Who is waitlisted {#who-is-waitlisted}
 
 The 2026-27 kindergarten lottery breaks each program's applicants down by where they live and their language background. At the programs with the longest waitlists, the families turned away are mostly **English-speaking families from the surrounding area**, the families a move puts farther away. Native Spanish speakers, who get priority, are almost always offered seats.
 
@@ -157,7 +157,7 @@ who |> filter(school %in% top) |>
   cols_align("right", any_of(c("English", "Heritage", "Native")))
 ```
 
-## Scorecard: every program move
+## Scorecard: every program move {#scorecard-every-program-move}
 
 ```{r}
 #| label: tbl-moves
@@ -189,7 +189,7 @@ sc |>
   opt_row_striping()
 ```
 
-## Sites by language and grade band
+## Sites by language and grade band {#sites-by-language-and-grade-band}
 
 ```{r}
 #| label: tbl-sites
@@ -205,7 +205,7 @@ sites |> filter(change != "removed" | is.na(change)) |>
   tab_source_note(md(cite("scenarios")))
 ```
 
-## Distance to the nearest site
+## Distance to the nearest site {#distance-to-the-nearest-site}
 
 ```{r}
 #| label: tbl-access

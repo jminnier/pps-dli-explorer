@@ -4,7 +4,7 @@ subtitle: "Where every number comes from, how it was processed, and what it can'
 toc-depth: 3
 ---
 
-## Credits
+## Credits {#credits}
 
 This site builds on **[pps-explorer](https://github.com/browniefed/pps-explorer) by [Jason Brown (@browniefed)](https://github.com/browniefed)**, an interactive map of the PPS boundary scenarios. Its georeferenced attendance areas and school locations (digitized from the PPS scenario map PDFs) and its transcription of the October 2026 board memo (closures, program moves and grade changes) are the basis for every scenario comparison on this site. pps-explorer in turn credits [ppsdata.info](https://ppsdata.info) by Alex Meub ([meub/pps-data](https://github.com/meub/pps-data)).
 
@@ -12,7 +12,7 @@ This is an independent analysis, not a PPS publication. Where anything here diff
 
 All of the code, the saved source documents and the cleaned tables are on GitHub at [github.com/jminnier/pps-dli-explorer](https://github.com/jminnier/pps-dli-explorer). Corrections and questions are welcome there as issues.
 
-## Data sources
+## Data sources {#data-sources}
 
 All source documents are saved in the repository under `data-raw/`, and each is converted to a table in `data/` by the script listed. Scripts stop with an error, rather than guessing, when a row doesn't pass its checks.
 
@@ -41,9 +41,9 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
-## How each source was processed
+## How each source was processed {#how-each-source-was-processed}
 
-### 1. Immersion enrollment by school (Language Immersion Track Profiles)
+### 1. Immersion enrollment by school (Language Immersion Track Profiles) {#immersion-enrollment-by-school-language-immersion-track-profiles}
 
 Each PDF lists every school with an immersion program on two lines: counts, then the same counts as a percentage of the school's total October enrollment. The columns are: total enrollment; students who are multilingual learners (ML) or in immersion; neither; total immersion students; immersion students by language (Spanish, Mandarin, Japanese, Russian, Vietnamese); total ML students; ML students by primary language (Spanish, Chinese, Japanese, Russian, Vietnamese, Somali, Other); students who are both ML and in immersion; and a final percentage.
 
@@ -53,7 +53,7 @@ Each PDF lists every school with an immersion program on two lines: counts, then
 - **Date typo.** The 2023-24 file's title reads "October 2022"; it is treated as 2023-24, matching the PPS archive's label and its contents.
 - **Page breaks.** Where a school's percentage line falls on the next page (Richmond, 2025-26), it is joined back to its count line.
 
-### 2. Enrollment by grade and program type
+### 2. Enrollment by grade and program type {#enrollment-by-grade-and-program-type}
 
 Each school is listed by program (e.g. "Spanish Immersion", "Neighborhood Program") with enrollment in each grade PreK–12 and a total. Multi-program schools end with a school total row, and schools are grouped into sections (elementary, middle, high, alternative, community-based, special services, charter) with section totals and a district total.
 
@@ -62,7 +62,7 @@ Each school is listed by program (e.g. "Spanish Immersion", "Neighborhood Progra
 - **Whole-school immersion.** Lent, Rigler and Richmond print as a single unlabelled row. Source 1 shows all of their students in immersion, so they are tagged Spanish, Spanish and Japanese immersion respectively.
 - **Cross-check:** immersion enrollment summed from this report equals the immersion totals in source 1 for every school in both years.
 
-### 3. Enrollment by language and school
+### 3. Enrollment by language and school {#enrollment-by-language-and-school}
 
 For each school and program, students by home-language group (English, Spanish, Vietnamese, Chinese, Russian, Somali/Maay-Maay, Japanese, Other), as counts and percentages. "Chinese" includes Cantonese, Mandarin and other Chinese languages (report footnote).
 
@@ -70,7 +70,7 @@ For each school and program, students by home-language group (English, Spanish, 
 - **Checks (all pass):** language counts sum to the program's enrollment; every count matches its printed percentage (±0.51 points); program rows sum to the school total row; all schools sum to the district total for every language.
 - **Cross-check:** immersion enrollment by school and language equals source 1 exactly (64 school-years compared, 0 differences).
 
-### 4. Lottery results
+### 4. Lottery results {#lottery-results}
 
 PPS publishes a results summary for each lottery: for each school and program, the number of applications, offers, waitlisted applicants and cancelled applications, and in some years the number of seats ("slots") and applicants not placed. "Cancelled" means the applicant was placed at a program they ranked higher. Waitlists are as of the spring lottery; waitlisted applicants may still be offered a seat before the end of September.
 
@@ -89,19 +89,19 @@ The layout differs every year, so each file was handled separately:
 - **Checks:** applicant-group rows sum to the printed school total in every year that prints totals (103 school totals in 2022-23, 2023-24 and 2026-27), and the printed grand totals match (7). The identity applications = offered + waitlisted + cancelled (+ not placed) holds in 846 of 848 testable rows; the two exceptions are printed that way in the source.
 - **Coverage.** Every elementary immersion program appears in every year except Rigler, which appears in none. Middle and high school immersion appears in only one report (a small 2024-25 table without offers), so there is no lottery measure of demand for middle-grade programs.
 
-### 5. PSU enrollment forecasts
+### 5. PSU enrollment forecasts {#psu-enrollment-forecasts}
 
 Tables 5.2–5.4 (district by grade; medium, low and high scenarios) and 5.5 (by school and program, medium scenario only) were parsed. Printed subtotals and totals were checked, allowing up to 3 students of rounding in forecast years, and the base-year actuals match source 2 (435 comparisons). Richmond is printed with a total row only; a Japanese row equal to its total was added, as the report already does for Lent and Rigler. The forecasts will feed the projections page and are not yet used elsewhere.
 
-### 6. Kindergarten class size
+### 6. Kindergarten class size {#kindergarten-class-size}
 
 The *Class Size Detail* logs give each school's average class size overall and by grade group (kindergarten, grades 1–3, 4–5, …), as of mid-October. The kindergarten value for Lent and Bridger was copied by hand from each year's PDF into `data/class_size_kg.csv`, along with the file name it came from. It averages **all** kindergarten classes at the school, immersion and neighborhood alike.
 
-### 7. District enrollment by grade, October 2022
+### 7. District enrollment by grade, October 2022 {#district-enrollment-by-grade-october-2022}
 
 Read from the district summary page of the October 2022 enrollment profile: kindergarten 3,152; grades 1–5: 3,376, 3,319, 3,502, 3,485, 3,358. October 2024 and 2025 district kindergarten totals are summed from source 2.
 
-### 8. Scenario sites and program moves
+### 8. Scenario sites and program moves {#scenario-sites-and-program-moves}
 
 `export_dli_tables.mjs` runs the map project's own code on its data, so these tables match the map:
 
@@ -109,19 +109,19 @@ Read from the district summary page of the October 2022 enrollment profile: kind
 - **Moves.** Every language program move in the memo transcription, with the grade band whose maps show both ends, plus one grade change that carries an immersion strand: César Chávez becomes K-5 and its grades 6-8, with their Spanish immersion students, move to George.
 - **Checks.** Every site removed in a scenario is explained by a memo move or grade change, and school names match source 1 (Brentwood appears as "Lane" in PPS enrollment reports).
 
-### 9. Home language by census tract
+### 9. Home language by census tract {#home-language-by-census-tract}
 
 - **Tables.** ACS table B16001 lists Russian and Japanese separately but is published only for states; its tract and county values are blank. Tract counts therefore come from **C16001**, which reports Spanish, Chinese (including Mandarin and Cantonese) and Vietnamese separately. Russian is approximated by "Russian, Polish or other Slavic languages", which in Portland also includes Ukrainian speakers. Japanese falls inside "Other Asian and Pacific Island languages" and has no tract count. School-age (5–17) counts come from **B16007**, which separates only Spanish, other Indo-European, Asian and Pacific Island, and other languages.
 - **Which tracts.** Tracts in Multnomah, Washington and Clackamas counties whose interior point (`sf::st_point_on_surface`) falls inside the district, defined as the union of the status-quo high school attendance areas: 135 tracts.
 - **Margins of error.** ACS counts are survey estimates; each estimate's margin of error is saved alongside it in `acs_language_tract.csv`. Margins are large for small groups and single tracts, so tract figures are approximate; district totals are more reliable.
 
-## How each figure and table is calculated
+## How each figure and table is calculated {#how-each-figure-and-table-is-calculated}
 
-### Joining across sources
+### Joining across sources {#joining-across-sources}
 
 School names differ across sources ("Dr. Martin Luther King Jr." in the memo, "MLK Jr" in enrollment reports, "Cesar Chavez" in lottery reports). All joins use a normalized key, the same one the map uses: grade and school-type words are removed, accents stripped, letters lowercased and other characters dropped, with a short alias list (MLK variants → `mlkjr`, Lane → Brentwood).
 
-### Kindergarten lottery demand (demand chart, waitlist chart, scorecard lottery columns, overview tile 2)
+### Kindergarten lottery demand (demand chart, waitlist chart, scorecard lottery columns, overview tile 2) {#kindergarten-lottery-demand-demand-chart-waitlist-chart-scorecard-lottery-columns-overview-tile-2}
 
 1. For each school and lottery year, take the elementary immersion rows for kindergarten (or with no grade printed). Use the printed school total row where the year prints one; otherwise sum the applicant-group rows.
 2. **Five-year average** = mean over the 2022-23 to 2026-27 lotteries in which the program appears. The 2021-22 lottery is left out because its immersion rows have no grade.
@@ -129,22 +129,22 @@ School names differ across sources ("Dr. Martin Luther King Jr." in the memo, "M
 4. Counts are **applications, not children**: a family can apply to several programs, so one child can be waitlisted at more than one school.
 5. At **Lent and Rigler** (all-immersion schools with their own neighborhoods), neighborhood children enroll without applying, so lottery numbers there count only out-of-neighborhood families. Lent enrolled 43 immersion kindergartners in October 2025 but made 14 lottery offers; Rigler enrolls 50–57 a year and never appears in the lottery. At every other immersion school, including Richmond (which has no neighborhood of its own), October kindergarten enrollment is close to the number of lottery offers.
 
-### Who is waitlisted (2026-27 table)
+### Who is waitlisted (2026-27 table) {#who-is-waitlisted-2026-27-table}
 
 Applicant-group rows from the 2026-27 kindergarten report, summed by residence and by the language background PPS records (English, Heritage, Native). Residence groups: NH = lives in the host school's attendance area; RG = lives in the regional Spanish immersion area (the set of schools that feed a high-school Spanish immersion program); TR = lives elsewhere in PPS. The four Spanish programs with the most waitlisted applications are shown.
 
-### Scorecard of program moves
+### Scorecard of program moves {#scorecard-of-program-moves}
 
 - **Students:** October 2025 enrollment (source 2) in the moving language program at the sending school, in the grades of the move's band (K–5 or 6–8).
 - **K lottery, per year:** the five-year averages above, shown only for K-5 moves.
 - **Home language matches:** among a program's immersion students in October 2025 (source 3), the share whose home language is the program language; for Mandarin, the share whose home language is any Chinese language. Shown for the sending program and for the receiving school's existing program in that language.
 - **Scenario:** "A & B" when the move appears in both scenarios' memo transcription, otherwise the one it appears in.
 
-### Sites by language and grade band
+### Sites by language and grade band {#sites-by-language-and-grade-band}
 
 Count of sites (source 8) for each language, grade band and scenario, excluding *removed* rows.
 
-### Distance to the nearest site (table, overview tile 4)
+### Distance to the nearest site (table, overview tile 4) {#distance-to-the-nearest-site-table-overview-tile-4}
 
 ACS language counts are only available for whole census tracts (about 4,000 residents each), and a tract can be over a mile across, so where people are placed inside a tract matters for a 1-mile measure.
 
@@ -174,7 +174,7 @@ read_data("access_robustness.csv") |>
 - **Sites.** Today's K-5 Spanish sites: Ainsworth, Atkinson, Beach, César Chávez, James John, Lent, Rigler, Scott, Sitton. Scenarios A and B: Ainsworth, César Chávez, Lent, Rigler. Locations are the school icons on the PPS scenario maps (source 8).
 - **Limits.** Straight-line distance understates real travel, especially across freeways and rivers. The within-tract spread assumes speakers live where the general (or child) population does. Tract-level distances (`access_tract.csv`) are still published for mapping.
 
-### Bridger → Lent precedent
+### Bridger → Lent precedent {#bridger-lent-precedent}
 
 - **Immersion students per grade** = each school's Spanish immersion total (source 1) ÷ 6, since both schools served K–5 in the years used. Before October 2024 PPS doesn't publish immersion enrollment by grade, so this is an average across grades; an actual kindergarten cohort can be larger or smaller.
 - **Kindergarten (actual)** = October kindergarten enrollment in Spanish immersion (source 2), 2024-25 and 2025-26.
@@ -183,7 +183,7 @@ read_data("access_robustness.csv") |>
 - **District comparison, same baseline:** the before side for Lent is an average across grades K–5, and PPS kindergarten classes are smaller than grades 1–5 (October 2022: 3,152 kindergartners vs 3,319–3,502 in each of grades 1–5). So the district comparison also uses an all-grades baseline: average district kindergarten enrollment in October 2024 and October 2025 (source 2) ÷ the average enrollment per grade across grades K–5 in October 2022 (source 7), minus 1. The kindergarten-to-kindergarten district change is reported alongside for reference.
 - Lottery applications are deliberately not used here: before 2023 Lent's neighborhood families applied for immersion through the lottery, and afterwards they enroll directly, so before and after counts measure different groups.
 
-### Overview tiles
+### Overview tiles {#overview-tiles}
 
 1. K-5 Spanish immersion sites on the status-quo map and on the Scenario A and B maps (source 8).
 2. See *Kindergarten lottery demand*, step 3.
@@ -218,7 +218,7 @@ Boundary changes, which move most students in PPS's totals, are not included in 
 
 **Race and ethnicity.** PPS's *School/Neighborhood Enrollment by Ethnicity & Program* report gives each school's whole-school racial composition and its percentage in immersion, not the racial composition of immersion programs, so the race/ethnicity of students in moving programs cannot be computed from public reports.
 
-### Equity page: school composition, demand and families not following
+### Equity page: school composition, demand and families not following {#equity-page-school-composition-demand-and-families-not-following}
 
 **School composition (source 12).** For each scenario, schools are grouped as *losing an immersion program* (the sending school of any program move or the César Chávez grade change), *receiving an immersion program* (receiving schools not also sending), and *closing with no immersion program* (closing schools not also sending). Each school is in one group: Beach, James John and Rose City Park, which close and lose an immersion program, are counted as losing an immersion program. Percentages are October 2025 School-row values, weighted by enrollment; the district row is PPS's Grand Total. These describe whole schools, not their immersion programs, which PPS does not report by race or income. Clark is not printed in either year's report and is left out (the report's level subtotals include it).
 
@@ -245,7 +245,7 @@ The precedent rate comes from one consolidation; other programs could fare bette
 - *Limits*: forecasts made one or two years ahead also miss for ordinary reasons. Other schools' Spanish programs missed by up to 10–27% in either direction (Rigler and Atkinson were under-forecast), so Lent's miss is notable for its size and persistence, not unique.
 - No edition states an assumed share of students following a moved program. The 98% figure (314 of 319) is implied by the numbers.
 
-### Share of a moved program PPS projects to follow it (sources 5 and 16)
+### Share of a moved program PPS projects to follow it (sources 5 and 16) {#share-of-a-moved-program-pps-projects-to-follow-it-sources-5-and-16}
 
 `parse_school_guides.py` reads page 4 of each guide (projected enrollment by option, 2027-28 to 2031-32; type of change; size and space goals; share within 1 mile; whole-school poverty, special education, multilingual and underserved-race shares) and the page 3 text. *Checks*: every school has a complete "No changes" row; option labels are from a known set; each printed row has five years; percentages are 0–100; the enrollment and school tables list the same school × option pairs. Closing schools are kept with status "closes". Re-downloading all 82 guides later on October 8 gave identical files.
 
@@ -255,11 +255,11 @@ The precedent rate comes from one consolidation; other programs could fare bette
 - Used only where the receiving school's sole change is the arriving program: Atkinson → Lent, Scott → Rigler, Clark → Woodstock. Arrive + stay comes to 100–111% of the program, so the split is approximate.
 - The guides state no follow rate. The shares are implied, and PPS's model may place non-following students in ways the guides don't show (for example, at other immersion sites).
 
-### Lent's 2023 projection and staff accounts (sources 13 and 17)
+### Lent's 2023 projection and staff accounts (sources 13 and 17) {#lents-2023-projection-and-staff-accounts-sources-13-and-17}
 
 The 527-student projection is quoted from the appendix's summary of PPS's Phase 2 school-by-school impact analysis (appendix p. 34; the appendix cites it as "Portland Public Schools. (n.d.). SE enrollment and program balancing phase 2 school-by-school impact analysis", p. 12). The appendix calls it "Lent's total enrollment" and does not say whether pre-kindergarten is included. It is compared with October 2025 kindergarten–5th grade enrollment (source 2). Staff and family quotes are verbatim from the appendix and the main report, with page numbers; ellipses and brackets are the report's own. The report identifies speakers only by school and role.
 
-### Neighborhood capture rates (source 18)
+### Neighborhood capture rates (source 18) {#neighborhood-capture-rates-source-18}
 
 Each report gives, for every attendance area, PPS K-12 students living there by the type of school they attend: their own neighborhood school (the capture rate), another neighborhood school, a PPS alternative, a community-based alternative, special services or a PPS charter. Pre-kindergarten is excluded. Immersion students attending their own area's school count as captured; immersion students attending another school's program count under "other neighborhood school" or "PPS alternative".
 
@@ -267,7 +267,7 @@ Each report gives, for every attendance area, PPS K-12 students living there by 
 - *Groups* (`equity_capture.csv`): Southeast = the elementary areas of Abernethy, Atkinson, Bridger (Bridger Creative Science from 2023-24), Creston, Duniway, Grout, Lewis, Llewellyn, Sunnyside Environmental, Woodstock, Marysville, Kelly, Arleta, Whitman and Woodmere; Lent is shown separately; Rest of PPS = all other elementary areas. Group rates are total own-school students ÷ total residents.
 - *Limits*: boundaries changed in 2021-22 and 2023-24, so areas' resident counts jump; students allowed to stay at their former school after a boundary change count as "other neighborhood school"; Creative Science (a focus school) moved into the Bridger building in 2023-24; Lent's non-immersion neighborhood children were assigned to Marysville after 2023, which the report counts as "other neighborhood school".
 
-### Checking the home-to-school model against where students live (source 19)
+### Checking the home-to-school model against where students live (source 19) {#checking-the-home-to-school-model-against-where-students-live-source-19}
 
 The *School Enrollment by Neighborhood of Residence* report gives, for each school and program, students living in the school's own attendance area, then everyone else by the high-school area they live in (Cleveland, Franklin, Grant, Ida B. Wells-Barnett, Jefferson/Grant, Jefferson/McDaniel, Jefferson/Roosevelt, Lincoln, McDaniel, Roosevelt), plus out-of-district or undetermined. Pre-kindergarten is excluded. *Parsing checks*: cells sum to row totals; printed percentages match (±0.51); program rows sum to school totals and schools to section and grand totals; own-area counts equal the capture-rate report for all 53 elementary schools in each year; October 2025 school × program totals equal source 2 for all 142 rows.
 
@@ -275,7 +275,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 
 - *Limits*: high-school areas are large, so students living outside their school's area are placed only roughly; César Chávez's row covers grades K-8 though only grades 6-8 move to George; straight-line distances.
 
-### Southeast seats, demand and site context (sources 2, 4, 9, 10, 19)
+### Southeast seats, demand and site context (sources 2, 4, 9, 10, 19) {#southeast-seats-demand-and-site-context-sources-2-4-9-10-19}
 
 - *Kindergarten seats* = October 2025 kindergarten enrollment (source 2): Richmond and Le Monde whole school; Lent and Atkinson Spanish immersion. *Program students* = all grades of the same programs. Lottery columns are the five-year averages defined above; Le Monde is a charter with its own admissions and isn't in the PPS lottery reports.
 - *Southeast Spanish* means the two Spanish immersion sites in the Franklin and Cleveland high-school areas, Lent and Atkinson.
@@ -293,7 +293,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - *Grade configuration*: Lent and Bridger were K-8 until 2021-22, so their earlier totals include grades 6-8. César Chávez is K-8 throughout. Bridger is shown only for its Spanish program, which moved to Lent in 2023-24.
 - *Capture rate and where students live*: sources 18 and 19; *demographics*: source 12, School and Neighborhood rows; *projections*: source 16; *capacity*: source 21.
 
-### School Profiles dashboard (source 22)
+### School Profiles dashboard (source 22) {#school-profiles-dashboard-source-22}
 
 PPS's School Profiles page embeds a public Power BI report that shows one school at a time. `scrape_school_profiles.mjs` opens it in headless Chrome, selects each of the 83 schools in the report's school list, and saves the visible text (with the time retrieved) to `data-raw/pps_reports/school_profiles/`. `parse_school_profiles.py` reads those snapshots into `school_profiles_2025.csv`.
 
@@ -316,7 +316,11 @@ The [Research](research.qmd) page reviews published work on whole-school versus 
 - *Lent outcomes* are quoted from the equity audit's school-by-school analysis (source 17, pp. 39, 45, 47) and main report (p. 50). The underlying student-level data isn't public.
 - *PPS statements*: the October 6, 2026 board meeting (staff presentation at 2:25:37) and the September 8, 2026 committee meeting (13:15), from the automated transcripts in `data-raw/pps_transcripts/`. A search of those transcripts and the per-school guides found no research cited for the model choice.
 
-## Reproducing the data
+## Spanish version {#spanish}
+
+Every page is also published in Latin American Spanish (`es/`, the **Español** button). The translation was written with AI assistance (Claude) from the English pages and reviewed for accuracy. Every number on the Spanish pages is computed by the same R code as the English pages, and a check confirms both versions show the same numbers. Quotations from English documents and meetings are our translations. Document titles stay in their original language. Terminology follows `es/GLOSSARY.md`. If the two versions ever differ, the English page is the reference.
+
+## Reproducing the data {#reproducing-the-data}
 
 Clone [the repository](https://github.com/jminnier/pps-dli-explorer) and run these from its root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
 
