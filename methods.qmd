@@ -32,6 +32,7 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 16 | Scenario projections by school | PPS, *How Could Your School Be Impacted?* ([page](https://www.pps.net/about/portland-public-schools-information/rightsize/how-could-your-school-be-impacted)): one 4-page "Family-Friendly School Guide" per school (82 PDFs, served from Google Drive through an Awesome Table list; metadata title "Confidential Draft", all dated October 8, 2026) | Projections 2027-28 to 2031-32 | `data-raw/pps_board/impact_page/*.pdf`, `drive_ids.txt` | `parse_school_guides.py` → `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
 | 17 | Audit school-by-school appendix | Green, T. L., & Hanson, H. (2026, June 29). *Equity audit evaluation of Portland Public Schools' Southeast Enrollment and Program Balancing initiative: School-by-school analysis*, from the [PPS SEGC documents page](https://www.pps.net/about/portland-public-schools-information/rightsize/segc-documents) | 2020-21 to 2025-26 | `data-raw/pps_transcripts/SEGC_Equity_Audit_School_by_School_Analysis.pdf` | quoted with page numbers |
 | 18 | Neighborhood capture rates | PPS, *Neighborhood Capture Rate Metrics* ("Enrollment Summary … by K-12 Students' Neighborhood and Type of School Attended"); 2024-25 and 2025-26 on the Data & Reporting page, earlier years on the archive page under "Neighborhood Attendance Patterns & Focus Distributions". The companion *School Enrollment by Neighborhood of Residence* reports are saved but not yet parsed | October 2019 to October 2025 | `data-raw/pps_reports/capture_rate/*.pdf` | `parse_capture_rate.py` → `capture_rate.csv` |
+| 19 | Where each program's students live | PPS, *School Enrollment by Neighborhood of Residence* (Data & Reporting page; earlier years on the archive page) | October 2023 to October 2025 parsed (2019-20 to 2022-23 saved; rotated pages not yet parsed) | `data-raw/pps_reports/capture_rate/*_Enroll_by_Neighborhood.pdf` | `parse_enroll_by_neighborhood.py` → `enroll_by_neighborhood.csv` |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -207,7 +208,7 @@ Boundary changes, which move most students in PPS's totals, are not included in 
 - *Closures*: blocks inside the closing school's status-quo attendance area (same grade band). Before = distance to the closing school; after = distance to the school whose attendance area contains the block on the scenario map.
 - *Immersion moves*: immersion families' addresses are not published. Each block is assigned to its nearest current immersion site of the same language and grade band (a catchment by proximity), and the blocks assigned to the sending program are used. Before = distance to the sending school; after = distance to the program's new school. For Spanish, a second version weights blocks by school-age Spanish speakers (ACS tract counts spread over blocks by population under 18).
 - Within each change, distances are averaged over children; averages across changes are weighted by each change's enrolled students.
-- **Sensitivity** (`equity_home_sensitivity.csv`): the immersion estimate is recomputed excluding Vietnamese (whose catchment is the whole district), for Spanish programs only, and for Spanish programs weighting blocks by school-age Spanish speakers; closures are also recomputed with Spanish-speaker weighting. The immersion increase stays between about +1.0 and +1.2 miles and the closure increase between about +0.3 and +0.5 miles. None of these versions can test the underlying assumption about where immersion families live; on the site this figure is presented as a model estimate, after the measured school-to-school distances.
+- **Sensitivity** (`equity_home_sensitivity.csv`): the immersion estimate is recomputed excluding Vietnamese (whose catchment is the whole district), for Spanish programs only, and for Spanish programs weighting blocks by school-age Spanish speakers; closures are also recomputed with Spanish-speaker weighting. The immersion increase stays between about +1.0 and +1.2 miles and the closure increase between about +0.3 and +0.5 miles. None of these versions tests the assumption about where immersion families live; the check below does.
 - Limitations: straight-line distances; proximity catchments are only a model of where immersion families live (immersion students often come from a wider area, and for languages with a single site, such as Vietnamese, the catchment is the whole district); moves of whole attendance areas between neighborhood schools by boundary change are not included.
 
 **Race and ethnicity.** PPS's *School/Neighborhood Enrollment by Ethnicity & Program* report gives each school's whole-school racial composition and its percentage in immersion, not the racial composition of immersion programs, so the race/ethnicity of students in moving programs cannot be computed from public reports.
@@ -261,6 +262,14 @@ Each report gives, for every attendance area, PPS K-12 students living there by 
 - *Groups* (`equity_capture.csv`): Southeast = the elementary areas of Abernethy, Atkinson, Bridger (Bridger Creative Science from 2023-24), Creston, Duniway, Grout, Lewis, Llewellyn, Sunnyside Environmental, Woodstock, Marysville, Kelly, Arleta, Whitman and Woodmere; Lent is shown separately; Rest of PPS = all other elementary areas. Group rates are total own-school students ÷ total residents.
 - *Limits*: boundaries changed in 2021-22 and 2023-24, so areas' resident counts jump; students allowed to stay at their former school after a boundary change count as "other neighborhood school"; Creative Science (a focus school) moved into the Bridger building in 2023-24; Lent's non-immersion neighborhood children were assigned to Marysville after 2023, which the report counts as "other neighborhood school".
 
+### Checking the home-to-school model against where students live (source 19)
+
+The *School Enrollment by Neighborhood of Residence* report gives, for each school and program, students living in the school's own attendance area, then everyone else by the high-school area they live in (Cleveland, Franklin, Grant, Ida B. Wells-Barnett, Jefferson/Grant, Jefferson/McDaniel, Jefferson/Roosevelt, Lincoln, McDaniel, Roosevelt), plus out-of-district or undetermined. Pre-kindergarten is excluded. *Parsing checks*: cells sum to row totals; printed percentages match (±0.51); program rows sum to school totals and schools to section and grand totals; own-area counts equal the capture-rate report for all 53 elementary schools in each year; October 2025 school × program totals equal source 2 for all 142 rows.
+
+`check_home_distance.R` places each moving program's students on 2020 census blocks: own-area students in the school's status-quo attendance area; others in their high-school area, outside the school's own area. The Jefferson sub-areas have no published boundaries, so Jefferson-area blocks are assigned to whichever of the Grant, McDaniel and Roosevelt areas is nearest. Within an area, students are spread like children under 18 (*area average*), or over only the half of the area's children living closest to the program's current school (*nearer half*). Out-of-district and undetermined students are left out. Moves are averaged with the same weights as the model (students in the grades that move).
+
+- *Limits*: high-school areas are large, so students living outside their school's area are placed only roughly; César Chávez's row covers grades K-8 though only grades 6-8 move to George; straight-line distances.
+
 ## Reproducing the data
 
 From the repository root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:
@@ -275,10 +284,12 @@ python3 data-raw/extract_psu_premove.py
 python3 data-raw/parse_ethnicity_program.py
 python3 data-raw/parse_school_guides.py
 python3 data-raw/parse_capture_rate.py
+python3 data-raw/parse_enroll_by_neighborhood.py
 node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R
 Rscript data-raw/check_access_robustness.R
 Rscript data-raw/equity_analysis.R
+Rscript data-raw/check_home_distance.R
 quarto render
 ```
 

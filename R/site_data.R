@@ -107,6 +107,7 @@ SRC <- list(
   guides = "PPS, *How Could Your School Be Impacted?* school guides (\"PPS Family-Friendly School Guide\", per-school PDFs dated October 8, 2026), page 4, projected enrollment 2027-28 to 2031-32 ([page](https://www.pps.net/about/portland-public-schools-information/rightsize/how-could-your-school-be-impacted))",
   audit_schools = "Green, T. L., & Hanson, H. (2026, June 29). *Equity audit evaluation of Portland Public Schools' Southeast Enrollment and Program Balancing initiative: School-by-school analysis* ([PPS SEGC documents](https://www.pps.net/about/portland-public-schools-information/rightsize/segc-documents))",
   capture = sprintf("PPS, *Neighborhood Capture Rate Metrics* (Enrollment Summary by K-12 Students' Neighborhood and Type of School Attended), October 2019 to October 2025 ([current](%s), [archive](%s))", PPS_REPORTS, PPS_ARCHIVE),
+  by_residence = sprintf("PPS, *School Enrollment by Neighborhood of Residence*, October 2025 ([PPS Data & Reporting](%s))", PPS_REPORTS),
   methods = "Method details: [Sources & methods](methods.qmd)"
 )
 cite <- function(...) paste0("**Sources:** ", paste(unlist(SRC[c(...)]), collapse = "; "), ". ", SRC$methods, ".")

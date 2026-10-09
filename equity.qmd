@@ -24,6 +24,8 @@ DLI <- "Immersion program moves"; CLO <- "School closures (non-immersion student
 SEND <- "Schools losing an immersion program"; RECV <- "Schools receiving an immersion program"
 CLOS <- "Schools closing (no immersion program)"; DIST <- "All PPS schools"
 h <- function(sc, ty, col) homes[[col]][homes$scenario == sc & homes$type == ty]
+hck <- read_data("equity_home_check_summary.csv")
+hc <- function(sc, col) hck[[col]][hck$scenario == sc]
 d_a <- dem |> filter(scenario == "a")
 dm <- function(school, col) d_a[[col]][d_a$from_school == school][1]
 opt_tot <- opt |> filter(scenario == "a") |> group_by(assumption) |>
@@ -145,7 +147,7 @@ grp |> filter(type != ALL) |>
 
 **Access (estimate).** Today `r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` of school-age Spanish speakers live within a mile of a K-5 Spanish immersion site. Under either scenario, `r fmt_pct(acc$within_1mi[acc$scenario == "a"])` would. Allowing for Census survey error, the drop is `r round(100 * acc_ci$lo[acc_ci$measure == "drop_points"])`–`r round(100 * acc_ci$hi[acc_ci$measure == "drop_points"])` percentage points.
 
-**Distance from home (model estimate).** PPS doesn't publish where students live. Children are placed where the 2020 Census counted them. For immersion programs, families are assumed to live in the area nearest their current site, an assumption that can't be checked without addresses. On that basis, home-to-school distance grows by about `r sprintf("%.1f", h("a", DLI, "change"))` mile for immersion families and `r sprintf("%.1f", h("a", CLO, "change"))` mile for families at closing schools. The [details and sensitivity checks](#sec-distance-detail) are at the end of this page.
+**Distance from home (model estimate).** PPS doesn't publish where students live. Children are placed where the 2020 Census counted them. For immersion programs, families are assumed to live in the area nearest their current site. On that basis, home-to-school distance grows by about `r sprintf("%.1f", h("a", DLI, "change"))` mile for immersion families and `r sprintf("%.1f", h("a", CLO, "change"))` mile for families at closing schools. PPS's report of where each program's students live gives a check: `r fmt_pct(hc("a", "own_share"))` of students in the moving programs live in their school's own attendance area, and the rest are reported only by high-school area. Placing them there gives an increase of `r sprintf("%.1f", hc("a", "change_mi"))` to `r sprintf("%.1f", hc("a", "change_mi_nearer"))` miles, close to the model, although the model overstates how far families live from school today (`r sprintf("%.1f", hc("a", "model_before_mi"))` miles against `r sprintf("%.1f", hc("a", "before_mi"))`). The [details and sensitivity checks](#sec-distance-detail) are at the end of this page.
 
 ## 5. Moving a program loses the families who would have joined it {#sec-optout}
 
@@ -337,6 +339,27 @@ read_data("equity_home_sensitivity.csv") |>
   tab_header(title = "Estimated home-to-school distance, miles: how sensitive is it?", subtitle = "Model estimate; averages over affected students") |>
   tab_source_note("All versions assume immersion families live in the area nearest their program's current site of that language; that assumption cannot be tested without student addresses. \"Weighted by Spanish-speaking children\" places children by ACS school-age Spanish speakers rather than all children.") |>
   tab_source_note(md(cite("scenarios", "blocks", "acs", "by_grade")))
+```
+
+**Checked against where students live.** PPS's *School Enrollment by Neighborhood of Residence* report counts each program's students living in the school's own attendance area and, for the rest, the high-school area they live in. Those students are placed on census blocks within that area, either spread over all its children or over the half living closest to the program's current school.
+
+```{r}
+#| label: tbl-home-check
+read_data("equity_home_check.csv") |> filter(scenario == "a") |>
+  mutate(move = paste0(from_school, " → ", to_school, " (", language, ", ", band, ")"), own = own_area / students) |>
+  arrange(desc(moving)) |>
+  select(move, students, own, before_mi, change_mi, change_mi_nearer, model_before_mi, model_change_mi) |>
+  gt() |>
+  cols_label(move = "Move", students = "Students", own = "Live in school's own area", before_mi = "Today",
+             change_mi = "Increase (area average)", change_mi_nearer = "Increase (nearer half)",
+             model_before_mi = "Today", model_change_mi = "Increase") |>
+  tab_spanner("From where students live (PPS report)", c(before_mi, change_mi, change_mi_nearer)) |>
+  tab_spanner("Model", c(model_before_mi, model_change_mi)) |>
+  fmt_number(students, decimals = 0) |> fmt_percent(own, decimals = 0) |>
+  fmt_number(c(before_mi, change_mi, change_mi_nearer, model_before_mi, model_change_mi), decimals = 1) |>
+  tab_header(title = "Estimated home-to-school distance: model vs where students live (Scenario A, miles)") |>
+  tab_source_note("Students: all students in the sending program, October 2025 (César Chávez's row covers grades K-8). Students living outside their school's area are known only by high-school area; Jefferson's three sub-areas are approximated by which of the Grant, McDaniel and Roosevelt areas is nearest. Out-of-district and undetermined addresses are left out. Straight-line distances.") |>
+  tab_source_note(md(cite("by_residence", "scenarios", "blocks")))
 ```
 
 ### Every closure and immersion move

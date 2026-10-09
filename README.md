@@ -47,6 +47,8 @@ Each source is saved under `data-raw/`, and each script stops on any row that fa
 | `check_access_robustness.R` | same | `access_robustness*.csv` |
 | `equity_analysis.R` | the tables above + scenario maps + census blocks | `equity_*.csv` |
 | `parse_school_guides.py` | PPS *How Could Your School Be Impacted?* school guides (Oct 8, 2026) | `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
+| `parse_enroll_by_neighborhood.py` | PPS *School Enrollment by Neighborhood of Residence*, Oct 2023–Oct 2025 | `enroll_by_neighborhood.csv` |
+| `check_home_distance.R` | the table above + scenario maps + census blocks | `equity_home_check*.csv` |
 | `parse_capture_rate.py` | PPS *Neighborhood Capture Rate Metrics*, Oct 2019–Oct 2025 | `capture_rate.csv` |
 | copied by hand | PPS *Class Size Detail*; PPS board slide 44 | `class_size_kg.csv`, `pps_slide44.csv` |
 
@@ -71,6 +73,7 @@ node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R      # caches Census downloads in data-raw/acs/ (git-ignored)
 Rscript data-raw/check_access_robustness.R
 Rscript data-raw/equity_analysis.R
+Rscript data-raw/check_home_distance.R
 quarto render                               # -> _site/
 quarto preview                              # live local preview
 ```
