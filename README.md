@@ -49,6 +49,7 @@ Each source is saved under `data-raw/`, and each script stops on any row that fa
 | `parse_school_guides.py` | PPS *How Could Your School Be Impacted?* school guides (Oct 8, 2026) | `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
 | `parse_enroll_by_neighborhood.py` | PPS *School Enrollment by Neighborhood of Residence*, Oct 2023–Oct 2025 | `enroll_by_neighborhood.csv` |
 | `check_home_distance.R` | the table above + scenario maps + census blocks | `equity_home_check*.csv` |
+| `parse_lrfp_capacity.py` | PPS *Long-Range Facility Plan 2021* (via [meub/pps-data](https://github.com/meub/pps-data), MIT) | `facility_capacity_2021.csv` |
 | `parse_capture_rate.py` | PPS *Neighborhood Capture Rate Metrics*, Oct 2019–Oct 2025 | `capture_rate.csv` |
 | copied by hand | PPS *Class Size Detail*; PPS board slide 44 | `class_size_kg.csv`, `pps_slide44.csv` |
 

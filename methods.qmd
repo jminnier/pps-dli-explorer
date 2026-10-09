@@ -34,6 +34,7 @@ All source documents are saved in the repository under `data-raw/`, and each is 
 | 18 | Neighborhood capture rates | PPS, *Neighborhood Capture Rate Metrics* ("Enrollment Summary … by K-12 Students' Neighborhood and Type of School Attended"); 2024-25 and 2025-26 on the Data & Reporting page, earlier years on the archive page under "Neighborhood Attendance Patterns & Focus Distributions". The companion *School Enrollment by Neighborhood of Residence* reports are saved but not yet parsed | October 2019 to October 2025 | `data-raw/pps_reports/capture_rate/*.pdf` | `parse_capture_rate.py` → `capture_rate.csv` |
 | 19 | Where each program's students live | PPS, *School Enrollment by Neighborhood of Residence* (Data & Reporting page; earlier years on the archive page) | October 2023 to October 2025 parsed (2019-20 to 2022-23 saved; rotated pages not yet parsed) | `data-raw/pps_reports/capture_rate/*_Enroll_by_Neighborhood.pdf` | `parse_enroll_by_neighborhood.py` → `enroll_by_neighborhood.csv` |
 | 20 | International School of Portland (private) | NCES *Private School Universe Survey*, 2023-24 (total 376, grades PK-5); kindergarten count (72) from the US News profile, whose grade counts sum to the NCES total; language tracks from the school's website | 2023-24 | – | quoted on the equity page |
+| 21 | Building capacity | PPS, *Long-Range Facility Plan 2021*, Volume 1, Enrollment & Utilization tables (p. 53 elementary, p. 57 K-8, p. 60 middle); also compiled in [meub/pps-data](https://github.com/meub/pps-data) (MIT license) | 2021 | `data-raw/pps_reports/facility/LRFP_Vol1_2021.pdf` | `parse_lrfp_capacity.py` → `facility_capacity_2021.csv` |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -278,6 +279,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - *Miles to district edge*: straight line from the school's location on the status-quo map (source 8) to the boundary of the union of the high-school attendance areas.
 - *Own area*: Spanish immersion students living in the school's own attendance area (source 19); Rigler and Lent are whole-school.
 - *School-age Spanish speakers within 1.5 miles*: ACS tract counts spread over census blocks by population under 18 (sources 9 and 10), summed over blocks within 1.5 miles.
+- *Capacity* (source 21): functional capacity = permanent and modular classrooms × PPS station size, minus set-asides, as printed in the 2021 plan. *Parsing checks*: every row has three counts and five utilization percentages; all 71 sites match meub/pps-data's independent parse. *Share of capacity* = October 2025 K-5 enrollment (source 2), or PPS's 2027-28 Scenario A projection (source 16), ÷ functional capacity. PPS's operating utilization model gives different capacities for some buildings (Creston 282 without its annex; Lent 659), as noted in meub/pps-data. The "three classes per grade" figure is 3 × 6 grades × 24 students.
 - Richmond's point on the pps-explorer map is a copy of Atkinson's (SE 58th & Division); Richmond is actually on SE 41st/42nd, just north of Division. No distance on this site uses Richmond's point.
 
 ## Reproducing the data
@@ -295,6 +297,7 @@ python3 data-raw/parse_ethnicity_program.py
 python3 data-raw/parse_school_guides.py
 python3 data-raw/parse_capture_rate.py
 python3 data-raw/parse_enroll_by_neighborhood.py
+python3 data-raw/parse_lrfp_capacity.py
 node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R
 Rscript data-raw/check_access_robustness.R

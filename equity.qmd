@@ -217,7 +217,7 @@ opt |> filter(scenario == "a") |>
   tab_source_note(md(cite("by_grade", "scenarios", "profiles", "class_size", "summary10")))
 ```
 
-If Scenario A loses families at the Bridger → Lent rate, about **`r fmt_n(ot(prec, "k"))` kindergartners a year** who would have joined these programs go elsewhere. The figure at 7% is `r fmt_n(ot("7% (figure cited in public comment)", "k"))`. Over six years of kindergarten classes that adds up to roughly `r fmt_n(6 * ot(prec, "k"))` children. Most would be expected to enroll at their neighborhood school instead. PPS's guides place these students at neighborhood schools and flag whether each school meets its size and space goals, but they publish no capacity figures, so how well those schools can absorb them can't be checked independently. Either way, the students lost would come from programs at schools that are about half historically underserved ([§3](#sec-who)).
+If Scenario A loses families at the Bridger → Lent rate, about **`r fmt_n(ot(prec, "k"))` kindergartners a year** who would have joined these programs go elsewhere. The figure at 7% is `r fmt_n(ot("7% (figure cited in public comment)", "k"))`. Over six years of kindergarten classes that adds up to roughly `r fmt_n(6 * ot(prec, "k"))` children. Most would be expected to enroll at their neighborhood school instead. PPS's guides place these students at neighborhood schools and flag whether each school meets its size and space goals, but they give no capacity figures; PPS's 2021 facility plan is the most recent published source for building capacity ([§8](#sec-southeast)). Either way, the students lost would come from programs at schools that are about half historically underserved ([§3](#sec-who)).
 
 ### What staff and families at Lent and Bridger described
 
@@ -328,7 +328,28 @@ sctx |> filter(key %in% c("lent", "rigler", "atkinson")) |>
   tab_source_note(md(cite("by_residence", "scenarios", "acs", "blocks")))
 ```
 
-That points to a different plan for the Southeast. Put Spanish immersion where the demand is, by growing it at Atkinson or opening a Southeast Spanish site in a building the plan frees up, such as Creston, which closes in both scenarios (`r SRC$guides`). Then give Lent back a neighborhood program serving its own families, many of them Spanish speakers. Two questions need answers before that could work. PPS hasn't published building capacities, so whether Atkinson or Creston could hold a full school can't be checked here. And two-way immersion needs native speakers: about `r fmt_n(sc("creston", "spanish_517_within_1_5mi"))` school-age Spanish speakers live within 1.5 miles of Creston, fewer than near Atkinson or Lent, so a site there would need to recruit them.
+The buildings have room. PPS's 2021 facility plan gives each building a functional capacity: its classrooms times PPS's standard class size, minus rooms set aside for other uses.
+
+```{r}
+#| label: tbl-capacity
+sctx |>
+  mutate(school = factor(school, c("Atkinson", "Creston", "Lent", "Rigler"))) |> arrange(school) |>
+  select(school, functional_capacity, enrolled_2025, use_2025, projected_2027_a, use_2027_a) |>
+  gt() |>
+  cols_label(school = "", functional_capacity = "Functional capacity (2021)", enrolled_2025 = "Students", use_2025 = "Share of capacity",
+             projected_2027_a = "Students", use_2027_a = "Share of capacity") |>
+  tab_spanner("October 2025", c(enrolled_2025, use_2025)) |>
+  tab_spanner("PPS projection, 2027-28 (Scenario A)", c(projected_2027_a, use_2027_a)) |>
+  fmt_number(c(functional_capacity, enrolled_2025, projected_2027_a), decimals = 0) |> fmt_percent(c(use_2025, use_2027_a), decimals = 0) |>
+  sub_missing(missing_text = "closes") |>
+  tab_header(title = "Building capacity at the Southeast Spanish sites") |>
+  tab_source_note("PPS's space-use goal is 70–100% of available room (school guides). Creston's 558 counts its annex; PPS's operating utilization model, as compiled by meub/pps-data, leaves the annex out and gives 282. Enrollment is kindergarten through grade 5, all programs.") |>
+  tab_source_note(md(cite("lrfp", "by_grade", "guides")))
+```
+
+Atkinson uses about `r fmt_pct(sc("atkinson", "use_2025"))` of its capacity, leaving room for roughly `r fmt_n(round(sc("atkinson", "functional_capacity") - sc("atkinson", "enrolled_2025"), -1))` more students. A whole-school Spanish program with three classes per grade (about 430 students at 24 per class) would fit. Lent is the opposite case: even after Atkinson's program moves in, PPS projects it at `r fmt_n(sc("lent", "projected_2027_a"))` students, `r fmt_pct(sc("lent", "use_2027_a"))` of its capacity, still short of PPS's own space-use goal; its guide marks the goal as not met.
+
+That points to a different plan for the Southeast. Put Spanish immersion where the demand is, by growing it at Atkinson or opening a Southeast Spanish site in a building the plan frees up, such as Creston, which closes in both scenarios (`r SRC$guides`). Then give Lent back a neighborhood program serving its own families, many of them Spanish speakers. Two questions need answers before that could work. The capacity figures are from 2021, and Creston could hold a full school only if its annex counts. And two-way immersion needs native speakers: about `r fmt_n(sc("creston", "spanish_517_within_1_5mi"))` school-age Spanish speakers live within 1.5 miles of Creston, fewer than near Atkinson or Lent, so a site there would need to recruit them.
 
 ## 9. What a different solution could look like {#sec-alternatives}
 
