@@ -20,7 +20,7 @@ website:
       - href: scorecard.qmd
         text: Demand & scorecard
       - href: equity.qmd
-        text: Who carries it
+        text: Equity
       - href: methods.qmd
         text: Sources & methods
   page-footer:
