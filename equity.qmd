@@ -363,6 +363,8 @@ That points to two other ways to serve Southeast families, both closer to where 
 
 Either way, Lent could get back a neighborhood program serving its own families, many of them Spanish speakers. Two questions remain. The capacity figures are from 2021. And two-way immersion needs native speakers: about `r fmt_n(sc("creston", "spanish_517_within_1_5mi"))` school-age Spanish speakers live within 1.5 miles of Creston, fewer than near Atkinson or Lent, so a Creston site would need to recruit them.
 
+PPS's case for whole-school sites is that teachers need same-grade partners. A second class per grade at Atkinson would give them one. See [Research](research.qmd#sec-single) for what the evidence says about whole-school and strand programs.
+
 ## 9. What a different solution could look like {#sec-alternatives}
 
 The data points to options that would take less from immersion families. Each of these deserves to be evaluated before a decision:
@@ -371,6 +373,7 @@ The data points to options that would take less from immersion families. Each of
 - **In the Southeast, grow Spanish immersion where the demand is**: a second class at Atkinson, or a Southeast immersion school in Creston's building, 0.8 miles away instead of 2.4 to Lent. **Restore Lent's neighborhood program** ([§8](#sec-southeast)).
 - **Keep Rigler's neighborhood boundary**, the feature that makes it work today, or at least guarantee its neighborhood families a seat.
 - **Move the neighborhood program instead of the immersion strand.** The plan already does this at César Chávez, where non-immersion students move to Rosa Parks so the school can become an immersion hub.
+- **Prefer two-class strands to whole-school conversions** where the goal is teacher collaboration. No study we found shows whole-school programs outperform strands ([Research](research.qmd)).
 - **Fill "underenrolled" immersion classrooms from the waitlists** instead of relocating them.
 - **Phase changes in and protect current families.** Let enrolled students finish where they are, and guarantee transportation to any relocated program.
 - **Do the equity analysis PPS hasn't published.** Report every change by immersion enrollment, home language, English-learner status, race and income. Include home-to-school distance before and after. Publish the share of families the projections assume will follow each moved program (about `r round(100 * mean(fol1$followed))`%, judging by the school guides), and track how many actually do. PPS has the student-level data to do this.

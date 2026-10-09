@@ -292,6 +292,21 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - *Grade configuration*: Lent and Bridger were K-8 until 2021-22, so their earlier totals include grades 6-8. César Chávez is K-8 throughout. Bridger is shown only for its Spanish program, which moved to Lent in 2023-24.
 - *Capture rate and where students live*: sources 18 and 19; *demographics*: source 12, School and Neighborhood rows; *projections*: source 16; *capacity*: source 21.
 
+## Research page {#research}
+
+The [Research](research.qmd) page reviews published work on whole-school versus strand immersion. It has no script; its only computed figures come from source 2 (immersion and neighborhood-program students per grade, K-5, October 2025) and source 4 (Ainsworth's lottery average).
+
+- *Whole school vs. strand*: a K-5 site is counted as whole-school when PPS reports no neighborhood-program students in grades K-5 there (Lent, Rigler and Richmond in October 2025). *Immersion students per grade* is K-5 immersion enrollment divided by six. PPS doesn't publish classes per program, so this is only a rough guide to class counts.
+- *Literature*: each study was read in full text where it was openly available. That covers Steele et al. (2017, ERIC open manuscript), the Utah working paper (2021), Watzinger-Tharp et al., Bibler's 2016 working paper, CAL's *Guiding Principles* (3rd ed.), RAND briefs RB-9903 and RB-9921, the National Academies report (all chapters), and CABE's planning-guide pages. Three were read only as abstracts, because the full text was paywalled or blocked: Morales (2025), Freire & Alemán (2021) and de Jong & Bearse (2014). Every quote was matched against the source text. Claims that circulated in earlier summaries but couldn't be found in a source are left out: a RAND figure of about 15 extra preparation hours a week, teacher burnout, and a RAND report number "RR-1765" (which is an unrelated report).
+- *Search for a whole-school vs. strand comparison* (October 9, 2026):
+  - Web and scholarly searches combining "dual language" or "two-way immersion" with "strand", "whole school", "school-wide", "school within a school", and achievement, attrition or teacher retention.
+  - Crossref lookups for each cited paper.
+  - Full-text searches for "strand", "whole-school", "school-wide", "within-school" and "magnet" in every full text listed above.
+  - ERIC, Google Scholar and JSTOR weren't queried directly.
+  - "No study found" means none turned up in this search. Lindholm-Leary (2001) and Thomas & Collier weren't available in full text.
+- *Lent outcomes* are quoted from the equity audit's school-by-school analysis (source 17, pp. 39, 45, 47) and main report (p. 50). The underlying student-level data isn't public.
+- *PPS statements*: the October 6, 2026 board meeting (staff presentation at 2:25:37) and the September 8, 2026 committee meeting (13:15), from the automated transcripts in `data-raw/pps_transcripts/`. A search of those transcripts and the per-school guides found no research cited for the model choice.
+
 ## Reproducing the data
 
 Clone [the repository](https://github.com/jminnier/pps-dli-explorer) and run these from its root, with Python 3 and `pypdf`, Node 22, R with `tidycensus`, `sf`, `dplyr`, `tidyr` and `readr`, and a free [Census API key](https://api.census.gov/data/key_signup.html) in `CENSUS_API_KEY`:

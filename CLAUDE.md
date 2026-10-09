@@ -12,7 +12,7 @@ This is an independent analysis of how the Portland Public Schools (PPS) rightsi
 - `data/`: cleaned tables, the only inputs the site reads.
 - `R/site_data.R`: loads every table, plus `school_key()` (the same normalization as the map's `schoolKey`, so map, PPS and lottery names join), lottery summaries (`lottery_k`, `lottery_avg`), `strand_students()`, `heritage_share()`, and the source citations `SRC` / `cite()`.
 - `R/charts.R`: `viz_layout()` for plotly styling.
-- Pages: `index.qmd`, `scorecard.qmd`, `equity.qmd`, `history.qmd`, `methods.qmd`. Register new pages in `_quarto.yml` (`project.render` and `navbar`).
+- Pages: `index.qmd`, `scorecard.qmd`, `equity.qmd`, `history.qmd`, `research.qmd`, `methods.qmd`. Register new pages in `_quarto.yml` (`project.render` and `navbar`).
 
 ## Commands
 
@@ -70,4 +70,5 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
 - **Richmond's map point was wrong upstream** (pps-explorer had it at Atkinson's location, SE 58th & Division). It is corrected here in `public/data/{sq,a,b}_k5_schools.geojson` to the Census geocode of 2276 SE 41st Ave (-122.620277, 45.506806). Re-running `scripts/pipeline/` would bring the wrong point back; re-apply the fix if so.
 - **Atkinson has room for one more Spanish class per grade (~144), not a whole-school program** unless its 188 neighborhood students move out (the Lent mistake). The whole-school Southeast option is Creston's building (0.8 mi from Atkinson vs 2.4 to Lent; unreinforced masonry, needs seismic work; 558 capacity counts the annex).
 - **"More Japanese than Spanish seats" is true only for the Southeast** (Richmond 89 K vs Lent + Atkinson 70, Oct 2025). District-wide Spanish K immersion is 306 vs Japanese 89.
+- **No study compares whole-school vs. strand immersion outcomes** (search of Oct 9, 2026; see methods `#research`). RAND (Steele et al. 2017) tested immersion vs. not, never school structure. Don't cite the unverified "15 extra prep hours", burnout or "RAND RR-1765" claims. The Lent stayers' gains (audit p. 47) are the main local evidence for whole-school: always give their limits (43% who stayed, no comparison group, post-pandemic years, "do not prove causality"). Lent's ~60% departure includes 39 fifth-graders moving up as usual.
 - **PPS's subgroup table** is board PowerPoint slide 44 (K-8 students who move): multilingual learners 31%/28% vs all 27%/24%. PPS never defines "move".

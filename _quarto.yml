@@ -6,6 +6,7 @@ project:
     - scorecard.qmd
     - equity.qmd
     - history.qmd
+    - research.qmd
     - methods.qmd
   resources:
     - data/*.csv
@@ -25,6 +26,8 @@ website:
         text: Equity
       - href: history.qmd
         text: Lent & Chávez
+      - href: research.qmd
+        text: Research
       - href: methods.qmd
         text: Methods
     right:
