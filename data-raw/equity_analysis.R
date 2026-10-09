@@ -395,7 +395,8 @@ site_ctx <- site_ctx |>
   left_join(select(fcap, key, functional_capacity), by = "key") |>
   left_join(by_grade |> filter(year == "2025-26", grade != "PK") |> group_by(key) |> summarise(enrolled_2025 = sum(enrollment)), by = "key") |>
   left_join(gopt, by = "key") |>
-  mutate(use_2025 = enrolled_2025 / functional_capacity, use_2027_a = projected_2027_a / functional_capacity)
+  mutate(use_2025 = enrolled_2025 / functional_capacity, use_2027_a = projected_2027_a / functional_capacity,
+         mi_from_atkinson = as.numeric(st_distance(spts[match(key, spts$key), ], spts[spts$key == "atkinson", ])) / M_PER_MI)
 stopifnot(!anyNA(site_ctx$functional_capacity))
 write_csv(site_ctx, here("data", "equity_site_context.csv"))
 cat("\nSoutheast seats vs demand:\n"); print(as.data.frame(se_seats), row.names = FALSE)
