@@ -29,13 +29,13 @@ cc_g <- by_grade |> filter(key == "cesarchavez", year == "2025-26", grade != "PK
 ccg <- function(p, b) sum(cc_g$enrollment[cc_g$program == p & cc_g$band == b])
 ```
 
-Lent y César Chávez son las dos escuelas que muestran lo que los escenarios significarían para la inmersión en español. **Lent** es el precedente. En 2023, PPS trasladó el programa de español de Bridger a Lent y sacó de Lent su programa del vecindario, lo que la convirtió en una escuela de inmersión completa. **César Chávez** es el principal centro nuevo del plan. En ambos escenarios se convierte en una escuela regional de inmersión en español de kínder a 5.º (K-5) que recibe los programas de Beach, Sitton y James John. Sus estudiantes del vecindario pasan a Rosa Parks y sus grados intermedios (6.º a 8.º) a George.
+Dos escuelas muestran lo que los escenarios significarían para la inmersión en dos idiomas (DLI) en español. En un programa DLI, los niños aprenden en inglés y en español. **Lent** es el precedente. En 2023, Portland Public Schools (PPS) trasladó el programa de español de Bridger a Lent. PPS también sacó de Lent su programa del vecindario. Así, Lent se convirtió en una escuela de inmersión completa. **César Chávez** es el principal centro nuevo del plan, es decir, una escuela que recibe programas de otras escuelas. En ambos escenarios, PPS la convertiría en una escuela regional de inmersión en español de kínder a 5.º (K-5). Recibiría los programas de inmersión de Beach, Sitton y James John. Sus estudiantes del vecindario pasarían a Rosa Parks, y sus grados intermedios (6.º a 8.º), a George.
 
 ::: {.callout-note appearance="minimal"}
 *Esta es una traducción del sitio en inglés. Las citas de documentos y reuniones en inglés están traducidas al español.*
 :::
 
-## 1. Matrícula desde 2019 {#sec-enrollment}
+## 1. Cómo ha cambiado la matrícula desde 2019 {#sec-enrollment}
 
 ```{r}
 #| label: fig-history
@@ -62,15 +62,17 @@ viz_layout(p, ytitle = "Estudiantes (K-12)") |>
 `r cite("psu_premove")`
 :::
 
-Antes del traslado, los programas de español de Bridger y Lent sumaban `r fmt_n(v("Bridger", "Spanish", "2022-23") + v("Lent", "Spanish", "2022-23"))` estudiantes de kínder a 5.º (2022-23). El programa combinado en Lent abrió con `r fmt_n(v("Lent", "Spanish", "2023-24"))` y hoy tiene `r fmt_n(v("Lent", "Spanish", "2025-26"))`. El programa de español de César Chávez se ha mantenido estable en unos `r round(mean(he$enrollment[he$school == "César Chávez" & he$program == "Spanish"]), -1)` estudiantes, mientras que su programa del vecindario se ha reducido de `r fmt_n(v("César Chávez", "Neighborhood", "2019-20"))` a `r fmt_n(v("César Chávez", "Neighborhood", "2025-26"))`. (La caída de 2020-21 a 2021-22 en Lent y Bridger se debe al traslado de sus grados intermedios, no a estudiantes perdidos).
+En 2022-23, antes del traslado, los programas de español de Bridger y Lent sumaban `r fmt_n(v("Bridger", "Spanish", "2022-23") + v("Lent", "Spanish", "2022-23"))` estudiantes de kínder a 5.º. El programa combinado en Lent abrió con `r fmt_n(v("Lent", "Spanish", "2023-24"))` estudiantes. Hoy tiene `r fmt_n(v("Lent", "Spanish", "2025-26"))`.
 
-## 2. Lent después del traslado de 2023 {#sec-lent}
+En César Chávez, el programa de español se ha mantenido estable en unos `r round(mean(he$enrollment[he$school == "César Chávez" & he$program == "Spanish"]), -1)` estudiantes. Su programa del vecindario se ha reducido de `r fmt_n(v("César Chávez", "Neighborhood", "2019-20"))` a `r fmt_n(v("César Chávez", "Neighborhood", "2025-26"))` estudiantes. (La caída de 2020-21 a 2021-22 en Lent y Bridger se debe a que sus grados intermedios se trasladaron. No significa que esas escuelas perdieran estudiantes).
 
-**La matrícula quedó por debajo de todas las proyecciones.** El plan de PPS de 2023 esperaba que Lent llegara a "un estimado de 527 estudiantes en 2025–26" (`r SRC$audit_schools`, p. 34). El pronóstico de PSU de junio de 2023, elaborado ya con el traslado, preveía `r fmt_n(fcl$forecast[fcl$target == "Lent" & fcl$vintage == "2023-24" & fcl$year == "2025-26"])` estudiantes en Lent ese año (`r SRC$psu_premove`). Lent tuvo una matrícula de `r fmt_n(v("Lent", "Total", "2025-26"))`. La inmersión en kínder bajó alrededor de un 31%, frente a un 14% en todo el distrito ([detalles](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)).
+## 2. Lent después del traslado de 2023: menos estudiantes de lo previsto {#sec-lent}
 
-**Lent ya no atiende a su vecindario.** En 2022-23, el `r fmt_pct(capr("Lent", "2022-23"))` de los estudiantes de PPS que vivían en la zona de Lent asistían a Lent. Después de la conversión, esa cifra bajó al `r fmt_pct(capr("Lent", "2023-24"))`, en gran parte de forma intencional: los niños del vecindario de Lent que no estaban en inmersión fueron asignados a Marysville. Hoy, el `r fmt_pct(own("Lent", "2025-26"))` de los estudiantes de Lent vive en su zona. Los estudiantes de Lent ahora son `r fmt_pct(dm("Lent", "School", "pct_latino"))` latinos, mientras que los estudiantes de PPS que viven en la zona de Lent son `r fmt_pct(dm("Lent", "Neighborhood", "pct_latino"))` latinos (`r SRC$demographics`).
+**La matrícula quedó por debajo de todas las proyecciones.** El plan de PPS de 2023 esperaba que Lent llegara a "un estimado de 527 estudiantes en 2025–26" (`r SRC$audit_schools`, p. 34). Portland State University (PSU) también hace pronósticos de la matrícula de PPS. Su pronóstico de junio de 2023 ya incluía el traslado. Preveía `r fmt_n(fcl$forecast[fcl$target == "Lent" & fcl$vintage == "2023-24" & fcl$year == "2025-26"])` estudiantes en Lent ese año (`r SRC$psu_premove`). En realidad, Lent tuvo una matrícula de `r fmt_n(v("Lent", "Total", "2025-26"))`. Hoy Lent inscribe en inmersión cerca de un 31% menos estudiantes de kínder por año que el promedio por grado de las dos escuelas antes del traslado. Con la misma medida, el distrito bajó un 14% ([detalles](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)).
 
-**El personal y las familias describen una transición difícil.** "Muchos de los padres que presionaron desde Bridger para que sus hijos vinieran a la escuela no se quedaron al final…sentían que les quedaba lejos [y que] sus estudiantes no se sentían apoyados" (`r SRC$audit_schools`, p. 39). Después de 2022-23, el 63% del personal de Lent se fue (p. 39). Hay más testimonios en la [página de Equidad](equity.qmd#sec-optout).
+**Lent ya no atiende a su vecindario.** La zona de asistencia de una escuela es el vecindario que atiende. En 2022-23, el `r fmt_pct(capr("Lent", "2022-23"))` de los estudiantes de PPS que vivían en la zona de Lent asistían a Lent. Este porcentaje se llama tasa de captación. Después de la conversión, bajó al `r fmt_pct(capr("Lent", "2023-24"))`. En gran parte, la caída fue intencional: PPS asignó a Marysville a los niños del vecindario de Lent que no estaban en inmersión. Hoy, el `r fmt_pct(own("Lent", "2025-26"))` de los estudiantes de Lent vive en su zona. Ahora, el estudiantado de Lent es `r fmt_pct(dm("Lent", "School", "pct_latino"))` latino. En comparación, los estudiantes de PPS que viven en la zona de Lent son `r fmt_pct(dm("Lent", "Neighborhood", "pct_latino"))` latinos (`r SRC$demographics`).
+
+**El personal y las familias describen una transición difícil.** La auditoría de equidad recoge este testimonio: "Muchos de los padres que presionaron desde Bridger para que sus hijos vinieran a la escuela no se quedaron al final…sentían que les quedaba lejos [y que] sus estudiantes no se sentían apoyados" (`r SRC$audit_schools`, p. 39). Después de 2022-23, el 63% del personal de Lent se fue (p. 39). Puede leer más testimonios en la [página de Equidad](equity.qmd#sec-optout).
 
 ```{r}
 #| label: tbl-lent-capture
@@ -89,9 +91,15 @@ cr |> filter(neighborhood == "Lent") |>
   tab_source_note(md(cite("capture", "by_residence")))
 ```
 
-## 3. César Chávez hoy {#sec-chavez}
+## 3. César Chávez hoy: dos programas en una escuela {#sec-chavez}
 
-César Chávez es una escuela K-8 con un programa de inmersión en español y un programa del vecindario más pequeño. En octubre de 2025 tenía `r fmt_n(ccg("Inmersión en español", "Grades K-5"))` estudiantes de inmersión de kínder a 5.º y `r fmt_n(ccg("Inmersión en español", "Grades 6-8"))` de 6.º a 8.º, además de `r fmt_n(ccg("Programa del vecindario", "Grades K-5") + ccg("Programa del vecindario", "Grades 6-8"))` en su programa del vecindario. El `r fmt_pct(own("César Chávez", "2025-26"))` de sus estudiantes de inmersión vive en su propia zona de asistencia, y el `r fmt_pct(capr("César Chávez", "2025-26"))` de los estudiantes de PPS que viven en su zona asiste a ella, frente al `r fmt_pct(capr("César Chávez", "2019-20"))` en 2019-20.
+César Chávez es una escuela K-8 con un programa de inmersión en español y un programa del vecindario más pequeño. En octubre de 2025 tenía:
+
+- `r fmt_n(ccg("Inmersión en español", "Grades K-5"))` estudiantes de inmersión de kínder a 5.º
+- `r fmt_n(ccg("Inmersión en español", "Grades 6-8"))` estudiantes de inmersión de 6.º a 8.º
+- `r fmt_n(ccg("Programa del vecindario", "Grades K-5") + ccg("Programa del vecindario", "Grades 6-8"))` estudiantes en su programa del vecindario
+
+El `r fmt_pct(own("César Chávez", "2025-26"))` de sus estudiantes de inmersión vive en su propia zona de asistencia. Su tasa de captación es el porcentaje de los estudiantes de PPS de su zona que asisten a ella. Hoy es del `r fmt_pct(capr("César Chávez", "2025-26"))`, frente al `r fmt_pct(capr("César Chávez", "2019-20"))` en 2019-20.
 
 ```{r}
 #| label: tbl-chavez
@@ -119,7 +127,7 @@ dem |> mutate(row_type = if_else(row_type == "School", "Asisten a la escuela", "
   tab_source_note(md(cite("demographics")))
 ```
 
-## 4. Lo que harían los escenarios {#sec-scenarios}
+## 4. Lo que harían los escenarios en ambas escuelas {#sec-scenarios}
 
 ```{r}
 #| label: fig-projection
@@ -146,14 +154,16 @@ viz_layout(p, ytitle = "Estudiantes") |> layout(xaxis = list(type = "category", 
 `r cite("psu_premove", "guides")`
 :::
 
-PPS proyecta que **Lent** tendrá `r fmt_n(pj("Lent", "a", "2027-28"))` estudiantes en 2027-28 una vez que llegue el programa de Atkinson, frente a `r fmt_n(pj("Lent", "sq", "2027-28"))` sin cambios. Su guía dice que el traslado "lleva la cantidad de estudiantes de Lent por encima de los niveles meta estables (más de 400 estudiantes)" (`r SRC$guides`). Aun así, eso sería el `r fmt_pct(pj("Lent", "a", "2027-28") / fc("lent"))` de la capacidad de Lent, de `r fmt_n(fc("lent"))` (`r SRC$profiles25`), por debajo de la meta de PPS de usar entre el 70% y el 100% del espacio.
+PPS proyecta que **Lent** crecería a `r fmt_n(pj("Lent", "a", "2027-28"))` estudiantes en 2027-28, una vez que llegue el programa de Atkinson. Sin cambios, PPS proyecta `r fmt_n(pj("Lent", "sq", "2027-28"))`. La guía de Lent dice que el traslado "lleva la cantidad de estudiantes de Lent por encima de los niveles meta estables (más de 400 estudiantes)" (`r SRC$guides`). Aun así, Lent llenaría solo el `r fmt_pct(pj("Lent", "a", "2027-28") / fc("lent"))` de su capacidad de `r fmt_n(fc("lent"))` estudiantes (`r SRC$profiles25`). La capacidad es el número de estudiantes que, según PPS, el edificio puede atender. La meta de PPS es que las escuelas usen entre el 70% y el 100% de su espacio.
 
-**César Chávez** pasaría de `r fmt_n(pj("César Chávez", "sq", "2027-28"))` estudiantes sin cambios a `r fmt_n(pj("César Chávez", "a", "2027-28"))`, todos en inmersión en español, lo que equivale al `r fmt_pct(pj("César Chávez", "a", "2027-28") / fc("cesarchavez"))` de su capacidad de `r fmt_n(fc("cesarchavez"))`. La guía proyecta que el porcentaje de sus estudiantes en situación de pobreza bajaría del `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` al `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`, y el porcentaje de estudiantes de grupos raciales desatendidos, del `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` al `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`. Esas proyecciones suponen que la mayoría de las familias siguen a sus programas. En los traslados donde se puede medir, las proyecciones de PPS suponen que llega alrededor del 80% de los estudiantes ([Equidad §5](equity.qmd#sec-optout)). Después del traslado de 2023, Lent terminó con aproximadamente la mitad de los 527 que PPS había proyectado.
+**César Chávez** tendría `r fmt_n(pj("César Chávez", "a", "2027-28"))` estudiantes, todos en inmersión en español, frente a `r fmt_n(pj("César Chávez", "sq", "2027-28"))` sin cambios. Eso equivale al `r fmt_pct(pj("César Chávez", "a", "2027-28") / fc("cesarchavez"))` de su capacidad de `r fmt_n(fc("cesarchavez"))`. La guía proyecta que el porcentaje de sus estudiantes en situación de pobreza bajaría del `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` al `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`. El porcentaje de estudiantes de grupos raciales desatendidos bajaría del `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` al `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`.
+
+Estas proyecciones dependen de que las familias sigan a sus programas. PPS supone que la mayoría lo hará. Donde se puede medir, las proyecciones de PPS suponen que alrededor del 80% de los estudiantes llega a la nueva escuela ([Equidad §5](equity.qmd#sec-optout)). Después del traslado de 2023, Lent terminó con aproximadamente la mitad de los 527 estudiantes que PPS había proyectado.
 
 ::: {.callout-note collapse="true"}
 ## Advertencias
-- La matrícula es el conteo de PSU de la matrícula de octubre, de kínder a 12.º grado, tal como se reportó por primera vez en cada edición del pronóstico. Los totales propios de PPS para Lent incluyen prekínder (308 en 2023-24).
+- La matrícula es el conteo de PSU de los estudiantes inscritos en octubre, de kínder a 12.º grado. Usamos el conteo tal como se reportó por primera vez en cada edición del pronóstico. Los totales propios de PPS para Lent incluyen prekínder (308 en 2023-24).
 - Lent y Bridger fueron escuelas K-8 hasta 2021-22, así que los totales anteriores incluyen los grados intermedios.
-- Las tasas de captación y los datos demográficos son cifras de toda la escuela o de toda la zona. PPS no publica raza ni ingresos solo para los programas de inmersión.
-- Las proyecciones de PPS provienen de guías de escuela con fecha del 8 de octubre de 2026, marcadas como borradores. Las capacidades son las cifras actuales (2025-26) de PPS, tomadas de su tablero *School Profiles*.
+- Las tasas de captación y los datos demográficos abarcan toda la escuela o toda la zona. PPS no publica raza ni ingresos solo para los programas de inmersión.
+- Las proyecciones de PPS provienen de guías de escuela con fecha del 8 de octubre de 2026. PPS las marca como borradores. Las capacidades son las cifras actuales (2025-26) de PPS, tomadas de su tablero *School Profiles*.
 :::

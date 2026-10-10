@@ -13,6 +13,7 @@ This is an independent analysis of how the Portland Public Schools (PPS) rightsi
 - `R/site_data.R`: loads every table, plus `school_key()` (the same normalization as the map's `schoolKey`, so map, PPS and lottery names join), lottery summaries (`lottery_k`, `lottery_avg`), `strand_students()`, `heritage_share()`, and the source citations `SRC` / `cite()`.
 - `R/charts.R`: `viz_layout()` for plotly styling.
 - Pages: `index.qmd`, `scorecard.qmd`, `equity.qmd`, `history.qmd`, `research.qmd`, `methods.qmd`. Register new pages in `_quarto.yml` (`project.render` and `navbar`).
+- `STYLE.md`: plain-language writing rules (Federal Plain Language Guidelines; GSA Spanish style guide for es/). `tools/readability.py` scores each page.
 - Spanish site: `es/<page>.qmd` mirrors each English page (Latin American Spanish; terms in `es/GLOSSARY.md`). Spanish pages start their setup chunk with `options(site.lang = "es")`, which makes `cite()` use `SRC_ES` (`R/site_data_es.R`; every `SRC` key needs a Spanish entry or the render stops). `lang-switch.html` adds the Español/English button and relabels the shared navbar and footer on Spanish pages. `execute-dir: project` lets es/ pages source `R/` and `data/` the same way.
 
 ## Commands
@@ -29,6 +30,7 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
 
 ## Conventions
 
+- **Plain language.** Write and edit prose by `STYLE.md`: main point first, one idea per sentence, active voice naming the actor, everyday words, terms defined at first use, descriptive headings. Plain language never drops a caveat: split the sentence instead. Run `python3 tools/readability.py` after editing (targets: English grade 9 or lower, Spanish Fernández-Huerta 70 or higher, under 10% of sentences over 25 words).
 - **Cite everything.** Every table, figure, callout and headline number gets a source line: `tab_source_note(md(cite(...)))` for gt, or a `::: {.source}` block after a figure. Add new sources to `SRC` in `R/site_data.R` and to the sources table and calculation sections of `methods.qmd`.
 - **Methods must keep pace.** Any new number needs its definition, formula and limitations in `methods.qmd`.
 - **Parsers fail loudly.** Validate against totals printed in the source (row, school, section and district totals; printed percentages within ±0.51). Exit with a clear message rather than guess; leave a value blank if it is truly ambiguous.

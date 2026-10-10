@@ -51,3 +51,23 @@ Languages in tables: Spanish → Español, Mandarin → Mandarín, Japanese → 
 Numbers: keep the English format (1,586; 57%; 0.8 millas). Miles stay miles (millas). Dates: "6 de octubre de 2026". School years: 2025-26.
 
 Quotations from English documents and meetings are translated into Spanish. Each page says so once, near the top.
+
+## Style rules (see STYLE.md)
+
+Follow STYLE.md (federal plain-language rules, plus GSA's Spanish Language Style Guide, peer reviewed by ANLE). In short:
+
+- Adapt the meaning; don't copy English word order. Keep sentences short (aim for 15 to 20 words; split anything over 30 except quotations).
+- Headings and titles in sentence case. Lowercase months, days, languages and nationalities.
+- Dates: "6 de octubre de 2026". U.S. number notation (1,586; 0.8). EE. UU. with periods and a space.
+- GSA terms: solicitud (application), solicitar (apply for), reunir los requisitos (qualify; not calificar), estadounidense (not americano), presentar or enviar (submit; not someter), requisito (requirement), pautas or directrices (guidelines), completo or amplio (comprehensive; not comprensivo), hoja informativa (fact sheet).
+- Inclusive language ((Re)Nombrar): prefer collective nouns such as las familias, el estudiantado, el personal docente, quienes solicitan, where they read naturally. Keep a source's term inside a quotation.
+
+## Terms to review
+
+A native Spanish speaker from the community should review these before the Spanish pages are called final:
+
+- afroamericanos (for "Black" in PPS race categories): check whether "estudiantes negros" or "afroamericanos" is clearer for Portland families
+- tabla comparativa (for "scorecard")
+- centro (for "hub", a school that hosts several programs)
+- programa paralelo (*strand*)
+- translated quotations from the board meeting, the equity audit and research papers (each page says they are translations)

@@ -23,9 +23,17 @@ demand <- k5_moves |>
   arrange(desc(from_apps))
 ```
 
-## Demanda: los programas se alejan de donde solicitan las familias {#demand-programs-move-away-from-where-families-apply}
+## Demanda: los programas se alejarían de donde solicitan las familias {#demand-programs-move-away-from-where-families-apply}
 
-Las familias que quieren un lugar de inmersión en kínder lo solicitan a través del sorteo de selección de escuelas de PPS (la excepción son las familias del vecindario de Lent y Rigler, escuelas de inmersión completa; vea la nota más abajo). Los informes del sorteo muestran cuántas familias presentaron solicitud a cada programa, cuántas recibieron una oferta y cuántas quedaron en lista de espera. En promedio, en los últimos cinco sorteos (`r min(LOTTERY_YEARS)` a `r max(LOTTERY_YEARS)`), entre los programas de español que se trasladarían están los dos con **más solicitudes y las listas de espera más largas del distrito**, Atkinson y Beach, y se trasladarían a escuelas que han atraído a muchos menos solicitantes.
+Entre los programas de español que se trasladarían están Atkinson y Beach. Son los dos programas con **más solicitudes y las listas de espera más largas del distrito**. Los escenarios los llevarían a escuelas que han atraído a muchos menos solicitantes. Estas cifras son promedios de los últimos cinco sorteos (`r min(LOTTERY_YEARS)` a `r max(LOTTERY_YEARS)`).
+
+Las familias que quieren un lugar de kínder en inmersión en dos idiomas (DLI) lo solicitan en un sorteo. Es el sorteo de selección de escuelas de Portland Public Schools (PPS). Los informes del sorteo muestran, para cada programa:
+
+- cuántas familias presentaron solicitud
+- cuántas recibieron una oferta
+- cuántas quedaron en lista de espera
+
+Un grupo no necesita presentar solicitud: las familias del vecindario de Lent y Rigler, las dos escuelas de inmersión completa. Vea la nota más abajo.
 
 ::: {.callout-note appearance="minimal"}
 *Esta es una traducción del sitio en inglés. Las citas de documentos y reuniones en inglés están traducidas al español.*
@@ -55,11 +63,13 @@ viz_layout(p, xtitle = "Solicitudes por año", ytitle = NULL) |>
 `r cite("lottery", "scenarios")`
 :::
 
-Las escuelas sin punto anaranjado (Rigler, Boise-Eliot/Humboldt, Vestal) no tienen sorteo de inmersión hoy: Boise-Eliot/Humboldt y Vestal serían sedes nuevas, y Rigler llena su programa de español sin aparecer en los informes del sorteo.
+Rigler, Boise-Eliot/Humboldt y Vestal no tienen punto anaranjado porque hoy no tienen sorteo de inmersión. Boise-Eliot/Humboldt y Vestal serían sedes nuevas de inmersión. Rigler llena su programa de español sin aparecer en los informes del sorteo.
 
 ::: {.callout-warning}
 ## Las cifras del sorteo subestiman la demanda en las escuelas de inmersión completa
-En **Lent** y **Rigler**, todos los estudiantes están en inmersión en español, así que los niños del propio vecindario de la escuela se inscriben sin pasar por el sorteo; solo las familias de fuera del vecindario presentan solicitud. En 2025-26, Lent inscribió a `r k_enr("lent", "2025-26")` estudiantes de kínder en inmersión pero hizo `r k_off("lent", "2025-26")` ofertas en el sorteo, y Rigler inscribió a `r k_enr("rigler", "2025-26")` sin ningún sorteo. Por eso, el punto anaranjado de Lent en la gráfica de arriba cuenta solo a solicitantes de fuera del vecindario y no se puede comparar directamente con las escuelas que envían programas, que inscriben en kínder aproximadamente tantos estudiantes como lugares ofrecen en el sorteo.
+En **Lent** y **Rigler**, todo el estudiantado está en inmersión en español. Los niños y niñas del vecindario de la escuela se inscriben sin pasar por el sorteo. Solo las familias de fuera del vecindario presentan solicitud. En 2025-26, Lent inscribió a `r k_enr("lent", "2025-26")` estudiantes de kínder en inmersión, pero hizo `r k_off("lent", "2025-26")` ofertas en el sorteo. Rigler inscribió a `r k_enr("rigler", "2025-26")` sin ningún sorteo.
+
+Por eso, el punto anaranjado de Lent en la gráfica de arriba cuenta solo a solicitantes de fuera del vecindario. No se puede comparar directamente con las escuelas que envían programas (las que perderían un programa). Esas escuelas inscriben en kínder más o menos tantos estudiantes como lugares ofrecen en el sorteo.
 
 `r cite("by_grade", "lottery")`
 :::
@@ -97,9 +107,15 @@ bl_year |>
   tab_source_note(md(cite("profiles", "by_grade", "class_size", "district_k")))
 ```
 
-PPS ya ha consolidado la inmersión en español antes. Hasta 2022-23 funcionaba tanto en **Bridger** como en **Lent**, cada una escuela de kínder a 5.º (K-5) con un programa de inmersión y un programa del vecindario. En 2023-24 el programa de Bridger se trasladó a Lent, que se convirtió en escuela de inmersión completa (Bridger pasó a ser Bridger Creative Science, de kínder a 8.º, K-8). Antes del traslado, las dos escuelas tenían unos **`r fmt_n(before)` estudiantes de inmersión en español por grado**, aproximadamente tres grupos de kínder. Desde entonces, Lent ha inscrito en promedio a **`r fmt_n(after_k)` estudiantes de kínder en inmersión por año** (2024-25 y 2025-26), dos grupos: alrededor de un `r fmt_pct(1 - after_k / before)` menos. Medida de la misma forma en todo el distrito (el promedio de octubre de 2022 en los grados de kínder a 5.º frente al kínder de 2024-25 y 2025-26), la matrícula bajó alrededor de un `r fmt_pct(-district_chg)`; comparando kínder con kínder, el distrito bajó un `r fmt_pct(-district_chg_kk)`.
+PPS ya consolidó la inmersión en español una vez. Hasta 2022-23, PPS tenía inmersión en español en **Bridger** y en **Lent**. Las dos eran escuelas de kínder a 5.º (K-5) con un programa de inmersión y un programa del vecindario. En 2023-24, PPS trasladó el programa de Bridger a Lent, y Lent pasó a ser escuela de inmersión completa. Bridger pasó a ser Bridger Creative Science, de kínder a 8.º (K-8).
 
-Esto es una estimación: antes de 2024-25, PPS publica la matrícula de inmersión por escuela pero no por grado, así que "por grado" es el total de inmersión de la escuela dividido entre seis grados. En todo el distrito, los grupos de kínder son más pequeños que los de 1.º a 5.º, así que un promedio de todos los grados probablemente sobreestima el tamaño anterior del kínder; por eso la comparación con el distrito de arriba usa la misma base de todos los grados. Las solicitudes del sorteo no sirven para esta comparación, porque las familias del vecindario de Lent dejaron de presentar solicitud cuando se convirtió en escuela de inmersión completa (vea la nota de arriba).
+- **Antes del traslado:** las dos escuelas tenían unos **`r fmt_n(before)` estudiantes de inmersión en español por grado**. Eso equivale a unos tres grupos de kínder.
+- **Después del traslado:** Lent ha inscrito en promedio a **`r fmt_n(after_k)` estudiantes de kínder en inmersión por año** (2024-25 y 2025-26). Son dos grupos, alrededor de un `r fmt_pct(1 - after_k / before)` menos.
+- **En todo el distrito, con la misma medida:** la matrícula bajó alrededor de un `r fmt_pct(-district_chg)`. Esta cifra compara el promedio de kínder a 5.º de octubre de 2022 con el kínder de 2024-25 y 2025-26. Si se compara kínder con kínder, el distrito bajó un `r fmt_pct(-district_chg_kk)`.
+
+Estas cifras son estimaciones. Para los años antes de 2024-25, PPS publica la matrícula de inmersión por escuela, pero no por grado. Por eso, "por grado" es el total de inmersión de la escuela dividido entre seis grados. En todo el distrito, los grupos de kínder son más pequeños que los de 1.º a 5.º. Así que un promedio de todos los grados probablemente sobreestima el tamaño anterior del kínder. Por esa razón, la comparación con el distrito usa la misma base de todos los grados.
+
+Las solicitudes del sorteo no sirven para esta comparación. Las familias del vecindario de Lent dejaron de presentar solicitud cuando Lent pasó a ser escuela de inmersión completa (vea la nota de arriba).
 
 ### Listas de espera de español a lo largo del tiempo {#spanish-waitlists-over-time}
 
@@ -132,9 +148,9 @@ viz_layout(p, ytitle = "Solicitudes en lista de espera") |> layout(xaxis = list(
 `r cite("lottery", "scenarios")`
 :::
 
-### Quiénes quedan en lista de espera {#who-is-waitlisted}
+### Quiénes quedan en lista de espera: sobre todo hablantes de inglés de la zona {#who-is-waitlisted}
 
-El sorteo de kínder de 2026-27 desglosa a los solicitantes de cada programa según dónde viven y su perfil lingüístico. En los programas con las listas de espera más largas, las familias que no obtienen lugar son en su mayoría **familias de habla inglesa de la zona cercana**, las familias a las que un traslado deja más lejos. Los hablantes nativos de español, que tienen prioridad, casi siempre reciben una oferta.
+Los programas con las listas de espera más largas dejan sin lugar sobre todo a **familias de habla inglesa de la zona cercana**. Son las familias a las que un traslado deja más lejos. El sorteo de kínder de 2026-27 lo muestra. Allí se divide a quienes solicitan en cada programa según dónde viven y su perfil lingüístico. Los hablantes nativos de español tienen prioridad, y PPS casi siempre les ofrece un lugar.
 
 ```{r}
 #| label: tbl-who
@@ -195,7 +211,7 @@ sc |>
   opt_row_striping()
 ```
 
-## Sedes por idioma y rango de grados {#sites-by-language-and-grade-band}
+## Cuántas sedes tendría cada idioma y rango de grados {#sites-by-language-and-grade-band}
 
 ```{r}
 #| label: tbl-sites
@@ -212,7 +228,7 @@ sites |> filter(change != "removed" | is.na(change)) |>
   tab_source_note(md(cite("scenarios")))
 ```
 
-## Distancia a la sede más cercana {#distance-to-the-nearest-site}
+## A qué distancia de la sede más cercana viven los hablantes de cada idioma {#distance-to-the-nearest-site}
 
 ```{r}
 #| label: tbl-access

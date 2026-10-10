@@ -19,44 +19,56 @@ sp_apps <- lottery_avg |> filter(language == "Spanish") |> arrange(desc(applicat
 pg <- function(s) round(k5$per_grade[k5$school == s])
 ```
 
-PPS staff and board members have described whole-school immersion as the better model: every class in the building is an immersion class, with no neighborhood program alongside it. In a strand, by contrast, an immersion program shares a building with a regular neighborhood program. This page asks what evidence supports that preference. It covers the published research, the guidance used in the field, and what PPS's own experience at Lent shows.
+PPS staff and board members have called whole-school immersion the better model for dual language immersion (DLI). This page asks what evidence supports that view. In a whole-school program, every class in the building is an immersion class, and there is no neighborhood program. In a strand, an immersion program shares a building with a regular neighborhood program. The page covers:
+
+- the published research
+- the guidance used in the field
+- what PPS's own experience at Lent shows.
 
 ::: {.callout-note}
 ## Short answer
 
 - **No study we could find compares student outcomes in whole-school and strand immersion programs.** The strong research on immersion compares students *in* immersion with students *not* in it. Its positive results come from strand programs, whole-school programs and mixes of both.
-- **The case for whole schools rests on staffing and school culture.** Field guides describe strands as workable when the whole school supports them, and some case studies describe tension in strand schools. Neither measures student outcomes.
-- **PPS's own conversion of Lent is the closest local evidence, and it is mixed.** Students who stayed after Lent became whole-school improved, but they are 43% of the original students, there is no comparison group, and the audit says the results "do not prove causality". The conversion also moved a majority of the school's students, disproportionately Black and Asian children, and lost 63% of staff in one year.
-- **PPS's stated goal is fewer *single* strands.** Two immersion classes per grade in a shared school also meet that goal, and PPS already runs strands that size.
+- **The case for whole schools rests on staffing and school culture.** Field guides say strands can work when the whole school supports them. Some case studies describe tension in strand schools. Neither measures student outcomes.
+- **PPS's own conversion of Lent is the closest local evidence, and it is mixed.** Students who stayed after Lent became a whole school improved. But they are 43% of the original students, and there is no comparison group. The audit says the results "do not prove causality". Most of the school's students left that year, disproportionately Black and Asian children. Many were neighborhood students PPS assigned to Marysville, and some were fifth-graders moving up to middle school as usual ([details](#sec-lent)). Lent lost 63% of its staff in one year.
+- **PPS's stated goal is fewer *single* strands.** A single strand has one immersion class per grade. Two immersion classes per grade in a shared school also meet that goal. PPS already runs strands that size.
 
 `r cite("steele2017", "bibler", "utah2021", "nasem", "cal", "freire", "audit_schools", "board1006", "by_grade")`
 :::
 
-## What PPS has said {#sec-pps-said}
+## PPS says the problem is single strands {#sec-pps-said}
 
-At the October 6, 2026 board meeting, staff explained the Spanish immersion consolidation in North Portland:
+PPS staff point to two problems: the *single* strand, and the strain of running two programs in one building. At the October 6, 2026 board meeting, staff explained the plan to consolidate Spanish immersion in North Portland:
 
 > "Three of those programs have mostly single strands for both neighborhood and Spanish immersion. What that means is one teacher that does Spanish immersion at the grade level, one teacher that does the neighborhood side at each grade level. … The proposal here is to have less single strands and more areas where teachers can have planning, partnership, and others to work with. … Without making these DLI consolidation moves in the north, we are going to leave single strands across our system."
 
-A month earlier, staff told the board's Teaching, Learning and Enrollment Committee that "grade-level teacher collaboration is challenging, particularly in the co-located DLI building where enrollment is uneven and curriculum is different across strands."
+A month earlier, staff spoke to the board's Teaching, Learning and Enrollment Committee. They said that "grade-level teacher collaboration is challenging, particularly in the co-located DLI building where enrollment is uneven and curriculum is different across strands."
 
-The stated problem is the *single* strand, a lone immersion teacher at each grade with no colleague teaching the same grade in the same language, and the strain of running two programs in one building. We found no research cited for the choice of model in the transcripts of the September and October 2026 board and committee meetings, or in the per-school guides.
+In a single strand, one immersion teacher works alone at each grade. No colleague teaches the same grade in the same language. We found no research cited for the choice of model. We checked the transcripts of the September and October 2026 board and committee meetings, and the per-school guides.
 
 ::: {.source}
 `r cite("board1006", "tle0908s", "guides")`
 :::
 
-## What the outcome research tests {#sec-outcomes}
+## Outcome research compares immersion with no immersion {#sec-outcomes}
 
-The best evidence on immersion comes from Portland. RAND's study used PPS's admission lotteries, so lottery winners and losers were otherwise alike. Winners outperformed losers in English reading "by about seven months of learning in grade 5, and nine months of learning in grade 8". For math and science the authors found "no statistically significant immersion benefit, but also no detriment". English learners who won a seat were 3 to 4 percentage points less likely to still be classified as English learners by grades 6 and 7.
+The outcome studies we found ask whether immersion helps students. They don't test whether a whole school works better than a strand.
 
-The study checked whether results differed by partner language, by one-way versus two-way programs, and by students' home language. It did not compare school structures. We searched its full text for "strand", "whole-school", "school-wide" and "magnet" and found no matches. The authors note one reason structure could matter without being measured: students "who win immersion slots may change not only their classroom placement but the school they attend, and it is possible that features of immersion schools differ in key ways (such as academic culture or parent involvement)" (p. 24).
+The best evidence on immersion comes from Portland. RAND's study used PPS's admission lotteries. Chance decided who won a seat, so winners and losers were alike in other ways. Winners outperformed losers in English reading "by about seven months of learning in grade 5, and nine months of learning in grade 8". For math and science, the authors found "no statistically significant immersion benefit, but also no detriment". English learners who won a seat were 3 to 4 percentage points less likely to still be classified as English learners by grades 6 and 7.
+
+The study checked whether results differed by:
+
+- partner language
+- one-way versus two-way programs (a two-way program mixes native English speakers with native speakers of the partner language; a one-way program serves mainly one group)
+- students' home language.
+
+It did not compare school structures. We searched its full text for "strand", "whole-school", "school-wide" and "magnet" and found no matches. The authors note one reason structure could matter even though they didn't measure it. Students "who win immersion slots may change not only their classroom placement but the school they attend, and it is possible that features of immersion schools differ in key ways (such as academic culture or parent involvement)" (p. 24).
 
 ::: {.source}
 `r cite("steele2017")` Quotes from the open manuscript: pp. 18, 22, 23, 24.
 :::
 
-The other lottery and statewide studies also compare immersion with no immersion:
+The other lottery and statewide studies also compare immersion with no immersion. Some report results in standard deviations (SD). A standard deviation measures how widely scores spread across students. Researchers use it to compare results from different tests.
 
 ```{r}
 #| label: tbl-studies
@@ -76,33 +88,35 @@ gt(studies) |>
   tab_options(table.font.size = "0.85rem")
 ```
 
-Immersion has produced gains as a strand (Utah, most Portland programs) and as a whole school (Charlotte). Those studies differ in place, language, students and method, so comparing them says nothing about which structure works better. The National Academies' 2017 review of research on English learners found "virtually no research related to the features of school-wide programs that lead to better student outcomes" (p. 300).
+Immersion has produced gains as a strand (Utah, most Portland programs) and as a whole school (Charlotte). But those studies differ in place, language, students and method. So comparing them says nothing about which structure works better. The National Academies' 2017 review looked at research on English learners. It found "virtually no research related to the features of school-wide programs that lead to better student outcomes" (p. 300).
 
 ::: {.source}
 `r cite("nasem")`
 :::
 
-## What field guidance says {#sec-guidance}
+## Field guides accept both models but ask more of strands {#sec-guidance}
 
-The standard reference, the Center for Applied Linguistics' *Guiding Principles for Dual Language Education*, treats both as legitimate. It uses "program" to mean any school with dual language instruction, "regardless of whether the program functions as a strand within a school or as a whole school". It asks more of strand schools: "If the dual language program is a strand within the school, the program planning should be school-wide and include teachers from all programs in the school". It also warns that where immersion "exists alongside other programs, the principal may be too busy with the needs of the whole school to provide the necessary instructional leadership specifically for the dual language program". It cites no study comparing outcomes.
+The main guides in the field present both models as options. The standard reference asks more of strand schools.
 
-The California Association for Bilingual Education's planning guide lists the choice between "a whole school or a strand within a school program" as the first decision a district makes. It names a cost on each side:
+The standard reference is the Center for Applied Linguistics' *Guiding Principles for Dual Language Education*. It uses "program" to mean any school with dual language instruction, "regardless of whether the program functions as a strand within a school or as a whole school". It asks more of strand schools: "If the dual language program is a strand within the school, the program planning should be school-wide and include teachers from all programs in the school". It also warns that where immersion "exists alongside other programs, the principal may be too busy with the needs of the whole school to provide the necessary instructional leadership specifically for the dual language program". It cites no study comparing outcomes.
+
+The California Association for Bilingual Education has a planning guide. It lists the choice between "a whole school or a strand within a school program" as the first decision a district makes. It names a cost on each side:
 
 - **Strand:** "a separate program operating within the school … can lead to a sense of the DLI education program feeling disconnected from the school as a whole".
-- **Whole school:** "students living in the site's attendance area who do not want to participate in the DLI program would have to attend a different school", and conversion may mean "fewer positions for non-DLI teachers at the site". This is what happened at Lent.
+- **Whole school:** "students living in the site's attendance area who do not want to participate in the DLI program would have to attend a different school". Conversion may also mean "fewer positions for non-DLI teachers at the site". This is what happened at Lent.
 
 ::: {.source}
 `r cite("cal", "cabe")`
 :::
 
-## What case studies describe {#sec-cases}
+## Case studies describe strain in strand schools {#sec-cases}
 
-Two qualitative studies describe the strain a strand can put on a school:
+Two case studies describe the strain a strand can put on a school. Each one looks closely at a single school instead of measuring student outcomes.
 
 - Freire and Alemán (2021) followed one urban elementary school with a Spanish-English two-way strand. They write that "with most elementary dual language bilingual education (DLBE) programs being implemented as strands within schools, tensions related to inequities, unequal distribution of resources, and academic quality and demographic differences often arise". Teachers described the strand in terms of "elitism and divisiveness".
-- de Jong and Bearse (2014) studied a two-way strand in one middle school and found "a basic conflict between effective TWI practices and the middle school structure". They concluded that "integrated, interdisciplinary approaches that are systemically supported within the school are necessary". This is a secondary-school case, not an elementary one.
+- de Jong and Bearse (2014) studied a two-way strand in one middle school. They found "a basic conflict between effective TWI practices and the middle school structure". They concluded that "integrated, interdisciplinary approaches that are systemically supported within the school are necessary". This case is from a middle school, not an elementary school.
 
-These are accounts of single schools. They show what can go wrong in a strand, and what a strand needs (schoolwide support and shared planning). They don't measure whether students learn more in a whole-school program.
+These studies show what can go wrong in a strand. They also show what a strand needs: schoolwide support and shared planning. They don't measure whether students learn more in a whole-school program.
 
 RAND's classroom observations in PPS found that teachers "consistently implemented key instructional practices targeted by the school district".
 
@@ -112,7 +126,7 @@ RAND's classroom observations in PPS found that teachers "consistently implement
 
 ## Single strands and whole schools are different problems {#sec-single}
 
-PPS's argument is about the lone immersion teacher at each grade. A school with two immersion classes per grade gives each teacher a same-grade partner in the same language, without removing the neighborhood program. In October 2025, `r n_whole` of the district's `r n_sites` K-5 immersion sites were whole schools (`r whole_names`). The rest are strands of different sizes:
+PPS's argument is about the lone immersion teacher at each grade. A school with two immersion classes per grade gives each teacher a partner who teaches the same grade in the same language. The neighborhood program can stay. In October 2025, `r n_whole` of the district's `r n_sites` K-5 immersion sites were whole schools (`r whole_names`). The rest are strands of different sizes:
 
 ```{r}
 #| label: tbl-strands
@@ -126,45 +140,50 @@ k5 |> arrange(model, desc(per_grade)) |>
                            cite("by_grade", "board1006"))))
 ```
 
-PPS already runs larger strands. Ainsworth has about `r pg("Ainsworth")` Spanish immersion students per grade beside a neighborhood program of similar size, and it draws the most Spanish kindergarten lottery applications in the district: `r fmt_n(ains$applications)` a year on average over `r ains$years` lotteries. Many things drive Ainsworth's demand, including its neighborhood, so this shows that a two-class strand can be popular. It doesn't show that strands outperform whole schools. In the Southeast, Atkinson has room for a second Spanish class per grade without moving its neighborhood students ([Equity §8](equity.qmd#sec-southeast)).
+PPS already runs larger strands. Ainsworth has about `r pg("Ainsworth")` Spanish immersion students per grade, and its neighborhood program is about the same size. Ainsworth draws the most Spanish kindergarten lottery applications in the district: `r fmt_n(ains$applications)` a year on average over `r ains$years` lotteries. Many things drive Ainsworth's demand, including its neighborhood. So this shows that a two-class strand can be popular. It doesn't show that strands outperform whole schools. In the Southeast, Atkinson has room for a second Spanish class per grade without moving its neighborhood students ([Equity §8](equity.qmd#sec-southeast)).
 
 ::: {.source}
 `r cite("by_grade", "lottery", "profiles25")`
 :::
 
-## PPS's own whole-school conversion: Lent {#sec-lent}
+## Lent, PPS's own whole-school conversion, brought gains and costs {#sec-lent}
 
-Lent became a whole-school Spanish immersion school in 2023-24, when Bridger's program moved in and Lent's neighborhood program moved to Marysville. The district's equity audit is the most detailed account of what a whole-school conversion did in PPS, and it reports results on both sides.
+Lent became a whole-school Spanish immersion school in 2023-24. Bridger's program moved in, and Lent's neighborhood program moved to Marysville. The district's equity audit gives the most detailed account of what a whole-school conversion did in PPS. It reports both gains and costs.
 
-**What went well.** Participants described the whole-school model "as more coherent, intentional, culturally affirming, and professionally sustaining for many Latino/a/x students, families, bilingual educators, and staff of color". Staff morale "appears to have improved over time". The audit followed the immersion students who were already at Lent before the conversion and stayed. Measured against their own prior-year performance, "math growth reached +0.235 standard deviations and ELA +0.409 standard deviations by 2024–25. Chronic absenteeism fell from 42% to 24%", and exclusionary discipline fell to zero (school-by-school analysis, p. 47).
+**What went well.** Participants described the whole-school model "as more coherent, intentional, culturally affirming, and professionally sustaining for many Latino/a/x students, families, bilingual educators, and staff of color". Staff morale "appears to have improved over time". The audit followed the immersion students who were already at Lent before the conversion and stayed. It compared them with their own results from the year before: "math growth reached +0.235 standard deviations and ELA +0.409 standard deviations by 2024–25. Chronic absenteeism fell from 42% to 24%". (ELA means English language arts.) Exclusionary discipline, which removes students from class or school, fell to zero (school-by-school analysis, p. 47).
 
-This is the strongest local evidence for the whole-school model. It has limits:
+This is the strongest local evidence for the whole-school model. But it has limits:
 
 - The audit itself says "these results do not prove causality".
-- There is no comparison group. Nobody measured how immersion students at strand schools changed over the same years, which were the years scores recovered after the pandemic.
+- There is no comparison group. Nobody measured how immersion students at strand schools changed over the same years. Those were the years when scores recovered after the pandemic.
 - It covers only the students who stayed: 113 of 265 (43%), "most of whom were Latino/a/x or white" (p. 45, 47).
 
 **What it cost.** The audit's main report calls the conversion an example of "simultaneous benefit and burden":
 
-- "nearly 60% of students left the school after 2022–23, primarily to newly assigned elementary and middle schools" (p. 50). Of the 265 students at Lent in spring 2023, 152 left: 79 to Marysville, the assigned school for neighborhood students; 39 who moved up to middle school at Kellogg, as fifth-graders do every year; and 13 to other schools (school-by-school p. 45). Most departures were by design or routine, not families choosing to leave.
+- "nearly 60% of students left the school after 2022–23, primarily to newly assigned elementary and middle schools" (p. 50). Of the 265 students at Lent in spring 2023, 152 left (school-by-school p. 45):
+  - 79 went to Marysville, the assigned school for neighborhood students.
+  - 39 moved up to middle school at Kellogg, as fifth-graders do every year.
+  - 13 went to other schools.
+
+  Most departures were by design or routine, not families choosing to leave.
 - "Black student enrollment dropping from 10% to 2%, while the Latino/a/x share increased from 49% to 69%" (p. 50).
 - Students who moved to Marysville and Kellogg "showed flat-to-negative growth in math and ELA scores and chronic absenteeism in the 39–43% range" (school-by-school p. 47).
 - 63% of Lent staff left after 2022-23, "nearly double the SEGC-school average of 32%" (school-by-school p. 39).
 - Lent enrolls about half the 527 students PPS projected for it. See [Lent & Chávez](history.qmd#sec-lent) and [Equity §5](equity.qmd#sec-optout).
 
-The audit's conclusion is that Lent "demonstrates the promise of a strong, culturally affirming Spanish DLI model, but it also shows the racial equity risks of achieving that model through a process that displaced other students of color" (school-by-school p. 47).
+The audit concludes that Lent "demonstrates the promise of a strong, culturally affirming Spanish DLI model, but it also shows the racial equity risks of achieving that model through a process that displaced other students of color" (school-by-school p. 47).
 
 ::: {.source}
 `r cite("audit", "audit_schools")`
 :::
 
-## Data that could answer the question locally {#sec-data}
+## PPS has data that could answer the question {#sec-data}
 
 PPS holds data that could compare its own whole-school and strand programs:
 
-- **Persistence:** the share of each kindergarten immersion class still enrolled in grade 5, by site and model. This site can only approximate it from grade-level counts, which mix in students who join later.
-- **Teacher retention:** immersion-teacher turnover at single-strand, two-strand and whole-school sites.
-- **Achievement by program:** Oregon publishes test results for the state, districts and schools, broken out by student group but not by program, so at a strand school immersion and neighborhood students are mixed together. PPS has student-level results that could be split by program.
+- **Persistence:** the share of each kindergarten immersion class still enrolled in grade 5, by site and model. This site can only estimate it from grade-level counts. Those counts mix in students who join later.
+- **Teacher retention:** how often immersion teachers leave single-strand, two-strand and whole-school sites.
+- **Achievement by program:** Oregon publishes test results for the state, districts and schools. It breaks them out by student group but not by program. So at a strand school, immersion and neighborhood students are mixed together. PPS has student-level results that it could split by program.
 - **A comparison group for Lent:** growth for immersion students at strand schools over 2023-24 to 2024-25, measured the same way the audit measured Lent.
 
 ::: {.source}
@@ -184,9 +203,9 @@ These are this site's questions, based on the evidence above:
 `r cite("board1006", "by_grade", "audit_schools")`
 :::
 
-## Caveats {#caveats}
+## Limits of this review {#caveats}
 
-- **"No study found" means none found in our search**, which covered the papers listed above, the National Academies review and searches described in [Sources & methods](methods.qmd#research). A study we missed could exist. Please send it.
-- Some sources were read only in abstract (Morales; Freire and Alemán; de Jong and Bearse). Quotes from them are from the abstracts.
+- **"No study found" means none found in our search.** The search covered the papers listed above, the National Academies review and the searches described in [Sources & methods](methods.qmd#research). A study we missed could exist. Please send it.
+- We read some sources only in abstract (Morales; Freire and Alemán; de Jong and Bearse). Quotes from them are from the abstracts.
 - Students per grade (@tbl-strands) is not a count of classes.
-- The Lent results are from PPS's equity audit; we have not seen the student-level data behind them.
+- The Lent results are from PPS's equity audit. We have not seen the student-level data behind them.

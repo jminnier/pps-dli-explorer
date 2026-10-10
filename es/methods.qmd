@@ -8,17 +8,22 @@ toc-depth: 3
 *Esta es una traducción del sitio en inglés. Las citas de documentos y reuniones en inglés están traducidas al español.*
 :::
 
-## Créditos {#credits}
+## Créditos: este sitio se basa en pps-explorer {#credits}
 
-Este sitio se basa en **[pps-explorer](https://github.com/browniefed/pps-explorer) de [Jason Brown (@browniefed)](https://github.com/browniefed)**, un mapa interactivo de los escenarios de límites de zona de PPS. Sus zonas de asistencia georreferenciadas y las ubicaciones de las escuelas (digitalizadas de los PDF de los mapas de escenarios de PPS), y su transcripción del memorando a la Junta de octubre de 2026 (cierres, traslados de programas y cambios de grados), son la base de todas las comparaciones de escenarios en este sitio. pps-explorer, a su vez, da crédito a [ppsdata.info](https://ppsdata.info) de Alex Meub ([meub/pps-data](https://github.com/meub/pps-data)).
+Este sitio se basa en **[pps-explorer](https://github.com/browniefed/pps-explorer) de [Jason Brown (@browniefed)](https://github.com/browniefed)**, un mapa interactivo de los escenarios de límites de zona de PPS. Todas las comparaciones de escenarios de este sitio usan dos partes de pps-explorer:
 
-Este es un análisis independiente, no una publicación de PPS. Donde algo aquí difiera de los documentos de PPS, los documentos de PPS son la referencia oficial.
+- sus zonas de asistencia y las ubicaciones de las escuelas, que digitalizó de los PDF de los mapas de escenarios de PPS y georreferenció (es decir, ubicó en coordenadas reales del mapa)
+- su transcripción del memorando a la Junta de octubre de 2026 (cierres, traslados de programas y cambios de grados).
 
-Todo el código, los documentos fuente guardados y las tablas depuradas están en GitHub en [github.com/jminnier/pps-dli-explorer](https://github.com/jminnier/pps-dli-explorer). Las correcciones y preguntas son bienvenidas allí como *issues*.
+A su vez, pps-explorer da crédito a [ppsdata.info](https://ppsdata.info) de Alex Meub ([meub/pps-data](https://github.com/meub/pps-data)).
 
-## Fuentes de datos {#data-sources}
+Este es un análisis independiente, no una publicación de PPS. Si algo aquí difiere de los documentos de PPS, los documentos de PPS son la referencia oficial.
 
-Todos los documentos fuente están guardados en el repositorio en `data-raw/`, y cada uno se convierte en una tabla en `data/` con el script indicado. Los scripts se detienen con un error, en lugar de adivinar, cuando una fila no pasa sus verificaciones.
+Todo el código, los documentos fuente guardados y las tablas depuradas están en GitHub, en [github.com/jminnier/pps-dli-explorer](https://github.com/jminnier/pps-dli-explorer). Allí puede enviarnos correcciones y preguntas como *issues*.
+
+## De dónde vienen los datos {#data-sources}
+
+Guardamos todos los documentos fuente en el repositorio, en `data-raw/`. El script indicado para cada fuente la convierte en una tabla en `data/`. Cuando una fila no pasa sus verificaciones, el script se detiene con un error en lugar de adivinar.
 
 | # | Datos | Editor y documento | Años | Archivos fuente guardados | Script → tabla |
 |---|---|---|---|---|---|
@@ -26,7 +31,7 @@ Todos los documentos fuente están guardados en el repositorio en `data-raw/`, y
 | 2 | Matrícula por escuela, programa y grado | PPS Data & Reporting, *Enrollment by Grade and Program Type* | Octubre de 2024, octubre de 2025 | `data-raw/pps_reports/*_Enrollment_by_Grade_and_Program_Type.pdf` | `parse_program_type.py` → `enrollment_by_program_grade.csv` |
 | 3 | Matrícula por escuela, programa e idioma del hogar | PPS Data & Reporting, *Enrollment by Language and School* | Octubre de 2024, octubre de 2025 | `data-raw/pps_reports/*_Enrollment_by_Language_and_School_Map.pdf` | `parse_language_by_school.py` → `enrollment_by_language.csv` |
 | 4 | Solicitudes, ofertas y listas de espera del sorteo | PPS Enrollment & Transfer, informes *Elementary School Lottery Results Summary*, *Kindergarten Lottery Results Summary* y *Middle & High School Lottery*, en la [página de resultados de sorteos anteriores](https://www.pps.net/departments/enrollment-transfer/transfer-english/lottery/prior-transfer-data) | Sorteos para 2021-22 a 2026-27 | `data-raw/pps_lottery/*.pdf` (13 archivos) | `parse_lottery.py` → `lottery_results.csv` |
-| 5 | Pronósticos de matrícula (todavía no se muestran en estas páginas) | Portland State University Population Research Center, *Portland Public Schools Enrollment Forecasts*, tablas 5.2–5.5 | Ediciones 2025-26 y 2026-27 | `data-raw/pps_reports/PSU_PRC_Forecast_*.pdf` | `parse_psu_forecast.py` → `psu_forecast.csv` |
+| 5 | Pronósticos de matrícula | Portland State University Population Research Center, *Portland Public Schools Enrollment Forecasts*, tablas 5.2–5.5 | Ediciones 2025-26 y 2026-27 | `data-raw/pps_reports/PSU_PRC_Forecast_*.pdf` | `parse_psu_forecast.py` → `psu_forecast.csv` |
 | 6 | Tamaño promedio de los grupos de kínder | PPS, *Class Size Detail* (página de archivo y página de Data & Reporting) | 2018-19 a 2025-26 | `data-raw/pps_reports/class_size/*.pdf` | copiado a mano para Lent y Bridger → `class_size_kg.csv` |
 | 7 | Matrícula del distrito por grado (kínder a 5.º), octubre de 2022 | PPS, *Enrollment – Summary Comparison* (3 de octubre de 2022), en *School Enrollment Profiles & Demographics* en la página de archivo | 2022-23 | – | los seis totales por grado, ingresados directamente en `scorecard.qmd` |
 | 8 | Sedes de inmersión y traslados de programas en cada escenario | Paquete de la Junta de PPS para el 6 de octubre de 2026: los PDF de los mapas de zonas de asistencia de la situación actual, el Escenario A y el Escenario B, y el memorando *Rightsizing Update: Scenario Release* (5 de octubre de 2026) con los resúmenes regionales; digitalizados y transcritos en [pps-explorer](https://github.com/browniefed/pps-explorer) | Escenarios publicados en octubre de 2026 | `public/data/*.geojson`, `src/lib/changes-data.mjs` | `export_dli_tables.mjs` → `dli_sites.csv`, `dli_moves.csv` |
@@ -37,7 +42,7 @@ Todos los documentos fuente están guardados en el repositorio en `data-raw/`, y
 | 15 | Pronósticos de matrícula anteriores | PSU Population Research Center, *Portland Public Schools Enrollment Forecasts*, ediciones 2022-23 (junio de 2022), 2023-24 (junio de 2023) y 2024-25 (julio de 2024), Apéndice C / tabla 5.5 | 2019-20 a 2033-34 | `data-raw/pps_reports/PSU_PRC_Forecast_*_edition.pdf` | `extract_psu_premove.py` → `psu_forecast_premove.csv` |
 | 16 | Proyecciones de escenarios por escuela | PPS, *How Could Your School Be Impacted?* ([página](https://www.pps.net/about/portland-public-schools-information/rightsize/how-could-your-school-be-impacted)): una "Family-Friendly School Guide" de 4 páginas por escuela (82 PDF, servidos desde Google Drive mediante una lista de Awesome Table; título en los metadatos "Confidential Draft", todos con fecha del 8 de octubre de 2026) | Proyecciones 2027-28 a 2031-32 | `data-raw/pps_board/impact_page/*.pdf`, `drive_ids.txt` | `parse_school_guides.py` → `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
 | 17 | Apéndice de la auditoría escuela por escuela | Green, T. L., & Hanson, H. (2026, 29 de junio). *Equity audit evaluation of Portland Public Schools' Southeast Enrollment and Program Balancing initiative: School-by-school analysis*, de la [página de documentos SEGC de PPS](https://www.pps.net/about/portland-public-schools-information/rightsize/segc-documents) | 2020-21 a 2025-26 | `data-raw/pps_transcripts/SEGC_Equity_Audit_School_by_School_Analysis.pdf` | citado con números de página |
-| 18 | Tasas de captación del vecindario | PPS, *Neighborhood Capture Rate Metrics* ("Enrollment Summary … by K-12 Students' Neighborhood and Type of School Attended"); 2024-25 y 2025-26 en la página de Data & Reporting, años anteriores en la página de archivo en "Neighborhood Attendance Patterns & Focus Distributions". Los informes complementarios *School Enrollment by Neighborhood of Residence* están guardados pero todavía no se han procesado | Octubre de 2019 a octubre de 2025 | `data-raw/pps_reports/capture_rate/*.pdf` | `parse_capture_rate.py` → `capture_rate.csv` |
+| 18 | Tasas de captación del vecindario | PPS, *Neighborhood Capture Rate Metrics* ("Enrollment Summary … by K-12 Students' Neighborhood and Type of School Attended"); 2024-25 y 2025-26 en la página de Data & Reporting, años anteriores en la página de archivo en "Neighborhood Attendance Patterns & Focus Distributions". Los informes complementarios *School Enrollment by Neighborhood of Residence* son la fuente 19 | Octubre de 2019 a octubre de 2025 | `data-raw/pps_reports/capture_rate/*.pdf` | `parse_capture_rate.py` → `capture_rate.csv` |
 | 19 | Dónde viven los estudiantes de cada programa | PPS, *School Enrollment by Neighborhood of Residence* (página de Data & Reporting; años anteriores en la página de archivo) | Procesados de octubre de 2023 a octubre de 2025 (2019-20 a 2022-23 guardados; las páginas giradas todavía no se han procesado) | `data-raw/pps_reports/capture_rate/*_Enroll_by_Neighborhood.pdf` | `parse_enroll_by_neighborhood.py` → `enroll_by_neighborhood.csv` |
 | 20 | International School of Portland (privada) | NCES *Private School Universe Survey*, 2023-24 (total 376, grados PK-5); número de estudiantes de kínder (72) del perfil de US News, cuyos números por grado suman el total de NCES; programas por idioma del sitio web de la escuela | 2023-24 | – | citado en la página de equidad |
 | 21 | Capacidad de los edificios | PPS, *Long-Range Facility Plan 2021*, volumen 1, tablas de Enrollment & Utilization (p. 53 primarias, p. 57 K-8, p. 60 escuelas intermedias); también recopiladas en [meub/pps-data](https://github.com/meub/pps-data) (licencia MIT) | 2021 | `data-raw/pps_reports/facility/LRFP_Vol1_2021.pdf` | `parse_lrfp_capacity.py` → `facility_capacity_2021.csv` |
@@ -45,40 +50,64 @@ Todos los documentos fuente están guardados en el repositorio en `data-raw/`, y
 | 9 | Idioma del hogar por sección censal | Oficina del Censo de EE. UU., estimaciones de 5 años de la American Community Survey, tablas **C16001** (idioma que se habla en el hogar, población de 5 años o más) y **B16007** (idioma que se habla en el hogar por edad), mediante la API del Censo | 2020–2024 | guardados localmente, no incluidos en el repositorio | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Población por manzana censal | Oficina del Censo de EE. UU., datos de redistribución del Censo 2020 (P.L. 94-171), tablas P1 y P3, mediante la API del Censo | 2020 | guardados localmente, no incluidos en el repositorio | usado en `acs_language_access.R` y `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
-## Cómo se procesó cada fuente {#how-each-source-was-processed}
+## Cómo leímos y verificamos cada fuente {#how-each-source-was-processed}
 
 ### 1. Matrícula de inmersión por escuela (Language Immersion Track Profiles) {#immersion-enrollment-by-school-language-immersion-track-profiles}
 
-Cada PDF presenta cada escuela con un programa de inmersión en dos líneas: los números, y luego los mismos números como porcentaje de la matrícula total de la escuela en octubre. Las columnas son: matrícula total; estudiantes que son estudiantes multilingües (ML) o están en inmersión; ninguno de los dos; total de estudiantes de inmersión; estudiantes de inmersión por idioma (español, mandarín, japonés, ruso, vietnamita); total de estudiantes ML; estudiantes ML por idioma principal (español, chino, japonés, ruso, vietnamita, somalí, otro); estudiantes que son ML y están en inmersión a la vez; y un porcentaje final.
+Cada PDF presenta todas las escuelas que tienen un programa de inmersión. Cada escuela ocupa dos líneas: primero los números y luego los mismos números como porcentaje de la matrícula total de la escuela en octubre. Las columnas son:
 
-- **Lectura de los números.** El texto se extrajo con `pypdf`. En los archivos de 2021-22 y 2022-23, la capa de texto del PDF junta números adyacentes (cuatro ceros se imprimen como "0000"). Los dígitos de cada escuela se separaron de todas las formas posibles, y se conserva la separación en la que cada número coincide con su porcentaje impreso de la matrícula (dentro del redondeo, ±0.51 puntos) y se cumplen las identidades de la fila: total de inmersión = suma de los cinco idiomas de inmersión; total ML = suma de los idiomas ML; "ML o inmersión" = inmersión + ML − ambos; "ninguno" = matrícula − "ML o inmersión". Exactamente una separación debe pasar, o el script se detiene.
-- **Columnas de idioma ML.** En 2021-22, la capa de texto a veces presenta los números por idioma ML fuera del orden de las columnas; se asignan a las columnas según sus porcentajes impresos. En 21 combinaciones de escuela y año (2021-22 y 2022-23), los números por idioma ML de la capa de texto no suman el total ML de la propia escuela; para esas filas, el desglose por idioma ML se deja en blanco y solo se conservan los totales verificados. Ninguna cifra de este sitio usa el desglose por idioma ML.
-- **Columna mal etiquetada.** La última columna se titula "Percent of ML in Immersion (Both ML and Imm / ML)", pero los valores impresos son *ambos ÷ total de inmersión* (Ainsworth 2025: 38 ÷ 287 = 13%, mientras que 38 ÷ 59 = 64%). Se guarda como `pct_immersion_ml`.
-- **Error en la fecha.** El título del archivo de 2023-24 dice "October 2022"; se trata como 2023-24, de acuerdo con la etiqueta del archivo de PPS y con su contenido.
-- **Saltos de página.** Cuando la línea de porcentajes de una escuela cae en la página siguiente (Richmond, 2025-26), se vuelve a unir con su línea de números.
+- matrícula total
+- estudiantes multilingües (ML, quienes están aprendiendo inglés) o en inmersión
+- estudiantes que no son ninguna de las dos cosas
+- total de estudiantes de inmersión
+- estudiantes de inmersión por idioma (español, mandarín, japonés, ruso, vietnamita)
+- total de estudiantes ML
+- estudiantes ML por idioma principal (español, chino, japonés, ruso, vietnamita, somalí, otro)
+- estudiantes que son ML y están en inmersión a la vez
+- un porcentaje final.
+
+Resolvimos cinco problemas en estos archivos:
+
+- **Lectura de los números.** Extrajimos el texto con `pypdf`. En los archivos de 2021-22 y 2022-23, la capa de texto del PDF (el texto legible por computadora detrás de la página impresa) junta números adyacentes. Por ejemplo, cuatro ceros se imprimen como "0000". Por eso separamos los dígitos de cada escuela de todas las formas posibles. Conservamos la separación en la que se cumplen estas dos condiciones:
+  - cada número coincide con su porcentaje impreso de la matrícula, dentro del redondeo (±0.51 puntos)
+  - se cumplen las identidades de la fila: total de inmersión = suma de los cinco idiomas de inmersión; total ML = suma de los idiomas ML; "ML o inmersión" = inmersión + ML − ambos; "ninguno" = matrícula − "ML o inmersión".
+
+  Exactamente una separación debe pasar; si no, el script se detiene.
+- **Columnas de idioma ML.** En 2021-22, la capa de texto a veces presenta los números por idioma ML fuera del orden de las columnas. Los asignamos a las columnas según sus porcentajes impresos. Hay 21 combinaciones de escuela y año (2021-22 y 2022-23) con otro problema. En ellas, los números por idioma ML de la capa de texto no suman el total ML de la escuela. En esas filas dejamos en blanco el desglose por idioma ML y conservamos solo los totales verificados. Ninguna cifra de este sitio usa el desglose por idioma ML.
+- **Columna mal etiquetada.** La última columna se titula "Percent of ML in Immersion (Both ML and Imm / ML)". Pero los valores impresos son *ambos ÷ total de inmersión* (Ainsworth 2025: 38 ÷ 287 = 13%, mientras que 38 ÷ 59 = 64%). La guardamos como `pct_immersion_ml`.
+- **Error en la fecha.** El título del archivo de 2023-24 dice "October 2022". Lo tratamos como 2023-24, de acuerdo con la etiqueta del archivo de PPS y con su contenido.
+- **Saltos de página.** A veces la línea de porcentajes de una escuela cae en la página siguiente (Richmond, 2025-26). En ese caso la volvemos a unir con su línea de números.
 
 ### 2. Matrícula por grado y tipo de programa {#enrollment-by-grade-and-program-type}
 
-Cada escuela aparece por programa (p. ej., "Spanish Immersion", "Neighborhood Program") con la matrícula en cada grado de PreK a 12.º y un total. Las escuelas con varios programas terminan con una fila de total de la escuela, y las escuelas están agrupadas en secciones (primaria, intermedia, preparatoria, alternativa, comunitaria, servicios especiales, chárter) con totales por sección y un total del distrito.
+Este informe presenta cada escuela por programa (por ejemplo, "Spanish Immersion" o "Neighborhood Program"). Cada fila da la matrícula en cada grado, de PreK a 12.º, y un total. Las escuelas con más de un programa terminan con una fila de total de la escuela. Las escuelas están agrupadas en secciones (primaria, intermedia, preparatoria, alternativa, comunitaria, servicios especiales, chárter). Cada sección tiene un total, y el informe termina con un total del distrito.
 
-- Las celdas se leen por posición: la capa de texto imprime todas las celdas de grado, en blanco donde no se ofrece un grado. Los números mayores de 999 llevan comas, y se volvió a unir el nombre de un programa que estaba partido en dos líneas.
-- **Verificaciones (todas pasan en ambos años):** los grados de cada fila suman su total; las filas de programa de cada escuela suman el total de la escuela en cada grado; las escuelas suman los totales de su sección; las secciones suman el total del distrito (44,086 en octubre de 2024; 43,479 en octubre de 2025).
-- **Escuelas de inmersión completa.** Lent, Rigler y Richmond aparecen en una sola fila sin etiqueta. La fuente 1 muestra que todos sus estudiantes están en inmersión, así que se marcan como inmersión en español, en español y en japonés, respectivamente.
+- Leemos las celdas por posición. La capa de texto imprime todas las celdas de grado, en blanco donde la escuela no ofrece ese grado. Los números mayores de 999 llevan comas. Además, volvimos a unir el nombre de un programa que estaba partido en dos líneas.
+- **Verificaciones (todas pasan en ambos años):**
+  - los grados de cada fila suman su total
+  - las filas de programa de cada escuela suman el total de la escuela en cada grado
+  - las escuelas suman los totales de su sección
+  - las secciones suman el total del distrito (44,086 en octubre de 2024; 43,479 en octubre de 2025).
+- **Escuelas de inmersión completa.** Lent, Rigler y Richmond aparecen en una sola fila sin etiqueta. La fuente 1 muestra que todos sus estudiantes están en inmersión. Por eso las marcamos como inmersión en español, en español y en japonés, respectivamente.
 - **Verificación cruzada:** la matrícula de inmersión sumada de este informe es igual a los totales de inmersión de la fuente 1 para todas las escuelas en ambos años.
 
 ### 3. Matrícula por idioma y escuela {#enrollment-by-language-and-school}
 
-Para cada escuela y programa, estudiantes por grupo de idioma del hogar (inglés, español, vietnamita, chino, ruso, somalí/maay-maay, japonés, otro), como números y porcentajes. "Chino" incluye cantonés, mandarín y otros idiomas chinos (nota al pie del informe).
+Para cada escuela y programa, este informe cuenta a los estudiantes por grupo de idioma del hogar, en números y porcentajes. Los grupos son inglés, español, vietnamita, chino, ruso, somalí/maay-maay, japonés y otro. "Chino" incluye cantonés, mandarín y otros idiomas chinos (nota al pie del informe).
 
-- Las celdas vacías se omiten en el texto del PDF, así que cada número se asigna a una columna según su posición horizontal en la página, con los límites de columna tomados de la fila de encabezado.
-- **Verificaciones (todas pasan):** los números por idioma suman la matrícula del programa; cada número coincide con su porcentaje impreso (±0.51 puntos); las filas de programa suman la fila de total de la escuela; todas las escuelas suman el total del distrito para cada idioma.
+- El texto del PDF omite las celdas vacías. Por eso asignamos cada número a una columna según su posición horizontal en la página. Los límites de las columnas salen de la fila de encabezado.
+- **Verificaciones (todas pasan):**
+  - los números por idioma suman la matrícula del programa
+  - cada número coincide con su porcentaje impreso (±0.51 puntos)
+  - las filas de programa suman la fila de total de la escuela
+  - todas las escuelas suman el total del distrito para cada idioma.
 - **Verificación cruzada:** la matrícula de inmersión por escuela e idioma es exactamente igual a la de la fuente 1 (64 combinaciones de escuela y año comparadas, 0 diferencias).
 
 ### 4. Resultados del sorteo {#lottery-results}
 
-PPS publica un resumen de resultados de cada sorteo: para cada escuela y programa, el número de solicitudes, ofertas, solicitantes en lista de espera y solicitudes canceladas, y en algunos años el número de lugares ("slots") y de solicitantes no asignados. "Cancelada" significa que el solicitante obtuvo lugar en un programa que había puesto en un orden de preferencia más alto. Las listas de espera son las del sorteo de primavera; los solicitantes en lista de espera todavía pueden recibir una oferta antes de fines de septiembre.
+PPS publica un resumen de resultados de cada sorteo. Para cada escuela y programa, da el número de solicitudes, ofertas, solicitantes en lista de espera y solicitudes canceladas. Algunos años también dan el número de lugares ("slots") y de solicitantes no asignados. "Cancelada" significa que la persona obtuvo lugar en un programa que había puesto más arriba en su orden de preferencia. Las listas de espera son las del sorteo de primavera. Quienes están en lista de espera todavía pueden recibir una oferta antes de fines de septiembre.
 
-El formato cambia cada año, así que cada archivo se procesó por separado:
+El formato cambia cada año, así que procesamos cada archivo por separado:
 
 | Sorteo para | Notas sobre el formato | Columnas disponibles |
 |---|---|---|
@@ -89,59 +118,65 @@ El formato cambia cada año, así que cada archivo se procesó por separado:
 | 2025-26 | Páginas a dos columnas; títulos mezclados con las líneas de nombres de escuelas. Una escuela que no es de inmersión (Buckman, 1.º a 5.º grado) aparece con las columnas fuera de orden y se volvió a leer para que sus filas cuadren. | igual que 2024-25 |
 | 2026-27 (kínder) | Los encabezados de sección y los nombres de escuelas aparecen al final del texto de cada página, así que las filas se leen por posición. Grupos de solicitantes por lugar de residencia (NH, RG, TR) y antecedentes lingüísticos (English, Heritage, Native). | ofertas, lista de espera, canceladas, solicitudes |
 
-- **El idioma de cada programa** viene de una lista de escuelas e idiomas verificada contra las sedes de inmersión en el mapa de la situación actual (fuente 8) y la fuente 1.
-- **Verificaciones:** las filas de grupos de solicitantes suman el total impreso de la escuela en todos los años que imprimen totales (103 totales de escuela en 2022-23, 2023-24 y 2026-27), y los totales generales impresos coinciden (7). La identidad solicitudes = ofertas + lista de espera + canceladas (+ no asignados) se cumple en 846 de 848 filas comprobables; las dos excepciones están impresas así en la fuente.
-- **Cobertura.** Todos los programas de inmersión de primaria aparecen todos los años excepto Rigler, que no aparece en ninguno. La inmersión de escuela intermedia y preparatoria aparece en un solo informe (una tabla pequeña de 2024-25 sin ofertas), así que no hay una medida de la demanda en el sorteo para los programas de los grados intermedios.
+- **El idioma de cada programa** viene de una lista de escuelas e idiomas. La verificamos contra las sedes de inmersión en el mapa de la situación actual (fuente 8) y contra la fuente 1.
+- **Verificaciones:** En todos los años que imprimen totales, las filas de grupos de solicitantes suman el total impreso de la escuela. Son 103 totales de escuela en 2022-23, 2023-24 y 2026-27. Los totales generales impresos también coinciden (7). La identidad solicitudes = ofertas + lista de espera + canceladas (+ no asignados) se cumple en 846 de 848 filas comprobables. Las dos excepciones están impresas así en la fuente.
+- **Cobertura.** Todos los programas de inmersión de primaria aparecen todos los años, excepto Rigler, que no aparece en ninguno. La inmersión de escuela intermedia y preparatoria aparece en un solo informe: una tabla pequeña de 2024-25 sin ofertas. Por eso no hay una medida de la demanda en el sorteo para los programas de los grados intermedios.
 
 ### 5. Pronósticos de matrícula de PSU {#psu-enrollment-forecasts}
 
-Se procesaron las tablas 5.2–5.4 (distrito por grado; escenarios medio, bajo y alto) y 5.5 (por escuela y programa, solo escenario medio). Se verificaron los subtotales y totales impresos, con un margen de hasta 3 estudiantes por redondeo en los años pronosticados, y las cifras reales del año base coinciden con la fuente 2 (435 comparaciones). Richmond aparece solo con una fila de total; se agregó una fila de japonés igual a su total, como el informe ya hace con Lent y Rigler. Los pronósticos alimentarán la página de proyecciones y todavía no se usan en otras partes.
+Procesamos las tablas 5.2–5.4 (distrito por grado; escenarios medio, bajo y alto) y 5.5 (por escuela y programa, solo escenario medio). Verificamos los subtotales y totales impresos, con un margen de hasta 3 estudiantes por redondeo en los años pronosticados. Las cifras reales del año base coinciden con la fuente 2 (435 comparaciones). Richmond aparece solo con una fila de total. Le agregamos una fila de japonés igual a su total, como el informe ya hace con Lent y Rigler. Los usan la verificación de pronósticos de la página de Equidad y la página de Lent y César Chávez.
 
 ### 6. Tamaño de los grupos de kínder {#kindergarten-class-size}
 
-Los registros *Class Size Detail* dan el tamaño promedio de los grupos de cada escuela, en general y por grupo de grados (kínder, 1.º a 3.º, 4.º y 5.º, …), a mediados de octubre. El valor de kínder de Lent y Bridger se copió a mano del PDF de cada año en `data/class_size_kg.csv`, junto con el nombre del archivo de donde salió. Es el promedio de **todos** los grupos de kínder de la escuela, tanto de inmersión como del programa del vecindario.
+Los registros *Class Size Detail* dan el tamaño promedio de los grupos de cada escuela a mediados de octubre. Lo dan en general y por grupo de grados (kínder, 1.º a 3.º, 4.º y 5.º, …). Copiamos a mano el valor de kínder de Lent y Bridger del PDF de cada año en `data/class_size_kg.csv`, junto con el nombre del archivo de donde salió. El valor es el promedio de **todos** los grupos de kínder de la escuela, tanto de inmersión como del programa del vecindario.
 
 ### 7. Matrícula del distrito por grado, octubre de 2022 {#district-enrollment-by-grade-october-2022}
 
-Tomada de la página de resumen del distrito del perfil de matrícula de octubre de 2022: kínder 3,152; 1.º a 5.º grado: 3,376, 3,319, 3,502, 3,485, 3,358. Los totales de kínder del distrito de octubre de 2024 y 2025 se suman a partir de la fuente 2.
+Tomamos estas cifras de la página de resumen del distrito del perfil de matrícula de octubre de 2022: kínder 3,152; 1.º a 5.º grado: 3,376, 3,319, 3,502, 3,485, 3,358. Los totales de kínder del distrito de octubre de 2024 y 2025 los sumamos a partir de la fuente 2.
 
 ### 8. Sedes y traslados de programas en los escenarios {#scenario-sites-and-program-moves}
 
 `export_dli_tables.mjs` ejecuta el código del propio proyecto del mapa sobre sus datos, así que estas tablas coinciden con el mapa:
 
-- **Sedes.** Para cada escenario (situación actual, A, B) y nivel de grados (K-5, 6-8, 9-12), cada escuela cuya etiqueta en ese mapa nombra un programa de inmersión ("Rigler K-5 Spanish Immersion"; "Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion") es una sede para cada idioma nombrado. Cada sede de un escenario se marca como *se mantiene* (*kept*) o *se agrega* (*added*) en relación con la situación actual, y las sedes de la situación actual que faltan en un escenario se registran como *se elimina* (*removed*). `own_area` indica si la escuela tiene su propia zona de asistencia en ese mapa.
-- **Traslados.** Todos los traslados de programas de idioma en la transcripción del memorando, con el nivel de grados cuyos mapas muestran ambos extremos, más un cambio de grados que lleva consigo un programa paralelo (*strand*) de inmersión: César Chávez pasa a ser K-5 y sus grados 6.º a 8.º, con sus estudiantes de inmersión en español, se trasladan a George.
-- **Verificaciones.** Cada sede eliminada en un escenario se explica por un traslado o un cambio de grados del memorando, y los nombres de las escuelas coinciden con la fuente 1 (Brentwood aparece como "Lane" en los informes de matrícula de PPS).
+- **Sedes.** Revisamos cada escenario (situación actual, A, B) y cada nivel de grados (K-5, 6-8, 9-12). Una escuela es sede de cada idioma de inmersión que nombra su etiqueta en ese mapa ("Rigler K-5 Spanish Immersion"; "Roseway Heights Middle School Spanish Immersion, Vietnamese Immersion"). Cada sede de un escenario se marca como *se mantiene* (*kept*) o *se agrega* (*added*) en comparación con la situación actual. Las sedes de la situación actual que faltan en un escenario se registran como *se elimina* (*removed*). `own_area` indica si la escuela tiene su propia zona de asistencia en ese mapa.
+- **Traslados.** La tabla incluye todos los traslados de programas de idioma de la transcripción del memorando, con el nivel de grados cuyos mapas muestran ambos extremos. También incluye un cambio de grados que lleva consigo un programa paralelo (*strand*) de inmersión. Un programa paralelo es un programa de inmersión dentro de una escuela que también tiene un programa del vecindario. César Chávez pasa a ser K-5, y sus grados 6.º a 8.º, con sus estudiantes de inmersión en español, se trasladan a George.
+- **Verificaciones.** Un traslado o un cambio de grados del memorando explica cada sede eliminada en un escenario. Los nombres de las escuelas coinciden con la fuente 1 (Brentwood aparece como "Lane" en los informes de matrícula de PPS).
 
 ### 9. Idioma del hogar por sección censal {#home-language-by-census-tract}
 
-- **Tablas.** La tabla B16001 de la ACS presenta el ruso y el japonés por separado, pero se publica solo para estados; sus valores por sección censal y por condado están en blanco. Por eso, los números por sección censal vienen de **C16001**, que reporta por separado el español, el chino (incluidos el mandarín y el cantonés) y el vietnamita. El ruso se aproxima con "ruso, polaco u otros idiomas eslavos", que en Portland incluye también a hablantes de ucraniano. El japonés está dentro de "otros idiomas de Asia y las islas del Pacífico" y no tiene un número por sección censal. Los números de edad escolar (5 a 17 años) vienen de **B16007**, que separa solo español, otros idiomas indoeuropeos, idiomas de Asia y las islas del Pacífico, y otros idiomas.
-- **Qué secciones censales.** Los secciones censales de los condados de Multnomah, Washington y Clackamas cuyo punto interior (`sf::st_point_on_surface`) cae dentro del distrito, definido como la unión de las zonas de asistencia de las preparatorias en la situación actual: 135 secciones censales.
-- **Márgenes de error.** Los números de la ACS son estimaciones de encuesta; el margen de error de cada estimación se guarda junto a ella en `acs_language_tract.csv`. Los márgenes son grandes para grupos pequeños y secciones censales individuales, así que las cifras por sección censal son aproximadas; los totales del distrito son más confiables.
+- **Tablas.** La tabla B16001 de la Encuesta sobre la Comunidad Estadounidense (ACS) presenta el ruso y el japonés por separado, pero se publica solo para estados. Sus valores por sección censal y por condado están en blanco. Por eso los números por sección censal vienen de **C16001**, que reporta por separado el español, el chino (incluidos el mandarín y el cantonés) y el vietnamita. Para el ruso usamos como aproximación "ruso, polaco u otros idiomas eslavos", que en Portland incluye también a hablantes de ucraniano. El japonés está dentro de "otros idiomas de Asia y las islas del Pacífico" y no tiene un número por sección censal. Los números de edad escolar (5 a 17 años) vienen de **B16007**. Esta tabla separa solo el español, otros idiomas indoeuropeos, los idiomas de Asia y las islas del Pacífico, y otros idiomas.
+- **Qué secciones censales.** Usamos las secciones censales de los condados de Multnomah, Washington y Clackamas cuyo punto interior (`sf::st_point_on_surface`) cae dentro del distrito: 135 secciones censales. Definimos el distrito como la unión de las zonas de asistencia de las preparatorias en la situación actual.
+- **Márgenes de error.** Los números de la ACS son estimaciones de encuesta. Guardamos el margen de error de cada estimación junto a ella en `acs_language_tract.csv`. Los márgenes son grandes para grupos pequeños y para secciones censales individuales, así que las cifras por sección censal son aproximadas. Los totales del distrito son más confiables.
 
-## Cómo se calcula cada figura y tabla {#how-each-figure-and-table-is-calculated}
+## Cómo calculamos cada figura y tabla {#how-each-figure-and-table-is-calculated}
 
-### Unión de las fuentes {#joining-across-sources}
+### Cómo unimos los nombres de escuelas entre fuentes {#joining-across-sources}
 
-Los nombres de las escuelas varían entre fuentes ("Dr. Martin Luther King Jr." en el memorando, "MLK Jr" en los informes de matrícula, "Cesar Chavez" en los informes del sorteo). Todas las uniones usan una clave normalizada, la misma que usa el mapa: se quitan las palabras de grado y de tipo de escuela, se quitan los acentos, se pasan las letras a minúsculas y se eliminan los demás caracteres, con una breve lista de alias (variantes de MLK → `mlkjr`, Lane → Brentwood).
+Los nombres de las escuelas varían entre fuentes: "Dr. Martin Luther King Jr." en el memorando, "MLK Jr" en los informes de matrícula y "Cesar Chavez" en los informes del sorteo. Todas las uniones usan una clave normalizada, la misma que usa el mapa. Para crearla, quitamos las palabras de grado y de tipo de escuela, quitamos los acentos, pasamos las letras a minúsculas y eliminamos los demás caracteres. Una breve lista de alias resuelve el resto (variantes de MLK → `mlkjr`, Lane → Brentwood).
 
 ### Demanda en el sorteo de kínder (gráfica de demanda, gráfica de listas de espera, columnas del sorteo en la tabla comparativa, recuadro 2 de la página de inicio) {#kindergarten-lottery-demand-demand-chart-waitlist-chart-scorecard-lottery-columns-overview-tile-2}
 
-1. Para cada escuela y año del sorteo, se toman las filas de inmersión de primaria para kínder (o sin grado impreso). Se usa la fila de total de la escuela impresa en los años que la imprimen; si no, se suman las filas de los grupos de solicitantes.
-2. **Promedio de cinco años** = promedio de los sorteos de 2022-23 a 2026-27 en los que aparece el programa. El sorteo de 2021-22 se deja fuera porque sus filas de inmersión no tienen grado.
-3. **Recuadro 2 de la página de inicio** = solicitudes a los programas de español que se trasladan en el Escenario A ÷ todas las solicitudes de kínder de español, ambas sumadas en los mismos cinco sorteos.
-4. Los números son **solicitudes, no niños**: una familia puede solicitar varios programas, así que un niño puede estar en lista de espera en más de una escuela.
-5. En **Lent y Rigler** (escuelas de inmersión completa con sus propios vecindarios), los niños del vecindario se inscriben sin presentar solicitud, así que allí los números del sorteo cuentan solo a las familias de fuera del vecindario. Lent inscribió a 43 estudiantes de kínder de inmersión en octubre de 2025, pero hizo 14 ofertas en el sorteo; Rigler inscribe entre 50 y 57 al año y nunca aparece en el sorteo. En todas las demás escuelas de inmersión, incluida Richmond (que no tiene vecindario propio), la matrícula de kínder en octubre es parecida al número de ofertas del sorteo.
+1. Para cada escuela y año del sorteo, tome las filas de inmersión de primaria para kínder (o sin grado impreso). Use la fila de total de la escuela impresa en los años que la imprimen. Si no, sume las filas de los grupos de solicitantes.
+2. **Promedio de cinco años** = promedio de los sorteos de 2022-23 a 2026-27 en los que aparece el programa. Dejamos fuera el sorteo de 2021-22 porque sus filas de inmersión no tienen grado.
+3. **Recuadro 2 de la página de inicio** = solicitudes a los programas de español que se trasladan en el Escenario A ÷ todas las solicitudes de kínder de español. Ambas cifras se suman en los mismos cinco sorteos.
+4. Los números son **solicitudes, no niños**. Una familia puede solicitar varios programas, así que un niño puede estar en lista de espera en más de una escuela.
+5. En **Lent y Rigler**, los niños del vecindario se inscriben sin presentar solicitud. Son escuelas de inmersión completa con sus propios vecindarios. Por eso, allí los números del sorteo cuentan solo a las familias de fuera del vecindario. Lent inscribió a 43 estudiantes de kínder de inmersión en octubre de 2025, pero hizo 14 ofertas en el sorteo. Rigler inscribe entre 50 y 57 al año y nunca aparece en el sorteo. Richmond no tiene vecindario propio. En Richmond y en todas las demás escuelas de inmersión, la matrícula de kínder en octubre es parecida al número de ofertas del sorteo.
 
 ### Quién está en lista de espera (tabla de 2026-27) {#who-is-waitlisted-2026-27-table}
 
-Filas de grupos de solicitantes del informe de kínder de 2026-27, sumadas por lugar de residencia y por los antecedentes lingüísticos que registra PPS (English, Heritage, Native). Grupos por residencia: NH = vive en la zona de asistencia de la escuela sede; RG = vive en la zona regional de inmersión en español (el conjunto de escuelas que alimentan un programa de inmersión en español de preparatoria); TR = vive en otra parte de PPS. Se muestran los cuatro programas de español con más solicitudes en lista de espera.
+Sumamos las filas de grupos de solicitantes del informe de kínder de 2026-27 por lugar de residencia y por los antecedentes lingüísticos que registra PPS (English, Heritage, Native). Los grupos por residencia son:
+
+- NH = vive en la zona de asistencia de la escuela sede
+- RG = vive en la zona regional de inmersión en español (el conjunto de escuelas que alimentan un programa de inmersión en español de preparatoria)
+- TR = vive en otra parte de PPS.
+
+La tabla muestra los cuatro programas de español con más solicitudes en lista de espera.
 
 ### Tabla comparativa de los traslados de programas {#scorecard-of-program-moves}
 
 - **Estudiantes:** matrícula de octubre de 2025 (fuente 2) en el programa de idioma que se traslada, en la escuela de origen, en los grados del nivel del traslado (K-5 o 6-8).
-- **Sorteo de kínder, por año:** los promedios de cinco años descritos arriba, que se muestran solo para los traslados K-5.
-- **Coincidencia del idioma del hogar:** entre los estudiantes de inmersión de un programa en octubre de 2025 (fuente 3), el porcentaje cuyo idioma del hogar es el idioma del programa; para mandarín, el porcentaje cuyo idioma del hogar es cualquier idioma chino. Se muestra para el programa de origen y para el programa existente de la escuela receptora en ese idioma.
+- **Sorteo de kínder, por año:** los promedios de cinco años descritos arriba. Se muestran solo para los traslados K-5.
+- **Coincidencia del idioma del hogar:** entre los estudiantes de inmersión de un programa en octubre de 2025 (fuente 3), el porcentaje cuyo idioma del hogar es el idioma del programa. Para mandarín, es el porcentaje cuyo idioma del hogar es cualquier idioma chino. Lo mostramos para el programa de origen y para el programa existente de la escuela receptora en ese idioma.
 - **Escenario:** "A y B" cuando el traslado aparece en la transcripción del memorando de ambos escenarios; si no, el escenario en el que aparece.
 
 ### Sedes por idioma y nivel de grados {#sites-by-language-and-grade-band}
@@ -150,10 +185,10 @@ Número de sedes (fuente 8) para cada idioma, nivel de grados y escenario, sin c
 
 ### Distancia a la sede más cercana (tabla, recuadro 4 de la página de inicio) {#distance-to-the-nearest-site-table-overview-tile-4}
 
-Los números de idioma de la ACS solo están disponibles para secciones censales completos (unos 4,000 residentes cada uno), y un sección censal puede medir más de una milla de un lado a otro, así que, para una medida de 1 milla, importa dónde se ubica a las personas dentro del sector.
+Los números de idioma de la ACS solo existen para secciones censales completas (unos 4,000 residentes cada una). Una sección censal puede medir más de una milla de un lado a otro. Por eso, para una medida de 1 milla, importa dónde ubicamos a las personas dentro de la sección.
 
-1. **Repartir a los hablantes de cada sección censal entre sus manzanas censales.** El número de cada sector se divide entre sus manzanas del Censo 2020 en proporción a la población de cada manzana: todos los residentes para los números de 5 años o más (tabla P1 del Censo 2020), y los residentes menores de 18 años para los hablantes de español en edad escolar (total de P1 menos los adultos de P3). Esto supone que, dentro de cada sector, los hablantes se distribuyen como la población. Hay 10,866 manzanas en los 135 secciones censales del distrito.
-2. **Distancia.** Para cada manzana, la distancia en línea recta en millas desde su punto interior hasta la sede K-5 más cercana de ese idioma, en coordenadas del plano estatal Oregon North (EPSG:2838), para la situación actual y cada escenario.
+1. **Repartir a los hablantes de cada sección censal entre sus manzanas censales.** Las manzanas censales son las áreas más pequeñas que cuenta la Oficina del Censo; muchas veces son una sola cuadra. Dividimos el número de cada sección entre sus manzanas del Censo 2020 en proporción a la población de cada manzana. Para los números de 5 años o más usamos a todos los residentes (tabla P1 del Censo 2020). Para los hablantes de español en edad escolar usamos a los residentes menores de 18 años (total de P1 menos los adultos de P3). Esto supone que, dentro de cada sección, los hablantes se distribuyen como la población. Hay 10,866 manzanas en las 135 secciones censales del distrito.
+2. **Distancia.** Para cada manzana, medimos la distancia en línea recta en millas desde su punto interior hasta la sede K-5 más cercana de ese idioma. Usamos coordenadas del plano estatal Oregon North (EPSG:2838) y medimos para la situación actual y cada escenario.
 3. **A 1 milla o menos** = hablantes en manzanas a 1 milla o menos ÷ todos los hablantes de ese idioma en el distrito. **Distancia promedio** = distancia promedio ponderada por el número de hablantes.
 
 **Verificaciones de la cifra principal** (hablantes de español en edad escolar a 1 milla o menos de una sede K-5 de español), de `data-raw/check_access_robustness.R`:
@@ -166,27 +201,27 @@ library(gt)
 read_data("access_robustness.csv") |>
   filter(speakers == "Spanish, ages 5-17") |>
   select(placement, miles, sq, a) |>
-  mutate(placement = recode(placement, `tract point` = "Todo el sección censal en un punto", `blocks by under-18 population` = "Repartido entre manzanas (el que se usa)")) |>
+  mutate(placement = recode(placement, `tract point` = "Toda la sección censal en un punto", `blocks by under-18 population` = "Repartido entre manzanas (el que se usa)")) |>
   gt(groupname_col = "placement") |>
   cols_label(miles = "A no más de (millas)", sq = "Situación actual", a = "Escenarios A y B") |>
   fmt_percent(c(sq, a), decimals = 0) |>
   tab_source_note("Hablantes de español en edad escolar (5 a 17 años) que viven dentro de cada distancia de una sede K-5 de inmersión en español.")
 ```
 
-- **Ubicación.** Poner a toda la población de cada sección censal en un solo punto interior (la primera versión de este sitio) daba 59% → 35% a 1 milla. Esa cifra era sensible al umbral: a media milla da 12%, porque varios secciones censales grandes quedan justo dentro de una milla de una sede. Repartir a los hablantes entre las manzanas da 52% → 36% y cambia de forma más gradual con la distancia; es la cifra que se usa.
-- **Error de encuesta.** El número de hablantes de español en edad escolar de cada sección censal se volvió a generar 2,000 veces a partir de una distribución normal con su error estándar de la ACS (margen de error al 90% ÷ 1.645, con mínimo de cero) y se volvió a calcular el porcentaje. Intervalos al 90%: `r ci <- read_data("access_robustness_ci.csv"); sprintf("situación actual %.0f–%.0f%%, Escenarios A y B %.0f–%.0f%%, disminución de %.0f–%.0f puntos porcentuales", 100*ci$lo[1], 100*ci$hi[1], 100*ci$lo[2], 100*ci$hi[2], 100*ci$lo[3], 100*ci$hi[3])`.
-- **Verosimilitud de los números.** La ACS estima 4,027 (±676) hablantes de español en edad escolar en los secciones censales del distrito, el 7.0% de todos los residentes de 5 a 17 años. PPS contó 3,081 estudiantes con el español como idioma del hogar en octubre de 2025, el 7.1% de su matrícula; la cifra de la ACS es mayor porque también incluye a niños en escuelas privadas y chárter.
+- **Ubicación.** La primera versión de este sitio ponía a toda la población de cada sección censal en un solo punto interior. Eso daba 59% → 35% a 1 milla. Esa cifra era sensible al umbral: a media milla da 12%, porque varias secciones censales grandes quedan justo dentro de una milla de una sede. Repartir a los hablantes entre las manzanas da 52% → 36% y cambia de forma más gradual con la distancia. Es la cifra que usamos.
+- **Error de encuesta.** Volvimos a generar 2,000 veces el número de hablantes de español en edad escolar de cada sección censal y recalculamos el porcentaje cada vez. Cada número se genera a partir de una distribución normal con su error estándar de la ACS (margen de error al 90% ÷ 1.645, con mínimo de cero). Intervalos al 90%: `r ci <- read_data("access_robustness_ci.csv"); sprintf("situación actual %.0f–%.0f%%, Escenarios A y B %.0f–%.0f%%, disminución de %.0f–%.0f puntos porcentuales", 100*ci$lo[1], 100*ci$hi[1], 100*ci$lo[2], 100*ci$hi[2], 100*ci$lo[3], 100*ci$hi[3])`.
+- **Verosimilitud de los números.** La ACS estima 4,027 (±676) hablantes de español en edad escolar en las secciones censales del distrito, el 7.0% de todos los residentes de 5 a 17 años. PPS contó 3,081 estudiantes con el español como idioma del hogar en octubre de 2025, el 7.1% de su matrícula. La cifra de la ACS es mayor porque también incluye a niños en escuelas privadas y chárter.
 - **Sedes.** Sedes K-5 de español actuales: Ainsworth, Atkinson, Beach, César Chávez, James John, Lent, Rigler, Scott, Sitton. Escenarios A y B: Ainsworth, César Chávez, Lent, Rigler. Las ubicaciones son los íconos de las escuelas en los mapas de escenarios de PPS (fuente 8).
-- **Límites.** La distancia en línea recta subestima el trayecto real, sobre todo al cruzar autopistas y ríos. El reparto dentro de cada sección censal supone que los hablantes viven donde vive la población general (o la población infantil). Las distancias por sección censal (`access_tract.csv`) se siguen publicando para hacer mapas.
+- **Límites.** La distancia en línea recta subestima el trayecto real, sobre todo al cruzar autopistas y ríos. El reparto dentro de cada sección censal supone que los hablantes viven donde vive la población general (o la población infantil). Seguimos publicando las distancias por sección censal (`access_tract.csv`) para hacer mapas.
 
 ### El precedente de Bridger → Lent {#bridger-lent-precedent}
 
-- **Estudiantes de inmersión por grado** = total de inmersión en español de cada escuela (fuente 1) ÷ 6, ya que ambas escuelas ofrecían de kínder a 5.º en los años usados. Antes de octubre de 2024, PPS no publica la matrícula de inmersión por grado, así que esto es un promedio de todos los grados; una generación real de kínder puede ser más grande o más pequeña.
+- **Estudiantes de inmersión por grado** = total de inmersión en español de cada escuela (fuente 1) ÷ 6, ya que ambas escuelas ofrecían de kínder a 5.º en los años usados. Antes de octubre de 2024, PPS no publica la matrícula de inmersión por grado. Por eso esto es un promedio de todos los grados; una generación real de kínder puede ser más grande o más pequeña.
 - **Kínder (real)** = matrícula de kínder de inmersión en español en octubre (fuente 2), 2024-25 y 2025-26.
 - **Grupos estimados de kínder de inmersión** = estudiantes de kínder de inmersión (reales donde se publican; si no, el promedio por grado) ÷ el tamaño promedio de los grupos de kínder de la escuela (fuente 6).
 - **Cambio** = matrícula real promedio de kínder de inmersión en Lent en 2024-25 y 2025-26 ÷ matrícula de inmersión por grado combinada promedio de Bridger y Lent en 2021-22 y 2022-23, menos 1.
-- **Comparación con el distrito, con la misma base:** el lado "antes" de Lent es un promedio de los grados de kínder a 5.º, y los grupos de kínder de PPS son más pequeños que los de 1.º a 5.º (octubre de 2022: 3,152 estudiantes de kínder frente a entre 3,319 y 3,502 en cada grado de 1.º a 5.º). Por eso, la comparación con el distrito también usa una base de todos los grados: matrícula promedio de kínder del distrito en octubre de 2024 y octubre de 2025 (fuente 2) ÷ la matrícula promedio por grado de kínder a 5.º en octubre de 2022 (fuente 7), menos 1. El cambio del distrito de kínder a kínder se reporta al lado como referencia.
-- Las solicitudes del sorteo no se usan aquí a propósito: antes de 2023, las familias del vecindario de Lent solicitaban la inmersión por medio del sorteo, y después se inscriben directamente, así que los números de antes y después miden grupos distintos.
+- **Comparación con el distrito, con la misma base:** El lado "antes" de Lent es un promedio de los grados de kínder a 5.º. Los grupos de kínder de PPS son más pequeños que los de 1.º a 5.º (octubre de 2022: 3,152 estudiantes de kínder frente a entre 3,319 y 3,502 en cada grado de 1.º a 5.º). Por eso, la comparación con el distrito también usa una base de todos los grados: matrícula promedio de kínder del distrito en octubre de 2024 y octubre de 2025 (fuente 2) ÷ la matrícula promedio por grado de kínder a 5.º en octubre de 2022 (fuente 7), menos 1. Como referencia, también reportamos el cambio del distrito de kínder a kínder.
+- Aquí no usamos a propósito las solicitudes del sorteo. Antes de 2023, las familias del vecindario de Lent solicitaban la inmersión por medio del sorteo. Después se inscriben directamente. Por eso, los números de antes y de después miden grupos distintos.
 
 ### Recuadros de la página de inicio {#overview-tiles}
 
@@ -195,123 +230,192 @@ read_data("access_robustness.csv") |>
 3. Suma de *Estudiantes* (definición de la tabla comparativa) de todos los traslados del Escenario A, incluido el cambio de grados de César Chávez.
 4. Véase *Distancia a la sede más cercana*, para los hablantes de español en edad escolar.
 
-## Página de equidad {#equity}
+## Página de equidad: a quién afectan los cambios {#equity}
 
-`data-raw/equity_analysis.R` produce `equity_changes.csv` (una fila por cierre o traslado de inmersión), `equity_groups.csv` (totales por grupo), `equity_home_distance.csv` / `equity_home_distance_summary.csv` y `equity_home_sensitivity.csv`.
+`data-raw/equity_analysis.R` produce estas tablas:
 
-**La tabla de subgrupos de PPS** (fuente 11) se reproduce tal como está impresa. La diapositiva no indica el año ni define qué es un "traslado"; la hoja de comparación de todo el distrito llama a los mismos totales "estudiantes que cambiarían de escuela" y describe las cifras como proyecciones de 2031-32, salvo que se indique otra cosa. No se dice si se cuentan los estudiantes cuyo programa de inmersión se reubica.
+- `equity_changes.csv` (una fila por cierre o traslado de inmersión)
+- `equity_groups.csv` (totales por grupo)
+- `equity_home_distance.csv` y `equity_home_distance_summary.csv`
+- `equity_home_sensitivity.csv`.
+
+**La tabla de subgrupos de PPS** (fuente 11) se reproduce tal como está impresa. La diapositiva no indica el año ni define qué es un "traslado". La hoja de comparación de todo el distrito llama a los mismos totales "estudiantes que cambiarían de escuela". Además, describe las cifras como proyecciones de 2031-32, salvo que se indique otra cosa. PPS no dice si cuenta al estudiantado cuyo programa de inmersión se reubica.
 
 **Grupos comparados.**
 
-- *Traslados de programas de inmersión*: para cada traslado de un programa de idioma en un escenario (fuente 8), más el programa paralelo de español de 6.º a 8.º de César Chávez que se traslada a George: la matrícula de octubre de 2025 en ese programa de idioma en la escuela de origen, en los grados que se trasladan (fuente 2).
+- *Traslados de programas de inmersión*: cada traslado de un programa de idioma en un escenario (fuente 8), más el programa paralelo de español de 6.º a 8.º de César Chávez que se traslada a George. Para cada uno, contamos la matrícula de octubre de 2025 en ese programa de idioma en la escuela de origen, en los grados que se trasladan (fuente 2).
 - *Cierres de escuelas (estudiantes que no están en inmersión)*: para cada escuela que el escenario cierra (fuente 8), la matrícula de octubre de 2025 en sus programas que no son de inmersión (fuente 3). Los estudiantes de inmersión de las escuelas que cierran (Beach, James John, Rose City Park en el A) se cuentan una sola vez, en el traslado de su programa.
 - *Todos los estudiantes de PPS*: matrícula del distrito en octubre de 2025 (fuente 3).
 
-Los cambios de límites de zona, que trasladan a la mayoría de los estudiantes en los totales de PPS, no se incluyen en ninguno de los grupos; no hay datos públicos sobre los estudiantes ni los idiomas del hogar en cada zona que cambia.
+Ninguno de los grupos incluye los cambios de límites de zona. Sin embargo, en los totales de PPS son esos cambios los que trasladan a la mayoría de los estudiantes. No hay datos públicos sobre los estudiantes ni los idiomas del hogar en cada zona que cambia.
 
-**Idioma del hogar.** Para cada traslado de inmersión, la composición por idioma del hogar de los estudiantes de inmersión del programa de origen (todos los grados de ese programa) se aplica a los estudiantes que se trasladan. Para los cierres, la composición de los estudiantes de la escuela que no están en inmersión. "Otro idioma que no es inglés" es cualquier idioma del hogar distinto del inglés.
+**Idioma del hogar.** Para cada traslado de inmersión, tomamos la composición por idioma del hogar de los estudiantes de inmersión del programa de origen (todos los grados). Luego la aplicamos a los estudiantes que se trasladan. Para los cierres, usamos la composición de los estudiantes de la escuela que no están en inmersión. "Otro idioma que no es inglés" es cualquier idioma del hogar distinto del inglés.
 
-**Qué tan lejos se traslada la escuela.** Distancia en línea recta entre las ubicaciones de las escuelas en los mapas de los escenarios. Para un cierre cuya zona de asistencia se divide entre varias escuelas receptoras, las distancias a cada escuela receptora se ponderan por la proporción de la zona de asistencia de la escuela que cierra (por superficie) que recibe cada una en el mapa del escenario; las zonas receptoras menores del 2% de la zona que cierra no se toman en cuenta.
+**Qué tan lejos se traslada la escuela.** Usamos la distancia en línea recta entre las ubicaciones de las escuelas en los mapas de los escenarios. La zona de asistencia de algunas escuelas que cierran se divide entre varias escuelas receptoras. En esos casos, ponderamos la distancia a cada escuela receptora. El peso es la parte de la zona de la escuela que cierra (por superficie) que esa escuela recibe en el mapa del escenario. No tomamos en cuenta las zonas receptoras menores del 2% de la zona que cierra.
 
-**Distancia del hogar a la escuela (estimación).** Los niños se ubican por manzana censal con la población menor de 18 años de 2020 (fuente 10).
+**Distancia del hogar a la escuela (estimación).** Ubicamos a los niños por manzana censal con la población menor de 18 años de 2020 (fuente 10).
 
-- *Cierres*: manzanas dentro de la zona de asistencia de la escuela que cierra en la situación actual (mismo nivel de grados). Antes = distancia a la escuela que cierra; después = distancia a la escuela cuya zona de asistencia contiene la manzana en el mapa del escenario.
-- *Traslados de inmersión*: las direcciones de las familias de inmersión no se publican. Cada manzana se asigna a la sede de inmersión actual más cercana del mismo idioma y nivel de grados (un área de influencia por cercanía), y se usan las manzanas asignadas al programa de origen. Antes = distancia a la escuela de origen; después = distancia a la nueva escuela del programa. Para el español, una segunda versión pondera las manzanas por el número de hablantes de español en edad escolar (números de la ACS por sección censal repartidos entre las manzanas según la población menor de 18 años).
-- Dentro de cada cambio, las distancias se promedian sobre los niños; los promedios entre cambios se ponderan por los estudiantes inscritos en cada cambio.
-- **Sensibilidad** (`equity_home_sensitivity.csv`): la estimación de inmersión se vuelve a calcular sin el vietnamita (cuya área de influencia es todo el distrito), solo para los programas de español, y para los programas de español ponderando las manzanas por los hablantes de español en edad escolar; los cierres también se vuelven a calcular con la ponderación por hablantes de español. El aumento para inmersión se mantiene entre aproximadamente +1.0 y +1.2 millas, y el aumento para cierres entre aproximadamente +0.3 y +0.5 millas. Ninguna de estas versiones pone a prueba el supuesto sobre dónde viven las familias de inmersión; la verificación de abajo sí lo hace.
-- Limitaciones: distancias en línea recta; las áreas de influencia por cercanía son solo un modelo de dónde viven las familias de inmersión (los estudiantes de inmersión a menudo vienen de un área más amplia, y para los idiomas con una sola sede, como el vietnamita, el área de influencia es todo el distrito); no se incluyen los traslados de zonas de asistencia completas entre escuelas del vecindario por cambios de límites.
+- *Cierres*: manzanas dentro de la zona de asistencia de la escuela que cierra en la situación actual (mismo nivel de grados). Antes = distancia a la escuela que cierra. Después = distancia a la escuela cuya zona de asistencia contiene la manzana en el mapa del escenario.
+- *Traslados de inmersión*: PPS no publica las direcciones de las familias de inmersión. Por eso asignamos cada manzana a la sede de inmersión actual más cercana del mismo idioma y nivel de grados. Esto es un área de influencia por cercanía: el área que queda más cerca de esa sede que de cualquier otra. Usamos las manzanas asignadas al programa de origen. Antes = distancia a la escuela de origen; después = distancia a la nueva escuela del programa. Para el español, una segunda versión pondera las manzanas por el número de hablantes de español en edad escolar. Esos números vienen de la ACS por sección censal, repartidos entre las manzanas según la población menor de 18 años.
+- Dentro de cada cambio, promediamos las distancias de todos los niños. Los promedios entre cambios se ponderan por los estudiantes inscritos en cada cambio.
+- **Sensibilidad** (`equity_home_sensitivity.csv`): volvemos a calcular la estimación de inmersión de tres formas:
+  - sin el vietnamita (cuya área de influencia es todo el distrito)
+  - solo para los programas de español
+  - para los programas de español, ponderando las manzanas por los hablantes de español en edad escolar.
 
-**Raza y etnia.** El informe de PPS *School/Neighborhood Enrollment by Ethnicity & Program* da la composición racial de cada escuela completa y su porcentaje en inmersión, no la composición racial de los programas de inmersión, así que la raza/etnia de los estudiantes de los programas que se trasladan no se puede calcular con los informes públicos.
+  También volvemos a calcular los cierres con la ponderación por hablantes de español. El aumento para inmersión se mantiene entre aproximadamente +1.0 y +1.2 millas. El aumento para cierres se mantiene entre aproximadamente +0.3 y +0.5 millas. Ninguna de estas versiones pone a prueba el supuesto sobre dónde viven las familias de inmersión; la verificación de abajo sí lo hace.
+- Limitaciones:
+  - Las distancias son en línea recta.
+  - Las áreas de influencia por cercanía son solo un modelo de dónde viven las familias de inmersión. Los estudiantes de inmersión a menudo vienen de un área más amplia. Para los idiomas con una sola sede, como el vietnamita, el área de influencia es todo el distrito.
+  - La estimación no incluye los traslados de zonas de asistencia completas entre escuelas del vecindario por cambios de límites.
+
+**Raza y etnia.** El informe de PPS *School/Neighborhood Enrollment by Ethnicity & Program* da la composición racial de cada escuela completa y su porcentaje en inmersión. No da la composición racial de los programas de inmersión. Por eso, con los informes públicos no se puede calcular la raza ni la etnia de los estudiantes de los programas que se trasladan.
 
 ### Página de equidad: composición de las escuelas, demanda y familias que no siguen al programa {#equity-page-school-composition-demand-and-families-not-following}
 
-**Composición de las escuelas (fuente 12).** Para cada escenario, las escuelas se agrupan en *pierden un programa de inmersión* (la escuela de origen de cualquier traslado de programa o del cambio de grados de César Chávez), *reciben un programa de inmersión* (escuelas receptoras que no son también de origen) y *cierran sin programa de inmersión* (escuelas que cierran y que no son también de origen). Cada escuela está en un solo grupo: Beach, James John y Rose City Park, que cierran y pierden un programa de inmersión, se cuentan como escuelas que pierden un programa de inmersión. Los porcentajes son los valores de la fila School de octubre de 2025, ponderados por la matrícula; la fila del distrito es el Grand Total de PPS. Describen escuelas completas, no sus programas de inmersión, que PPS no reporta por raza ni por ingresos. Clark no aparece en el informe de ninguno de los dos años y se deja fuera (los subtotales por nivel del informe sí lo incluyen).
+**Composición de las escuelas (fuente 12).** Para cada escenario, agrupamos las escuelas en tres grupos:
+
+- *pierden un programa de inmersión*: la escuela de origen de cualquier traslado de programa o del cambio de grados de César Chávez
+- *reciben un programa de inmersión*: escuelas receptoras que no son también de origen
+- *cierran sin programa de inmersión*: escuelas que cierran y que no son también de origen.
+
+Cada escuela está en un solo grupo. Beach, James John y Rose City Park cierran y pierden un programa de inmersión, así que cuentan como escuelas que pierden un programa de inmersión. Los porcentajes son los valores de la fila School de octubre de 2025, ponderados por la matrícula. La fila del distrito es el Grand Total de PPS. Estas cifras describen escuelas completas, no sus programas de inmersión, que PPS no reporta por raza ni por ingresos. Clark no aparece en el informe de ninguno de los dos años, así que lo dejamos fuera (los subtotales por nivel del informe sí lo incluyen).
 
 - *Históricamente desatendidos*, según la nota al pie del informe: "estudiantes latinos, afroamericanos, nativos americanos, de las islas del Pacífico y de origen multirracial u otros".
-- *Certificación directa*: según la nota al pie, estudiantes que el estado ha identificado como elegibles para comidas gratuitas; se excluyen las solicitudes en papel.
-- *Verificaciones del procesamiento*: los porcentajes por raza suman entre 98% y 102% por fila; la matrícula de las escuelas coincide con la fuente 2 en las 79 escuelas; el porcentaje de inmersión × la matrícula coincide con la fuente 1 dentro del redondeo; los subtotales por nivel más las filas de programa suman el total general (43,479 en octubre de 2025). Las celdas en blanco se leen como 0 (las filas con celdas en blanco aun así suman alrededor de 100%).
+- *Certificación directa*: según la nota al pie, estudiantes que el estado ha identificado como elegibles para comidas gratuitas. Se excluyen las solicitudes en papel.
+- *Verificaciones del procesamiento*:
+  - los porcentajes por raza suman entre 98% y 102% por fila
+  - la matrícula de las escuelas coincide con la fuente 2 en las 79 escuelas
+  - el porcentaje de inmersión × la matrícula coincide con la fuente 1 dentro del redondeo
+  - los subtotales por nivel más las filas de programa suman el total general (43,479 en octubre de 2025).
 
-**Estudiantes multilingües en los programas que se trasladan (fuente 1).** Estudiantes que son a la vez estudiantes multilingües y estudiantes de inmersión ÷ estudiantes de inmersión, sumados en los programas de origen (programa completo, todos los grados), octubre de 2025.
+  Leemos las celdas en blanco como 0 (las filas con celdas en blanco aun así suman alrededor de 100%).
 
-**Demanda en los programas que se trasladan (fuente 4).** Promedio de cinco años de solicitudes, ofertas y lista de espera del sorteo de kínder para cada programa K-5 que se traslada (véase *Demanda en el sorteo de kínder* arriba); las solicitudes por oferta son la razón entre los promedios.
+**Estudiantes multilingües en los programas que se trasladan (fuente 1).** Estudiantes que son a la vez estudiantes multilingües y estudiantes de inmersión ÷ estudiantes de inmersión. Sumamos en los programas de origen (programa completo, todos los grados), octubre de 2025.
 
-**Familias que no siguen a un programa trasladado (estimación).** Estudiantes = matrícula de octubre de 2025 en cada programa que se traslada, en los grados que se trasladan; estudiantes de kínder = matrícula de kínder de inmersión de octubre de 2025 en cada programa K-5 de origen. Se aplican tres supuestos:
+**Demanda en los programas que se trasladan (fuente 4).** Para cada programa K-5 que se traslada, usamos el promedio de cinco años de solicitudes, ofertas y lista de espera del sorteo de kínder. La definición está arriba, en *Demanda en el sorteo de kínder*. Las solicitudes por oferta son la razón entre los promedios.
+
+**Familias que no siguen a un programa trasladado (estimación).** Estudiantes = matrícula de octubre de 2025 en cada programa que se traslada, en los grados que se trasladan. Estudiantes de kínder = matrícula de kínder de inmersión de octubre de 2025 en cada programa K-5 de origen. Aplicamos tres supuestos:
 
 - 0%: todos siguen al programa.
-- 7%: una cifra que un miembro del público, en sus comentarios, atribuyó a "la propia estimación de PPS" de las familias afectadas que dejarían el distrito (sesión de la Junta del 6 de octubre de 2026, fuente 14). No la encontramos en documentos de PPS ni en declaraciones del personal, y se refiere a dejar el distrito, no a dejar un programa. Se muestra solo como comparación.
+- 7%: un miembro del público atribuyó esta cifra a "la propia estimación de PPS" de las familias afectadas que dejarían el distrito. Lo dijo en la sesión de la Junta del 6 de octubre de 2026 (fuente 14). No la encontramos en documentos de PPS ni en declaraciones del personal. Además, se refiere a dejar el distrito, no a dejar un programa. La mostramos solo como comparación.
 - El precedente de Bridger → Lent: 1 − (inmersión de kínder en Lent ÷ inmersión por grado anterior de Bridger + Lent) ÷ (kínder del distrito ÷ matrícula por grado anterior del distrito). Eso es 1 − 0.69 / 0.86 ≈ 20%.
 
-La tasa del precedente viene de una sola consolidación; a otros programas les podría ir mejor o peor. La auditoría de equidad de PPS (fuente 13) encontró que los estudiantes ya inscritos en programas trasladados que se quedaron en PPS en general siguieron a su programa, así que la pérdida en el precedente probablemente se concentra en las familias nuevas de kínder. El total de seis años multiplica la cifra anual de kínder por seis y no toma en cuenta las entradas y salidas en grados posteriores.
+La tasa del precedente viene de una sola consolidación; a otros programas les podría ir mejor o peor. La auditoría de equidad de PPS (fuente 13) revisó a los estudiantes ya inscritos en programas trasladados que se quedaron en PPS. Encontró que, en general, siguieron a su programa. Por eso, la pérdida en el precedente probablemente se concentra en las familias nuevas de kínder. El total de seis años multiplica la cifra anual de kínder por seis. No toma en cuenta a quienes entran o salen en grados posteriores.
 
-**Verificación de los pronósticos (fuentes 5 y 15).** Para Lent, la edición del pronóstico de 2023-24 (junio de 2023, basada en la matrícula de octubre de 2022) incluye el traslado: "Bridger Spanish DLI (grades K-5) moved to Lent ES" (el programa DLI de español de Bridger, de kínder a 5.º, se trasladó a Lent ES; Apéndice C, nota 3). Sus pronósticos para Lent de 2023-24 a 2025-26 se comparan con las cifras reales de octubre de PSU para esos años, tomadas de la edición de 2026-27. La edición de 2022-23 es anterior al traslado ("Estos cambios no están incorporados en estos pronósticos de matrícula"), así que sus filas de español de Bridger y de Lent se suman como el programa antes del traslado. Los totales del distrito de las mismas ediciones muestran el tamaño de un error de pronóstico típico.
+**Verificación de los pronósticos (fuentes 5 y 15).** Para Lent, la edición del pronóstico de 2023-24 (junio de 2023, basada en la matrícula de octubre de 2022) incluye el traslado: "Bridger Spanish DLI (grades K-5) moved to Lent ES" (el programa DLI de español de Bridger, de kínder a 5.º, se trasladó a Lent ES; Apéndice C, nota 3). Comparamos sus pronósticos para Lent de 2023-24 a 2025-26 con las cifras reales de octubre de PSU para esos años, tomadas de la edición de 2026-27. La edición de 2022-23 es anterior al traslado ("Estos cambios no están incorporados en estos pronósticos de matrícula"). Por eso sumamos sus filas de español de Bridger y de Lent como el programa antes del traslado. Los totales del distrito de las mismas ediciones muestran el tamaño de un error de pronóstico típico.
 
-- Las cifras reales son de kínder a 12.º grado. Los totales de PPS para Lent incluyen el prekínder (308 en octubre de 2023 frente a 273 de PSU), así que no se mezclan.
-- *Verificaciones de la capa de texto*: en la edición de 2023-24, las series de ceros se juntan en la capa de texto, y algunas filas están ilegibles (no las de Lent). Esas filas se descifraron a partir de los totales de la escuela menos las demás filas de programa, y entonces los subtotales y la fila TOTAL cuadran.
-- *Límites*: los pronósticos hechos con uno o dos años de anticipación también fallan por razones comunes. Los programas de español de otras escuelas tuvieron errores de hasta 10% a 27% en uno u otro sentido (en Rigler y Atkinson el pronóstico se quedó corto), así que el error de Lent destaca por su tamaño y su persistencia, no porque sea único.
+- Las cifras reales son de kínder a 12.º grado. Los totales de PPS para Lent incluyen el prekínder (308 en octubre de 2023 frente a 273 de PSU), así que no los mezclamos.
+- *Verificaciones de la capa de texto*: En la edición de 2023-24, las series de ceros se juntan en la capa de texto, y algunas filas están ilegibles (no las de Lent). Desciframos esas filas a partir de los totales de la escuela menos las demás filas de programa. Con eso, los subtotales y la fila TOTAL cuadran.
+- *Límites*: Los pronósticos hechos con uno o dos años de anticipación también fallan por razones comunes. Los programas de español de otras escuelas tuvieron errores de hasta 10% a 27% en uno u otro sentido (en Rigler y Atkinson el pronóstico se quedó corto). Así que el error de Lent destaca por su tamaño y su persistencia, no porque sea único.
 - Ninguna edición indica un porcentaje supuesto de estudiantes que siguen a un programa trasladado. La cifra de 98% (314 de 319) se deduce de los números.
 
 ### Porcentaje de un programa trasladado que PPS proyecta que lo seguirá (fuentes 5 y 16) {#share-of-a-moved-program-pps-projects-to-follow-it-sources-5-and-16}
 
-`parse_school_guides.py` lee la página 4 de cada guía (matrícula proyectada por opción, 2027-28 a 2031-32; tipo de cambio; metas de tamaño y espacio; porcentaje a 1 milla o menos; porcentajes de pobreza, educación especial, estudiantes multilingües y razas desatendidas de toda la escuela) y el texto de la página 3. *Verificaciones*: cada escuela tiene una fila "No changes" completa; las etiquetas de opción son de un conjunto conocido; cada fila impresa tiene cinco años; los porcentajes están entre 0 y 100; las tablas de matrícula y de escuelas presentan los mismos pares de escuela × opción. Las escuelas que cierran se conservan con el estado "closes". Volver a descargar las 82 guías más tarde el 8 de octubre dio archivos idénticos.
+`parse_school_guides.py` lee el texto de la página 3 de cada guía y estos datos de la página 4:
 
-- Las proyecciones "No changes" de las guías son iguales a los totales por escuela del pronóstico de PSU de 2026-27; `equity_analysis.R` se detiene si eso no se cumple para las escuelas usadas.
+- matrícula proyectada por opción, 2027-28 a 2031-32
+- tipo de cambio
+- metas de tamaño y espacio
+- porcentaje a 1 milla o menos
+- porcentajes de pobreza, educación especial, estudiantes multilingües y razas desatendidas de toda la escuela.
+
+*Verificaciones*: Cada escuela tiene una fila "No changes" completa. Las etiquetas de opción son de un conjunto conocido. Cada fila impresa tiene cinco años. Los porcentajes están entre 0 y 100. Las tablas de matrícula y de escuelas presentan los mismos pares de escuela × opción. Conservamos las escuelas que cierran, con el estado "closes". Volver a descargar las 82 guías más tarde el 8 de octubre dio archivos idénticos.
+
+- Las proyecciones "No changes" de las guías son iguales a los totales por escuela del pronóstico de PSU de 2026-27. `equity_analysis.R` se detiene si eso no se cumple para las escuelas usadas.
 - *Llegan* = proyección con las opciones de la escuela receptora − su proyección "No changes". *Porcentaje que llega* = llegan ÷ pronóstico de PSU del programa que se traslada en el mismo año.
-- *Se quedan* = proyección con las opciones de la escuela de origen − pronóstico de PSU de sus programas restantes, solo donde la escuela de origen no tiene ningún otro cambio (Scott en el Escenario B; Clark).
-- Se usa solo donde el único cambio de la escuela receptora es el programa que llega: Atkinson → Lent, Scott → Rigler, Clark → Woodstock. Llegan + se quedan suma entre 100% y 111% del programa, así que la división es aproximada.
-- Las guías no indican ninguna tasa de seguimiento. Los porcentajes se deducen, y el modelo de PPS podría ubicar a los estudiantes que no siguen al programa de formas que las guías no muestran (por ejemplo, en otras sedes de inmersión).
+- *Se quedan* = proyección con las opciones de la escuela de origen − pronóstico de PSU de sus programas restantes. Lo calculamos solo donde la escuela de origen no tiene ningún otro cambio (Scott en el Escenario B; Clark).
+- Usamos estas cifras solo donde el único cambio de la escuela receptora es el programa que llega: Atkinson → Lent, Scott → Rigler, Clark → Woodstock. Llegan + se quedan suma entre 100% y 111% del programa, así que la división es aproximada.
+- Las guías no indican ninguna tasa de seguimiento. Los porcentajes se deducen. Además, el modelo de PPS podría ubicar de otras formas a quienes no siguen al programa, y las guías no lo muestran. Por ejemplo, podría ubicarlos en otras sedes de inmersión.
 
 ### La proyección de Lent de 2023 y los testimonios del personal (fuentes 13 y 17) {#lents-2023-projection-and-staff-accounts-sources-13-and-17}
 
-La proyección de 527 estudiantes se cita del resumen que hace el apéndice del análisis de impacto escuela por escuela de la Fase 2 de PPS (apéndice p. 34; el apéndice lo cita como "Portland Public Schools. (n.d.). SE enrollment and program balancing phase 2 school-by-school impact analysis", p. 12). El apéndice la llama "la matrícula total de Lent" y no dice si incluye el prekínder. Se compara con la matrícula de kínder a 5.º grado de octubre de 2025 (fuente 2). Las citas del personal y de las familias son textuales del apéndice y del informe principal (traducidas al español), con números de página; los puntos suspensivos y los corchetes son del propio informe. El informe identifica a quienes hablan solo por escuela y función.
+La proyección de 527 estudiantes viene del apéndice (p. 34). Allí se resume el análisis de impacto escuela por escuela de la Fase 2 de PPS. El apéndice cita ese análisis como "Portland Public Schools. (n.d.). SE enrollment and program balancing phase 2 school-by-school impact analysis", p. 12. El apéndice la llama "la matrícula total de Lent" y no dice si incluye el prekínder. La comparamos con la matrícula de kínder a 5.º grado de octubre de 2025 (fuente 2). Las citas del personal y de las familias son textuales del apéndice y del informe principal (traducidas al español), con números de página. Los puntos suspensivos y los corchetes son del propio informe. El informe identifica a quienes hablan solo por escuela y función.
 
 ### Tasas de captación del vecindario (fuente 18) {#neighborhood-capture-rates-source-18}
 
-Cada informe da, para cada zona de asistencia, los estudiantes de K-12 de PPS que viven allí según el tipo de escuela a la que asisten: su propia escuela del vecindario (la tasa de captación), otra escuela del vecindario, una alternativa de PPS, una alternativa comunitaria, servicios especiales o una escuela chárter de PPS. Se excluye el prekínder. Los estudiantes de inmersión que asisten a la escuela de su propia zona cuentan como captados; los estudiantes de inmersión que asisten al programa de otra escuela cuentan como "otra escuela del vecindario" o "alternativa de PPS".
+La tasa de captación es el porcentaje de estudiantes que viven en una zona de asistencia y van a su propia escuela del vecindario. Cada informe da, para cada zona de asistencia, los estudiantes de K-12 de PPS que viven allí según el tipo de escuela a la que asisten:
 
-- *Verificaciones del procesamiento*: las categorías suman el total de cada fila; los porcentajes impresos coinciden con los números (±0.51); los totales por nivel y el total general (29,036 de 42,622 en octubre de 2025) coinciden con la suma de sus filas. Todos los años de 2019-20 a 2025-26 usan el mismo formato.
-- *Grupos* (`equity_capture.csv`): Sureste = las zonas de primaria de Abernethy, Atkinson, Bridger (Bridger Creative Science desde 2023-24), Creston, Duniway, Grout, Lewis, Llewellyn, Sunnyside Environmental, Woodstock, Marysville, Kelly, Arleta, Whitman y Woodmere; Lent se muestra por separado; Resto de PPS = todas las demás zonas de primaria. Las tasas por grupo son el total de estudiantes en su propia escuela ÷ el total de residentes.
-- *Límites*: los límites de zona cambiaron en 2021-22 y en 2023-24, así que el número de residentes de las zonas da saltos; los estudiantes a quienes se permitió quedarse en su escuela anterior después de un cambio de límites cuentan como "otra escuela del vecindario"; Creative Science (una escuela de enfoque) se mudó al edificio de Bridger en 2023-24; los niños del vecindario de Lent que no están en inmersión fueron asignados a Marysville después de 2023, lo que el informe cuenta como "otra escuela del vecindario".
+- su propia escuela del vecindario (la tasa de captación)
+- otra escuela del vecindario
+- una alternativa de PPS
+- una alternativa comunitaria
+- servicios especiales
+- una escuela chárter de PPS.
 
-### Verificación del modelo del hogar a la escuela con el lugar donde viven los estudiantes (fuente 19) {#checking-the-home-to-school-model-against-where-students-live-source-19}
+Se excluye el prekínder. Los estudiantes de inmersión que asisten a la escuela de su propia zona cuentan como captados. Los que asisten al programa de otra escuela cuentan como "otra escuela del vecindario" o "alternativa de PPS".
 
-El informe *School Enrollment by Neighborhood of Residence* da, para cada escuela y programa, los estudiantes que viven en la zona de asistencia propia de la escuela y luego a todos los demás según la zona de preparatoria en la que viven (Cleveland, Franklin, Grant, Ida B. Wells-Barnett, Jefferson/Grant, Jefferson/McDaniel, Jefferson/Roosevelt, Lincoln, McDaniel, Roosevelt), más los de fuera del distrito o sin determinar. Se excluye el prekínder. *Verificaciones del procesamiento*: las celdas suman los totales de fila; los porcentajes impresos coinciden (±0.51); las filas de programa suman los totales de la escuela, y las escuelas suman los totales de sección y el total general; los números de la zona propia son iguales a los del informe de tasa de captación para las 53 escuelas primarias en cada año; los totales de escuela × programa de octubre de 2025 son iguales a los de la fuente 2 en las 142 filas.
+- *Verificaciones del procesamiento*: Las categorías suman el total de cada fila. Los porcentajes impresos coinciden con los números (±0.51). Los totales por nivel y el total general (29,036 de 42,622 en octubre de 2025) coinciden con la suma de sus filas. Todos los años de 2019-20 a 2025-26 usan el mismo formato.
+- *Grupos* (`equity_capture.csv`): Sureste = las zonas de primaria de Abernethy, Atkinson, Bridger (Bridger Creative Science desde 2023-24), Creston, Duniway, Grout, Lewis, Llewellyn, Sunnyside Environmental, Woodstock, Marysville, Kelly, Arleta, Whitman y Woodmere. Lent se muestra por separado. Resto de PPS = todas las demás zonas de primaria. Las tasas por grupo son el total de estudiantes en su propia escuela ÷ el total de residentes.
+- *Límites*:
+  - Los límites de zona cambiaron en 2021-22 y en 2023-24, así que el número de residentes de las zonas da saltos.
+  - Los estudiantes a quienes se permitió quedarse en su escuela anterior después de un cambio de límites cuentan como "otra escuela del vecindario".
+  - Creative Science (una escuela de enfoque) se mudó al edificio de Bridger en 2023-24.
+  - Después de 2023, los niños del vecindario de Lent que no están en inmersión fueron asignados a Marysville. El informe cuenta eso como "otra escuela del vecindario".
 
-`check_home_distance.R` ubica a los estudiantes de cada programa que se traslada en las manzanas del Censo 2020: los estudiantes de la zona propia, en la zona de asistencia de la escuela en la situación actual; los demás, en su zona de preparatoria, fuera de la zona propia de la escuela. Las subzonas de Jefferson no tienen límites publicados, así que las manzanas de la zona de Jefferson se asignan a la más cercana de las zonas de Grant, McDaniel y Roosevelt. Dentro de una zona, los estudiantes se reparten como los niños menores de 18 años (*promedio de la zona*), o solo entre la mitad de los niños de la zona que viven más cerca de la escuela actual del programa (*mitad más cercana*). Los estudiantes de fuera del distrito o sin determinar se dejan fuera. Los traslados se promedian con las mismas ponderaciones que el modelo (estudiantes en los grados que se trasladan).
+### Verificación del modelo del hogar a la escuela con el lugar donde vive el estudiantado (fuente 19) {#checking-the-home-to-school-model-against-where-students-live-source-19}
 
-- *Límites*: las zonas de preparatoria son grandes, así que a los estudiantes que viven fuera de la zona de su escuela se les ubica solo de forma aproximada; la fila de César Chávez abarca de kínder a 8.º grado, aunque solo los grados 6.º a 8.º se trasladan a George; distancias en línea recta.
+El informe *School Enrollment by Neighborhood of Residence* da, para cada escuela y programa, los estudiantes que viven en la zona de asistencia propia de la escuela. Luego clasifica a todos los demás según la zona de preparatoria en la que viven (Cleveland, Franklin, Grant, Ida B. Wells-Barnett, Jefferson/Grant, Jefferson/McDaniel, Jefferson/Roosevelt, Lincoln, McDaniel, Roosevelt), más los de fuera del distrito o sin determinar. Se excluye el prekínder.
+
+*Verificaciones del procesamiento*:
+
+- las celdas suman los totales de fila
+- los porcentajes impresos coinciden (±0.51)
+- las filas de programa suman los totales de la escuela, y las escuelas suman los totales de sección y el total general
+- los números de la zona propia son iguales a los del informe de tasa de captación para las 53 escuelas primarias en cada año
+- los totales de escuela × programa de octubre de 2025 son iguales a los de la fuente 2 en las 142 filas.
+
+`check_home_distance.R` ubica a los estudiantes de cada programa que se traslada en las manzanas del Censo 2020. Los estudiantes de la zona propia van en la zona de asistencia de la escuela en la situación actual. Los demás van en su zona de preparatoria, fuera de la zona propia de la escuela. Las subzonas de Jefferson no tienen límites publicados. Por eso asignamos las manzanas de la zona de Jefferson a la más cercana de las zonas de Grant, McDaniel y Roosevelt. Dentro de una zona, repartimos a los estudiantes de una de dos formas. En el *promedio de la zona*, se reparten como los niños menores de 18 años. En la *mitad más cercana*, se reparten solo entre la mitad de los niños de la zona que viven más cerca de la escuela actual del programa. Dejamos fuera a los estudiantes de fuera del distrito o sin determinar. Los traslados se promedian con las mismas ponderaciones que el modelo (estudiantes en los grados que se trasladan).
+
+- *Límites*: Las zonas de preparatoria son grandes, así que a los estudiantes que viven fuera de la zona de su escuela los ubicamos solo de forma aproximada. La fila de César Chávez abarca de kínder a 8.º grado, aunque solo los grados 6.º a 8.º se trasladan a George. Las distancias son en línea recta.
 
 ### Lugares, demanda y contexto de las sedes en el Sureste (fuentes 2, 4, 9, 10, 19) {#southeast-seats-demand-and-site-context-sources-2-4-9-10-19}
 
-- *Lugares de kínder* = matrícula de kínder de octubre de 2025 (fuente 2): Richmond y Le Monde, escuela completa; Lent y Atkinson, inmersión en español. *Estudiantes del programa* = todos los grados de los mismos programas. Las columnas del sorteo son los promedios de cinco años definidos arriba; Le Monde es una escuela chárter con su propio proceso de admisión y no aparece en los informes del sorteo de PPS.
+- *Lugares de kínder* = matrícula de kínder de octubre de 2025 (fuente 2): Richmond y Le Monde, escuela completa; Lent y Atkinson, inmersión en español. *Estudiantes del programa* = todos los grados de los mismos programas. Las columnas del sorteo son los promedios de cinco años definidos arriba. Le Monde es una escuela chárter con su propio proceso de admisión y no aparece en los informes del sorteo de PPS.
 - *Español en el Sureste* se refiere a las dos sedes de inmersión en español en las zonas de las preparatorias Franklin y Cleveland: Lent y Atkinson.
 - *Millas al borde del distrito*: línea recta desde la ubicación de la escuela en el mapa de la situación actual (fuente 8) hasta el límite de la unión de las zonas de asistencia de las preparatorias.
-- *Zona propia*: estudiantes de inmersión en español que viven en la zona de asistencia propia de la escuela (fuente 19); Rigler y Lent son escuelas completas.
+- *Zona propia*: estudiantes de inmersión en español que viven en la zona de asistencia propia de la escuela (fuente 19). Rigler y Lent son escuelas completas.
 - *Hablantes de español en edad escolar a 1.5 millas o menos*: números de la ACS por sección censal repartidos entre las manzanas censales según la población menor de 18 años (fuentes 9 y 10), sumados en las manzanas a 1.5 millas o menos.
-- *Capacidad* (fuente 21): capacidad funcional = salones permanentes y modulares × el tamaño de estación de PPS, menos los espacios reservados, tal como aparece en el plan de 2021. *Verificaciones del procesamiento*: cada fila tiene tres números y cinco porcentajes de uso; los 71 sitios coinciden con el procesamiento independiente de meub/pps-data. Las cifras de 2021 se muestran solo como comparación. La *capacidad actual* (fuente 22) es la capacidad funcional 2025-26 de PPS según su tablero School Profiles; difiere de la de 2021 en muchos edificios (Atkinson 519 frente a 567, Lent 798 frente a 707, Creston 429 frente a 558, Rigler 621 frente a 589). *Porcentaje de la capacidad* = matrícula K-5 de octubre de 2025 (fuente 2), o la proyección del Escenario A de PPS para 2027-28 (fuente 16), ÷ la capacidad funcional actual. *Espacio por grado* = (capacidad − matrícula) ÷ 6 grados. *Distancia desde Atkinson*: línea recta entre las ubicaciones de las escuelas en el mapa de la situación actual (Creston 0.8 millas, Lent 2.4 millas). La situación sísmica de Creston (mampostería no reforzada, programada para refuerzo) viene de los datos de instalaciones de PPS recopilados en meub/pps-data y no se verificó aquí contra los documentos de bonos de PPS.
-- El punto de Richmond en el mapa original de pps-explorer era una copia del de Atkinson (SE 58th y Division). En esta copia se corrigió con la geocodificación de su dirección de la Oficina del Censo, 2276 SE 41st Ave, justo al norte de Division. Ninguna cifra de este sitio depende de la ubicación de Richmond.
+- *Capacidad* (fuente 21): capacidad funcional = salones permanentes y modulares × el tamaño de estación de PPS (estudiantes por salón), menos los espacios reservados, tal como aparece en el plan de 2021. *Verificaciones del procesamiento*: cada fila tiene tres números y cinco porcentajes de uso, y los 71 sitios coinciden con el procesamiento independiente de meub/pps-data. Mostramos las cifras de 2021 solo como comparación.
+- La *capacidad actual* (fuente 22) es la capacidad funcional 2025-26 de PPS según su tablero School Profiles. Difiere de la de 2021 en muchos edificios (Atkinson 519 frente a 567, Lent 798 frente a 707, Creston 429 frente a 558, Rigler 621 frente a 589).
+- *Porcentaje de la capacidad* = matrícula K-5 de octubre de 2025 (fuente 2), o la proyección del Escenario A de PPS para 2027-28 (fuente 16), ÷ la capacidad funcional actual.
+- *Espacio por grado* = (capacidad − matrícula) ÷ 6 grados.
+- *Distancia desde Atkinson*: línea recta entre las ubicaciones de las escuelas en el mapa de la situación actual (Creston 0.8 millas, Lent 2.4 millas).
+- La situación sísmica de Creston (mampostería no reforzada, programada para refuerzo) viene de los datos de instalaciones de PPS recopilados en meub/pps-data. No la verificamos contra los documentos de bonos de PPS.
+- El punto de Richmond en el mapa original de pps-explorer era una copia del de Atkinson (SE 58th y Division). En esta copia lo corregimos con la geocodificación de su dirección de la Oficina del Censo: 2276 SE 41st Ave, justo al norte de Division. Ninguna cifra de este sitio depende de la ubicación de Richmond.
 
 ## Página de Lent y César Chávez {#history}
 
 `data-raw/history_tables.R` genera `history_enrollment.csv` y `history_projection.csv`.
 
-- *Matrícula por programa*, 2019-20 a 2025-26: cifras reales de octubre (de kínder a 12.º grado) impresas en las ediciones del pronóstico de PSU (fuentes 5 y 15). Cada año usa la primera edición que lo imprime, porque las ediciones posteriores a veces vuelven a presentar años pasados con la nueva configuración de una escuela (la edición de 2024-25 imprime los totales de Bridger de 2021-22 y 2022-23 incluyendo Creative Science; los totales de César Chávez difieren en 3 entre ediciones). Los números de inmersión en español coinciden entre ediciones, y el script se detiene si no coinciden. 2024-25 y 2025-26 coinciden exactamente con el informe de matrícula de PPS (fuente 2, sin el prekínder).
+- *Matrícula por programa*, 2019-20 a 2025-26: cifras reales de octubre (de kínder a 12.º grado) impresas en las ediciones del pronóstico de PSU (fuentes 5 y 15). Cada año usa la primera edición que lo imprime. Las ediciones posteriores a veces vuelven a presentar años pasados con la nueva configuración de una escuela. Por ejemplo, la edición de 2024-25 imprime los totales de Bridger de 2021-22 y 2022-23 incluyendo Creative Science. Y los totales de César Chávez difieren en 3 entre ediciones. Los números de inmersión en español coinciden entre ediciones, y el script se detiene si no coinciden. Las cifras de 2024-25 y 2025-26 coinciden exactamente con el informe de matrícula de PPS (fuente 2, sin el prekínder).
 - *Configuración de grados*: Lent y Bridger fueron K-8 hasta 2021-22, así que sus totales anteriores incluyen los grados 6.º a 8.º. César Chávez es K-8 en todo el periodo. Bridger se muestra solo por su programa de español, que se trasladó a Lent en 2023-24.
-- *Tasa de captación y dónde viven los estudiantes*: fuentes 18 y 19; *datos demográficos*: fuente 12, filas School y Neighborhood; *proyecciones*: fuente 16; *capacidad*: fuente 21.
+- *Tasa de captación y dónde vive el estudiantado*: fuentes 18 y 19; *datos demográficos*: fuente 12, filas School y Neighborhood; *proyecciones*: fuente 16; *capacidad*: fuente 21.
 
 ### Tablero School Profiles (fuente 22) {#school-profiles-dashboard-source-22}
 
-La página School Profiles de PPS incluye un informe público de Power BI que muestra una escuela a la vez. `scrape_school_profiles.mjs` lo abre en Chrome sin interfaz gráfica, selecciona cada una de las 83 escuelas de la lista del informe y guarda el texto visible (con la hora de consulta) en `data-raw/pps_reports/school_profiles/`. `parse_school_profiles.py` lee esas copias y las pasa a `school_profiles_2025.csv`.
+La página School Profiles de PPS incluye un informe público de Power BI que muestra una escuela a la vez. `scrape_school_profiles.mjs` lo abre en Chrome sin interfaz gráfica (un navegador sin ventana que maneja un script). Selecciona cada una de las 83 escuelas de la lista del informe y guarda el texto visible, con la hora de consulta, en `data-raw/pps_reports/school_profiles/`. `parse_school_profiles.py` lee esas copias y las pasa a `school_profiles_2025.csv`.
 
-- *Verificaciones*: cada copia tiene una dirección, una capacidad y una matrícula, y ninguna dirección se repite, así que ninguna copia muestra la escuela equivocada. Los dos recuadros de capacidad coinciden. El porcentaje de uso es igual a matrícula ÷ capacidad con una diferencia de 0.6 puntos o menos. La tasa de captación es igual a los estudiantes en la escuela del vecindario ÷ los estudiantes de PPS que viven en la zona con una diferencia de 0.1 punto o menos. La matrícula 2025-26 del tablero es igual a la matrícula de K-12 de PPS de octubre de 2025, sin el prekínder (fuente 2), para las 76 escuelas que aparecen en ambas fuentes.
-- *Valores en blanco*: los valores que el tablero abrevia (p. ej., "2K" en las preparatorias) se dejan en blanco. Alliance no tiene edificio propio, así que su capacidad está en blanco.
-- *No se usa*: la tasa de captación del tablero se calcula de forma distinta a la del informe de tasa de captación de PPS (fuente 18). Por ejemplo, Lent muestra 28.0% (80 de 286 estudiantes que viven en su zona). El sitio usa la fuente 18 para las tasas de captación. Las gráficas de matrícula y de raza del tablero no se capturan.
+- *Verificaciones*: Cada copia tiene una dirección, una capacidad y una matrícula, y ninguna dirección se repite, así que ninguna copia muestra la escuela equivocada. Los dos recuadros de capacidad coinciden. El porcentaje de uso es igual a matrícula ÷ capacidad, con una diferencia de 0.6 puntos o menos. La tasa de captación es igual a los estudiantes en la escuela del vecindario ÷ los estudiantes de PPS que viven en la zona. La diferencia es de 0.1 punto o menos. En las 76 escuelas que aparecen en ambas fuentes, la matrícula 2025-26 del tablero es igual a la matrícula de K-12 de PPS de octubre de 2025, sin el prekínder (fuente 2).
+- *Valores en blanco*: Dejamos en blanco los valores que el tablero abrevia (por ejemplo, "2K" en las preparatorias). Alliance no tiene edificio propio, así que su capacidad está en blanco.
+- *No se usa*: El tablero calcula la tasa de captación de forma distinta al informe de tasa de captación de PPS (fuente 18). Por ejemplo, Lent muestra 28.0% (80 de 286 estudiantes que viven en su zona). El sitio usa la fuente 18 para las tasas de captación. No capturamos las gráficas de matrícula y de raza del tablero.
 
 ## Página de investigación {#research}
 
-La página de [Investigación](research.qmd) revisa los trabajos publicados sobre la inmersión en escuela completa frente a la de programa paralelo (*strand*). No tiene script; sus únicas cifras calculadas vienen de la fuente 2 (estudiantes de inmersión y del programa del vecindario por grado, K-5, octubre de 2025) y de la fuente 4 (el promedio del sorteo de Ainsworth).
+La página de [Investigación](research.qmd) revisa los trabajos publicados sobre la inmersión en escuela completa frente a la de programa paralelo (*strand*). No tiene script. Sus únicas cifras calculadas vienen de dos fuentes. La fuente 2 da los estudiantes de inmersión y del programa del vecindario por grado (K-5, octubre de 2025). La fuente 4 da el promedio del sorteo de Ainsworth.
 
-- *Escuela completa frente a programa paralelo*: una sede K-5 se cuenta como escuela completa cuando PPS no reporta estudiantes del programa del vecindario de kínder a 5.º en ella (Lent, Rigler y Richmond en octubre de 2025). *Estudiantes de inmersión por grado* es la matrícula de inmersión K-5 dividida entre seis. PPS no publica el número de grupos por programa, así que esto es solo una guía aproximada del número de grupos.
-- *Literatura*: cada estudio se leyó en texto completo cuando estaba disponible de forma abierta. Eso abarca a Steele et al. (2017, manuscrito abierto de ERIC), el documento de trabajo de Utah (2021), Watzinger-Tharp et al., el documento de trabajo de Bibler de 2016, los *Guiding Principles* de CAL (3.ª ed.), los resúmenes de RAND RB-9903 y RB-9921, el informe de las National Academies (todos los capítulos) y las páginas de la guía de planificación de CABE. Tres se leyeron solo como resúmenes, porque el texto completo era de pago o estaba bloqueado: Morales (2025), Freire & Alemán (2021) y de Jong & Bearse (2014). Cada cita se comparó con el texto de la fuente. Se dejaron fuera afirmaciones que circulaban en resúmenes anteriores pero que no se encontraron en ninguna fuente: una cifra de RAND de unas 15 horas adicionales de preparación por semana, el agotamiento de los maestros, y un número de informe de RAND "RR-1765" (que es un informe sin relación con el tema).
+- *Escuela completa frente a programa paralelo*: Contamos una sede K-5 como escuela completa cuando PPS no reporta estudiantes del programa del vecindario de kínder a 5.º en ella. En octubre de 2025, eran Lent, Rigler y Richmond. *Estudiantes de inmersión por grado* es la matrícula de inmersión K-5 dividida entre seis. PPS no publica el número de grupos por programa, así que esto es solo una guía aproximada del número de grupos.
+- *Literatura*: Leímos cada estudio en texto completo cuando estaba disponible de forma abierta. Eso abarca:
+  - Steele et al. (2017, manuscrito abierto de ERIC)
+  - el documento de trabajo de Utah (2021)
+  - Watzinger-Tharp et al.
+  - el documento de trabajo de Bibler de 2016
+  - los *Guiding Principles* de CAL (3.ª ed.)
+  - los resúmenes de RAND RB-9903 y RB-9921
+  - el informe de las National Academies (todos los capítulos)
+  - las páginas de la guía de planificación de CABE.
+
+  Tres los leímos solo como resúmenes, porque el texto completo era de pago o estaba bloqueado: Morales (2025), Freire & Alemán (2021) y de Jong & Bearse (2014). Comparamos cada cita con el texto de la fuente. Dejamos fuera tres afirmaciones que circulaban en resúmenes anteriores pero que no encontramos en ninguna fuente. Son una cifra de RAND de unas 15 horas adicionales de preparación por semana, el agotamiento del personal docente y un número de informe de RAND, "RR-1765". Ese número corresponde a un informe sin relación con el tema.
 - *Búsqueda de una comparación entre escuela completa y programa paralelo* (9 de octubre de 2026):
   - Búsquedas en la web y en bases académicas que combinan "dual language" o "two-way immersion" con "strand", "whole school", "school-wide", "school within a school", y rendimiento académico, deserción o retención de maestros.
   - Consultas en Crossref para cada artículo citado.
@@ -323,11 +427,16 @@ La página de [Investigación](research.qmd) revisa los trabajos publicados sobr
 
 ## Versión en español {#spanish}
 
-Todas las páginas se publican también en español latinoamericano (`es/`, botón **English** / **Español**). La traducción se hizo con ayuda de inteligencia artificial (Claude) a partir de las páginas en inglés y se revisó para verificar su exactitud. Cada cifra de las páginas en español se calcula con el mismo código de R que las páginas en inglés, y una verificación confirma que ambas versiones muestran las mismas cifras. Las citas de documentos y reuniones en inglés son traducciones nuestras. Los títulos de los documentos se mantienen en su idioma original. La terminología sigue `es/GLOSSARY.md`. Si en algún momento las dos versiones difieren, la página en inglés es la referencia.
+Todas las páginas se publican también en español latinoamericano (`es/`, botón **English** / **Español**). Escribimos la traducción a partir de las páginas en inglés con ayuda de inteligencia artificial (Claude) y la revisamos para verificar su exactitud. El mismo código de R calcula cada cifra de las páginas en español y en inglés. Una verificación confirma que ambas versiones muestran las mismas cifras. Las citas de documentos y reuniones en inglés son traducciones nuestras. Los títulos de los documentos se mantienen en su idioma original. La terminología sigue `es/GLOSSARY.md`. Si en algún momento las dos versiones difieren, la página en inglés es la referencia.
 
 ## Cómo reproducir los datos {#reproducing-the-data}
 
-Clone [el repositorio](https://github.com/jminnier/pps-dli-explorer) y ejecute lo siguiente desde su raíz, con Python 3 y `pypdf`, Node 22, R con `tidycensus`, `sf`, `dplyr`, `tidyr` y `readr`, y una [clave gratuita de la API del Censo](https://api.census.gov/data/key_signup.html) en `CENSUS_API_KEY`:
+Clone [el repositorio](https://github.com/jminnier/pps-dli-explorer) y ejecute estos comandos desde su raíz. Necesita:
+
+- Python 3 y `pypdf`
+- Node 22
+- R con `tidycensus`, `sf`, `dplyr`, `tidyr` y `readr`
+- una [clave gratuita de la API del Censo](https://api.census.gov/data/key_signup.html) en `CENSUS_API_KEY`.
 
 ```sh
 python3 data-raw/parse_immersion_profiles.py

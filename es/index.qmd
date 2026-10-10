@@ -21,7 +21,7 @@ acc <- read_data("access_summary.csv") |> filter(group == "Spanish (ages 5-17)")
 acc_ci <- read_data("access_robustness_ci.csv")
 ```
 
-PPS propone cerrar o consolidar escuelas en dos escenarios presentados a la Junta Educativa el 6 de octubre de 2026. Ambos escenarios trasladan la mayoría de los programas de **inmersión en dos idiomas en español** del distrito a menos escuelas, y trasladan o agregan sedes de mandarín y vietnamita. Este sitio pone en números lo que eso significa para las familias de inmersión, con los propios informes de inscripción y del sorteo de PPS.
+Portland Public Schools (PPS) trasladaría la mayoría de sus programas de **inmersión en dos idiomas en español** (DLI) a menos escuelas. Lo haría en sus dos nuevos escenarios. En estos programas, el estudiantado aprende en dos idiomas. En los dos escenarios, A y B, PPS propone cerrar o consolidar escuelas. PPS los presentó a la Junta Educativa el 6 de octubre de 2026. Ambos escenarios también trasladan o agregan sedes de mandarín y vietnamita. Este sitio usa los propios informes de inscripción y del sorteo de PPS. Con ellos muestra lo que estos cambios significan para las familias de inmersión.
 
 ::: {.callout-note appearance="minimal"}
 *Esta es una traducción del sitio en inglés. Las citas de documentos y reuniones en inglés están traducidas al español.*
@@ -42,7 +42,7 @@ PPS propone cerrar o consolidar escuelas en dos escenarios presentados a la Junt
 :::
 ::: {.stat}
 [`r fmt_pct(acc$within_1mi[acc$scenario == "sq"])` → `r fmt_pct(acc$within_1mi[acc$scenario == "a"])`]{.num}
-[de los hispanohablantes en edad escolar viven a 1 milla o menos de una sede de español K-5 (estimación; tomando en cuenta el error de la encuesta, la caída es de `r round(100 * acc_ci$lo[acc_ci$measure == "drop_points"])`–`r round(100 * acc_ci$hi[acc_ci$measure == "drop_points"])` puntos)]{.label}
+[de los hispanohablantes en edad escolar viven a 1 milla o menos de una sede de español K-5 (estimación; si se toma en cuenta el error de la encuesta, la caída es de `r round(100 * acc_ci$lo[acc_ci$measure == "drop_points"])`–`r round(100 * acc_ci$hi[acc_ci$measure == "drop_points"])` puntos)]{.label}
 :::
 :::
 
@@ -50,16 +50,20 @@ PPS propone cerrar o consolidar escuelas en dos escenarios presentados a la Junt
 Recuadros, de izquierda a derecha: (1) número de sedes de inmersión en español K-5 en los mapas de la situación actual y de los escenarios; (2) solicitudes al sorteo de kínder para programas de español que se trasladan en el Escenario A, como porcentaje de todas las solicitudes de kínder para español, en conjunto para los sorteos de 2022-23 a 2026-27; (3) matrícula de octubre de 2025 de cada programa de idioma que se traslada, en los grados que se trasladan, sumada para todos los traslados del Escenario A; (4) hispanohablantes en edad escolar (5 a 17 años) (estimaciones de la encuesta del Censo por sección censal, distribuidas entre las manzanas censales de cada sección según dónde viven los niños), porcentaje que vive a 1 milla o menos, en línea recta, de una sede de español K-5; el rango es un intervalo del 90% para la caída, debido al error de muestreo del Censo. `r cite("scenarios", "lottery", "by_grade", "acs", "blocks")`
 :::
 
-## Contenido {#whats-here}
+## Qué encontrará en este sitio {#whats-here}
 
-- **[Demanda y tabla comparativa](scorecard.qmd)**: cuántas familias solicitan cada programa de inmersión, en comparación con las escuelas a las que se trasladarían los programas; luego, para cada idioma, las sedes, estudiantes y trayectorias en cada escenario.
-- **[Equidad](equity.qmd)**: los argumentos a favor de una solución distinta para las familias de inmersión. Los traslados de programas recaen en escuelas donde cerca de la mitad del alumnado pertenece a grupos históricamente desatendidos, mientras que los cierres recaen sobre todo en escuelas con más estudiantes blancos y de mayores ingresos. Entre los programas que se trasladan hay programas con largas listas de espera, y traslados anteriores hicieron perder familias.
-- **[Lent y César Chávez](history.qmd)**: el traslado de Bridger → Lent en 2023 y César Chávez, el nuevo centro de español del plan, desde 2019 hasta las proyecciones de PPS para 2031.
-- **[Investigación](research.qmd)**: lo que muestran los estudios publicados, las guías del campo y la propia conversión de Lent de PPS sobre la escuela de inmersión completa frente al programa paralelo (*strand*). Ningún estudio que encontramos compara los dos en cuanto a resultados de los estudiantes.
+- **[Demanda y tabla comparativa](scorecard.qmd)**: cuántas familias solicitan cada programa de inmersión, en comparación con las escuelas a las que se trasladarían los programas. Luego, para cada idioma, las sedes, estudiantes y trayectorias de cada escenario.
+- **[Equidad](equity.qmd)**: los argumentos a favor de una solución distinta para las familias de inmersión. En las escuelas que perderían un programa, cerca de la mitad del estudiantado pertenece a grupos históricamente desatendidos. Los cierres recaen sobre todo en escuelas con más estudiantes blancos y de mayores ingresos. Algunos de los programas que se trasladarían tienen largas listas de espera. En traslados anteriores, los programas perdieron familias.
+- **[Lent y César Chávez](history.qmd)**: el traslado de Bridger → Lent en 2023 y César Chávez, el nuevo centro de español del plan. La página abarca desde 2019 hasta las proyecciones de PPS para 2031.
+- **[Investigación](research.qmd)**: qué muestran los estudios publicados, las guías del campo y la propia conversión de Lent de PPS. El tema es la escuela de inmersión completa frente al programa paralelo (*strand*). En una escuela de inmersión completa, todos los grupos son de inmersión. Un programa paralelo es un programa de inmersión dentro de una escuela que también tiene un programa del vecindario. No encontramos ningún estudio que compare los dos según los resultados del estudiantado.
 - **[Fuentes y métodos](methods.qmd)**: de dónde viene cada número y lo que no puede decirle.
 
-Próximamente: un mapa del acceso a las sedes de inmersión, proyecciones de inscripción con supuestos ajustables y el mapa de búsqueda por dirección.
+Próximamente:
+
+- un mapa del acceso a las sedes de inmersión
+- proyecciones de inscripción con supuestos que usted puede ajustar
+- el mapa de búsqueda por dirección
 
 ::: {.callout-note}
-Este es un análisis independiente, no una publicación de PPS. Los detalles de los escenarios son los transcritos de los documentos de la Junta de octubre de 2026; consulte los [materiales de reorganización escolar de PPS](https://meetings.boardbook.org/Public/Agenda/915?meeting=769955) para las versiones oficiales.
+Este es un análisis independiente, no una publicación de PPS. Transcribimos los detalles de los escenarios de los documentos de la Junta de octubre de 2026. Para ver las versiones oficiales, consulte los [materiales de reorganización escolar de PPS](https://meetings.boardbook.org/Public/Agenda/915?meeting=769955).
 :::

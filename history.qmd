@@ -28,9 +28,9 @@ cc_g <- by_grade |> filter(key == "cesarchavez", year == "2025-26", grade != "PK
 ccg <- function(p, b) sum(cc_g$enrollment[cc_g$program == p & cc_g$band == b])
 ```
 
-Lent and César Chávez are the two schools that show what the scenarios would mean for Spanish immersion. **Lent** is the precedent. In 2023 PPS moved Bridger's Spanish program into Lent and moved Lent's neighborhood program out, making it an all-immersion school. **César Chávez** is the plan's main new hub. In both scenarios it becomes a K-5 regional Spanish immersion school, taking in the programs from Beach, Sitton and James John. Its neighborhood students move to Rosa Parks and its middle grades to George.
+Two schools show what the scenarios would mean for Spanish dual language immersion (DLI). In a DLI program, children learn in both English and Spanish. **Lent** is the precedent. In 2023, Portland Public Schools (PPS) moved Bridger's Spanish program into Lent. PPS also moved Lent's neighborhood program out, so Lent became an all-immersion school. **César Chávez** is the plan's main new hub, a school that takes in programs from other schools. In both scenarios, PPS would make it a regional Spanish immersion school for kindergarten through fifth grade (K-5). It would take in the immersion programs from Beach, Sitton and James John. Its neighborhood students would move to Rosa Parks, and its middle grades would move to George.
 
-## 1. Enrollment since 2019 {#sec-enrollment}
+## 1. How enrollment has changed since 2019 {#sec-enrollment}
 
 ```{r}
 #| label: fig-history
@@ -57,15 +57,17 @@ viz_layout(p, ytitle = "Students (K-12)") |>
 `r cite("psu_premove")`
 :::
 
-Before the move, the Spanish programs at Bridger and Lent together had `r fmt_n(v("Bridger", "Spanish", "2022-23") + v("Lent", "Spanish", "2022-23"))` students in grades K-5 (2022-23). The combined program at Lent opened with `r fmt_n(v("Lent", "Spanish", "2023-24"))` and has `r fmt_n(v("Lent", "Spanish", "2025-26"))` today. César Chávez's Spanish program has held steady at about `r round(mean(he$enrollment[he$school == "César Chávez" & he$program == "Spanish"]), -1)` students, while its neighborhood program has shrunk from `r fmt_n(v("César Chávez", "Neighborhood", "2019-20"))` to `r fmt_n(v("César Chávez", "Neighborhood", "2025-26"))`. (The drop from 2020-21 to 2021-22 at Lent and Bridger is their middle grades moving out, not lost students.)
+In 2022-23, before the move, the Spanish programs at Bridger and Lent together had `r fmt_n(v("Bridger", "Spanish", "2022-23") + v("Lent", "Spanish", "2022-23"))` students in grades K-5. The combined program at Lent opened with `r fmt_n(v("Lent", "Spanish", "2023-24"))` students and has `r fmt_n(v("Lent", "Spanish", "2025-26"))` today.
 
-## 2. Lent after the 2023 move {#sec-lent}
+At César Chávez, the Spanish program has held steady at about `r round(mean(he$enrollment[he$school == "César Chávez" & he$program == "Spanish"]), -1)` students. Its neighborhood program has shrunk from `r fmt_n(v("César Chávez", "Neighborhood", "2019-20"))` to `r fmt_n(v("César Chávez", "Neighborhood", "2025-26"))` students. (The drop from 2020-21 to 2021-22 at Lent and Bridger came from their middle grades moving out. It does not mean those schools lost students.)
 
-**Enrollment fell short of every projection.** PPS's 2023 plan expected Lent to reach "an estimated 527 students in 2025–26" (`r SRC$audit_schools`, p. 34). PSU's June 2023 forecast, built with the move, had Lent at `r fmt_n(fcl$forecast[fcl$target == "Lent" & fcl$vintage == "2023-24" & fcl$year == "2025-26"])` that year (`r SRC$psu_premove`). Lent enrolled `r fmt_n(v("Lent", "Total", "2025-26"))`. Kindergarten immersion fell about 31%, against 14% district-wide ([details](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)).
+## 2. Lent after the 2023 move: fewer students than planned {#sec-lent}
 
-**Lent no longer serves its neighborhood.** In 2022-23, `r fmt_pct(capr("Lent", "2022-23"))` of PPS students living in Lent's area attended Lent. After the conversion that fell to `r fmt_pct(capr("Lent", "2023-24"))`, mostly by design: Lent's non-immersion neighborhood children were assigned to Marysville. Today `r fmt_pct(own("Lent", "2025-26"))` of Lent's students live in its area. Lent's students are now `r fmt_pct(dm("Lent", "School", "pct_latino"))` Latino, while PPS students living in Lent's area are `r fmt_pct(dm("Lent", "Neighborhood", "pct_latino"))` Latino (`r SRC$demographics`).
+**Enrollment fell short of every projection.** PPS's 2023 plan expected Lent to reach "an estimated 527 students in 2025–26" (`r SRC$audit_schools`, p. 34). Portland State University (PSU) also forecasts PPS enrollment. Its June 2023 forecast already included the move. It had Lent at `r fmt_n(fcl$forecast[fcl$target == "Lent" & fcl$vintage == "2023-24" & fcl$year == "2025-26"])` students that year (`r SRC$psu_premove`). Lent actually enrolled `r fmt_n(v("Lent", "Total", "2025-26"))`. Lent now enrolls about 31% fewer immersion kindergartners a year than the two schools averaged per grade before the move. Measured the same way, the district fell 14% ([details](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)).
 
-**Staff and families describe a hard transition.** "A lot of the parents who pushed from Bridger for their kids to come to the school didn't end up staying…they felt like it was out of their way [and that] their students didn't feel supported" (`r SRC$audit_schools`, p. 39). After 2022-23, 63% of Lent's staff left (p. 39). More accounts are on the [Equity page](equity.qmd#sec-optout).
+**Lent no longer serves its neighborhood.** A school's attendance area is the neighborhood it serves. In 2022-23, `r fmt_pct(capr("Lent", "2022-23"))` of PPS students living in Lent's area attended Lent. This share is called the capture rate. After the conversion, it fell to `r fmt_pct(capr("Lent", "2023-24"))`. Most of that drop was by design: PPS assigned Lent's non-immersion neighborhood children to Marysville. Today `r fmt_pct(own("Lent", "2025-26"))` of Lent's students live in its area. Lent's students are now `r fmt_pct(dm("Lent", "School", "pct_latino"))` Latino. By comparison, PPS students living in Lent's area are `r fmt_pct(dm("Lent", "Neighborhood", "pct_latino"))` Latino (`r SRC$demographics`).
+
+**Staff and families describe a hard transition.** The equity audit records this account: "A lot of the parents who pushed from Bridger for their kids to come to the school didn't end up staying…they felt like it was out of their way [and that] their students didn't feel supported" (`r SRC$audit_schools`, p. 39). After 2022-23, 63% of Lent's staff left (p. 39). You can read more accounts on the [Equity page](equity.qmd#sec-optout).
 
 ```{r}
 #| label: tbl-lent-capture
@@ -84,9 +86,15 @@ cr |> filter(neighborhood == "Lent") |>
   tab_source_note(md(cite("capture", "by_residence")))
 ```
 
-## 3. César Chávez today {#sec-chavez}
+## 3. César Chávez today: two programs in one school {#sec-chavez}
 
-César Chávez is a K-8 school with a Spanish immersion program and a smaller neighborhood program. In October 2025 it had `r fmt_n(ccg("Spanish immersion", "Grades K-5"))` immersion students in grades K-5 and `r fmt_n(ccg("Spanish immersion", "Grades 6-8"))` in grades 6-8, plus `r fmt_n(ccg("Neighborhood program", "Grades K-5") + ccg("Neighborhood program", "Grades 6-8"))` in its neighborhood program. `r fmt_pct(own("César Chávez", "2025-26"))` of its immersion students live in its own attendance area, and `r fmt_pct(capr("César Chávez", "2025-26"))` of PPS students living in its area attend it, up from `r fmt_pct(capr("César Chávez", "2019-20"))` in 2019-20.
+César Chávez is a K-8 school with a Spanish immersion program and a smaller neighborhood program. In October 2025, it had:
+
+- `r fmt_n(ccg("Spanish immersion", "Grades K-5"))` immersion students in grades K-5
+- `r fmt_n(ccg("Spanish immersion", "Grades 6-8"))` immersion students in grades 6-8
+- `r fmt_n(ccg("Neighborhood program", "Grades K-5") + ccg("Neighborhood program", "Grades 6-8"))` students in its neighborhood program
+
+`r fmt_pct(own("César Chávez", "2025-26"))` of its immersion students live in its own attendance area. Its capture rate is the share of PPS students living in its area who attend it. Now `r fmt_pct(capr("César Chávez", "2025-26"))` of PPS students living in its area attend it, up from `r fmt_pct(capr("César Chávez", "2019-20"))` in 2019-20.
 
 ```{r}
 #| label: tbl-chavez
@@ -114,7 +122,7 @@ dem |> mutate(row_type = if_else(row_type == "School", "Attending the school", "
   tab_source_note(md(cite("demographics")))
 ```
 
-## 4. What the scenarios would do {#sec-scenarios}
+## 4. What the scenarios would do to both schools {#sec-scenarios}
 
 ```{r}
 #| label: fig-projection
@@ -141,14 +149,16 @@ viz_layout(p, ytitle = "Students") |> layout(xaxis = list(type = "category", cat
 `r cite("psu_premove", "guides")`
 :::
 
-PPS projects **Lent** at `r fmt_n(pj("Lent", "a", "2027-28"))` students in 2027-28 once Atkinson's program arrives, against `r fmt_n(pj("Lent", "sq", "2027-28"))` with no changes. Its guide says the move "brings Lent's student numbers above steady target levels (400+ students)" (`r SRC$guides`). That would still be `r fmt_pct(pj("Lent", "a", "2027-28") / fc("lent"))` of Lent's capacity of `r fmt_n(fc("lent"))` (`r SRC$profiles25`), below PPS's 70–100% space-use goal.
+PPS projects that **Lent** would grow to `r fmt_n(pj("Lent", "a", "2027-28"))` students in 2027-28 once Atkinson's program arrives. With no changes, PPS projects `r fmt_n(pj("Lent", "sq", "2027-28"))`. Lent's school guide says the move "brings Lent's student numbers above steady target levels (400+ students)" (`r SRC$guides`). Even so, Lent would fill only `r fmt_pct(pj("Lent", "a", "2027-28") / fc("lent"))` of its capacity of `r fmt_n(fc("lent"))` students (`r SRC$profiles25`). Capacity is the number of students PPS says the building can serve. PPS's goal is for schools to use 70–100% of their space.
 
-**César Chávez** would go from `r fmt_n(pj("César Chávez", "sq", "2027-28"))` students with no changes to `r fmt_n(pj("César Chávez", "a", "2027-28"))`, all in Spanish immersion, which is `r fmt_pct(pj("César Chávez", "a", "2027-28") / fc("cesarchavez"))` of its capacity of `r fmt_n(fc("cesarchavez"))`. The guide projects its students in poverty falling from `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))` and its share of students from underserved racial groups from `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`. Those projections assume most families follow their programs. In the moves where it can be measured, PPS's projections have about 80% of students arriving ([Equity §5](equity.qmd#sec-optout)). After the 2023 move, Lent ended up at about half of the 527 PPS projected.
+**César Chávez** would have `r fmt_n(pj("César Chávez", "a", "2027-28"))` students, all in Spanish immersion, compared with `r fmt_n(pj("César Chávez", "sq", "2027-28"))` with no changes. That is `r fmt_pct(pj("César Chávez", "a", "2027-28") / fc("cesarchavez"))` of its capacity of `r fmt_n(fc("cesarchavez"))`. The guide projects that its share of students in poverty would fall from `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_poverty[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`. Its share of students from underserved racial groups would fall from `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "No changes"]))` to `r fmt_pct(as.numeric(gs$pct_underserved_race[gs$school == "Cesar Chavez" & gs$option == "Options A and B"]))`.
+
+These projections depend on families following their programs. PPS assumes most will. In the moves where we can measure it, PPS's projections have about 80% of students arriving at the new school ([Equity §5](equity.qmd#sec-optout)). After the 2023 move, Lent ended up at about half of the 527 students PPS projected.
 
 ::: {.callout-note collapse="true"}
 ## Caveats
-- Enrollment is PSU's count of October enrollment, kindergarten through grade 12, as first reported in each forecast edition. PPS's own totals for Lent include pre-kindergarten (308 in 2023-24).
+- Enrollment is PSU's count of students enrolled in October, kindergarten through grade 12. We use the count as first reported in each forecast edition. PPS's own totals for Lent include pre-kindergarten (308 in 2023-24).
 - Lent and Bridger were K-8 schools until 2021-22, so earlier totals include middle grades.
-- Capture rates and demographics are whole-school or whole-area figures. PPS doesn't publish race or income for immersion programs alone.
-- PPS's projections are from school guides dated October 8, 2026 and labeled drafts. Capacities are PPS's current (2025-26) figures from its School Profiles dashboard.
+- Capture rates and demographics cover the whole school or the whole area. PPS doesn't publish race or income for immersion programs alone.
+- PPS's projections come from school guides dated October 8, 2026. PPS labels the guides as drafts. Capacities are PPS's current (2025-26) figures from its School Profiles dashboard.
 :::
