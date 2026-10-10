@@ -58,12 +58,6 @@ Recuadros, de izquierda a derecha: (1) número de sedes de inmersión en españo
 - **[Investigación](research.qmd)**: qué muestran los estudios publicados, las guías del campo y la propia conversión de Lent de PPS. El tema es la escuela de inmersión completa frente al programa paralelo (*strand*). En una escuela de inmersión completa, todos los grupos son de inmersión. Un programa paralelo es un programa de inmersión dentro de una escuela que también tiene un programa del vecindario. No encontramos ningún estudio que compare los dos según los resultados del estudiantado.
 - **[Fuentes y métodos](methods.qmd)**: de dónde viene cada número y lo que no puede decirle.
 
-Próximamente:
-
-- un mapa del acceso a las sedes de inmersión
-- proyecciones de inscripción con supuestos que usted puede ajustar
-- el mapa de búsqueda por dirección
-
 ::: {.callout-note}
 Este es un análisis independiente, no una publicación de PPS. Transcribimos los detalles de los escenarios de los documentos de la Junta de octubre de 2026. Para ver las versiones oficiales, consulte los [materiales de reorganización escolar de PPS](https://meetings.boardbook.org/Public/Agenda/915?meeting=769955).
 :::

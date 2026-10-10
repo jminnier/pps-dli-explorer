@@ -53,12 +53,6 @@ Tiles, left to right: (1) count of K-5 Spanish immersion sites on the status quo
 - **[Research](research.qmd)**: what published studies, field guidance and PPS's own Lent conversion show about whole-school versus strand immersion. In a whole-school program, every class is an immersion class. A strand is an immersion program inside a school that also has a neighborhood program. We found no study that compares the two on student outcomes.
 - **[Sources & methods](methods.qmd)**: where every number comes from and what it can't tell you.
 
-Coming next:
-
-- a map of access to immersion sites
-- enrollment projections with assumptions you can adjust
-- the address lookup map
-
 ::: {.callout-note}
 This is an independent analysis, not a PPS publication. We transcribed the scenario details from the October 2026 board packet. For the official versions, see the [PPS rightsizing materials](https://meetings.boardbook.org/Public/Agenda/915?meeting=769955).
 :::

@@ -18,8 +18,6 @@ This project builds on **[pps-explorer](https://github.com/browniefed/pps-explor
 | `es/*.qmd`: Spanish | Latin American Spanish version of every page (button **Español** / **English**); same R code and numbers; glossary in `es/GLOSSARY.md`; writing rules (plain language, GSA Spanish style) in `STYLE.md`; `tools/check_es_sync.py` warns when a Spanish page falls out of step |
 | `methods.qmd`: Sources & methods | Every source, how each was parsed and checked, how each number is calculated, limitations, and how to reproduce |
 
-Planned: an access map, enrollment projections with adjustable assumptions (likely Observable JS in Quarto rather than Shinylive), the address-lookup map under `/map/`, and GitHub Pages deployment (pending permission from the pps-explorer author).
-
 ## Repository layout
 
 ```
