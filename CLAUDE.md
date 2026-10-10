@@ -54,6 +54,14 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
 - Commit with clear messages ending in the Co-Authored-By line, and push to `origin main`. Don't contact upstream without asking. Republish the live site (`quarto publish netlify --no-prompt`) only when the user asks.
 - Verify surprising claims before stating them, and say so plainly when a number was wrong.
 
+## Possible future additions (not promised on the site)
+
+The user may add these later. They were removed from the home page's "Coming next" list and the README on Oct 9, 2026, so don't mention them on the site unless the user decides to build them.
+
+- A map of access to immersion sites.
+- Enrollment projections with adjustable assumptions (likely Observable JS in Quarto rather than Shinylive).
+- The address-lookup map (pps-explorer's map, still at the repository root), published under `/map/`. Publishing it needs permission from the pps-explorer author; don't contact him without asking the user.
+
 ## Substantive pitfalls (already made once; don't repeat)
 
 - **Lottery ≠ demand at Lent and Rigler.** These all-immersion schools enroll neighborhood children without the lottery: Lent had 43 kindergartners vs 14 offers in 2025-26, and Rigler never appears in the lottery. Richmond and mixed-program schools do fill through the lottery. Never compare lottery counts across a change in how children enter a school (the withdrawn "Bridger→Lent applications fell 64%").
