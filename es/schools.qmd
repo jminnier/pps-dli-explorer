@@ -59,7 +59,7 @@ La mayoría de las escuelas que cambian no cierran. Reciben estudiantes, envían
 ```{r}
 #| label: fig-plan-roles
 #| fig-height: 5.2
-#| fig-cap: "Número de escuelas de PPS según lo que el escenario les hace. Pase el cursor para ver los estudiantes inscritos hoy y el número de escuelas de Título I y SUN en cada grupo."
+#| fig-cap: "Número de escuelas de PPS según lo que el escenario les hace. Pase el cursor sobre una barra para ver sus escuelas, los estudiantes inscritos hoy y el número de escuelas de Título I y SUN."
 fig_plan_roles(ps)
 ```
 

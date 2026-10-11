@@ -62,20 +62,27 @@ race_tip <- function(d, L, when) {   # one line per group, now -> after
     character(1))
 }
 
+# School names for a hover box: sorted, a few per line so the box stays narrow on phones.
+school_lines <- function(x, per_line = 4) {
+  x <- sort(short_school(x))
+  paste(vapply(split(x, ceiling(seq_along(x) / per_line)), paste, character(1), collapse = ", "), collapse = ",<br>")
+}
+
 # 1. Bars: number of schools in each role, Scenario A and B; hover gives students today, Title I and SUN.
 fig_plan_roles <- function(ps) {
   L <- pc_lab()
   d <- ps |> mutate(role = factor(role, ROLES)) |> group_by(scenario, role) |>
-    summarise(n = n(), students = sum(students_now), t1 = sum(title1_2026_27), sun = sum(sun_2026_27), .groups = "drop") |>
+    summarise(n = n(), students = sum(students_now), t1 = sum(title1_2026_27), sun = sum(sun_2026_27),
+              names = school_lines(school), .groups = "drop") |>
     mutate(lab = factor(wrap_label(L$role[as.character(role)], 24), rev(wrap_label(L$role[ROLES], 24))))
-  d$tip <- sprintf("<b>%s</b> (%s)<br>%d · %s %s<br>%s: %d · %s: %d", L$role[as.character(d$role)], unlist(L[d$scenario]), d$n,
-                   fmt_n(d$students), L$students_now, L$t1, d$t1, L$sun, d$sun)
+  d$tip <- sprintf("<b>%s</b> (%s)<br>%d · %s %s<br>%s: %d · %s: %d<br><br>%s", L$role[as.character(d$role)], unlist(L[d$scenario]), d$n,
+                   fmt_n(d$students), L$students_now, L$t1, d$t1, L$sun, d$sun, d$names)
   p <- plot_ly()
   for (s in c("b", "a")) {
     p <- add_bars(p, data = filter(d, scenario == s), x = ~n, y = ~lab, orientation = "h", name = L[[s]],
                   marker = list(color = PC_COL[[s]], line = list(color = "white", width = 1)),
                   text = ~n, textposition = "outside", textfont = list(color = PAL$ink2, size = 11), cliponaxis = FALSE,
-                  hovertext = ~tip, hoverinfo = "text")
+                  hovertext = ~tip, hoverinfo = "text", hoverlabel = list(align = "left"))
   }
   viz_layout(p, xtitle = L$schools) |> layout(barmode = "group", bargap = 0.3, xaxis = list(rangemode = "tozero"),
                                               legend = list(traceorder = "reversed"))

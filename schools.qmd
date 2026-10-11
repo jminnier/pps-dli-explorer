@@ -54,7 +54,7 @@ Most schools that change don't close. They take in students, send some students 
 ```{r}
 #| label: fig-plan-roles
 #| fig-height: 5.2
-#| fig-cap: "Number of PPS schools by what the scenario does to them. Hover for the students enrolled today and the number of Title I and SUN schools in each group."
+#| fig-cap: "Number of PPS schools by what the scenario does to them. Hover over a bar to see the schools in it, the students enrolled today, and the number of Title I and SUN schools."
 fig_plan_roles(ps)
 ```
 
