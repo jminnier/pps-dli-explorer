@@ -32,7 +32,7 @@ The site follows the [Federal Plain Language Guidelines](https://digital.gov/gui
 - Avoid noun strings: "the plan to move the Spanish program", not "the Spanish program relocation plan".
 
 **Test**
-- Run `python3 tools/readability.py` after editing. Targets for body text: English Flesch-Kincaid grade 9 or lower; Spanish Fernández-Huerta 70 or higher; fewer than 10% of sentences over 25 words. Use `--long 5` to find the sentences to split. The score is a rough guide; reading the page aloud is the better test.
+- Run `python3 tools/readability.py` after editing. Targets for body text: English Flesch-Kincaid grade 9 or lower; Spanish Fernández-Huerta 70 or higher; fewer than 10% of sentences over 25 words. Use `--long 5` to find the sentences to split. For new or edited text, `python3 tools/plaincheck.py <commit> <files>` flags long sentences and paragraphs, passive voice, "e.g." and dashes in the lines added since that commit. The score is a rough guide; reading the page aloud is the better test.
 - Plain-language testing means asking real readers. Before calling a Spanish page final, a native Spanish speaker from the community should review it (see `es/GLOSSARY.md`, "Terms to review").
 
 ## Spanish pages
