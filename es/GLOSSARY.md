@@ -42,6 +42,8 @@ Use these terms consistently. Register: clear, neutral Latin American Spanish fo
 | straight-line distance | distancia en línea recta |
 | standard deviation (SD) | desviación estándar (DE) |
 | outcome | resultado |
+| Black (race category) / Black students | afrodescendiente(s) / estudiantes afrodescendientes (not "negros"; user decision, Oct 11, 2026) |
+| African American (when a source uses that label, e.g. PPS's underserved definition) | afroamericano(s) |
 | two-way / one-way | bidireccional (*two-way*) / unidireccional (*one-way*) |
 
 Names stay in English: Portland Public Schools (PPS), school names (César Chávez, Lent, Atkinson…), Bridger Creative Science, PSU Population Research Center, document titles (in italics, as published), "pps-explorer", "Save PDX Schools".
@@ -66,7 +68,6 @@ Follow STYLE.md (federal plain-language rules, plus GSA's Spanish Language Style
 
 A native Spanish speaker from the community should review these before the Spanish pages are called final:
 
-- negros / afroamericanos (for "Black"): the race section of the Equity page uses "negros" (estudiantes negros, familias negras); "afroamericanos" appears where an English source says "African American". Check which is clearer and more respectful for Portland families, and make it consistent
 - tabla comparativa (for "scorecard")
 - centro (for "hub", a school that hosts several programs)
 - programa paralelo (*strand*)
