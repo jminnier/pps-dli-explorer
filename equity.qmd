@@ -322,6 +322,35 @@ grp |> filter(type != ALL) |>
 
 **Distance from home (model estimate).** PPS doesn't publish where students live, so we estimate it with a model. The model places children where the 2020 Census counted them. For immersion programs, it assumes families live in the area nearest their program's current site. On that basis, the trip from home to school grows by about `r sprintf("%.1f", h("a", DLI, "change"))` mile for immersion families. It grows by `r sprintf("%.1f", h("a", CLO, "change"))` mile for families at closing schools.
 
+```{r}
+#| label: fig-home
+#| fig-height: 9
+#| fig-cap: "Model estimate, not measured: average home-to-school distance before and after each change in Scenario A, for children living in the closing school's attendance area, or in the area nearest the immersion program's current school (an assumption about where immersion families live). Hover for details."
+hd <- home |> filter(scenario == "a") |>
+  mutate(grp = if_else(type == DLI, "Immersion program moves", "School closures"),
+         label = if_else(type == DLI, paste0(from_school, " → ", to_school), paste0(from_school, " (closes)")),
+         full = if_else(type == DLI, paste0(label, " (", language, ")"), label)) |>
+  arrange(grp, change_mi)
+hd$label <- factor(wrap_label(hd$label, 26), wrap_label(hd$label, 26))
+col <- c("Immersion program moves" = PAL$light[["blue"]], "School closures" = PAL$muted)
+p <- plot_ly(hd, y = ~label) |>
+  add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
+               line = list(color = PAL$grid, width = 2)) |>
+  add_markers(x = ~before_mi, name = "Today", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
+              text = ~sprintf("<b>%s</b><br>today: %.1f mi", full, before_mi), hoverinfo = "text")
+for (k in names(col)) {
+  p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("After:", tolower(k)),
+                   marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
+                   text = ~sprintf("<b>%s</b><br>today %.1f mi → after %.1f mi (+%.1f)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
+}
+viz_layout(p, xtitle = "Miles from home (estimate)") |>
+  layout(xaxis = list(rangemode = "tozero"))
+```
+
+::: {.source}
+`r cite("scenarios", "blocks")`
+:::
+
 PPS's report of where each program's students live offers a check. `r fmt_pct(hc("a", "own_share"))` of students in the moving programs live in their school's own attendance area. PPS reports the rest only by high-school area. Placing them there gives an increase of `r sprintf("%.1f", hc("a", "change_mi"))` to `r sprintf("%.1f", hc("a", "change_mi_nearer"))` miles, close to the model. But the model overstates how far families live from school today: `r sprintf("%.1f", hc("a", "model_before_mi"))` miles, against `r sprintf("%.1f", hc("a", "before_mi"))` miles in the check. The [details and sensitivity checks](#sec-distance-detail) are at the end of this page.
 
 ## 5. Moving a program loses the families who would have joined it {#sec-optout}
@@ -564,36 +593,7 @@ The data point to options that would take less from immersion families. PPS shou
 
 ### Estimated home-to-school distance {#estimated-home-to-school-distance}
 
-The model places children by 2020 census block, a small area the Census reports on. For closures, it uses the children living in the closing school's attendance area. Their new school is the one the scenario map assigns. For immersion programs, it uses the children nearest the program's current site for that language. This is an assumption. Their new school is the program's new site.
-
-```{r}
-#| label: fig-home
-#| fig-height: 9
-#| fig-cap: "Model estimate, not measured: average home-to-school distance before and after each change in Scenario A, for children living in the closing school's attendance area, or in the area nearest the immersion program's current school (an assumption about where immersion families live). Hover for details."
-hd <- home |> filter(scenario == "a") |>
-  mutate(grp = if_else(type == DLI, "Immersion program moves", "School closures"),
-         label = if_else(type == DLI, paste0(from_school, " → ", to_school), paste0(from_school, " (closes)")),
-         full = if_else(type == DLI, paste0(label, " (", language, ")"), label)) |>
-  arrange(grp, change_mi)
-hd$label <- factor(wrap_label(hd$label, 26), wrap_label(hd$label, 26))
-col <- c("Immersion program moves" = PAL$light[["blue"]], "School closures" = PAL$muted)
-p <- plot_ly(hd, y = ~label) |>
-  add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
-               line = list(color = PAL$grid, width = 2)) |>
-  add_markers(x = ~before_mi, name = "Today", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
-              text = ~sprintf("<b>%s</b><br>today: %.1f mi", full, before_mi), hoverinfo = "text")
-for (k in names(col)) {
-  p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("After:", tolower(k)),
-                   marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
-                   text = ~sprintf("<b>%s</b><br>today %.1f mi → after %.1f mi (+%.1f)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
-}
-viz_layout(p, xtitle = "Miles from home (estimate)") |>
-  layout(xaxis = list(rangemode = "tozero"))
-```
-
-::: {.source}
-`r cite("scenarios", "blocks")`
-:::
+@fig-home in §4 shows the estimate for each change. The model places children by 2020 census block, a small area the Census reports on. For closures, it uses the children living in the closing school's attendance area. Their new school is the one the scenario map assigns. For immersion programs, it uses the children nearest the program's current site for that language. This is an assumption. Their new school is the program's new site.
 
 ```{r}
 #| label: tbl-sensitivity

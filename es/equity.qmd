@@ -335,6 +335,35 @@ grp |> filter(type != ALL) |>
 
 **Distancia desde el hogar (estimación de un modelo).** PPS no publica dónde viven los estudiantes, así que lo estimamos con un modelo. El modelo ubica a los niños donde los contó el Censo de 2020. Para los programas de inmersión, supone que las familias viven en la zona más cercana al sitio actual de su programa. Con esa base, el trayecto del hogar a la escuela aumenta unas `r sprintf("%.1f", h("a", DLI, "change"))` millas para las familias de inmersión. Para las familias de las escuelas que cierran, aumenta `r sprintf("%.1f", h("a", CLO, "change"))` millas.
 
+```{r}
+#| label: fig-home
+#| fig-height: 9
+#| fig-cap: "Estimación de un modelo, no una medición: distancia promedio del hogar a la escuela antes y después de cada cambio en el Escenario A, para los niños que viven en la zona de asistencia de la escuela que cierra, o en la zona más cercana a la escuela actual del programa de inmersión (un supuesto sobre dónde viven las familias de inmersión). Pase el cursor para ver los detalles."
+hd <- home |> filter(scenario == "a") |>
+  mutate(grp = if_else(type == DLI, "Programas de inmersión trasladados", "Escuelas que cierran"),
+         label = if_else(type == DLI, paste0(from_school, " → ", to_school), paste0(from_school, " (cierra)")),
+         full = if_else(type == DLI, paste0(label, " (", tr_lang(language), ")"), label)) |>
+  arrange(grp, change_mi)
+hd$label <- factor(wrap_label(hd$label, 26), wrap_label(hd$label, 26))
+col <- c("Programas de inmersión trasladados" = PAL$light[["blue"]], "Escuelas que cierran" = PAL$muted)
+p <- plot_ly(hd, y = ~label) |>
+  add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
+               line = list(color = PAL$grid, width = 2)) |>
+  add_markers(x = ~before_mi, name = "Hoy", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
+              text = ~sprintf("<b>%s</b><br>hoy: %.1f mi", full, before_mi), hoverinfo = "text")
+for (k in names(col)) {
+  p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("Después:", tolower(k)),
+                   marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
+                   text = ~sprintf("<b>%s</b><br>hoy %.1f mi → después %.1f mi (+%.1f)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
+}
+viz_layout(p, xtitle = "Millas desde el hogar (estimación)") |>
+  layout(xaxis = list(rangemode = "tozero"))
+```
+
+::: {.source}
+`r cite("scenarios", "blocks")`
+:::
+
 El informe de PPS sobre dónde viven los estudiantes de cada programa permite verificarlo. El `r fmt_pct(hc("a", "own_share"))` de los estudiantes de los programas que se trasladan vive en la propia zona de asistencia de su escuela. Del resto, PPS solo reporta la zona de preparatoria. Si los ubicamos allí, el aumento es de `r sprintf("%.1f", hc("a", "change_mi"))` a `r sprintf("%.1f", hc("a", "change_mi_nearer"))` millas, cercano al modelo. Pero el modelo exagera qué tan lejos de la escuela viven hoy las familias: `r sprintf("%.1f", hc("a", "model_before_mi"))` millas, frente a `r sprintf("%.1f", hc("a", "before_mi"))` millas en la verificación. Los [detalles y las pruebas de sensibilidad](#sec-distance-detail) están al final de esta página.
 
 ## 5. Al trasladar un programa se pierden las familias que se habrían unido a él {#sec-optout}
@@ -588,36 +617,7 @@ Los datos apuntan a opciones que le quitarían menos a las familias de inmersió
 
 ### Distancia estimada del hogar a la escuela {#estimated-home-to-school-distance}
 
-El modelo ubica a los niños por bloque censal de 2020, una zona pequeña sobre la que informa el Censo. Para los cierres, usa a los niños que viven en la zona de asistencia de la escuela que cierra. Su nueva escuela es la que asigna el mapa del escenario. Para los programas de inmersión, usa a los niños más cercanos al sitio actual del programa de ese idioma. Esto es un supuesto. Su nueva escuela es el nuevo sitio del programa.
-
-```{r}
-#| label: fig-home
-#| fig-height: 9
-#| fig-cap: "Estimación de un modelo, no una medición: distancia promedio del hogar a la escuela antes y después de cada cambio en el Escenario A, para los niños que viven en la zona de asistencia de la escuela que cierra, o en la zona más cercana a la escuela actual del programa de inmersión (un supuesto sobre dónde viven las familias de inmersión). Pase el cursor para ver los detalles."
-hd <- home |> filter(scenario == "a") |>
-  mutate(grp = if_else(type == DLI, "Programas de inmersión trasladados", "Escuelas que cierran"),
-         label = if_else(type == DLI, paste0(from_school, " → ", to_school), paste0(from_school, " (cierra)")),
-         full = if_else(type == DLI, paste0(label, " (", tr_lang(language), ")"), label)) |>
-  arrange(grp, change_mi)
-hd$label <- factor(wrap_label(hd$label, 26), wrap_label(hd$label, 26))
-col <- c("Programas de inmersión trasladados" = PAL$light[["blue"]], "Escuelas que cierran" = PAL$muted)
-p <- plot_ly(hd, y = ~label) |>
-  add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
-               line = list(color = PAL$grid, width = 2)) |>
-  add_markers(x = ~before_mi, name = "Hoy", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
-              text = ~sprintf("<b>%s</b><br>hoy: %.1f mi", full, before_mi), hoverinfo = "text")
-for (k in names(col)) {
-  p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("Después:", tolower(k)),
-                   marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
-                   text = ~sprintf("<b>%s</b><br>hoy %.1f mi → después %.1f mi (+%.1f)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
-}
-viz_layout(p, xtitle = "Millas desde el hogar (estimación)") |>
-  layout(xaxis = list(rangemode = "tozero"))
-```
-
-::: {.source}
-`r cite("scenarios", "blocks")`
-:::
+La @fig-home de la §4 muestra la estimación para cada cambio. El modelo ubica a los niños por bloque censal de 2020, una zona pequeña sobre la que informa el Censo. Para los cierres, usa a los niños que viven en la zona de asistencia de la escuela que cierra. Su nueva escuela es la que asigna el mapa del escenario. Para los programas de inmersión, usa a los niños más cercanos al sitio actual del programa de ese idioma. Esto es un supuesto. Su nueva escuela es el nuevo sitio del programa.
 
 ```{r}
 #| label: tbl-sensitivity
