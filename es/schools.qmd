@@ -34,6 +34,8 @@ t1_close <- who("a", "Closes", "title1_2026_27")
 sun_close_a <- who("a", "Closes", "sun_2026_27"); sun_close_b <- who("b", "Closes", "sun_2026_27")
 cut9_a <- who("a", "Closes", "sun_proposed_cut"); cut9_b <- who("b", "Closes", "sun_proposed_cut")
 pps_t1 <- function(s, k, when) sv(s, k, paste0("title1_guide_", when))
+t1g <- t1_groups(ps, fl)
+tg <- function(s, cat) sum(t1g$students[t1g$scenario == s & t1g$cat == cat])
 ```
 
 ::: {.callout-note appearance="minimal"}
@@ -104,6 +106,25 @@ En el Escenario A, `r in_aff("a", "title1_2026_27")` de las `r tot("title1_2026_
 - **Pierden Título I.** Las guías de PPS proyectan que la escuela intermedia Brentwood dejaría de ser de Título I. Llegarían estudiantes de Sellwood, una escuela intermedia que cierra. PPS proyecta que el porcentaje de estudiantes de grupos raciales desatendidos en Brentwood bajaría del `r pc(sv("a", "brentwood", "hu_now_pps"))` al `r pc(sv("a", "brentwood", "hu_after_pps"))`. En el Escenario A, PPS también proyecta que Markham perdería el Título I después de recibir a la mayoría de los estudiantes de Stephenson.
 - **Ganan Título I.** PPS proyecta que Arleta, hoy escuela puente, volvería a ser de Título I completa después de recibir a los estudiantes de Marysville.
 
+La @fig-plan-title1 clasifica a los estudiantes afectados por los cambios según la situación de Título I de su escuela, antes y después. Usa la situación de Título I de las guías de PPS, que cuentan las escuelas puente como escuelas sin Título I.
+
+Estas cifras incluyen a todos los estudiantes de cada grupo, no solo a los de familias de bajos ingresos. PPS aplica el Título I a toda la escuela, así que todos los estudiantes de una escuela de Título I reciben sus servicios. PPS publica los ingresos de las familias solo por escuela completa, no por programa. Por eso no podemos contar cuántos estudiantes de bajos ingresos se mudarían. Algunos grupos tienen menos estudiantes de bajos ingresos que la escuela a la que llegan. Por ejemplo, PPS cuenta al `r dm <- read_data("school_demographics.csv"); pc(dm$pct_direct_cert[dm$year == "2025-26" & dm$row_type == "School" & dm$name == "Sabin"])` de los estudiantes de Sabin como de bajos ingresos (certificación directa), y Sabin no es una escuela de Título I. Sus estudiantes irían a MLK Jr., que sí lo es.
+
+- **Salen del Título I.** En el Escenario A, grupos que hoy tienen unos `r fmt_n(tg("a", "tn"))` estudiantes pasarían de una escuela de Título I a una que ya no lo sería. Son los estudiantes de Buckman, los estudiantes del vecindario de Beach y el programa de mandarín de Clark.
+- **Pierden el Título I sin mudarse.** Unos `r fmt_n(tg("a", "lose"))` estudiantes asisten hoy a Brentwood y Markham (`r fmt_n(tg("b", "lose"))` a Brentwood en el Escenario B). Se quedarían, pero PPS proyecta que su escuela perdería el Título I.
+- **Ganan el Título I.** Grupos que hoy tienen unos `r fmt_n(tg("a", "nt"))` estudiantes pasarían a una escuela de Título I, como los estudiantes de Sabin que irían a MLK Jr. Los `r fmt_n(tg("a", "gain"))` estudiantes de Arleta se quedarían en una escuela que pasaría a ser de Título I.
+
+```{r}
+#| label: fig-plan-title1
+#| fig-height: 5.4
+#| fig-cap: "Estudiantes afectados por los cambios, según la situación de Título I de su escuela antes y después, en las guías de PPS. Todos los estudiantes de cada grupo, no solo los de familias de bajos ingresos. Estudiantes inscritos en octubre de 2025; los cambios empiezan en 2027-28 o después, así que estas cifras muestran el tamaño de cada cambio. No se muestran los estudiantes que pasan entre dos escuelas sin Título I. Pase el cursor sobre una barra para ver las escuelas."
+fig_plan_title1(ps, fl)
+```
+
+::: {.source}
+`r cite("plan_flows", "guide_demo", "race_program", "demographics")`
+:::
+
 PPS no ha dicho qué pasa con el dinero de Título I cuando una escuela cierra o se une con otra. No encontramos nada en el memorando de los escenarios, las guías de las escuelas ni las preguntas frecuentes (búsqueda del 11 de octubre de 2026). La @tbl-plan-follow muestra a dónde irían los estudiantes de las escuelas de Título I y SUN que cierran.
 
 ```{r}
@@ -156,7 +177,7 @@ En muchas escuelas que reciben estudiantes cambiaría mucho quién asiste. Los c
 ```{r}
 #| label: fig-plan-receivers
 #| fig-height: 10
-#| fig-cap: "Porcentaje de estudiantes de grupos raciales desatendidos en cada escuela que recibiría estudiantes: hoy (anillo gris), Escenario A (rombo naranja) y Escenario B (cuadrado verde azulado). Estudiantes de octubre de 2025, trasladados como lo describen las guías de PPS. Pase el cursor para ver cada grupo racial y étnico."
+#| fig-cap: "Porcentaje de estudiantes de grupos raciales desatendidos en cada escuela que recibiría estudiantes: hoy (anillo gris), Escenario A (rombo naranja) y Escenario B (cuadrado verde azulado). Estudiantes de octubre de 2025, trasladados como lo describen las guías de PPS. Las escuelas están ordenadas según el cambio en el Escenario A, de la mayor baja (arriba) a la mayor subida (abajo). Pase el cursor para ver cada grupo racial y étnico."
 fig_plan_receivers(ps)
 ```
 

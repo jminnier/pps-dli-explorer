@@ -33,6 +33,8 @@ t1_close <- who("a", "Closes", "title1_2026_27")
 sun_close_a <- who("a", "Closes", "sun_2026_27"); sun_close_b <- who("b", "Closes", "sun_2026_27")
 cut9_a <- who("a", "Closes", "sun_proposed_cut"); cut9_b <- who("b", "Closes", "sun_proposed_cut")
 pps_t1 <- function(s, k, when) sv(s, k, paste0("title1_guide_", when))
+t1g <- t1_groups(ps, fl)
+tg <- function(s, cat) sum(t1g$students[t1g$scenario == s & t1g$cat == cat])
 ```
 
 The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
@@ -99,6 +101,25 @@ Title I is federal money for schools that serve many students from low-income fa
 - **Losing Title I status.** PPS's guides project that Brentwood Middle School would no longer be a Title I school. Students from closing Sellwood Middle School would arrive, and PPS projects Brentwood's share from underserved racial groups would fall from `r pc(sv("a", "brentwood", "hu_now_pps"))` to `r pc(sv("a", "brentwood", "hu_after_pps"))`. In Scenario A, PPS also projects that Markham would lose Title I status after taking in most of Stephenson's students.
 - **Gaining Title I status.** PPS projects that Arleta, now a bridge school, would be a full Title I school again after taking in Marysville's students.
 
+@fig-plan-title1 sorts the students the changes touch by their school's Title I status, before and after. It uses the Title I status in PPS's school guides, which count bridge schools as not Title I.
+
+These counts include every student in each group, not only students from low-income families. PPS runs Title I school-wide, so every student at a Title I school gets its services. PPS publishes family income only for whole schools, not for each program. So we can't count how many low-income students would move. Some groups have fewer low-income students than the school they join. For example, PPS counts `r dm <- read_data("school_demographics.csv"); pc(dm$pct_direct_cert[dm$year == "2025-26" & dm$row_type == "School" & dm$name == "Sabin"])` of Sabin's students as low-income (direct certification), and Sabin is not a Title I school. Its students would join MLK Jr., which is.
+
+- **Leaving Title I.** In Scenario A, groups that enroll about `r fmt_n(tg("a", "tn"))` students today would move from a Title I school to one that would not be. They are Buckman's students, Beach's neighborhood students and Clark's Mandarin program.
+- **Losing Title I in place.** About `r fmt_n(tg("a", "lose"))` students attend Brentwood and Markham today (`r fmt_n(tg("b", "lose"))` at Brentwood in Scenario B). They would stay, but PPS projects their school would lose Title I.
+- **Gaining Title I.** Groups that enroll about `r fmt_n(tg("a", "nt"))` students today would move into a Title I school, such as Sabin's students into MLK Jr. Arleta's `r fmt_n(tg("a", "gain"))` students would stay at a school that becomes Title I.
+
+```{r}
+#| label: fig-plan-title1
+#| fig-height: 5.4
+#| fig-cap: "Students the changes touch, by their school's Title I status before and after, in PPS's school guides. All students in each group, not only students from low-income families. Students enrolled in October 2025; the changes start in 2027-28 or later, so these numbers show the size of each change. Students who move between two schools that aren't Title I are not shown. Hover over a bar to see the schools."
+fig_plan_title1(ps, fl)
+```
+
+::: {.source}
+`r cite("plan_flows", "guide_demo", "race_program", "demographics")`
+:::
+
 PPS has not said what happens to Title I money when a school closes or merges. We found no statement in the scenario memo, the school guides or the rightsizing FAQ (searched October 11, 2026). @tbl-plan-follow shows where students from closing Title I and SUN schools would go.
 
 ```{r}
@@ -151,7 +172,7 @@ Many schools that take in students would see a large change in who attends. The 
 ```{r}
 #| label: fig-plan-receivers
 #| fig-height: 10
-#| fig-cap: "Share of students from underserved racial groups at each school that would take in students: today (hollow gray ring), Scenario A (orange diamond) and Scenario B (aqua square). October 2025 students, moved as PPS's school guides describe. Hover for each racial and ethnic group."
+#| fig-cap: "Share of students from underserved racial groups at each school that would take in students: today (hollow gray ring), Scenario A (orange diamond) and Scenario B (aqua square). October 2025 students, moved as PPS's school guides describe. Schools are sorted by the change in Scenario A, from the largest drop (top) to the largest rise (bottom). Hover for each racial and ethnic group."
 fig_plan_receivers(ps)
 ```
 

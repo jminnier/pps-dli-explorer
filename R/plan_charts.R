@@ -19,6 +19,10 @@ PC <- list(
     latino_share = "Latino students", white_share = "White students",
     by_building = "Each building as one unit", by_program = "Each program as one unit",
     hdr_building = "By building", hdr_program = "By program", hdr_latino = "Latino", hdr_white = "White",
+    t1_cat = c(tt = "Move from a Title I school to a Title I school", tn = "Move from a Title I school to a school that would not be Title I",
+               nt = "Move from a non-Title I school to a Title I school", lose = "Stay at a school that would lose Title I",
+               gain = "Stay at a school that would become Title I"),
+    enrolled_today = "Students enrolled today", stays = "stay",
     d_axis = "Latino–white dissimilarity index (0 = even, 1 = fully separate)",
     area = c("All elementary (K-5 and K-8) schools" = "All elementary schools", "All middle schools" = "All middle schools",
              "Northeast: Scott, Rigler, Rose City Park, Vestal" = "Northeast: Scott, Rigler, Rose City Park, Vestal",
@@ -38,6 +42,10 @@ PC <- list(
     latino_share = "Estudiantes latinos", white_share = "Estudiantes blancos",
     by_building = "Cada edificio como una unidad", by_program = "Cada programa como una unidad",
     hdr_building = "Por edificio", hdr_program = "Por programa", hdr_latino = "Latinos", hdr_white = "Blancos",
+    t1_cat = c(tt = "Pasan de una escuela de Título I a otra de Título I", tn = "Pasan de una escuela de Título I a una que no sería de Título I",
+               nt = "Pasan de una escuela sin Título I a una de Título I", lose = "Se quedan en una escuela que perdería el Título I",
+               gain = "Se quedan en una escuela que pasaría a ser de Título I"),
+    enrolled_today = "Estudiantes inscritos hoy", stays = "se quedan",
     d_axis = "Índice de disimilitud entre latinos y blancos (0 = parejo, 1 = totalmente separados)",
     area = c("All elementary (K-5 and K-8) schools" = "Todas las primarias", "All middle schools" = "Todas las intermedias",
              "Northeast: Scott, Rigler, Rose City Park, Vestal" = "Noreste: Scott, Rigler, Rose City Park, Vestal",
@@ -176,4 +184,38 @@ fig_plan_segregation <- function(seg) {
   s <- subplot(panel("building", TRUE), panel("program", FALSE), shareY = TRUE, margin = 0.04)
   viz_layout(s) |> layout(xaxis = ax, xaxis2 = ax, annotations = list(hdr(0.24, L$hdr_building), hdr(0.76, L$hdr_program)),
                           legend = list(y = 1.12, traceorder = "reversed"))
+}
+
+# 5. Bars: students the changes touch, by Title I status before and after (PPS's guide designations, which
+#    leave out bridge schools). Moves use each flow's sending school today and receiving school after;
+#    stayers are students at schools whose own status would change. Hover lists the flows or schools.
+t1_groups <- function(ps, fl) {
+  st <- function(s, k, col) { v <- ps[[col]][ps$scenario == s & ps$key == k]; if (length(v)) v[1] else "No" }
+  mv <- fl |> mutate(fk = school_key(from_school), tk = school_key(to_school)) |> rowwise() |>
+    mutate(from_t1 = st(scenario, fk, "title1_guide_now"), to_t1 = st(scenario, tk, "title1_guide_after")) |> ungroup() |>
+    mutate(cat = case_when(from_t1 == "Yes" & to_t1 == "Yes" ~ "tt", from_t1 == "Yes" ~ "tn", to_t1 == "Yes" ~ "nt", TRUE ~ NA_character_)) |>
+    filter(!is.na(cat)) |>
+    transmute(scenario, cat, students, item = sprintf("%s → %s", short_school(from_school), short_school(to_school)))
+  stay <- ps |> filter(!is.na(title1_guide_after), title1_guide_after != "", title1_guide_now != title1_guide_after) |>
+    transmute(scenario, cat = if_else(title1_guide_after == "No", "lose", "gain"), students = students_now - students_out,
+              item = short_school(school))
+  bind_rows(mv, stay)
+}
+fig_plan_title1 <- function(ps, fl) {
+  L <- pc_lab()
+  g <- t1_groups(ps, fl)
+  d <- g |> group_by(scenario, cat) |> arrange(desc(students), .by_group = TRUE) |>
+    summarise(n = sum(students), items = paste(sprintf("%s: %s", item, fmt_n(students)), collapse = "<br>"), .groups = "drop") |>
+    complete(scenario, cat = names(L$t1_cat), fill = list(n = 0, items = "–")) |>
+    mutate(lab = factor(wrap_label(L$t1_cat[cat], 30), rev(wrap_label(unname(L$t1_cat), 30))),
+           tip = sprintf("<b>%s</b> (%s)<br>%s %s<br><br>%s", L$t1_cat[cat], unlist(L[scenario]), fmt_n(n), L$students, items))
+  p <- plot_ly()
+  for (s in c("b", "a")) {
+    p <- add_bars(p, data = filter(d, scenario == s), x = ~n, y = ~lab, orientation = "h", name = L[[s]],
+                  marker = list(color = PC_COL[[s]], line = list(color = "white", width = 1)),
+                  text = ~fmt_n(n), textposition = "outside", textfont = list(color = PAL$ink2, size = 11), cliponaxis = FALSE,
+                  hovertext = ~tip, hoverinfo = "text", hoverlabel = list(align = "left"))
+  }
+  viz_layout(p, xtitle = L$enrolled_today) |> layout(barmode = "group", bargap = 0.3, xaxis = list(range = c(0, 1.25 * max(d$n)), nticks = 3, tickangle = 0, tickformat = "~s"),
+                                                     legend = list(traceorder = "reversed"), margin = list(r = 30))
 }
