@@ -465,7 +465,7 @@ PPS's School Profiles page embeds a public Power BI report that shows one school
 
 ## Research page {#research}
 
-The [Research](research.qmd) page reviews published work on whole-school versus strand immersion. It has no script. Its only computed figures come from source 2 (immersion and neighborhood-program students per grade, K-5, October 2025) and source 4 (Ainsworth's lottery average).
+The [Whole-school vs. strand](research.qmd) page reviews published work on whole-school versus strand immersion. It has no script. Its only computed figures come from two sources. Source 2 gives immersion and neighborhood-program students per grade (K-5, October 2025). Source 4 gives Ainsworth's lottery average.
 
 - *Whole school vs. strand*: We count a K-5 site as whole-school when PPS reports no neighborhood-program students in grades K-5 there (Lent, Rigler and Richmond in October 2025). *Immersion students per grade* is K-5 immersion enrollment divided by six. PPS doesn't publish classes per program, so this is only a rough guide to class counts.
 - *Literature*: We read each study in full text where it was openly available. That covers:

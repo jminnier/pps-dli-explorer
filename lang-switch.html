@@ -42,12 +42,21 @@ function langSwitch() {
 
   var labels = {
     'index.html': 'Inicio', 'scorecard.html': 'Demanda', 'equity.html': 'Equidad', 'schools.html': 'Cambios por escuela',
-    'history.html': 'Lent y Chávez', 'research.html': 'Investigación', 'methods.html': 'Métodos'
+    'history.html': 'Lent y Chávez', 'research.html': 'Escuela completa o programa paralelo', 'methods.html': 'Métodos'
   };
   document.querySelectorAll('#navbarCollapse a.nav-link, a.navbar-brand').forEach(function (l) {
     if (l.classList.contains('lang-switch')) return;
     var href = l.getAttribute('href') || '';
+    // Quarto may write navbar links as "../page.html" or as absolute URLs to the English page; read both
     var m = href.match(/^\.\.\/([a-z]+\.html)(#.*)?$/);
+    if (!m) {
+      try {
+        var u = new URL(href, location.href);
+        if (u.origin === location.origin && !/\/es\//.test(u.pathname)) {
+          m = [href, u.pathname.split('/').pop() || 'index.html', u.hash];
+        }
+      } catch (e) {}
+    }
     if (m && labels[m[1]] !== undefined) {
       l.setAttribute('href', './' + m[1] + (m[2] || ''));
       var t = l.querySelector('.menu-text');

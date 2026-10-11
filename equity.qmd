@@ -182,7 +182,7 @@ fig_race_split(rp)
 The plan reaches more Black students in two other ways:
 
 - **Closures.** The schools that would close enroll `r fmt_n(rgv("a", CLR, "black_n"))` Black students outside immersion in Scenario A (`r fmt_n(rgv("b", CLR, "black_n"))` in Scenario B).
-- **César Chávez becomes immersion-only.** To make César Chávez a K-5 school with only Spanish immersion, PPS would move its neighborhood program out. Its K-5 students would go to Rosa Parks and its grade 6-8 students to George (`r SRC$guide_cc`). That program has `r fmt_n(rgv("a", HUBN, "students"))` students. **`r fmt_pct(rgv("a", HUBN, "black_pct"))` are Black**, `r round(rgv("a", HUBN, "black_pct") / rgv("all", K8, "black_pct"), 1)` times the share in PPS elementary and middle schools. `r fmt_pct(rgv("a", HUBN, "hu_pct"))` are historically underserved. This repeats the pattern of Lent's 2023 conversion. The district's equity audit found that the students displaced then "were disproportionately Black and Asian Lent neighborhood families" (`r SRC$audit_schools`, p. 47; see [Research](research.qmd#sec-lent)). We count them in §1 as directly displaced.
+- **César Chávez becomes immersion-only.** To make César Chávez a K-5 school with only Spanish immersion, PPS would move its neighborhood program out. Its K-5 students would go to Rosa Parks and its grade 6-8 students to George (`r SRC$guide_cc`). That program has `r fmt_n(rgv("a", HUBN, "students"))` students. **`r fmt_pct(rgv("a", HUBN, "black_pct"))` are Black**, `r round(rgv("a", HUBN, "black_pct") / rgv("all", K8, "black_pct"), 1)` times the share in PPS elementary and middle schools. `r fmt_pct(rgv("a", HUBN, "hu_pct"))` are historically underserved. This repeats the pattern of Lent's 2023 conversion. The district's equity audit found that the students displaced then "were disproportionately Black and Asian Lent neighborhood families" (`r SRC$audit_schools`, p. 47; see [whole-school vs. strand research](research.qmd#sec-lent)). We count them in §1 as directly displaced.
 
 Of the `r fmt_n(round(blk_disp_a))` Black students who would have to change schools in Scenario A, `r fmt_pct(rgv("a", CLR, "black_n") / blk_disp_a)` would move because their school closes.
 
@@ -582,7 +582,7 @@ That points to two other ways to serve Southeast families, both closer to where 
 
 Either way, Lent could get back a neighborhood program serving its own families, many of them Spanish speakers. One question remains. Two-way immersion needs native speakers. About `r fmt_n(sc("creston", "spanish_517_within_1_5mi"))` school-age Spanish speakers live within 1.5 miles of Creston, fewer than near Atkinson or Lent. So a Creston site would need to recruit them.
 
-PPS's case for whole-school sites is that teachers need same-grade partners. A second class per grade at Atkinson would give them one. See [Research](research.qmd#sec-single) for what the evidence says about whole-school and strand programs.
+PPS's case for whole-school sites is that teachers need same-grade partners. A second class per grade at Atkinson would give them one. See [whole-school vs. strand research](research.qmd#sec-single) for what the evidence says about whole-school and strand programs.
 
 ## 9. Other options would take less from immersion families {#sec-alternatives}
 
@@ -592,7 +592,7 @@ The data point to options that would take less from immersion families. PPS shou
 - **In the Southeast, grow Spanish immersion where the demand is.** Add a second class at Atkinson, or open a Southeast immersion school in Creston's building, 0.8 miles away instead of 2.4 to Lent. **Restore Lent's neighborhood program** ([§8](#sec-southeast)).
 - **Keep Rigler's neighborhood boundary**, the feature that makes it work today. At least guarantee its neighborhood families a seat.
 - **Move the neighborhood program instead of the immersion strand.** The plan already does this at César Chávez. There, non-immersion students would move to Rosa Parks so the school can become an immersion hub.
-- **Prefer two-class strands to whole-school conversions** where the goal is teacher collaboration. A two-class strand has two immersion classes in each grade. No study we found shows whole-school programs outperform strands ([Research](research.qmd)).
+- **Prefer two-class strands to whole-school conversions** where the goal is teacher collaboration. A two-class strand has two immersion classes in each grade. No study we found shows whole-school programs outperform strands ([whole-school vs. strand research](research.qmd)).
 - **Fill "underenrolled" immersion classrooms from the waitlists** instead of moving them.
 - **Phase changes in and protect current families.** Let enrolled students finish where they are. Guarantee transportation to any relocated program.
 - **Do the equity analysis PPS hasn't published.** Report every change by immersion enrollment, home language, English-learner status, race and income. Include home-to-school distance before and after. Publish the share of families the projections assume will follow each moved program. Judging by the school guides, it is about `r round(100 * mean(fol1$followed))`%. Then track how many actually do. PPS has the student-level data to do this.

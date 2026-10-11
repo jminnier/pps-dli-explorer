@@ -470,7 +470,7 @@ La página School Profiles de PPS incluye un informe público de Power BI que mu
 
 ## Página de investigación {#research}
 
-La página de [Investigación](research.qmd) revisa los trabajos publicados sobre la inmersión en escuela completa frente a la de programa paralelo (*strand*). No tiene script. Sus únicas cifras calculadas vienen de dos fuentes. La fuente 2 da los estudiantes de inmersión y del programa del vecindario por grado (K-5, octubre de 2025). La fuente 4 da el promedio del sorteo de Ainsworth.
+La página [Escuela completa o programa paralelo](research.qmd) revisa los trabajos publicados sobre la inmersión en escuela completa frente a la de programa paralelo (*strand*). No tiene script. Sus únicas cifras calculadas vienen de dos fuentes. La fuente 2 da los estudiantes de inmersión y del programa del vecindario por grado (K-5, octubre de 2025). La fuente 4 da el promedio del sorteo de Ainsworth.
 
 - *Escuela completa frente a programa paralelo*: Contamos una sede K-5 como escuela completa cuando PPS no reporta estudiantes del programa del vecindario de kínder a 5.º en ella. En octubre de 2025, eran Lent, Rigler y Richmond. *Estudiantes de inmersión por grado* es la matrícula de inmersión K-5 dividida entre seis. PPS no publica el número de grupos por programa, así que esto es solo una guía aproximada del número de grupos.
 - *Literatura*: Leímos cada estudio en texto completo cuando estaba disponible de forma abierta. Eso abarca:
