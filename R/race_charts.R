@@ -16,7 +16,7 @@ RC <- list(
     share = "Share of students", of = "of", students = "students",
     imm = "Immersion program", nb = "Neighborhood program, same building",
     black_share = "Black students", latino_share = "Latino students",
-    black_n = "Black students (number)",
+    black_n = "Black students (number)", black_word = "Black students", about = "about",
     now = "PPS projection if nothing changes", scen_a = "Scenario A", points = "points", after_lose = "Scenario A: school loses an immersion program",
     after_recv = "Scenario A: school receives an immersion program",
     ur = "Underserved racial groups (PPS projection)",
@@ -34,7 +34,7 @@ RC <- list(
     share = "Porcentaje de estudiantes", of = "de", students = "estudiantes",
     imm = "Programa de inmersión", nb = "Programa del vecindario, mismo edificio",
     black_share = "Afrodescendientes", latino_share = "Latinos",
-    black_n = "Estudiantes afrodescendientes",
+    black_n = "Estudiantes afrodescendientes", black_word = "estudiantes afrodescendientes", about = "unos",
     now = "Proyección de PPS si nada cambia", scen_a = "Escenario A", points = "puntos", after_lose = "Escenario A: la escuela pierde un programa de inmersión",
     after_recv = "Escenario A: la escuela recibe un programa de inmersión",
     ur = "Grupos raciales desatendidos (proyección de PPS)",
@@ -63,7 +63,7 @@ fig_race_groups <- function(rg) {
     tidyr::pivot_longer(-c(k, students), names_to = c("race", ".value"), names_pattern = "(.*)_(pct|n)$") |>
     mutate(race_lab = L$race[race], name = unlist(L[k]),
            hidden = is.na(pct), x = small_x(pct, students),   # fewer than 5 students: drawn at 2.5 students' worth, open marker
-           tip = sprintf("<b>%s</b><br>%s: %s (%s %s %s %s)", race_lab, name, fmt_share(pct, students, 1), fmt_count(n), L$of, fmt_n(round(students)), L$students))
+           tip = sprintf("<b>%s</b><br>%s: %s (%s %s %s %s)", race_lab, name, fmt_share(pct, students), fmt_count(n), L$of, fmt_n(round(students)), L$students))
   lev <- wrap_label(rev(unname(L$race)), 22)
   d$y <- factor(wrap_label(d$race_lab, 22), lev)
   rng <- d |> group_by(y) |> summarise(lo = min(x), hi = max(x))
@@ -90,8 +90,8 @@ fig_race_split <- function(rp) {
   panel <- function(a, b, title, legend) {
     # fewer than 5 students: drawn at 2.5 students' worth; the immersion marker is open
     xa <- small_x(d[[a]], d$program_students); xb <- small_x(d[[b]], d$nb_students); ha <- is.na(d[[a]])
-    tip_a <- sprintf("<b>%s</b><br>%s: %s", d$lab, L$imm, fmt_share(d[[a]], d$program_students))
-    tip_b <- sprintf("<b>%s</b><br>%s: %s", d$lab, L$nb, fmt_share(d[[b]], d$nb_students))
+    tip_a <- sprintf("<b>%s</b><br>%s<br>%s: %s", d$lab, L$imm, title, fmt_share(d[[a]], d$program_students))
+    tip_b <- sprintf("<b>%s</b><br>%s<br>%s: %s", d$lab, L$nb, title, fmt_share(d[[b]], d$nb_students))
     p <- plot_ly(d, y = ~y) |>
       add_segments(x = xa, xend = xb, yend = ~y, line = list(color = PAL$grid, width = 2), hoverinfo = "skip", showlegend = FALSE) |>
       add_markers(x = xb, name = L$nb, text = tip_b, hoverinfo = "text", showlegend = legend, legendgroup = "nb",
@@ -132,7 +132,7 @@ fig_black_displaced <- function(black) {
     p <- add_bars(p, data = dk, x = ~n, y = ~y, orientation = "h", name = wl(L$cause[[names(key)[key == k]]]),
                   marker = list(color = RC_COL[[k]], line = list(color = "white", width = 1)),
                   text = ~n, textposition = "outside", textfont = list(color = PAL$ink2, size = 11), cliponaxis = FALSE,
-                  hovertext = ~sprintf("<b>%s</b><br>%s %s (%s %s %s %s)%s", lab, n, tolower(L$race[["black"]]), pct1(black_pct), L$of, fmt_n(round(students)), L$students,
+                  hovertext = ~sprintf("<b>%s</b><br>%s %s (%s %s %s %s)%s", lab, ifelse(round(black_n) != black_n, paste(L$about, n), n), L$black_word, pct1(black_pct), L$of, fmt_n(round(students)), L$students,
                                        ifelse(kind == "other", paste0("<br>", L$places, ": ", gsub("; ", ", ", places)), "")),
                   hoverinfo = "text")
   }

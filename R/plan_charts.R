@@ -11,11 +11,11 @@ PC <- list(
              "Takes in students" = "Takes in students", "Takes in students and sends some away" = "Takes in students and sends some away",
              "Sends students away" = "Sends some students away", "Boundary or feeder change only" = "Boundary or feeder change only",
              "No change" = "No change"),
-    schools = "Number of schools", now = "Today (October 2025)", a = "Scenario A", b = "Scenario B",
+    schools = "Number of schools", schools_word = "schools", now = "Today (October 2025)", a = "Scenario A", b = "Scenario B",
     students_now = "students today", t1 = "Title I", sun = "SUN", hu = "Share of students from underserved racial groups",
     race = c(latino = "Latino", black = "Black", asian = "Asian", white = "White", asian_white = "Multiracial: Asian and White",
              other_multi = "Multiracial: other", native_american = "Native American", pacific_islander = "Pacific Islander"),
-    takes_in = "takes in", sends = "sends away", students = "students", closes = "closes",
+    hu_short = "Underserved racial groups, today → after", takes_in = "takes in", sends = "sends away", students = "students", closes = "closes",
     latino_share = "Latino students", white_share = "White students",
     by_building = "Each building as one unit", by_program = "Each program as one unit",
     hdr_building = "By building", hdr_program = "By program", hdr_latino = "Latino", hdr_white = "White",
@@ -34,11 +34,11 @@ PC <- list(
              "Takes in students" = "Recibe estudiantes", "Takes in students and sends some away" = "Recibe estudiantes y envía a otros",
              "Sends students away" = "Envía a algunos estudiantes", "Boundary or feeder change only" = "Solo cambia de zona o de escuela de continuación",
              "No change" = "Sin cambios"),
-    schools = "Número de escuelas", now = "Hoy (octubre de 2025)", a = "Escenario A", b = "Escenario B",
+    schools = "Número de escuelas", schools_word = "escuelas", now = "Hoy (octubre de 2025)", a = "Escenario A", b = "Escenario B",
     students_now = "estudiantes hoy", t1 = "Título I", sun = "SUN", hu = "Porcentaje de estudiantes de grupos raciales desatendidos",
     race = c(latino = "Latinos", black = "Afrodescendientes", asian = "Asiáticos", white = "Blancos", asian_white = "Multirraciales: asiáticos y blancos",
              other_multi = "Multirraciales: otros", native_american = "Nativos americanos", pacific_islander = "De las islas del Pacífico"),
-    takes_in = "recibe", sends = "envía", students = "estudiantes", closes = "cierra",
+    hu_short = "Grupos raciales desatendidos, hoy → después", takes_in = "recibe", sends = "envía", students = "estudiantes", closes = "cierra",
     latino_share = "Estudiantes latinos", white_share = "Estudiantes blancos",
     by_building = "Cada edificio como una unidad", by_program = "Cada programa como una unidad",
     hdr_building = "Por edificio", hdr_program = "Por programa", hdr_latino = "Latinos", hdr_white = "Blancos",
@@ -83,8 +83,8 @@ fig_plan_roles <- function(ps) {
     summarise(n = n(), students = sum(students_now), t1 = sum(title1_2026_27), sun = sum(sun_2026_27),
               names = school_lines(school), .groups = "drop") |>
     mutate(lab = factor(wrap_label(L$role[as.character(role)], 24), rev(wrap_label(L$role[ROLES], 24))))
-  d$tip <- sprintf("<b>%s</b> (%s)<br>%d · %s %s<br>%s: %d · %s: %d<br><br>%s", L$role[as.character(d$role)], unlist(L[d$scenario]), d$n,
-                   fmt_n(d$students), L$students_now, L$t1, d$t1, L$sun, d$sun, d$names)
+  d$tip <- sprintf("<b>%s</b> (%s)<br>%d %s · %s %s<br>%s: %d %s · %s: %d %s<br><br>%s", L$role[as.character(d$role)], unlist(L[d$scenario]), d$n, L$schools_word,
+                   fmt_n(d$students), L$students_now, L$t1, d$t1, L$schools_word, L$sun, d$sun, L$schools_word, d$names)
   p <- plot_ly()
   for (s in c("b", "a")) {
     p <- add_bars(p, data = filter(d, scenario == s), x = ~n, y = ~lab, orientation = "h", name = L[[s]],
@@ -104,8 +104,8 @@ fig_plan_receivers <- function(ps) {
   ord <- d |> filter(scenario == "a") |> arrange(hu_after - hu_now) |> pull(school)
   ord <- unique(c(ord, d$school))
   d$y <- factor(d$school, rev(ord))
-  d$tip <- sprintf("<b>%s</b> (%s)<br>%s %s %s · %s %s<br>%s", d$school, unlist(L[d$scenario]), L$takes_in, fmt_n(d$students_in), L$students,
-                   L$sends, fmt_n(d$students_out), race_tip(d, L))
+  d$tip <- sprintf("<b>%s</b><br>%s<br>%s: %s → %s<br>%s %s %s · %s %s<br><br>%s", d$school, unlist(L[d$scenario]), L$hu_short, p1(d$hu_now), p1(d$hu_after),
+                   L$takes_in, fmt_n(d$students_in), L$students, L$sends, fmt_n(d$students_out), race_tip(d, L))
   today <- d |> distinct(y, school, hu_now, students_now)
   rng <- d |> group_by(y) |> summarise(lo = min(c(hu_now, hu_after)), hi = max(c(hu_now, hu_after)))
   p <- plot_ly() |>
@@ -143,7 +143,7 @@ fig_plan_clusters <- function(ps) {
       mk <- if (s == "now") list(color = "rgba(0,0,0,0)", size = 13, line = list(color = PAL$muted, width = 2)) else
         list(color = PC_COL[[s]], symbol = PC_SYM[[s]], size = PC_SIZE[[s]], line = list(color = "white", width = 1))
       p <- add_markers(p, data = ds, x = ds[[col]], y = ~y, name = st_lab[[s]], legendgroup = s, showlegend = legend, marker = mk, hoverinfo = "text",
-                       text = sprintf("<b>%s</b> (%s)<br>%s: %s<br>%s: %s<br>%s %s", ds$school, st_lab[[s]], L$latino_share, fmt_share(ds$latino_p, ds$n),
+                       text = sprintf("<b>%s</b><br>%s<br>%s: %s<br>%s: %s<br>%s %s", ds$school, st_lab[[s]], L$latino_share, fmt_share(ds$latino_p, ds$n),
                                       L$white_share, fmt_share(ds$white_p, ds$n), fmt_n(ds$n), L$students))
     }
     p
@@ -172,8 +172,8 @@ fig_plan_segregation <- function(seg) {
       mk <- if (s == "now") list(color = "rgba(0,0,0,0)", size = 13, line = list(color = PAL$muted, width = 2)) else
         list(color = PC_COL[[s]], symbol = PC_SYM[[s]], size = PC_SIZE[[s]], line = list(color = "white", width = 1))
       p <- add_markers(p, data = ds, x = ~latino_white_D, y = ~area_lab, name = st_lab[[s]], legendgroup = s, showlegend = legend, marker = mk,
-                       hoverinfo = "text", text = sprintf("<b>%s</b> (%s)<br>%s: %.2f", L$area[ds$area], st_lab[[s]],
-                                                          if (u == "building") L$by_building else L$by_program, ds$latino_white_D))
+                       hoverinfo = "text", text = sprintf("<b>%s</b><br>%s<br>%s<br>%s: %.2f", L$area[ds$area], st_lab[[s]],
+                                                          if (u == "building") L$by_building else L$by_program, L$d_axis, ds$latino_white_D))
     }
     p
   }

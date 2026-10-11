@@ -303,7 +303,7 @@ d <- grp |> mutate(type = factor(type, c(DLI, CLO, ALL), c("Programas de inmersi
   filter(!(type == "Todos los estudiantes de PPS" & scenario == "b")) |>
   mutate(scen = if_else(type == "Todos los estudiantes de PPS", "Distrito", scen), label = paste0(type, if_else(scen == "Distrito", "", paste0(", ", scen))))
 d$label <- factor(wrap_label(d$label), rev(unique(wrap_label(d$label)[order(d$type, d$scen)])))
-tip <- function(x, what) sprintf("<b>%s</b><br>%s%% %s<br>%s estudiantes", d$label, round(100 * x), what, fmt_n(d$students))
+tip <- function(x, what) sprintf("<b>%s</b><br>Cerca del %s%% %s (cálculo)<br>%s estudiantes", d$label, round(100 * x), what, fmt_n(d$students))
 p <- plot_ly(d, y = ~label) |>
   add_bars(x = ~pct_spanish_home, name = "Español en casa", marker = list(color = PAL$light[["blue"]], line = list(color = "white", width = 2)),
            text = tip(d$pct_spanish_home, "habla español en casa"), hoverinfo = "text", textposition = "none") |>
@@ -350,7 +350,7 @@ grp |> filter(type != ALL) |>
 hd <- home |> filter(scenario == "a") |>
   mutate(grp = if_else(type == DLI, "Programas de inmersión trasladados", "Escuelas que cierran"),
          label = if_else(type == DLI, paste0(from_school, " → ", to_school), paste0(from_school, " (cierra)")),
-         full = if_else(type == DLI, paste0(label, " (", tr_lang(language), ")"), label)) |>
+         full = if_else(type == DLI, paste0(label, " (", tolower(tr_lang(language)), ")"), label)) |>
   arrange(grp, change_mi)
 hd$label <- factor(wrap_label(hd$label, 26), wrap_label(hd$label, 26))
 col <- c("Programas de inmersión trasladados" = PAL$light[["blue"]], "Escuelas que cierran" = PAL$muted)
@@ -358,11 +358,11 @@ p <- plot_ly(hd, y = ~label) |>
   add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
                line = list(color = PAL$grid, width = 2)) |>
   add_markers(x = ~before_mi, name = "Hoy", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
-              text = ~sprintf("<b>%s</b><br>hoy: %.1f mi", full, before_mi), hoverinfo = "text")
+              text = ~sprintf("<b>%s</b><br>Cálculo para hoy: unas %.1f mi", full, before_mi), hoverinfo = "text")
 for (k in names(col)) {
   p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("Después:", tolower(k)),
                    marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
-                   text = ~sprintf("<b>%s</b><br>hoy %.1f mi → después %.1f mi (+%.1f)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
+                   text = ~sprintf("<b>%s</b><br>Cálculo: unas %.1f mi hoy → %.1f mi después (+%.1f mi)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
 }
 viz_layout(p, xtitle = "Millas desde el hogar (estimación)") |>
   layout(xaxis = list(rangemode = "tozero"))

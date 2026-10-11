@@ -54,7 +54,7 @@ p <- plot_ly(d, y = ~label) |>
               text = ~hover(from_school, from_apps, from_wait, "pierde el programa"), hoverinfo = "text") |>
   add_markers(data = filter(d, !is.na(to_apps)), x = ~to_apps, name = "Escuela que lo recibe (su propio sorteo actual)",
               marker = list(color = PAL$light[["orange"]], size = 11, line = list(color = "white", width = 2)),
-              text = ~hover(to_school, to_apps, to_wait, "recibe el programa"), hoverinfo = "text")
+              text = ~hover(to_school, to_apps, to_wait, paste0("recibe el programa de ", from_school, if_else(to_school == "Lent", "; solo solicitantes de fuera de su vecindario", ""))), hoverinfo = "text")
 viz_layout(p, xtitle = "Solicitudes por año", ytitle = NULL) |>
   layout(xaxis = list(rangemode = "tozero"), yaxis = list(tickfont = list(size = 12)))
 ```
@@ -122,12 +122,12 @@ Las solicitudes del sorteo no sirven para esta comparación. Las familias del ve
 ```{r}
 #| label: fig-waitlist
 #| fig-height: 5
-#| fig-cap: "Lista de espera de kínder en cada programa de inmersión en español, por año del sorteo. Azul: el programa se traslada en ambos escenarios. Anaranjado: la escuela recibe un programa trasladado. Gris: sin cambios."
+#| fig-cap: "Lista de espera de kínder en cada programa de inmersión en español, por año del sorteo. Azul: el programa se traslada en ambos escenarios. Anaranjado: la escuela recibe un programa trasladado. Gris: el programa se queda donde está."
 sending <- unique(demand$from_key[demand$language == "Spanish"])
 receiving <- unique(demand$to_key[demand$language == "Spanish"])
 w <- lottery_k |> filter(language == "Spanish", year %in% LOTTERY_YEARS) |>
-  mutate(role = case_when(key %in% sending ~ "El programa se traslada", key %in% receiving ~ "Recibe un programa trasladado", TRUE ~ "Sin cambios"),
-         col = c("El programa se traslada" = PAL$light[["blue"]], "Recibe un programa trasladado" = PAL$light[["orange"]], "Sin cambios" = PAL$muted)[role])
+  mutate(role = case_when(key %in% sending ~ "El programa se traslada", key %in% receiving ~ "Recibe un programa trasladado", TRUE ~ "El programa se queda donde está"),
+         col = c("El programa se traslada" = PAL$light[["blue"]], "Recibe un programa trasladado" = PAL$light[["orange"]], "El programa se queda donde está" = PAL$muted)[role])
 p <- plot_ly()
 for (s in unique(w$key)) {
   ws <- filter(w, key == s)

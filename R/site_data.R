@@ -181,6 +181,7 @@ assert_no_small <- function(d, cols, what) {
 # Display: a share whose count is hidden shows as "<X%" (X = the share 5 students would be), "none"
 # when there is no group at all (no denominator).
 fmt_share <- function(p, total, digits = 0) {
+  total <- rep_len(total, length(p))   # one total for many shares (one school's groups) or one per share
   out <- ifelse(is.na(total) | total == 0, if (SITE_ES) "ninguno" else "none",
                 ifelse(is.na(p), sprintf("<%d%%", pmax(1, ceiling(100 * SMALL_N / total))),
                        sprintf(paste0("%.", digits, "f%%"), 100 * p)))

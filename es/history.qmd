@@ -132,13 +132,13 @@ dem |> mutate(row_type = if_else(row_type == "School", "Asisten a la escuela", "
 ```{r}
 #| label: fig-projection
 #| fig-height: 5.2
-#| fig-cap: "Matrícula total: cifras reales de octubre hasta 2025-26 y, después, las proyecciones de PPS tomadas de sus guías de escuela, sin cambios y con los Escenarios A y B (idénticos para estas dos escuelas). Pase el cursor para ver las cifras."
+#| fig-cap: "Matrícula total: cifras reales de octubre hasta 2025-26 y, después, las proyecciones de PPS tomadas de sus guías de escuela, si nada cambia y con los Escenarios A y B (idénticos para estas dos escuelas). Pase el cursor para ver las cifras."
 act <- he |> filter(program == "Total", school %in% c("Lent", "César Chávez"), year >= "2021-22") |> transmute(school, year, enrollment, line = "Real")
-prj <- hp |> filter(scenario %in% c("sq", "a")) |> transmute(school, year, enrollment, line = if_else(scenario == "sq", "Proyección de PPS, sin cambios", "Proyección de PPS, Escenarios A y B"))
+prj <- hp |> filter(scenario %in% c("sq", "a")) |> transmute(school, year, enrollment, line = if_else(scenario == "sq", "Proyección de PPS si nada cambia", "Proyección de PPS, Escenarios A y B"))
 dd <- bind_rows(act, prj)
 yrs <- c("2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27", "2027-28", "2028-29", "2029-30", "2030-31", "2031-32")
 lcol <- c(Lent = PAL$light[["blue"]], `César Chávez` = PAL$light[["orange"]])
-ldash <- c(Real = "solid", `Proyección de PPS, sin cambios` = "dot", `Proyección de PPS, Escenarios A y B` = "dash")
+ldash <- c(Real = "solid", `Proyección de PPS si nada cambia` = "dot", `Proyección de PPS, Escenarios A y B` = "dash")
 p <- plot_ly()
 for (s in names(lcol)) for (l in names(ldash)) {
   ds <- filter(dd, school == s, line == l)

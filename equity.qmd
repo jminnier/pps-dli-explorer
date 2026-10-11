@@ -290,7 +290,7 @@ d <- grp |> mutate(type = factor(type, c(DLI, CLO, ALL), c("Immersion program mo
   filter(!(type == "All PPS students" & scenario == "b")) |>
   mutate(scen = if_else(type == "All PPS students", "District", scen), label = paste0(type, if_else(scen == "District", "", paste0(", ", scen))))
 d$label <- factor(wrap_label(d$label), rev(unique(wrap_label(d$label)[order(d$type, d$scen)])))
-tip <- function(x, what) sprintf("<b>%s</b><br>%s%% %s<br>%s students", d$label, round(100 * x), what, fmt_n(d$students))
+tip <- function(x, what) sprintf("<b>%s</b><br>About %s%% %s (estimate)<br>%s students", d$label, round(100 * x), what, fmt_n(d$students))
 p <- plot_ly(d, y = ~label) |>
   add_bars(x = ~pct_spanish_home, name = "Spanish at home", marker = list(color = PAL$light[["blue"]], line = list(color = "white", width = 2)),
            text = tip(d$pct_spanish_home, "speak Spanish at home"), hoverinfo = "text", textposition = "none") |>
@@ -345,11 +345,11 @@ p <- plot_ly(hd, y = ~label) |>
   add_segments(x = ~before_mi, xend = ~after_mi, yend = ~label, showlegend = FALSE, hoverinfo = "skip",
                line = list(color = PAL$grid, width = 2)) |>
   add_markers(x = ~before_mi, name = "Today", marker = list(color = "white", size = 9, line = list(color = PAL$ink2, width = 2)),
-              text = ~sprintf("<b>%s</b><br>today: %.1f mi", full, before_mi), hoverinfo = "text")
+              text = ~sprintf("<b>%s</b><br>Estimate today: about %.1f mi", full, before_mi), hoverinfo = "text")
 for (k in names(col)) {
   p <- add_markers(p, data = filter(hd, grp == k), x = ~after_mi, name = paste("After:", tolower(k)),
                    marker = list(color = col[[k]], size = 10, line = list(color = "white", width = 2)),
-                   text = ~sprintf("<b>%s</b><br>today %.1f mi → after %.1f mi (+%.1f)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
+                   text = ~sprintf("<b>%s</b><br>Estimate: about %.1f mi today → %.1f mi after (+%.1f mi)", full, before_mi, after_mi, change_mi), hoverinfo = "text")
 }
 viz_layout(p, xtitle = "Miles from home (estimate)") |>
   layout(xaxis = list(rangemode = "tozero"))
