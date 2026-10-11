@@ -37,12 +37,12 @@ pps_t1 <- function(s, k, when) sv(s, k, paste0("title1_guide_", when))
 
 The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
 
-All numbers use October 2025 enrollment. We follow PPS's school guides to see where each school's current students would go. "Underserved racial groups" is PPS's term for Latino, Black, Native American, Pacific Islander and multiracial students of other ancestries.
+All numbers use October 2025 enrollment. We follow PPS's school guides to see where each school's students would go. "Underserved racial groups" is PPS's term for Latino, Black, Native American, Pacific Islander and multiracial students of other ancestries.
 
 ## In brief {#sec-brief}
 
 - **Schools.** In Scenario A, `r n_role("a", "Closes")` schools close and `r n_role("a", TAKE)` schools take in students from closed schools or moved programs. In Scenario B, `r n_role("b", "Closes")` close and `r n_role("b", TAKE)` take in students.
-- **Students.** About `r fmt_n(movers("a"))` current students would change buildings in Scenario A (`r fmt_n(movers("b"))` in B). About `r fmt_n(stayers("a"))` more attend schools that would take them in. Those students stay put, but their school changes around them.
+- **Students.** The groups of students that would change buildings in Scenario A enroll about `r fmt_n(movers("a"))` students today (`r fmt_n(movers("b"))` in B). This number shows the size of the change, not a count of the children who will move. The changes start in 2027-28 or later, so many of today's students will have moved on by then. The schools that would take them in enroll about `r fmt_n(stayers("a"))` more students today. Those students stay put, but their school changes around them.
 - **Title I schools.** All `r length(t1_close)` closing Title I schools are the same in both scenarios: `r words(t1_close)`. PPS's own guides project that Brentwood Middle School would lose Title I status in both scenarios.
 - **SUN schools.** `r length(sun_close_a)` SUN Community Schools close in Scenario A (`r length(sun_close_b)` in B). In Scenario A, `r length(cut9_a)` of them are sites the county planned to cut in 2026 and then saved.
 - **Separation by race.** Across the district, the plan would not make schools more separated by race. Locally, it would. Where immersion programs gather into one school, Latino and white students who now share a building would attend different buildings. Where neighborhood schools merge, as at Sabin and MLK Jr., separation falls.
@@ -79,14 +79,14 @@ gt(rt) |>
   tab_source_note(md(cite("plan_flows", "guide_demo", "title1", "sun", "race_program")))
 ```
 
-The `r fmt_n(movers("a"))` students who change buildings in Scenario A include:
+The groups that would change buildings in Scenario A (about `r fmt_n(movers("a"))` students today) include:
 
 - students at closing schools;
 - students in immersion programs that move;
 - middle-grade students at K-8 schools that become K-5;
 - César Chávez's neighborhood students, who move so the school can become a Spanish immersion school.
 
-High schools appear only through boundary changes for future students. No current high school student moves, except Metropolitan Learning Center's `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` high school students, who would choose another school.
+High schools appear only through boundary changes for future students. The one exception is Metropolitan Learning Center, which would stop serving high school grades. It has `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` high school students today. They would choose another school.
 
 ## 2. Title I schools {#sec-title1}
 
@@ -238,7 +238,8 @@ gt(ts, groupname_col = "area") |>
 
 ## 6. What this estimate can't show {#sec-limits}
 
-- **It moves today's students.** We move October 2025 students as the school guides describe. PPS's projections are for 2027-28 and later and include future boundary effects. We use PPS's projections as a check.
+- **It uses today's students to measure the change.** We move October 2025 students all at once, as the school guides describe. The real changes start in 2027-28 or later, and many of today's students will have moved on. For example, Sellwood Middle School closes in 2028, after all of its current students have left 8th grade. So our counts show the size of each change, not the children who will move.
+- **School sizes.** Our sizes can differ from PPS's projections. Brentwood grows from `r fmt_n(sv("a", "brentwood", "students_now"))` to `r fmt_n(sv("a", "brentwood", "students_after"))` students here, but PPS projects `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` for 2031-32, when all the changes are in place. PPS's projections include future boundary effects and enrollment trends. We use PPS's projections as a check on the race and ethnicity shares, which are what this page compares.
 - **Grades.** PPS reports race by school and program, not by grade. We assume each grade has the same mix as its school or program.
 - **Boundary shares.** Where PPS gives a share of a boundary (half of Buckman, 70% of Maplewood), we apply it to enrolled students. Sellwood's split between Hosford and Brentwood follows its feeder schools' enrollment.
 - **Future students.** Feeder changes that move only future middle schoolers, such as Kelly to Harrison Park, are not counted as moves.

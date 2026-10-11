@@ -42,12 +42,12 @@ pps_t1 <- function(s, k, when) sv(s, k, paste0("title1_guide_", when))
 
 Los escenarios cambian muchas más escuelas que las que cierran. En el Escenario A, `r n_aff("a")` de las `r n_all("a")` escuelas de PPS cerrarían, enviarían estudiantes a otra escuela, recibirían estudiantes o cambiarían sus zonas. En el Escenario B, serían `r n_aff("b")`. Esta página cuenta esas escuelas y a sus estudiantes. También revisa las escuelas de Título I y SUN, y si los traslados separarían a los estudiantes por raza.
 
-Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de las escuelas de PPS para ver a dónde iría cada grupo de estudiantes actuales. "Grupos raciales desatendidos" es el término de PPS para los estudiantes latinos, afroamericanos, nativos americanos, de las islas del Pacífico y multirraciales de otros orígenes.
+Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de las escuelas de PPS para ver a dónde irían los estudiantes de cada escuela. "Grupos raciales desatendidos" es el término de PPS para los estudiantes latinos, afroamericanos, nativos americanos, de las islas del Pacífico y multirraciales de otros orígenes.
 
 ## En resumen {#sec-brief}
 
 - **Escuelas.** En el Escenario A, cierran `r n_role("a", "Closes")` escuelas y `r n_role("a", TAKE)` escuelas reciben estudiantes de escuelas cerradas o de programas trasladados. En el Escenario B, cierran `r n_role("b", "Closes")` y `r n_role("b", TAKE)` reciben estudiantes.
-- **Estudiantes.** Unos `r fmt_n(movers("a"))` estudiantes actuales cambiarían de edificio en el Escenario A (`r fmt_n(movers("b"))` en el B). Otros `r fmt_n(stayers("a"))` asisten a las escuelas que los recibirían. Esos estudiantes no se mudan, pero su escuela cambia a su alrededor.
+- **Estudiantes.** Los grupos de estudiantes que cambiarían de edificio en el Escenario A tienen hoy unos `r fmt_n(movers("a"))` estudiantes (`r fmt_n(movers("b"))` en el B). Esta cifra muestra el tamaño del cambio, no cuántos niños se mudarán. Los cambios empiezan en 2027-28 o después, así que muchos de los estudiantes de hoy ya se habrán ido. Las escuelas que los recibirían tienen hoy otros `r fmt_n(stayers("a"))` estudiantes. Esos estudiantes no se mudan, pero su escuela cambia a su alrededor.
 - **Escuelas de Título I.** Las `r length(t1_close)` escuelas de Título I que cierran son las mismas en ambos escenarios: `r words(t1_close)`. Las propias guías de PPS proyectan que la escuela intermedia Brentwood dejaría de ser de Título I en ambos escenarios.
 - **Escuelas SUN.** En el Escenario A cierran `r length(sun_close_a)` escuelas comunitarias SUN (`r length(sun_close_b)` en el B). En el Escenario A, `r length(cut9_a)` de ellas son sitios que el condado planeaba recortar en 2026 y luego salvó.
 - **Separación por raza.** En el distrito en su conjunto, el plan no haría que las escuelas estuvieran más separadas por raza. En algunos lugares, sí. Donde los programas de inmersión se reúnen en una sola escuela, estudiantes latinos y blancos que hoy comparten un edificio asistirían a edificios distintos. Donde se unen escuelas del vecindario, como Sabin y MLK Jr., la separación disminuye.
@@ -84,14 +84,14 @@ gt(rt) |>
   tab_source_note(md(cite("plan_flows", "guide_demo", "title1", "sun", "race_program")))
 ```
 
-Los `r fmt_n(movers("a"))` estudiantes que cambian de edificio en el Escenario A incluyen:
+Los grupos que cambiarían de edificio en el Escenario A (unos `r fmt_n(movers("a"))` estudiantes hoy) incluyen:
 
 - estudiantes de escuelas que cierran;
 - estudiantes de programas de inmersión que se trasladan;
 - estudiantes de 6.º a 8.º grado de escuelas K-8 que pasan a ser K-5;
 - los estudiantes del vecindario de César Chávez, que se mudan para que la escuela sea solo de inmersión en español.
 
-Las preparatorias solo aparecen por cambios de zona para futuros estudiantes. Ningún estudiante actual de preparatoria se muda, salvo los `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` estudiantes de preparatoria de Metropolitan Learning Center, que elegirían otra escuela.
+Las preparatorias solo aparecen por cambios de zona para futuros estudiantes. La única excepción es Metropolitan Learning Center, que dejaría de ofrecer los grados de preparatoria. Hoy tiene `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` estudiantes de preparatoria. Ellos elegirían otra escuela.
 
 ## 2. Escuelas de Título I {#sec-title1}
 
@@ -243,7 +243,8 @@ gt(ts, groupname_col = "area") |>
 
 ## 6. Lo que este cálculo no puede mostrar {#sec-limits}
 
-- **Traslada a los estudiantes de hoy.** Trasladamos a los estudiantes de octubre de 2025 como lo describen las guías. Las proyecciones de PPS son para 2027-28 y años posteriores, e incluyen efectos futuros de los cambios de zona. Usamos las proyecciones de PPS como comprobación.
+- **Usa a los estudiantes de hoy para medir el cambio.** Trasladamos a todos los estudiantes de octubre de 2025 a la vez, como lo describen las guías. Los cambios reales empiezan en 2027-28 o después, y muchos de los estudiantes de hoy ya se habrán ido. Por ejemplo, la escuela intermedia Sellwood cierra en 2028, cuando todos sus estudiantes actuales ya habrán terminado 8.º grado. Por eso nuestras cifras muestran el tamaño de cada cambio, no a los niños que se mudarán.
+- **Tamaño de las escuelas.** Nuestros tamaños pueden diferir de las proyecciones de PPS. Aquí Brentwood pasa de `r fmt_n(sv("a", "brentwood", "students_now"))` a `r fmt_n(sv("a", "brentwood", "students_after"))` estudiantes, pero PPS proyecta `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` para 2031-32, cuando todos los cambios ya estén en marcha. Las proyecciones de PPS incluyen efectos futuros de los cambios de zona y las tendencias de matrícula. Usamos las proyecciones de PPS para comprobar los porcentajes de raza y etnia, que son lo que compara esta página.
 - **Grados.** PPS informa la raza por escuela y programa, no por grado. Suponemos que cada grado tiene la misma mezcla que su escuela o programa.
 - **Partes de una zona.** Cuando PPS da una parte de una zona (la mitad de Buckman, el 70% de Maplewood), la aplicamos a los estudiantes inscritos. La división de Sellwood entre Hosford y Brentwood sigue la matrícula de sus escuelas primarias.
 - **Estudiantes futuros.** Los cambios que solo afectan a futuros estudiantes de escuela intermedia, como de Kelly a Harrison Park, no se cuentan como traslados.

@@ -450,7 +450,7 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 
 Las áreas son todas las primarias (K-5 y K-8), todas las escuelas intermedias y tres grupos locales: Noreste (Scott, Rigler, Rose City Park, Vestal), Norte (MLK Jr., Sabin, Boise-Eliot/Humboldt) y Sureste (Atkinson, Lent, Creston). Los grupos locales tienen solo de dos a seis unidades, así que una sola escuela puede mover mucho el índice.
 
-**Límites.** Es una foto fija: traslada a los estudiantes de octubre de 2025. Las proyecciones de PPS son para 2027-28 y años posteriores. Incluyen efectos futuros de los cambios de zona y del crecimiento. Por eso los tamaños de las escuelas aquí difieren de los de PPS. Por ejemplo, Brentwood y Hosford reciben de una vez a todos los estudiantes actuales de Sellwood. El informe de raza no separa las aulas de educación especial ni el programa para estudiantes sordos o con pérdida auditiva.
+**Límites.** Es una foto fija: traslada a todos los estudiantes de octubre de 2025 a la vez. Los cambios empiezan en 2027-28 o después, y muchos de los estudiantes de hoy ya se habrán ido. Por ejemplo, Sellwood cierra en 2028, cuando todos sus estudiantes actuales ya habrán terminado 8.º grado. Por eso las cifras de estudiantes muestran el tamaño de cada cambio, no cuántos niños se mudarán. Las proyecciones de PPS son para 2027-28 y años posteriores. Incluyen efectos futuros de los cambios de zona y del crecimiento. Por eso los tamaños de las escuelas aquí difieren de los de PPS. Por ejemplo, Brentwood y Hosford reciben de una vez a todos los estudiantes actuales de Sellwood. El informe de raza no separa las aulas de educación especial ni el programa para estudiantes sordos o con pérdida auditiva.
 
 ## Página de Lent y César Chávez {#history}
 

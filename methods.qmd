@@ -445,7 +445,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 
 The areas are all elementary (K-5 and K-8) schools, all middle schools, and three local groups: Northeast (Scott, Rigler, Rose City Park, Vestal), North (MLK Jr., Sabin, Boise-Eliot/Humboldt) and Southeast (Atkinson, Lent, Creston). The local groups have only two to six units, so one school can move the index a lot.
 
-**Limits.** This is a snapshot: it moves October 2025 students. PPS's projections are for 2027-28 and later and include future boundary effects and growth. So school sizes here differ from PPS's. For example, Brentwood and Hosford take in all of Sellwood's current students at once. Special education and Deaf and Hard of Hearing classrooms are not separated in the race report.
+**Limits.** This is a snapshot: it moves October 2025 students all at once. The changes start in 2027-28 or later, and many of today's students will have moved on. Sellwood, for example, closes in 2028, after all of its current students have left 8th grade. So the student counts show the size of each change, not the number of children who will move. PPS's projections are for 2027-28 and later and include future boundary effects and growth. So school sizes here differ from PPS's. For example, Brentwood and Hosford take in all of Sellwood's current students at once. Special education and Deaf and Hard of Hearing classrooms are not separated in the race report.
 
 ## Lent & César Chávez page {#history}
 
