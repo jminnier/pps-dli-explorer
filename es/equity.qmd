@@ -238,7 +238,7 @@ La página [Cambios por escuela](schools.qmd) sigue a todas las escuelas que el 
 ```{r}
 #| label: fig-race-schools
 #| fig-height: 6.2
-#| fig-cap: "Porcentaje proyectado por PPS de estudiantes de grupos raciales desatendidos en cada escuela que perdería o recibiría un programa de inmersión: sin cambios (círculo gris vacío) y en el Escenario A. Las proyecciones incluyen cambios de límites además de los traslados de programas."
+#| fig-cap: "Porcentaje proyectado por PPS de estudiantes de grupos raciales desatendidos en cada escuela que perdería o recibiría un programa de inmersión: si nada cambia (círculo gris vacío) y en el Escenario A (marcador relleno). Ambas son proyecciones de PPS en sus guías de las escuelas. Las proyecciones incluyen cambios de límites además de los traslados de programas."
 fig_race_schools(rs)
 ```
 

@@ -231,7 +231,7 @@ The [School changes](schools.qmd) page follows every school the plan touches, in
 ```{r}
 #| label: fig-race-schools
 #| fig-height: 6.2
-#| fig-cap: "PPS's projected share of students from underserved racial groups at each school that would lose or receive an immersion program: with no changes (hollow gray ring) and in Scenario A. The projections include boundary changes as well as program moves."
+#| fig-cap: "PPS's projected share of students from underserved racial groups at each school that would lose or receive an immersion program: if nothing changes (hollow gray ring) and in Scenario A (filled marker). Both are PPS projections from its school guides. The projections include boundary changes as well as program moves."
 fig_race_schools(rs)
 ```
 

@@ -17,7 +17,7 @@ RC <- list(
     imm = "Immersion program", nb = "Neighborhood program, same building",
     black_share = "Black students", latino_share = "Latino students",
     black_n = "Black students (number)",
-    now = "No changes", after_lose = "Scenario A: school loses an immersion program",
+    now = "PPS projection if nothing changes", scen_a = "Scenario A", points = "points", after_lose = "Scenario A: school loses an immersion program",
     after_recv = "Scenario A: school receives an immersion program",
     ur = "Underserved racial groups (PPS projection)",
     closes = "closes", prog_fmt = "%s (%s)", grades_fmt = "%s (%s, grades 6-8)", hub_row = "César Chávez neighborhood program",
@@ -35,7 +35,7 @@ RC <- list(
     imm = "Programa de inmersión", nb = "Programa del vecindario, mismo edificio",
     black_share = "Afrodescendientes", latino_share = "Latinos",
     black_n = "Estudiantes afrodescendientes",
-    now = "Sin cambios", after_lose = "Escenario A: la escuela pierde un programa de inmersión",
+    now = "Proyección de PPS si nada cambia", scen_a = "Escenario A", points = "puntos", after_lose = "Escenario A: la escuela pierde un programa de inmersión",
     after_recv = "Escenario A: la escuela recibe un programa de inmersión",
     ur = "Grupos raciales desatendidos (proyección de PPS)",
     closes = "cierra", prog_fmt = "%s (%s)", grades_fmt = "%s (%s, 6.º a 8.º)", hub_row = "César Chávez: programa del vecindario",
@@ -138,12 +138,14 @@ fig_race_schools <- function(rs) {
   d$y <- factor(d$school, rev(d$school))
   p <- plot_ly(d, y = ~y) |>
     add_segments(x = ~now, xend = ~after, yend = ~y, line = list(color = PAL$grid, width = 2), hoverinfo = "skip", showlegend = FALSE) |>
-    add_markers(x = ~now, name = wl(L$now), text = ~sprintf("<b>%s</b><br>%s: %s", school, L$now, pct1(now)), hoverinfo = "text",
-                marker = list(color = "white", size = 10, line = list(color = PAL$muted, width = 2)))
+    identity()
   for (k in c("mov", "hub")) {
     p <- add_markers(p, data = filter(d, k == !!k), x = ~after, name = wl(if (k == "mov") L$after_lose else L$after_recv),
-                     text = ~sprintf("<b>%s</b><br>%s %s → %s (%+.0f)", school, L$now, pct1(now), pct1(after), 100 * change), hoverinfo = "text",
+                     text = ~sprintf("<b>%s</b><br>%s: %s<br>%s: %s (%+.0f %s)", school, L$now, pct1(now), L$scen_a, pct1(after), 100 * change, L$points), hoverinfo = "text",
                      marker = list(color = RC_COL[[k]], symbol = RC_SYM[[k]], size = 10, line = list(color = "white", width = 1.5)))
   }
-  viz_layout(p, xtitle = wl(L$ur)) |> layout(xaxis = list(tickformat = ".0%", rangemode = "tozero"))
+  # ring drawn last (transparent fill) so it stays visible where the two projections match
+  p <- add_markers(p, x = ~now, name = wl(L$now), text = ~sprintf("<b>%s</b><br>%s: %s", school, L$now, pct1(now)), hoverinfo = "text",
+                   marker = list(color = "rgba(0,0,0,0)", size = 13, line = list(color = PAL$muted, width = 2)))
+  viz_layout(p, xtitle = wl(L$ur)) |> layout(xaxis = list(tickformat = ".0%", rangemode = "tozero"), legend = list(traceorder = "reversed"))
 }
