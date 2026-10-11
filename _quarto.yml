@@ -9,6 +9,7 @@ project:
     - index.qmd
     - scorecard.qmd
     - equity.qmd
+    - schools.qmd
     - history.qmd
     - research.qmd
     - es/*.qmd
@@ -29,6 +30,8 @@ website:
         text: Demand
       - href: equity.qmd
         text: Equity
+      - href: schools.qmd
+        text: School changes
       - href: history.qmd
         text: Lent & Chávez
       - href: research.qmd

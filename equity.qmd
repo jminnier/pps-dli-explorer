@@ -226,6 +226,8 @@ Immersion programs bring many of the Latino and Asian students to the schools th
 
 PPS's own school guides show the result. They project that **Atkinson's share of students from underserved racial groups would fall from `r fmt_pct(rsv("a", "atkinson", "now"))` to `r fmt_pct(rsv("a", "atkinson", "after"))`**, and Beaumont's from `r fmt_pct(rsv("a", "beaumont", "now"))` to `r fmt_pct(rsv("a", "beaumont", "after"))`. Scott, MLK Jr. and César Chávez would also fall. Clark and Ockley Green would rise. The guides' projections include boundary changes too, so not all of each change comes from the program move. The measure also leaves out Asian students: Vestal's share falls because the Vietnamese program it would receive is mostly Asian.
 
+The [School changes](schools.qmd) page follows every school the plan touches, including the schools that take in students. It also covers Title I and SUN schools, and whether the moves would separate students by race.
+
 ```{r}
 #| label: fig-race-schools
 #| fig-height: 6.2

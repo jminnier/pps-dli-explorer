@@ -45,6 +45,8 @@ We saved every source document in the repository under `data-raw/`. The script l
 | 22 | Current building capacity and school profile | PPS, *School Profiles* Power BI dashboard on the [internal school profiles page](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/internal-school-profiles): functional capacity, 2025-26 utilization, enrollment, 2026-27 projection, direct certification, capture rate, program type, per school | 2025-26 (retrieved Oct 9, 2026) | `data-raw/pps_reports/school_profiles/*.txt` (text snapshot of each school's view) | `scrape_school_profiles.mjs`, `parse_school_profiles.py` → `school_profiles_2025.csv` |
 | 23 | Race and ethnicity by program | PPS, *Enrollment Summary by Race and Ethnicity, October 2025* ([PDF](https://resources.finalsite.net/images/v1761606954/ppsnet/p020rdtb2usyi0zikguo/EnrollmentbyRace25-26.pdf)): counts and percentages for eight groups, with separate rows for each school's immersion and neighborhood programs | October 2025 (retrieved October 11, 2026) | `data-raw/pps_reports/race/EnrollmentbyRace25-26.pdf` | `parse_race_by_program.py` → `race_by_program_2025.csv`; `equity_race.R` → `equity_race_*.csv` |
 | 24 | History of PPS and Black Portlanders | PPS, Center for Black Student Excellence, [*Historical Context*](https://www.pps.net/fs/pages/20941); City of Portland, Portland Housing Bureau, [*N/NE Neighborhood Housing Strategy: Historical Overview*](https://www.portland.gov/phb/nnehousing/historical-overview); PPS, [*Racial Educational Equity Policy*](https://www.pps.net/departments/racial-equity-social-justice/racial-educational-equity-policy) (2.10.010-P) | retrieved October 11, 2026 | – | quoted on the Equity page (§3) |
+| 25 | Title I schools | PPS Funded Programs, [*Title IA* page](https://www.pps.net/Page/1395): "2026-2027 Title IA Schools" (with bridge schools marked) and "2025-2026 Title IA Schools", and the eligibility rule | 2025-26 and 2026-27 (retrieved October 11, 2026) | `data-raw/title1/` | `title1_schools.csv` (copied with school keys by `school_changes.R`) |
+| 26 | SUN Community Schools | Multnomah County, [*SUN Community School Contact List – August 2026*](https://multco.us/file/sun_community_school_contact_list-0/download); proposed 2026 cuts from [Willamette Week (June 2, 2026)](https://www.wweek.com/news/schools/2026/06/02/multnomah-county-looks-to-cut-nine-sun-schools-heres-what-that-would-mean-at-creston-elementary/) and the county's [June 5, 2026 budget release](https://multco.us/news/news-release-multnomah-county-board-commissioners-closes-significant-spending-gap-adopts) | August 2026 (retrieved October 11, 2026) | `data-raw/sun/` | `sun_schools.csv` (via `school_changes.R`) |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -417,6 +419,34 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - Creston's seismic status (unreinforced masonry, targeted for retrofit) is from the PPS facility data compiled in meub/pps-data. We did not check it against PPS's bond documents.
 - Richmond's point on the original pps-explorer map was a copy of Atkinson's (SE 58th & Division). We corrected it in this copy to the Census Bureau geocode of its address, 2276 SE 41st Ave, just north of Division. No figure on this site depends on Richmond's location.
 
+## School changes page {#school-changes}
+
+`data-raw/school_changes.R` builds every number on the [School changes](schools.qmd) page.
+
+**Where students go.** `data-raw/plan_flows.csv` has one row for each group of current students that would change buildings. Each row names the sending school, the part that moves and the receiving school. The part is the whole school, the neighborhood program, an immersion program, or grades 6-8. Each row also gives the share that moves and the sentence in PPS's school guide it rests on (page 3, "What is being proposed?"). Four rows rest on our assumptions rather than a PPS share:
+
+- **Marysville.** PPS splits Marysville between Arleta and Kelly. We send all of it to Arleta, because PPS projects Arleta would grow by 333 students by 2031-32 and Kelly by 10.
+- **Sellwood.** PPS sends the Llewellyn area to Hosford and the Duniway and Lewis areas to Brentwood. We split Sellwood's students by the enrollment of those elementary schools: 36% to Hosford and 64% to Brentwood.
+- **Odyssey.** Its program moves into Metropolitan Learning Center's building. We count it as a program that moves, not a closure, so the closure counts match PPS's (14 in Scenario A, 11 in B).
+- **Lee is now Sunrise.** PPS's October 2025 race report calls the school at 2222 NE 92nd Ave "Lee". The guides and the 2026-27 Title I list call it Sunrise.
+
+**Race and ethnicity.** Each part's race and ethnicity comes from source 23. Some K-8 schools send only grades 6-8. For these, we scale the school's row by the share of its October 2025 students in those grades (source 2). This assumes the same mix in every grade. A school's mix after the move is its students today, minus the parts that leave, plus the parts that arrive.
+
+**Roles.** "Closes" uses PPS's guides ("School would close") plus Sellwood, which closes in 2028. "Takes in students" means at least one part arrives. "Sends students away" means at least one part leaves but the building stays open. "Boundary or feeder change only" means PPS's guide lists a change, but no current student moves (for example, future middle schoolers from Kelly going to Harrison Park).
+
+**Check against PPS.** PPS's guides give each school's projected share from underserved racial groups with no changes and under each scenario (source 16). Our estimate of each school's change matches the direction and size of PPS's. The correlation is 0.93 across 70 school-scenario pairs, and the median gap is 1.6 percentage points. The script stops if the correlation falls below 0.8.
+
+**Title I and SUN.** A school counts as Title I if it is on PPS's 2026-27 list, including the three bridge schools. PPS's guides leave bridge schools out of their Title I column, so we use the guides only for the projected status after the changes. SUN status is the county's August 2026 contact list. The county's printable SUN map dates from August 2018 and is out of date.
+
+**Separation by race.** For groups *a* and *b*, the dissimilarity index is D = ½ Σ |*a*ᵢ/*A* − *b*ᵢ/*B*|. The sum runs over the units *i* in the area. It is the share of either group that would have to move for every unit to match the area's mix. Exposure is Σ (*a*ᵢ/*A*)(*w*ᵢ/*t*ᵢ), the white share of the unit attended by the typical student in group *a*. We compute both with two kinds of unit:
+
+- each building;
+- each program, with immersion and neighborhood programs as separate units even in one building.
+
+The areas are all elementary (K-5 and K-8) schools, all middle schools, and three local groups: Northeast (Scott, Rigler, Rose City Park, Vestal), North (MLK Jr., Sabin, Boise-Eliot/Humboldt) and Southeast (Atkinson, Lent, Creston). The local groups have only two to six units, so one school can move the index a lot.
+
+**Limits.** This is a snapshot: it moves October 2025 students. PPS's projections are for 2027-28 and later and include future boundary effects and growth. So school sizes here differ from PPS's. For example, Brentwood and Hosford take in all of Sellwood's current students at once. Special education and Deaf and Hard of Hearing classrooms are not separated in the race report.
+
 ## Lent & César Chávez page {#history}
 
 `data-raw/history_tables.R` writes `history_enrollment.csv` and `history_projection.csv`.
@@ -489,6 +519,8 @@ Rscript data-raw/check_access_robustness.R
 Rscript data-raw/equity_analysis.R
 Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R
+Rscript data-raw/equity_race.R
+Rscript data-raw/school_changes.R
 quarto render
 ```
 

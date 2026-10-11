@@ -49,6 +49,8 @@ Guardamos todos los documentos fuente en el repositorio, en `data-raw/`. El scri
 | 22 | Capacidad actual de los edificios y perfil de cada escuela | PPS, tablero de Power BI *School Profiles* en la [página interna de perfiles de escuelas](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/internal-school-profiles): capacidad funcional, porcentaje de uso 2025-26, matrícula, proyección 2026-27, certificación directa, tasa de captación y tipo de programa, por escuela | 2025-26 (consultado el 9 de octubre de 2026) | `data-raw/pps_reports/school_profiles/*.txt` (copia en texto de la vista de cada escuela) | `scrape_school_profiles.mjs`, `parse_school_profiles.py` → `school_profiles_2025.csv` |
 | 23 | Raza y etnia por programa | PPS, *Enrollment Summary by Race and Ethnicity, October 2025* ([PDF](https://resources.finalsite.net/images/v1761606954/ppsnet/p020rdtb2usyi0zikguo/EnrollmentbyRace25-26.pdf)): números y porcentajes de ocho grupos, con filas separadas para el programa de inmersión y el programa del vecindario de cada escuela | Octubre de 2025 (consultado el 11 de octubre de 2026) | `data-raw/pps_reports/race/EnrollmentbyRace25-26.pdf` | `parse_race_by_program.py` → `race_by_program_2025.csv`; `equity_race.R` → `equity_race_*.csv` |
 | 24 | Historia de PPS y de la población afrodescendiente de Portland | PPS, Center for Black Student Excellence, [*Historical Context*](https://www.pps.net/fs/pages/20941); Ciudad de Portland, Portland Housing Bureau, [*N/NE Neighborhood Housing Strategy: Historical Overview*](https://www.portland.gov/phb/nnehousing/historical-overview); PPS, [*Racial Educational Equity Policy*](https://www.pps.net/departments/racial-equity-social-justice/racial-educational-equity-policy) (2.10.010-P) | consultado el 11 de octubre de 2026 | – | citado en la página de Equidad (§3) |
+| 25 | Escuelas de Título I | PPS Funded Programs, [página *Title IA*](https://www.pps.net/Page/1395): "2026-2027 Title IA Schools" (con las escuelas puente marcadas) y "2025-2026 Title IA Schools", y la regla para calificar | 2025-26 y 2026-27 (consultado el 11 de octubre de 2026) | `data-raw/title1/` | `title1_schools.csv` (copiado con claves de escuela por `school_changes.R`) |
+| 26 | Escuelas comunitarias SUN | Condado de Multnomah, [*SUN Community School Contact List – August 2026*](https://multco.us/file/sun_community_school_contact_list-0/download); recortes propuestos en 2026 según [Willamette Week (2 de junio de 2026)](https://www.wweek.com/news/schools/2026/06/02/multnomah-county-looks-to-cut-nine-sun-schools-heres-what-that-would-mean-at-creston-elementary/) y el [comunicado del condado del 5 de junio de 2026](https://multco.us/news/news-release-multnomah-county-board-commissioners-closes-significant-spending-gap-adopts) | agosto de 2026 (consultado el 11 de octubre de 2026) | `data-raw/sun/` | `sun_schools.csv` (con `school_changes.R`) |
 | 9 | Idioma del hogar por sección censal | Oficina del Censo de EE. UU., estimaciones de 5 años de la American Community Survey, tablas **C16001** (idioma que se habla en el hogar, población de 5 años o más) y **B16007** (idioma que se habla en el hogar por edad), mediante la API del Censo | 2020–2024 | guardados localmente, no incluidos en el repositorio | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Población por manzana censal | Oficina del Censo de EE. UU., datos de redistribución del Censo 2020 (P.L. 94-171), tablas P1 y P3, mediante la API del Censo | 2020 | guardados localmente, no incluidos en el repositorio | usado en `acs_language_access.R` y `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -422,6 +424,34 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 - La situación sísmica de Creston (mampostería no reforzada, programada para refuerzo) viene de los datos de instalaciones de PPS recopilados en meub/pps-data. No la verificamos contra los documentos de bonos de PPS.
 - El punto de Richmond en el mapa original de pps-explorer era una copia del de Atkinson (SE 58th y Division). En esta copia lo corregimos con la geocodificación de su dirección de la Oficina del Censo: 2276 SE 41st Ave, justo al norte de Division. Ninguna cifra de este sitio depende de la ubicación de Richmond.
 
+## Página de cambios por escuela {#school-changes}
+
+`data-raw/school_changes.R` calcula todas las cifras de la página [Cambios por escuela](schools.qmd).
+
+**A dónde van los estudiantes.** `data-raw/plan_flows.csv` tiene una fila por cada grupo de estudiantes actuales que cambiaría de edificio. Cada fila indica la escuela que envía, la parte que se traslada y la escuela receptora. La parte es toda la escuela, el programa del vecindario, un programa de inmersión o los grados 6.º a 8.º. Cada fila también da la proporción que se traslada y la oración de la guía de PPS en que se basa (página 3, "What is being proposed?"). Cuatro filas se basan en supuestos nuestros y no en una proporción de PPS:
+
+- **Marysville.** PPS divide Marysville entre Arleta y Kelly. Enviamos todo a Arleta, porque PPS proyecta que Arleta crecería en 333 estudiantes para 2031-32 y Kelly en 10.
+- **Sellwood.** PPS envía la zona de Llewellyn a Hosford y las zonas de Duniway y Lewis a Brentwood. Dividimos a los estudiantes de Sellwood según la matrícula de esas primarias: 36% a Hosford y 64% a Brentwood.
+- **Odyssey.** Su programa se muda al edificio de Metropolitan Learning Center. Lo contamos como un programa que se muda, no como un cierre. Así, los cierres coinciden con los de PPS: 14 en el Escenario A y 11 en el B.
+- **Lee ahora es Sunrise.** El informe de raza de PPS de octubre de 2025 llama "Lee" a la escuela de 2222 NE 92nd Ave. Las guías y la lista de Título I de 2026-27 la llaman Sunrise.
+
+**Raza y etnia.** La raza y la etnia de cada parte vienen de la fuente 23. Algunas escuelas K-8 envían solo los grados 6.º a 8.º. En esos casos, ajustamos la fila de la escuela según la proporción de sus estudiantes de octubre de 2025 en esos grados (fuente 2). Suponemos la misma mezcla en todos los grados. La mezcla de una escuela después del traslado es la de sus estudiantes de hoy, menos las partes que salen, más las partes que llegan.
+
+**Funciones.** "Cierra" usa las guías de PPS ("School would close") más Sellwood, que cierra en 2028. "Recibe estudiantes" significa que llega al menos una parte. "Envía estudiantes" significa que sale al menos una parte pero el edificio sigue abierto. "Solo cambia de zona o de escuela de continuación" significa que la guía de PPS indica un cambio, pero ningún estudiante actual se muda. Un ejemplo son los futuros estudiantes de escuela intermedia de Kelly que irían a Harrison Park.
+
+**Comprobación con PPS.** Las guías de PPS dan el porcentaje proyectado de estudiantes de grupos raciales desatendidos en cada escuela, sin cambios y en cada escenario (fuente 16). Nuestro cálculo del cambio en cada escuela coincide en dirección y tamaño con el de PPS. La correlación es de 0.93 en 70 pares de escuela y escenario. La diferencia mediana es de 1.6 puntos porcentuales. El programa se detiene si la correlación baja de 0.8.
+
+**Título I y SUN.** Una escuela cuenta como de Título I si está en la lista de PPS de 2026-27, incluidas las tres escuelas puente. Las guías de PPS no incluyen las escuelas puente en su columna de Título I. Por eso usamos las guías solo para la situación proyectada después de los cambios. La situación de SUN viene de la lista de contactos del condado de agosto de 2026. El mapa imprimible de SUN del condado es de agosto de 2018 y está desactualizado.
+
+**Separación por raza.** Para los grupos *a* y *b*, el índice de disimilitud es D = ½ Σ |*a*ᵢ/*A* − *b*ᵢ/*B*|. La suma incluye las unidades *i* del área. Es la proporción de cualquiera de los dos grupos que tendría que moverse para que cada unidad tuviera la mezcla del área. La exposición es Σ (*a*ᵢ/*A*)(*w*ᵢ/*t*ᵢ), el porcentaje de estudiantes blancos en la unidad del estudiante típico del grupo *a*. Calculamos ambas medidas con dos tipos de unidad:
+
+- cada edificio;
+- cada programa, con los programas de inmersión y del vecindario como unidades separadas aunque estén en el mismo edificio.
+
+Las áreas son todas las primarias (K-5 y K-8), todas las escuelas intermedias y tres grupos locales: Noreste (Scott, Rigler, Rose City Park, Vestal), Norte (MLK Jr., Sabin, Boise-Eliot/Humboldt) y Sureste (Atkinson, Lent, Creston). Los grupos locales tienen solo de dos a seis unidades, así que una sola escuela puede mover mucho el índice.
+
+**Límites.** Es una foto fija: traslada a los estudiantes de octubre de 2025. Las proyecciones de PPS son para 2027-28 y años posteriores. Incluyen efectos futuros de los cambios de zona y del crecimiento. Por eso los tamaños de las escuelas aquí difieren de los de PPS. Por ejemplo, Brentwood y Hosford reciben de una vez a todos los estudiantes actuales de Sellwood. El informe de raza no separa las aulas de educación especial ni el programa para estudiantes sordos o con pérdida auditiva.
+
 ## Página de Lent y César Chávez {#history}
 
 `data-raw/history_tables.R` genera `history_enrollment.csv` y `history_projection.csv`.
@@ -494,6 +524,8 @@ Rscript data-raw/check_access_robustness.R
 Rscript data-raw/equity_analysis.R
 Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R
+Rscript data-raw/equity_race.R
+Rscript data-raw/school_changes.R
 quarto render
 ```
 

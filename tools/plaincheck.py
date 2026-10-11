@@ -27,6 +27,7 @@ for f in files:
     in_chunk = False
     for l in added:
         if l.startswith("```"): in_chunk = not in_chunk; continue
+        if l.strip() == "---": continue   # YAML front matter fence (new files are read whole)
         if in_chunk or l.startswith("#|") or l.strip().startswith(("|", "tab_", "cols_", "gt(", "fmt_", "mutate", "filter", "select", "rg ", "rp ", "rs ", "transmute", "arrange", "bind_rows", "sub_missing")) or "<-" in l: continue
         t = re.sub(r"`r [^`]+`", "12", l); t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t); t = re.sub(r"[*_]", "", t)
         t = re.sub(r"\{#[^}]*\}", "", t).strip()
@@ -34,7 +35,7 @@ for f in files:
         words = len(re.findall(r"\w+", t))
         if not t.startswith("#") and words > 150: out.append(f"PARA {words}w: {t[:80]}")
         noq = re.sub(r"[\"“][^\"”]*[\"”]", "Q", t)
-        for s in re.split(r"(?<=[.!?;:])\s+(?=[A-Z¿¡\"“(])", noq):
+        for s in re.split(r"(?<=[.!?;:])\s+(?=[A-Z0-9@¿¡\"“(])", noq):
             n = len(re.findall(r"\w+", s))
             if n > 25: out.append(f"LONG {n}w: {s[:160]}")
         if re.search(r"\be\.g\.|\bi\.e\.|and/or|y/o", t): out.append(f"BANNED: {t[:100]}")

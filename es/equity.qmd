@@ -233,6 +233,8 @@ Los programas de inmersión aportan muchos de los estudiantes latinos y asiátic
 
 Las propias guías de las escuelas de PPS muestran el resultado. Proyectan que **en Atkinson la proporción de estudiantes de grupos raciales desatendidos bajaría del `r fmt_pct(rsv("a", "atkinson", "now"))` al `r fmt_pct(rsv("a", "atkinson", "after"))`**. En Beaumont bajaría del `r fmt_pct(rsv("a", "beaumont", "now"))` al `r fmt_pct(rsv("a", "beaumont", "after"))`. También bajaría en Scott, MLK Jr. y César Chávez. Subiría en Clark y Ockley Green. Las proyecciones de las guías también incluyen cambios de límites de zona. Así que no todo el cambio en cada escuela viene del traslado del programa. Además, la medida deja fuera a los estudiantes asiáticos. Por eso baja la proporción de Vestal: el programa de vietnamita que recibiría es en su mayoría asiático.
 
+La página [Cambios por escuela](schools.qmd) sigue a todas las escuelas que el plan toca, incluidas las que reciben estudiantes. También trata las escuelas de Título I y SUN, y si los traslados separarían a los estudiantes por raza.
+
 ```{r}
 #| label: fig-race-schools
 #| fig-height: 6.2

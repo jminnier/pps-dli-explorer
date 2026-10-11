@@ -11,7 +11,7 @@ Usage: python3 tools/readability.py [--long N]   (--long prints the N longest se
 import os, re, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-PAGES = ["index", "scorecard", "equity", "history", "research", "methods"]
+PAGES = ["index", "scorecard", "equity", "schools", "history", "research", "methods"]
 
 def prose(path):
     s = open(path, encoding="utf-8").read()

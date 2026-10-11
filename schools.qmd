@@ -1,0 +1,247 @@
+---
+title: "School changes: every school the plan touches"
+subtitle: "Schools that close, schools that take in students, Title I and SUN schools, and separation by race"
+---
+
+```{r}
+source("R/site_data.R")
+source("R/charts.R")
+source("R/plan_charts.R")
+library(gt)
+ps <- read_data("plan_schools.csv")
+fl <- read_data("plan_flows_race.csv")
+seg <- read_data("plan_segregation.csv")
+TAKE <- c("Takes in students", "Takes in students and sends some away")
+words <- function(x) knitr::combine_words(short_school(x), and = if (SITE_ES) " y " else " and ", oxford_comma = FALSE)
+n_role <- function(s, roles) sum(ps$scenario == s & ps$role %in% roles)
+n_all <- function(s) sum(ps$scenario == s)
+n_aff <- function(s) sum(ps$scenario == s & ps$role != "No change")
+movers <- function(s) sum(fl$students[fl$scenario == s])
+stayers <- function(s) with(filter(ps, scenario == s, role %in% TAKE), sum(students_now - students_out))
+in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No change"])
+tot <- function(col) sum(ps[[col]][ps$scenario == "a"])
+who <- function(s, role, col) ps$school[ps$scenario == s & ps$role %in% role & ps[[col]]]
+sv <- function(s, k, col) ps[[col]][ps$scenario == s & ps$key == k]
+sh <- function(s, k, g, when = "after") sv(s, k, paste0(g, "_", when)) / sv(s, k, paste0("students_", when))
+pc <- function(x) sprintf("%.0f%%", 100 * x)
+sg <- function(area, st, unit, col = "latino_white_D") sprintf("%.2f", seg[[col]][seg$area == area & seg$state == st & seg$unit == unit])
+ELEM <- "All elementary (K-5 and K-8) schools"; MID <- "All middle schools"
+NE <- "Northeast: Scott, Rigler, Rose City Park, Vestal"; NO <- "North: MLK Jr., Sabin, Boise-Eliot/Humboldt"; SE <- "Southeast: Atkinson, Lent, Creston"
+rbp <- read_data("race_by_program_2025.csv") |> mutate(key = school_key(school))
+rrow <- function(k, prog, col) rbp[[col]][rbp$key == k & rbp$program == prog]
+t1_close <- who("a", "Closes", "title1_2026_27")
+sun_close_a <- who("a", "Closes", "sun_2026_27"); sun_close_b <- who("b", "Closes", "sun_2026_27")
+cut9_a <- who("a", "Closes", "sun_proposed_cut"); cut9_b <- who("b", "Closes", "sun_proposed_cut")
+pps_t1 <- function(s, k, when) sv(s, k, paste0("title1_guide_", when))
+```
+
+The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
+
+All numbers use October 2025 enrollment. We follow PPS's school guides to see where each school's current students would go. "Underserved racial groups" is PPS's term for Latino, Black, Native American, Pacific Islander and multiracial students of other ancestries.
+
+## In brief {#sec-brief}
+
+- **Schools.** In Scenario A, `r n_role("a", "Closes")` schools close and `r n_role("a", TAKE)` schools take in students from closed schools or moved programs. In Scenario B, `r n_role("b", "Closes")` close and `r n_role("b", TAKE)` take in students.
+- **Students.** About `r fmt_n(movers("a"))` current students would change buildings in Scenario A (`r fmt_n(movers("b"))` in B). About `r fmt_n(stayers("a"))` more attend schools that would take them in. Those students stay put, but their school changes around them.
+- **Title I schools.** All `r length(t1_close)` closing Title I schools are the same in both scenarios: `r words(t1_close)`. PPS's own guides project that Brentwood Middle School would lose Title I status in both scenarios.
+- **SUN schools.** `r length(sun_close_a)` SUN Community Schools close in Scenario A (`r length(sun_close_b)` in B). In Scenario A, `r length(cut9_a)` of them are sites the county planned to cut in 2026 and then saved.
+- **Separation by race.** Across the district, the plan would not make schools more separated by race. Locally, it would. Where immersion programs gather into one school, Latino and white students who now share a building would attend different buildings. Where neighborhood schools merge, as at Sabin and MLK Jr., separation falls.
+
+## 1. How many schools and students the plan changes {#sec-count}
+
+Most schools that change don't close. They take in students, send some students away, or both. A school "takes in students" when a closing school, an immersion program or a grade moves into it. A school "sends students away" when it keeps its building but loses a program or its middle grades.
+
+```{r}
+#| label: fig-plan-roles
+#| fig-height: 5.2
+#| fig-cap: "Number of PPS schools by what the scenario does to them. Hover for the students enrolled today and the number of Title I and SUN schools in each group."
+fig_plan_roles(ps)
+```
+
+::: {.source}
+`r cite("plan_flows", "guide_demo", "title1", "sun", "race_program")`
+:::
+
+```{r}
+#| label: tbl-plan-roles
+#| tbl-cap: "Schools by what the scenario does to them: number of schools, students enrolled in October 2025, and Title I and SUN schools."
+rt <- ps |> mutate(role = factor(role, ROLES)) |> group_by(scenario, role) |>
+  summarise(n = n(), students = sum(students_now), t1 = sum(title1_2026_27), sun = sum(sun_2026_27), .groups = "drop") |>
+  pivot_wider(names_from = scenario, values_from = c(n, students, t1, sun), values_fill = 0) |> arrange(role) |>
+  mutate(role = PC$en$role[as.character(role)])
+gt(rt) |>
+  cols_label(role = "", n_a = "Schools", students_a = "Students", t1_a = "Title I", sun_a = "SUN",
+             n_b = "Schools", students_b = "Students", t1_b = "Title I", sun_b = "SUN") |>
+  cols_move(c(n_a, students_a, t1_a, sun_a), role) |>
+  tab_spanner("Scenario A", c(n_a, students_a, t1_a, sun_a)) |> tab_spanner("Scenario B", c(n_b, students_b, t1_b, sun_b)) |>
+  fmt_number(c(students_a, students_b), decimals = 0) |>
+  grand_summary_rows(columns = -role, fns = list(Total = ~sum(.)), fmt = ~fmt_number(., decimals = 0)) |>
+  tab_source_note(md(cite("plan_flows", "guide_demo", "title1", "sun", "race_program")))
+```
+
+The `r fmt_n(movers("a"))` students who change buildings in Scenario A include:
+
+- students at closing schools;
+- students in immersion programs that move;
+- middle-grade students at K-8 schools that become K-5;
+- César Chávez's neighborhood students, who move so the school can become a Spanish immersion school.
+
+High schools appear only through boundary changes for future students. No current high school student moves, except Metropolitan Learning Center's `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` high school students, who would choose another school.
+
+## 2. Title I schools {#sec-title1}
+
+Title I is federal money for schools that serve many students from low-income families. PPS explains its rule this way: "In order to be identified as a Title I school, at least 33% of K-8 students need to be receiving support services from the state." PPS lists `r tot("title1_2026_27")` Title I schools for 2026-27. Three of them are "bridge" schools: Arleta, Atkinson and Roosevelt. PPS says bridge schools "have recently exited Title I eligibility but continue to receive a limited allocation of Title I funds for the 26-27 school year."
+
+`r in_aff("a", "title1_2026_27")` of the `r tot("title1_2026_27")` Title I schools would close, send students away, take in students or change boundaries in Scenario A (`r in_aff("b", "title1_2026_27")` in B).
+
+- **Closing.** `r words(t1_close)` close in both scenarios.
+- **Taking in students.** `r sum(ps$scenario == "a" & ps$role %in% TAKE & ps$title1_2026_27)` Title I schools take in students in Scenario A.
+- **Losing Title I status.** PPS's guides project that Brentwood Middle School would no longer be a Title I school. Students from closing Sellwood Middle School would arrive, and PPS projects Brentwood's share from underserved racial groups would fall from `r pc(sv("a", "brentwood", "hu_now_pps"))` to `r pc(sv("a", "brentwood", "hu_after_pps"))`. In Scenario A, PPS also projects that Markham would lose Title I status after taking in most of Stephenson's students.
+- **Gaining Title I status.** PPS projects that Arleta, now a bridge school, would be a full Title I school again after taking in Marysville's students.
+
+PPS has not said what happens to Title I money when a school closes or merges. We found no statement in the scenario memo, the school guides or the rightsizing FAQ (searched October 11, 2026). @tbl-plan-follow shows where students from closing Title I and SUN schools would go.
+
+```{r}
+#| label: tbl-plan-follow
+#| tbl-cap: "Where students from closing Title I and SUN schools would go, and whether the receiving school is a Title I or SUN school. Title I after the move is PPS's projection in its school guides."
+cl <- ps |> filter(role == "Closes", title1_2026_27 | sun_2026_27) |> distinct(key, school, title1_2026_27, sun_2026_27, sun_proposed_cut)
+dest <- fl |> mutate(from_key = school_key(from_school), to_key = school_key(to_school)) |>
+  filter(from_key %in% cl$key) |> group_by(from_key, to_key, to_school) |>
+  summarise(sc = paste(sort(unique(scenario)), collapse = ""), students = sum(students) / n_distinct(scenario), .groups = "drop") |>
+  left_join(ps |> filter(scenario == "a") |> select(to_key = key, to_name = school, to_t1 = title1_guide_after, to_sun = sun_2026_27), by = "to_key")
+tf <- cl |> inner_join(dest, by = c("key" = "from_key")) |>
+  transmute(school = short_school(school), t1 = if_else(title1_2026_27, "Yes", "No"),
+            sun = if_else(sun_2026_27, if_else(sun_proposed_cut, "Yes (saved in 2026)", "Yes"), "No"),
+            when = if_else(sc == "ab", "A and B", "A only"),
+            to = short_school(coalesce(to_name, to_school)), students = students,
+            to_t1 = coalesce(to_t1, "–"), to_sun = if_else(coalesce(to_sun, FALSE), "Yes", "No")) |>
+  arrange(school, desc(students))
+gt(tf, groupname_col = "school") |>
+  cols_label(t1 = "Title I", sun = "SUN", when = "Scenario", to = "Goes to", students = "Students", to_t1 = "Title I after", to_sun = "SUN") |>
+  tab_spanner("Closing school", c(t1, sun, when)) |> tab_spanner("Receiving school", c(to, students, to_t1, to_sun)) |>
+  fmt_number(students, decimals = 0) |>
+  tab_source_note(md(cite("plan_flows", "guide_demo", "title1", "sun", "race_program")))
+```
+
+## 3. SUN Community Schools {#sec-sun}
+
+SUN Community Schools are run by Multnomah County with partner groups. The county says they have "After school programs", "Links to food, shelter, and help with energy bills" and "Parent and family activities and events". `r tot("sun_2026_27")` PPS schools are SUN sites on the county's August 2026 list.
+
+- **Closing.** In Scenario A, `r length(sun_close_a)` SUN schools close: `r words(sun_close_a)`. In Scenario B, `r length(sun_close_b)` close.
+- **Sites the county just saved.** In spring 2026 the county planned to end SUN at nine sites. It "determined it would cut sites at PPS using demographic and poverty data," a county spokeswoman told Willamette Week. In June the county board voted to restore full SUN funding. `r length(cut9_a)` of those nine schools close in Scenario A: `r words(cut9_a)`. In Scenario B, `r length(cut9_b)` close.
+- **Taking in students.** `r sum(ps$scenario == "a" & ps$role %in% TAKE & ps$sun_2026_27)` SUN schools take in students in Scenario A.
+
+Neither PPS nor the county has said whether a SUN site moves with its students when a school closes. Some students from SUN schools would go to schools without one. For example, Buckman's students would go to Abernethy and Sunnyside, and Beach's neighborhood students to Chief Joseph. None of those three is a SUN school (@tbl-plan-follow).
+
+::: {.source}
+`r cite("sun", "sun_cuts", "plan_flows")`
+:::
+
+## 4. How schools that take in students would change {#sec-receiving-race}
+
+Many schools that take in students would see a large change in who attends. The biggest changes come where a school's own program leaves and a different group of students arrives.
+
+- **MLK Jr.** MLK Jr.'s Mandarin program moves out and all of Sabin's students move in. Sabin is `r pc(sh("a", "sabin", "white", "now"))` white, and MLK Jr.'s neighborhood program is `r pc(rrow("mlkjr", "Neighborhood Program", "black_pct") / 100)` Black. Black students would go from `r pc(sh("a", "mlkjr", "black", "now"))` of MLK Jr. to `r pc(sh("a", "mlkjr", "black"))`, and white students from `r pc(sh("a", "mlkjr", "white", "now"))` to `r pc(sh("a", "mlkjr", "white"))`.
+- **Atkinson.** Its Spanish program (`r pc(rrow("atkinson", "Spanish Immersion", "latino_pct") / 100)` Latino) moves to Lent, and Creston's students arrive. Latino students would go from `r pc(sh("a", "atkinson", "latino", "now"))` to `r pc(sh("a", "atkinson", "latino"))` of the school. White students would go from `r pc(sh("a", "atkinson", "white", "now"))` to `r pc(sh("a", "atkinson", "white"))`.
+- **Vestal (Scenario A).** Rose City Park's Vietnamese program arrives. Asian students would go from `r pc(sh("a", "vestal", "asian", "now"))` to `r pc(sh("a", "vestal", "asian"))` of the school. Black students would go from `r pc(sh("a", "vestal", "black", "now"))` to `r pc(sh("a", "vestal", "black"))`.
+- **Scott.** Scott's Spanish program moves to Rigler. In Scenario A, Rose City Park's neighborhood program (`r pc(rrow("rosecitypark", "Neighborhood Program", "white_pct") / 100)` white) arrives. Latino students would go from `r pc(sh("a", "scott", "latino", "now"))` to `r pc(sh("a", "scott", "latino"))`, and white students from `r pc(sh("a", "scott", "white", "now"))` to `r pc(sh("a", "scott", "white"))`. In Scenario B, Scott keeps only its neighborhood program, and Black students would go from `r pc(sh("b", "scott", "black", "now"))` to `r pc(sh("b", "scott", "black"))`.
+- **César Chávez.** It becomes a Spanish immersion school, and its neighborhood program moves out. Black students would go from `r pc(sh("a", "cesarchavez", "black", "now"))` of the school to `r pc(sh("a", "cesarchavez", "black"))`. See [Equity §3](equity.qmd#sec-black).
+- **Rosa Parks.** It takes in Peninsula and César Chávez's neighborhood program. Its share from underserved racial groups would fall from `r pc(sv("a", "rosaparks", "hu_now"))` to `r pc(sv("a", "rosaparks", "hu_after"))`.
+
+```{r}
+#| label: fig-plan-receivers
+#| fig-height: 10
+#| fig-cap: "Share of students from underserved racial groups at each school that would take in students: today (hollow gray ring), Scenario A (orange diamond) and Scenario B (aqua square). October 2025 students, moved as PPS's school guides describe. Hover for each racial and ethnic group."
+fig_plan_receivers(ps)
+```
+
+::: {.source}
+`r cite("race_program", "plan_flows")`
+:::
+
+PPS's own guides give a projected share from underserved racial groups for each school, with and without changes. Our estimate of each school's change agrees with PPS's projection: the correlation is `r sprintf("%.2f", with(filter(ps, !closes, students_after > 0, students_in + students_out > 0, !is.na(hu_after_pps)), cor(hu_after - hu_now, hu_after_pps - hu_now_pps)))` across `r nrow(filter(ps, !closes, students_after > 0, students_in + students_out > 0, !is.na(hu_after_pps)))` school-scenario pairs. @tbl-plan-receivers lists every group at every school that takes in students.
+
+```{r}
+#| label: tbl-plan-receivers
+#| tbl-cap: "Schools that would take in students: share of each racial and ethnic group today → after the move. Native American and Pacific Islander shares are minimums (see the note)."
+G <- c("latino", "black", "asian", "white", "asian_white", "other_multi", "native_american", "pacific_islander")
+tr <- ps |> filter(role %in% TAKE) |> mutate(school = short_school(school))
+for (g in G) tr[[g]] <- sprintf("%s → %s", pc(tr[[paste0(g, "_now")]] / tr$students_now), pc(tr[[paste0(g, "_after")]] / tr$students_after))
+tr <- tr |> mutate(sc = SCENARIOS[scenario], size = sprintf("%s → %s", fmt_n(students_now), fmt_n(students_after))) |>
+  arrange(sc, school) |> select(sc, school, size, all_of(G))
+gt(tr, groupname_col = "sc") |>
+  cols_label(school = "School", size = "Students", latino = "Latino", black = "Black", asian = "Asian", white = "White",
+             asian_white = "Multiracial: Asian and White", other_multi = "Multiracial: other",
+             native_american = "Native American", pacific_islander = "Pacific Islander") |>
+  tab_style(style = cell_text(weight = "bold"), locations = cells_body(columns = black)) |>
+  tab_footnote("PPS counts a student in a single-race group only if the student is not Latino and lists one race. Native American and Pacific Islander students who are also Latino or multiracial are counted elsewhere, so these shares are minimums.") |>
+  tab_source_note(md(cite("race_program", "plan_flows")))
+```
+
+## 5. Would the moves sort students by race? {#sec-segregation}
+
+Across the district, no. In the places where immersion programs gather into one school, yes. Two measures help show this.
+
+The **dissimilarity index** measures how unevenly two groups are spread across schools. It is the share of one group that would have to change schools for every school to have the same mix. 0 means every school has the same mix; 1 means the two groups never attend the same school.
+
+The answer depends on what you count as one school. Some buildings already hold two very different programs. At Scott, the Spanish immersion program is `r pc(rrow("scott", "Spanish Immersion", "latino_pct") / 100)` Latino and the neighborhood program is `r pc(rrow("scott", "Neighborhood Program", "latino_pct") / 100)` Latino. Today those children share one building, its principal and its after-school programs. So we measure two ways:
+
+- **Each building as one unit.** Children in the same building count as attending the same school.
+- **Each program as one unit.** An immersion program and a neighborhood program count as separate, even in one building.
+
+When a program moves to its own building, the building measure goes up but the program measure barely changes. The split was already there. What changes is whether the children share a building and its services.
+
+```{r}
+#| label: fig-plan-segregation
+#| fig-height: 5.6
+#| fig-cap: "Latino–white dissimilarity index, counting each building as one unit (left) or each program as one unit (right): today (hollow gray ring), Scenario A (orange diamond) and Scenario B (aqua square). 0 = every unit has the same mix; 1 = complete separation."
+fig_plan_segregation(seg)
+```
+
+::: {.source}
+`r cite("race_program", "plan_flows")`
+:::
+
+- **Southeast.** Today Atkinson holds both a Spanish program and a mostly white neighborhood program. After Scenario A, the Spanish program would be at Lent and the neighborhood program at Atkinson with Creston's students. The Latino–white index across these buildings would rise from `r sg(SE, "now", "building")` to `r sg(SE, "a", "building")`. Counting programs, it is `r sg(SE, "now", "program")` both before and after.
+- **Northeast.** Scott's Spanish program would join Rigler. In Scenario A, Rose City Park's neighborhood program would join Scott. The Latino–white index across buildings would rise from `r sg(NE, "now", "building")` to `r sg(NE, "a", "building")`. Counting programs, it stays at `r sg(NE, "now", "program")`. In Scenario B, the Black–white index across these buildings would rise from `r sg(NE, "now", "building", "black_white_D")` to `r sg(NE, "b", "building", "black_white_D")`.
+- **North.** Sabin's mostly white students would join MLK Jr. Here the plan brings groups together. The Latino–white index would fall from `r sg(NO, "now", "building")` to `r sg(NO, "a", "building")`, and the Black–white index from `r sg(NO, "now", "building", "black_white_D")` to `r sg(NO, "a", "building", "black_white_D")`.
+- **All elementary schools.** The Latino–white index across buildings would fall slightly, from `r sg(ELEM, "now", "building")` to `r sg(ELEM, "a", "building")` in Scenario A.
+- **All middle schools.** The Latino–white index across buildings would rise from `r sg(MID, "now", "building")` to `r sg(MID, "a", "building")` in both scenarios. Spanish programs leave Beaumont and Ockley Green for Roseway Heights and George. Beaumont also takes in Beverly Cleary's mostly white middle grades.
+
+```{r}
+#| label: fig-plan-clusters
+#| fig-height: 6.4
+#| fig-cap: "Share of Latino students (left) and white students (right) at the schools in three local groups: today (hollow gray ring), Scenario A (orange diamond) and Scenario B (aqua square). Closing schools show today only. Hover for counts."
+fig_plan_clusters(ps)
+```
+
+::: {.source}
+`r cite("race_program", "plan_flows")`
+:::
+
+```{r}
+#| label: tbl-plan-segregation
+#| tbl-cap: "Separation by race across buildings and across programs: dissimilarity index (0 = even, 1 = complete separation) and exposure (the white share of the school or program attended by the typical Latino or Black student)."
+ts <- seg |> mutate(area = PC$en$area[area], unit = if_else(unit == "building", "Buildings", "Programs"),
+                    state = factor(c(now = "Today", a = "Scenario A", b = "Scenario B")[state], c("Today", "Scenario A", "Scenario B"))) |>
+  arrange(factor(area, unname(PC$en$area)), unit, state) |>
+  select(area, unit, state, units, latino_white_D, black_white_D, hu_other_D, latino_exposure_white, black_exposure_white)
+gt(ts, groupname_col = "area") |>
+  cols_label(unit = "Unit", state = "", units = "Units", latino_white_D = "Latino–white", black_white_D = "Black–white",
+             hu_other_D = "Underserved–other", latino_exposure_white = "Latino students", black_exposure_white = "Black students") |>
+  tab_spanner("Dissimilarity index", c(latino_white_D, black_white_D, hu_other_D)) |>
+  tab_spanner("White share of the typical student's school", c(latino_exposure_white, black_exposure_white)) |>
+  fmt_number(c(latino_white_D, black_white_D, hu_other_D), decimals = 2) |> fmt_percent(c(latino_exposure_white, black_exposure_white), decimals = 0) |>
+  tab_footnote("Local groups have only two to six units, so small changes in one school move the index a lot. Read them as a description of these schools, not a trend.") |>
+  tab_source_note(md(cite("race_program", "plan_flows")))
+```
+
+## 6. What this estimate can't show {#sec-limits}
+
+- **It moves today's students.** We move October 2025 students as the school guides describe. PPS's projections are for 2027-28 and later and include future boundary effects. We use PPS's projections as a check.
+- **Grades.** PPS reports race by school and program, not by grade. We assume each grade has the same mix as its school or program.
+- **Boundary shares.** Where PPS gives a share of a boundary (half of Buckman, 70% of Maplewood), we apply it to enrolled students. Sellwood's split between Hosford and Brentwood follows its feeder schools' enrollment.
+- **Future students.** Feeder changes that move only future middle schoolers, such as Kelly to Harrison Park, are not counted as moves.
+- **Small programs.** Some special education classrooms and the Deaf and Hard of Hearing program move. We don't show them separately, because PPS's race report doesn't list them.
+
+Details are in [Sources & methods](methods.qmd#school-changes).
