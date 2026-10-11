@@ -47,6 +47,8 @@ Each source is saved under `data-raw/`, and each script stops on any row that fa
 | `acs_language_access.R` | ACS 2020–2024 (C16001, B16007) + 2020 Census blocks | `acs_language_tract.csv`, `tracts.geojson`, `access_*.csv` |
 | `check_access_robustness.R` | same | `access_robustness*.csv` |
 | `equity_analysis.R` | the tables above + scenario maps + census blocks | `equity_*.csv` |
+| `parse_race_by_program.py` | PPS *Enrollment Summary by Race and Ethnicity*, Oct 2025 (immersion and neighborhood program rows; needs PyMuPDF, in `.venv`) | `race_by_program_2025.csv` |
+| `equity_race.R` | the race table + scenario moves, closures and school guides | `equity_race_groups.csv`, `equity_race_programs.csv`, `equity_race_schools.csv` |
 | `parse_school_guides.py` | PPS *How Could Your School Be Impacted?* school guides (Oct 8, 2026) | `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
 | `parse_enroll_by_neighborhood.py` | PPS *School Enrollment by Neighborhood of Residence*, Oct 2023–Oct 2025 | `enroll_by_neighborhood.csv` |
 | `check_home_distance.R` | the table above + scenario maps + census blocks | `equity_home_check*.csv` |
@@ -75,6 +77,8 @@ node    data-raw/export_dli_tables.mjs
 Rscript data-raw/acs_language_access.R      # caches Census downloads in data-raw/acs/ (git-ignored)
 Rscript data-raw/check_access_robustness.R
 Rscript data-raw/equity_analysis.R
+.venv/bin/python3 data-raw/parse_race_by_program.py
+Rscript data-raw/equity_race.R               # after equity_analysis.R (reads equity_changes.csv)
 Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R
 quarto render                               # -> _site/

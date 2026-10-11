@@ -164,6 +164,6 @@ Estas proyecciones dependen de que las familias sigan a sus programas. PPS supon
 ## Advertencias
 - La matrícula es el conteo de PSU de los estudiantes inscritos en octubre, de kínder a 12.º grado. Usamos el conteo tal como se reportó por primera vez en cada edición del pronóstico. Los totales propios de PPS para Lent incluyen prekínder (308 en 2023-24).
 - Lent y Bridger fueron escuelas K-8 hasta 2021-22, así que los totales anteriores incluyen los grados intermedios.
-- Las tasas de captación y los datos demográficos abarcan toda la escuela o toda la zona. PPS no publica raza ni ingresos solo para los programas de inmersión.
+- Las tasas de captación abarcan toda la escuela o toda la zona. PPS publica la raza por programa (vea [Equidad §3](equity.qmd#sec-who)), pero los ingresos solo por escuela completa.
 - Las proyecciones de PPS provienen de guías de escuela con fecha del 8 de octubre de 2026. PPS las marca como borradores. Las capacidades son las cifras actuales (2025-26) de PPS, tomadas de su tablero *School Profiles*.
 :::

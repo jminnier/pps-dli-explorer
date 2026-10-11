@@ -159,6 +159,6 @@ These projections depend on families following their programs. PPS assumes most 
 ## Caveats
 - Enrollment is PSU's count of students enrolled in October, kindergarten through grade 12. We use the count as first reported in each forecast edition. PPS's own totals for Lent include pre-kindergarten (308 in 2023-24).
 - Lent and Bridger were K-8 schools until 2021-22, so earlier totals include middle grades.
-- Capture rates and demographics cover the whole school or the whole area. PPS doesn't publish race or income for immersion programs alone.
+- Capture rates cover the whole school or the whole area. PPS publishes race by program (see [Equity §3](equity.qmd#sec-who)) but income only for whole schools.
 - PPS's projections come from school guides dated October 8, 2026. PPS labels the guides as drafts. Capacities are PPS's current (2025-26) figures from its School Profiles dashboard.
 :::

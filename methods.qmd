@@ -43,6 +43,8 @@ We saved every source document in the repository under `data-raw/`. The script l
 | 20 | International School of Portland (private) | NCES *Private School Universe Survey*, 2023-24 (total 376, grades PK-5); kindergarten count (72) from the US News profile, whose grade counts sum to the NCES total; language tracks from the school's website | 2023-24 | – | quoted on the equity page |
 | 21 | Building capacity | PPS, *Long-Range Facility Plan 2021*, Volume 1, Enrollment & Utilization tables (p. 53 elementary, p. 57 K-8, p. 60 middle); also compiled in [meub/pps-data](https://github.com/meub/pps-data) (MIT license) | 2021 | `data-raw/pps_reports/facility/LRFP_Vol1_2021.pdf` | `parse_lrfp_capacity.py` → `facility_capacity_2021.csv` |
 | 22 | Current building capacity and school profile | PPS, *School Profiles* Power BI dashboard on the [internal school profiles page](https://www.pps.net/departments/dataaccountability/data-and-accountability/data-strategy-and-insights/internal-school-profiles): functional capacity, 2025-26 utilization, enrollment, 2026-27 projection, direct certification, capture rate, program type, per school | 2025-26 (retrieved Oct 9, 2026) | `data-raw/pps_reports/school_profiles/*.txt` (text snapshot of each school's view) | `scrape_school_profiles.mjs`, `parse_school_profiles.py` → `school_profiles_2025.csv` |
+| 23 | Race and ethnicity by program | PPS, *Enrollment Summary by Race and Ethnicity, October 2025* ([PDF](https://resources.finalsite.net/images/v1761606954/ppsnet/p020rdtb2usyi0zikguo/EnrollmentbyRace25-26.pdf)): counts and percentages for eight groups, with separate rows for each school's immersion and neighborhood programs | October 2025 (retrieved October 11, 2026) | `data-raw/pps_reports/race/EnrollmentbyRace25-26.pdf` | `parse_race_by_program.py` → `race_by_program_2025.csv`; `equity_race.R` → `equity_race_*.csv` |
+| 24 | History of PPS and Black Portlanders | PPS, Center for Black Student Excellence, [*Historical Context*](https://www.pps.net/fs/pages/20941); City of Portland, Portland Housing Bureau, [*N/NE Neighborhood Housing Strategy: Historical Overview*](https://www.portland.gov/phb/nnehousing/historical-overview); PPS, [*Racial Educational Equity Policy*](https://www.pps.net/departments/racial-equity-social-justice/racial-educational-equity-policy) (2.10.010-P) | retrieved October 11, 2026 | – | quoted on the Equity page (§3) |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -264,7 +266,7 @@ Neither group includes boundary changes, which move most students in PPS's total
   - Proximity catchments are only a model of where immersion families live. Immersion students often come from a wider area. For languages with a single site, such as Vietnamese, the catchment is the whole district.
   - The estimate leaves out moves of whole attendance areas between neighborhood schools by boundary change.
 
-**Race and ethnicity.** PPS's *School/Neighborhood Enrollment by Ethnicity & Program* report gives each school's whole-school racial composition and its percentage in immersion. It does not give the racial composition of immersion programs. So the race or ethnicity of students in moving programs cannot be computed from public reports.
+**Race and ethnicity.** Until October 2026, the only school-level race report we used (source 12) gave whole schools. Source 23, PPS's *Enrollment Summary by Race and Ethnicity* for October 2025, splits each school with an immersion program into its immersion program and its neighborhood program. We use it for the race and ethnicity of students in moving programs (see [below](#race-by-program)). PPS still publishes income (direct certification) for whole schools only.
 
 ### Equity page: school composition, demand and families not following {#equity-page-school-composition-demand-and-families-not-following}
 
@@ -274,7 +276,7 @@ Neither group includes boundary changes, which move most students in PPS's total
 - *receiving an immersion program*: receiving schools that are not also sending
 - *closing with no immersion program*: closing schools that are not also sending.
 
-Each school is in one group. Beach, James John and Rose City Park close and lose an immersion program, so they count as losing an immersion program. Percentages are October 2025 School-row values, weighted by enrollment. The district row is PPS's Grand Total. These figures describe whole schools, not their immersion programs, which PPS does not report by race or income. Clark is not printed in either year's report, so we leave it out (the report's level subtotals include it).
+Each school is in one group. Beach, James John and Rose City Park close and lose an immersion program, so they count as losing an immersion program. Percentages are October 2025 School-row values, weighted by enrollment. The district row is PPS's Grand Total. These figures describe whole schools. For race by program, see [below](#race-by-program); PPS does not report income by program. Clark is not printed in either year's report, so we leave it out (the report's level subtotals include it).
 
 - *Historically underserved*, per the report's footnote: "Latino, African American, Native American, Pacific Islander and Multi-Racial Other Ancestries."
 - *Direct certification*: per the footnote, students the state has identified as eligible for free meals. Paper applications are excluded.
@@ -304,6 +306,31 @@ The precedent rate comes from one consolidation; other programs could fare bette
 - *Text-layer checks*: In the 2023-24 edition, runs of zeros merge in the text layer, and a few rows are garbled (not Lent). We decoded those rows from school totals minus the other program rows. The subtotals and the TOTAL row then reconcile.
 - *Limits*: Forecasts made one or two years ahead also miss for ordinary reasons. Other schools' Spanish programs missed by up to 10–27% in either direction (Rigler and Atkinson were under-forecast). So Lent's miss is notable for its size and persistence, not unique.
 - No edition states an assumed share of students following a moved program. The 98% figure (314 of 319) is implied by the numbers.
+
+### Race and ethnicity by program (source 23) {#race-by-program}
+
+**Reading the report.** The PDF has 6 pages. Pages 1 to 5 list every school and program; page 6 is a footnote. In the text layer, the Native American count drops out of its row, so `parse_race_by_program.py` reads each cell by its position on the page (PyMuPDF word coordinates) and assigns it to a column by its right edge. Empty cells are zero. The script checks that:
+
+- the eight counts in each row add up to the row total
+- each printed percentage equals 100 × count / total, within 0.05
+- each school's immersion and neighborhood rows add up to its total row
+- the schools in each section add up to the section total, and the sections to the district total (43,477)
+- no school and program appears twice.
+
+All 189 rows pass. Whole-school totals match source 12 at 79 schools; Richmond differs by one student (511 vs 512).
+
+**Groups.** Latino includes students of any race; the other seven groups are not Latino, as in PPS's report. Per the report's footnote, "Latino ethnicity includes students identified as Hispanic/Latino regardless of race. Multiple Races category includes students identified as two or more races, exclusive of Hispanic/Latino." *Historically underserved* follows PPS's definition (source 12): Latino, Black, Native American, Pacific Islander and multiracial "other ancestries". It leaves out Asian and Asian/White students, so we report every group separately as well.
+
+**Who would have to change schools** (`equity_race.R` → `equity_race_groups.csv`):
+
+- *Immersion program moves*: each moving program's immersion row. Whole programs match the October 2025 grade counts (source 2) exactly. César Chávez's grade 6-8 move takes part of a K-8 program, so we apply the K-8 program's mix to its 105 grade 6-8 students.
+- *Closures*: students outside immersion at each closing school (its neighborhood row, or the school row if it has no immersion program). These match the closure counts in `equity_changes.csv` exactly.
+- *César Chávez neighborhood program*: in both scenarios César Chávez becomes a K-5 Spanish immersion school, and its guide says "Neighborhood (non-DLI) K-5 students would move to Rosa Parks K-5. Middle grade (6th-8th) students would move to George Middle School" (source 16, page 3). We count its whole neighborhood row (143 students), and we include them in the §1 count of directly displaced students.
+- *Comparisons*: PPS's elementary and middle school section totals (every move and closure is in grades K-8), and every K-8 immersion row, including whole-school immersion schools.
+
+**Each moving program** (`equity_race_programs.csv`) compares the program with its school's neighborhood row. **PPS's projected share of students from underserved racial groups** (`equity_race_schools.csv`) comes from each school guide's page 4 table, "Who would the school serve?" (source 16), with no changes and under each option. Those projections include boundary changes and every other change at the school, so they can't be traced to the program move alone. PPS's figure for a school today matches the share we compute from source 23 (Atkinson: 44.0% vs 161 of 366).
+
+**Limitations.** These are October 2025 counts, before any move. They describe who is enrolled now, not who would follow a moved program. Groups with few students (Native American, Pacific Islander) are too small for program-by-program percentages. The history paragraph on the Equity page quotes source 24 directly.
 
 ### Share of a moved program PPS projects to follow it (sources 5 and 16) {#share-of-a-moved-program-pps-projects-to-follow-it-sources-5-and-16}
 

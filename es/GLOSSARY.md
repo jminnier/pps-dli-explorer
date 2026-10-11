@@ -66,7 +66,7 @@ Follow STYLE.md (federal plain-language rules, plus GSA's Spanish Language Style
 
 A native Spanish speaker from the community should review these before the Spanish pages are called final:
 
-- afroamericanos (for "Black" in PPS race categories): check whether "estudiantes negros" or "afroamericanos" is clearer for Portland families
+- negros / afroamericanos (for "Black"): the race section of the Equity page uses "negros" (estudiantes negros, familias negras); "afroamericanos" appears where an English source says "African American". Check which is clearer and more respectful for Portland families, and make it consistent
 - tabla comparativa (for "scorecard")
 - centro (for "hub", a school that hosts several programs)
 - programa paralelo (*strand*)
