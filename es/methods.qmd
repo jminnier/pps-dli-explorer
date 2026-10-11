@@ -324,7 +324,9 @@ La tasa del precedente viene de una sola consolidación; a otros programas les p
 
 Las 189 filas pasan. Los totales por escuela coinciden con la fuente 12 en 79 escuelas. Richmond difiere en un estudiante (511 frente a 512).
 
-**Grupos.** Latinos incluye a estudiantes de cualquier raza; los otros siete grupos no son latinos, como en el informe de PPS. Según la nota al pie del informe, "La etnia latina incluye a los estudiantes identificados como hispanos/latinos, sin importar su raza. La categoría de varias razas incluye a los estudiantes identificados con dos o más razas, sin incluir a los hispanos/latinos". *Históricamente desatendidos* sigue la definición de PPS (fuente 12): latinos, afrodescendientes, nativos americanos, de las islas del Pacífico y multirraciales de "otros orígenes". La definición deja fuera a los estudiantes asiáticos y asiáticos y blancos. Por eso también reportamos cada grupo por separado.
+**Grupos.** Latinos incluye a estudiantes de cualquier raza; los otros siete grupos no son latinos, como en el informe de PPS. Según la nota al pie del informe, "La etnia latina incluye a los estudiantes identificados como hispanos/latinos, sin importar su raza. La categoría de varias razas incluye a los estudiantes identificados con dos o más razas, sin incluir a los hispanos/latinos".
+
+Así, los grupos de una sola raza cuentan solo a quienes indican una raza y no son latinos. Un estudiante nativo americano que también es latino cuenta como latino, y uno que indica dos razas cuenta como multirracial. Por eso, las cifras de nativos americanos y de las islas del Pacífico son mínimos para esas comunidades. *Históricamente desatendidos* sigue la definición de PPS (fuente 12): latinos, afrodescendientes, nativos americanos, de las islas del Pacífico y multirraciales de "otros orígenes". La definición deja fuera a los estudiantes asiáticos y asiáticos y blancos. Por eso también reportamos cada grupo por separado.
 
 **Quiénes tendrían que cambiar de escuela** (`equity_race.R` → `equity_race_groups.csv`):
 
@@ -334,6 +336,15 @@ Las 189 filas pasan. Los totales por escuela coinciden con la fuente 12 en 79 es
 - *Comparaciones*: los totales de las secciones de primaria e intermedia de PPS. Usamos esas secciones porque todos los traslados y cierres son de kínder a 8.º grado. También sumamos todas las filas de inmersión K-8, incluidas las escuelas de inmersión completa.
 
 **Cada programa que se traslada** (`equity_race_programs.csv`) se compara con la fila del vecindario de su escuela. **La proporción proyectada por PPS de estudiantes de grupos raciales desatendidos** (`equity_race_schools.csv`) viene de cada guía de escuela (fuente 16). La tabla de la página 4, "Who would the school serve?" (¿A quiénes atendería la escuela?), la da sin cambios y con cada opción. Esas proyecciones incluyen cambios de límites de zona y todos los demás cambios en la escuela. Por eso no podemos atribuirlas solo al traslado del programa. La cifra actual de PPS para cada escuela coincide con la que calculamos con la fuente 23. Por ejemplo, en Atkinson: 44.0% frente a 161 de 366.
+
+**Gráficas.** Cuatro gráficas en la §3 de Equidad muestran las mismas cifras que las tablas, para el Escenario A (`R/race_charts.R`):
+
+- *Quiénes tendrían que cambiar de escuela, por raza y grupo étnico*: porcentajes de `equity_race_groups.csv`, con todas las primarias e intermedias de PPS como referencia.
+- *Programa de inmersión frente al programa del vecindario*: porcentajes de estudiantes afrodescendientes y latinos de `equity_race_programs.csv`.
+- *Estudiantes afrodescendientes que tendrían que cambiar de escuela*: números por escuela o programa de `equity_race_black.csv`. Suman los totales de cada grupo; el script se detiene si no coinciden. Se omiten las filas con menos de un estudiante.
+- *Porcentaje proyectado por PPS de grupos raciales desatendidos*: `equity_race_schools.csv`.
+
+Las gráficas usan los tres colores probados del sitio en un orden fijo. El azul marca los traslados de programas, el anaranjado los cierres y el aguamarina el programa del vecindario de César Chávez. Cada uno tiene además una forma de marcador distinta, así que el color nunca es la única señal. Un círculo gris vacío marca el valor de comparación o "sin cambios".
 
 **Limitaciones.** Son conteos de octubre de 2025, antes de cualquier traslado. Describen a los estudiantes inscritos hoy, no a quienes seguirían a un programa trasladado. Los grupos con pocos estudiantes (nativos americanos, de las islas del Pacífico) son demasiado pequeños para dar porcentajes programa por programa. El párrafo de historia de la página de Equidad cita directamente la fuente 24.
 

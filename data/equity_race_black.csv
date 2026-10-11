@@ -1,0 +1,49 @@
+scenario,cause,school,language,kind,black_n,students,black_pct
+a,Immersion program moves,Scott,Spanish,program,4,222,0.018018018018018018
+a,Immersion program moves,Beaumont,Spanish,program,2,101,0.019801980198019802
+a,Immersion program moves,Clark,Mandarin,program,1,91,0.01098901098901099
+a,Immersion program moves,Atkinson,Spanish,program,0,178,0
+a,Immersion program moves,Beach,Spanish,program,1,155,0.0064516129032258064
+a,Immersion program moves,James John,Spanish,program,3,133,0.022556390977443608
+a,Immersion program moves,Sitton,Spanish,program,1,138,0.007246376811594203
+a,Immersion program moves,Ockley Green,Spanish,program,0,63,0
+a,Immersion program moves,MLK Jr.,Mandarin,program,43,193,0.22279792746113988
+a,Immersion program moves,Rose City Park,Vietnamese,program,0,207,0
+a,Immersion program moves,César Chávez,Spanish,grades 6-8,1.4,104.99999999999999,0.013333333333333334
+b,Immersion program moves,Scott,Spanish,program,4,222,0.018018018018018018
+b,Immersion program moves,Beaumont,Spanish,program,2,101,0.019801980198019802
+b,Immersion program moves,Clark,Mandarin,program,1,91,0.01098901098901099
+b,Immersion program moves,Atkinson,Spanish,program,0,178,0
+b,Immersion program moves,Beach,Spanish,program,1,155,0.0064516129032258064
+b,Immersion program moves,James John,Spanish,program,3,133,0.022556390977443608
+b,Immersion program moves,Sitton,Spanish,program,1,138,0.007246376811594203
+b,Immersion program moves,Ockley Green,Spanish,program,0,63,0
+b,Immersion program moves,MLK Jr.,Mandarin,program,43,193,0.22279792746113988
+b,Immersion program moves,César Chávez,Spanish,grades 6-8,1.4,104.99999999999999,0.013333333333333334
+a,School closures (non-immersion students),Maplewood,NA,closes,5,287,0.017421602787456445
+a,School closures (non-immersion students),Irvington,NA,closes,23,259,0.0888030888030888
+a,School closures (non-immersion students),Buckman,NA,closes,13,283,0.045936395759717315
+a,School closures (non-immersion students),Creston,NA,closes,5,213,0.023474178403755867
+a,School closures (non-immersion students),Marysville,NA,closes,37,307,0.12052117263843648
+a,School closures (non-immersion students),Woodmere,NA,closes,23,227,0.1013215859030837
+a,School closures (non-immersion students),Sellwood,NA,closes,4,564,0.0070921985815602835
+a,School closures (non-immersion students),Beach,NA,closes,31,133,0.23308270676691728
+a,School closures (non-immersion students),James John,NA,closes,25,232,0.10775862068965517
+a,School closures (non-immersion students),Peninsula,NA,closes,32,239,0.13389121338912133
+a,School closures (non-immersion students),Sabin,NA,closes,28,269,0.10408921933085502
+a,School closures (non-immersion students),Stephenson,NA,closes,8,281,0.028469750889679714
+a,School closures (non-immersion students),Rose City Park,NA,closes,9,210,0.04285714285714286
+a,School closures (non-immersion students),Lewis,NA,closes,4,259,0.015444015444015444
+b,School closures (non-immersion students),Maplewood,NA,closes,5,287,0.017421602787456445
+b,School closures (non-immersion students),Irvington,NA,closes,23,259,0.0888030888030888
+b,School closures (non-immersion students),Buckman,NA,closes,13,283,0.045936395759717315
+b,School closures (non-immersion students),Creston,NA,closes,5,213,0.023474178403755867
+b,School closures (non-immersion students),Marysville,NA,closes,37,307,0.12052117263843648
+b,School closures (non-immersion students),Woodmere,NA,closes,23,227,0.1013215859030837
+b,School closures (non-immersion students),Sellwood,NA,closes,4,564,0.0070921985815602835
+b,School closures (non-immersion students),Beach,NA,closes,31,133,0.23308270676691728
+b,School closures (non-immersion students),James John,NA,closes,25,232,0.10775862068965517
+b,School closures (non-immersion students),Peninsula,NA,closes,32,239,0.13389121338912133
+b,School closures (non-immersion students),Sabin,NA,closes,28,269,0.10408921933085502
+a,Neighborhood program moved out of an immersion hub,César Chávez,NA,neighborhood program,48,143,0.3356643356643357
+b,Neighborhood program moved out of an immersion hub,César Chávez,NA,neighborhood program,48,143,0.3356643356643357

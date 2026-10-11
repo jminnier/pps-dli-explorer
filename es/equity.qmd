@@ -7,6 +7,7 @@ subtitle: "Por qué las familias de inmersión necesitan otra solución"
 options(site.lang = "es")
 source("R/site_data.R")
 source("R/charts.R")
+source("R/race_charts.R")
 library(gt)
 s44 <- read_data("pps_slide44.csv")
 grp <- read_data("equity_groups.csv")
@@ -51,6 +52,7 @@ rgv <- function(sc, grp, col) rg[[col]][rg$scenario == sc & rg$group == grp]
 MOV <- "Immersion program moves"; CLR <- "School closures (non-immersion students)"
 HUBN <- "Neighborhood program moved out of an immersion hub"; K8 <- "All PPS elementary and middle schools"; K8I <- "All PPS K-8 immersion programs"
 rp <- read_data("equity_race_programs.csv")
+rblk <- read_data("equity_race_black.csv")
 rs <- read_data("equity_race_schools.csv")
 rsv <- function(sc, school_key, col) rs[[col]][rs$scenario == sc & rs$key == school_key]
 rbp <- read_data("race_by_program_2025.csv") |> mutate(key = school_key(school))
@@ -117,6 +119,17 @@ Las cargas del plan afectan de forma distinta a cada grupo racial y étnico. Los
 Podemos verlo porque PPS publica el *Enrollment Summary by Race and Ethnicity* (resumen de matrícula por raza y grupo étnico) de octubre de 2025. En ese informe, cada programa de inmersión tiene su propia fila. La tabla muestra cada grupo por separado. La cifra combinada de PPS de estudiantes "históricamente desatendidos" junta a los estudiantes latinos, afrodescendientes, nativos americanos, de las islas del Pacífico y multirraciales. Esa cifra ocultaría estas diferencias.
 
 ```{r}
+#| label: fig-race-groups
+#| fig-height: 6.2
+#| fig-cap: "Porcentaje de cada grupo racial y étnico entre los estudiantes que tendrían que cambiar de escuela en el Escenario A, comparado con todo el estudiantado de primaria e intermedia de PPS (círculo gris vacío). Matrícula de octubre de 2025. Pase el cursor para ver los números; la tabla de abajo tiene todas las cifras y el Escenario B."
+fig_race_groups(rg)
+```
+
+::: {.source}
+`r cite("race_program", "scenarios", "closures", "guide_cc")`
+:::
+
+```{r}
 #| label: tbl-race
 rg |>
   filter(group != K8I) |>
@@ -136,7 +149,7 @@ rg |>
   cols_width(label ~ px(210)) |>
   tab_style(cell_text(weight = "bold"), cells_body(columns = black_pct)) |>
   tab_header(title = "Raza y grupo étnico de los estudiantes que tendrían que cambiar de escuela", subtitle = "Matrícula de octubre de 2025") |>
-  tab_source_note("Latinos incluye a estudiantes de cualquier raza. Los demás grupos no son latinos. PPS define como históricamente desatendidos a los estudiantes latinos, afrodescendientes, nativos americanos, de las islas del Pacífico y multirraciales (otros orígenes). Su definición no incluye a los estudiantes asiáticos ni a los asiáticos y blancos. Los traslados de inmersión usan la fila de cada programa. El traslado de 6.º a 8.º de César Chávez usa la composición de su programa K-8. En las escuelas que cierran se cuentan los estudiantes fuera de inmersión (sus programas de inmersión se cuentan como traslados). Todos los traslados y cierres son de kínder a 8.º grado, así que la comparación es con las escuelas primarias e intermedias de PPS.") |>
+  tab_source_note("Latinos incluye a estudiantes de cualquier raza. Los demás grupos cuentan solo a estudiantes que no son latinos, y los grupos de una sola raza (afrodescendientes, asiáticos, nativos americanos, de las islas del Pacífico, blancos) cuentan solo a quienes indican una raza. Así, los estudiantes nativos americanos y de las islas del Pacífico que también son latinos o multirraciales aparecen como latinos o multirraciales. PPS define como históricamente desatendidos a los estudiantes latinos, afrodescendientes, nativos americanos, de las islas del Pacífico y multirraciales (otros orígenes). Su definición no incluye a los estudiantes asiáticos ni a los asiáticos y blancos. Los traslados de inmersión usan la fila de cada programa. El traslado de 6.º a 8.º de César Chávez usa la composición de su programa K-8. En las escuelas que cierran se cuentan los estudiantes fuera de inmersión (sus programas de inmersión se cuentan como traslados). Todos los traslados y cierres son de kínder a 8.º grado, así que la comparación es con las escuelas primarias e intermedias de PPS.") |>
   tab_source_note(md(cite("race_program", "scenarios", "closures", "guide_cc")))
 ```
 
@@ -158,12 +171,34 @@ En 2011, la Junta Educativa adoptó una Política de Equidad Racial en la Educac
 
 Los programas de español que se trasladarían casi no tienen estudiantes afrodescendientes (entre `r fmt_pct(min(sp_moves$black_pct))` y `r fmt_pct(max(sp_moves$black_pct))`). Los programas del vecindario en los mismos edificios tienen más estudiantes afrodescendientes: `r nb_blk_txt`. Así, en el Escenario A, los traslados de programas moverían a `r fmt_n(round(rgv("a", MOV, "black_n")))` estudiantes afrodescendientes. De ellos, `r fmt_n(rrow("mlkjr", "Mandarin Immersion", "black_n"))` vienen de MLK Jr.
 
+```{r}
+#| label: fig-race-split
+#| fig-height: 6.4
+#| fig-cap: "Cada programa de inmersión que se traslada (círculo azul) comparado con el programa del vecindario del mismo edificio (círculo gris vacío): porcentaje de estudiantes afrodescendientes (izquierda) y latinos (derecha), octubre de 2025. En César Chávez se compara todo su programa de español de kínder a 8.º con su programa del vecindario, que también saldría de la escuela."
+fig_race_split(rp)
+```
+
+::: {.source}
+`r cite("race_program", "scenarios")`
+:::
+
 El plan afecta a más estudiantes afrodescendientes de otras dos maneras:
 
 - **Cierres.** Las escuelas que cerrarían tienen `r fmt_n(rgv("a", CLR, "black_n"))` estudiantes afrodescendientes fuera de inmersión en el Escenario A (`r fmt_n(rgv("b", CLR, "black_n"))` en el Escenario B).
 - **César Chávez pasa a ser solo de inmersión.** Para que César Chávez sea una escuela de kínder a 5.º con solo inmersión en español, PPS sacaría de allí su programa del vecindario. Sus estudiantes de kínder a 5.º irían a Rosa Parks, y los de 6.º a 8.º, a George (`r SRC$guide_cc`). Ese programa tiene `r fmt_n(rgv("a", HUBN, "students"))` estudiantes. **El `r fmt_pct(rgv("a", HUBN, "black_pct"))` son afrodescendientes**, `r round(rgv("a", HUBN, "black_pct") / rgv("all", K8, "black_pct"), 1)` veces la proporción en las escuelas primarias e intermedias de PPS. El `r fmt_pct(rgv("a", HUBN, "hu_pct"))` es históricamente desatendido. Esto repite lo que pasó con la conversión de Lent en 2023. La auditoría de equidad del distrito encontró que los estudiantes desplazados entonces "eran, en una proporción desmedida, familias afrodescendientes y asiáticas del vecindario de Lent" (`r SRC$audit_schools`, p. 47; vea [Investigación](research.qmd#sec-lent)). En la §1 los contamos como desplazados directamente.
 
 De los `r fmt_n(round(blk_disp_a))` estudiantes afrodescendientes que tendrían que cambiar de escuela en el Escenario A, el `r fmt_pct(rgv("a", CLR, "black_n") / blk_disp_a)` se trasladaría porque su escuela cierra.
+
+```{r}
+#| label: fig-black-displaced
+#| fig-height: 9
+#| fig-cap: "Estudiantes afrodescendientes que tendrían que cambiar de escuela en el Escenario A, por escuela o programa y por motivo, octubre de 2025. No se muestran las escuelas y los programas sin estudiantes afrodescendientes."
+fig_black_displaced(rblk)
+```
+
+::: {.source}
+`r cite("race_program", "scenarios", "closures", "guide_cc")`
+:::
 
 ```{r}
 #| label: tbl-race-programs
@@ -188,13 +223,26 @@ rp |>
 
 Los estudiantes asiáticos son el `r fmt_pct(rgv("a", MOV, "asian_pct"))` en los programas que se trasladan en el Escenario A. En las escuelas primarias e intermedias son el `r fmt_pct(rgv("all", K8, "asian_pct"))`. El programa de vietnamita de Rose City Park y el de mandarín de Clark son en su mayoría asiáticos. La definición de PPS de estudiantes históricamente desatendidos no incluye a los estudiantes asiáticos. Por eso, las medidas de equidad de PPS y la columna "Históricamente desatendidos" de arriba no muestran esta carga sobre las familias vietnamitas y chinas. El Escenario B deja el programa de vietnamita donde está (`r fmt_pct(rgv("b", MOV, "asian_pct"))` de estudiantes asiáticos).
 
-Hay muy pocos estudiantes nativos americanos y de las islas del Pacífico en inmersión. Los programas de inmersión K-8 de PPS tienen `r fmt_n(rgv("all", K8I, "native_american_n"))` estudiantes nativos americanos y `r fmt_n(rgv("all", K8I, "pacific_islander_n"))` de las islas del Pacífico. Las escuelas que cerrarían en el Escenario A tienen, fuera de inmersión, `r fmt_n(rgv("a", CLR, "native_american_n"))` estudiantes nativos americanos y `r fmt_n(rgv("a", CLR, "pacific_islander_n"))` de las islas del Pacífico. Son cifras demasiado pequeñas para comparar programa por programa. Pero muestran que la inmersión casi no llega a ninguno de los dos grupos.
+Hay muy pocos estudiantes nativos americanos y de las islas del Pacífico en inmersión, al menos según cómo los cuenta PPS. Los programas de inmersión K-8 de PPS tienen `r fmt_n(rgv("all", K8I, "native_american_n"))` estudiantes nativos americanos y `r fmt_n(rgv("all", K8I, "pacific_islander_n"))` de las islas del Pacífico. Estas cifras incluyen solo a quienes indican una sola raza y no son latinos. PPS cuenta como latinos a los estudiantes nativos americanos y de las islas del Pacífico que también son latinos. Y cuenta como multirraciales a quienes indican más de una raza (`r SRC$race_program`, nota al pie de la página 6). Por eso, es probable que el número real de estudiantes nativos en inmersión sea mayor que cero.
+
+Las escuelas que cerrarían en el Escenario A tienen, fuera de inmersión, `r fmt_n(rgv("a", CLR, "native_american_n"))` estudiantes nativos americanos y `r fmt_n(rgv("a", CLR, "pacific_islander_n"))` de las islas del Pacífico. Son cifras demasiado pequeñas para comparar programa por programa. Aun así, sugieren que la inmersión llega a pocos estudiantes de estos dos grupos.
 
 ### Algunas escuelas que pierden un programa tendrían más estudiantes blancos {#sec-left-behind}
 
 Los programas de inmersión aportan muchos de los estudiantes latinos y asiáticos de las escuelas donde funcionan. En Atkinson, el programa de español tiene `r fmt_n(rrow("atkinson", "Spanish Immersion", "latino_n"))` de los `r fmt_n(rrow("atkinson", "Total", "latino_n"))` estudiantes latinos de la escuela. El programa del vecindario, que se queda, tiene un `r fmt_pct(rrow("atkinson", "Neighborhood Program", "white_pct") / 100)` de estudiantes blancos. En la escuela intermedia Beaumont, el programa de español tiene `r fmt_n(rrow("beaumont", "Spanish Immersion", "latino_n"))` de los `r fmt_n(rrow("beaumont", "Total", "latino_n"))` estudiantes latinos. Su programa del vecindario tiene un `r fmt_pct(rrow("beaumont", "Neighborhood Program", "white_pct") / 100)` de estudiantes blancos.
 
 Las propias guías de las escuelas de PPS muestran el resultado. Proyectan que **en Atkinson la proporción de estudiantes de grupos raciales desatendidos bajaría del `r fmt_pct(rsv("a", "atkinson", "now"))` al `r fmt_pct(rsv("a", "atkinson", "after"))`**. En Beaumont bajaría del `r fmt_pct(rsv("a", "beaumont", "now"))` al `r fmt_pct(rsv("a", "beaumont", "after"))`. También bajaría en Scott, MLK Jr. y César Chávez. Subiría en Clark y Ockley Green. Las proyecciones de las guías también incluyen cambios de límites de zona. Así que no todo el cambio en cada escuela viene del traslado del programa. Además, la medida deja fuera a los estudiantes asiáticos. Por eso baja la proporción de Vestal: el programa de vietnamita que recibiría es en su mayoría asiático.
+
+```{r}
+#| label: fig-race-schools
+#| fig-height: 6.2
+#| fig-cap: "Porcentaje proyectado por PPS de estudiantes de grupos raciales desatendidos en cada escuela que perdería o recibiría un programa de inmersión: sin cambios (círculo gris vacío) y en el Escenario A. Las proyecciones incluyen cambios de límites además de los traslados de programas."
+fig_race_schools(rs)
+```
+
+::: {.source}
+`r cite("guide_demo", "scenarios")`
+:::
 
 ```{r}
 #| label: tbl-race-schools

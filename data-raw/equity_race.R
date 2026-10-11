@@ -105,6 +105,21 @@ groups <- bind_rows(
   as_tibble(shares(k8)) |> mutate(scenario = "all", group = "All PPS elementary and middle schools")
 ) |> relocate(scenario, group)
 write_csv(groups, here("data", "equity_race_groups.csv"))
+
+# ---- Black students who would have to change schools, by school and cause (for fig-black-displaced) --
+by_school <- function(rows, cause, place, language, kind) rows |>
+  mutate(cause = cause, school = place, language = language, kind = kind, students = rowSums(across(all_of(ncols)))) |>
+  select(scenario, cause, school, language, kind, black_n, students)
+black <- bind_rows(
+  by_school(mover_rows, "Immersion program moves", movers$from_school, movers$language, if_else(movers$kind == "grades", "grades 6-8", "program")),
+  by_school(clo_rows, "School closures (non-immersion students)", clo$from_school, NA_character_, "closes"),
+  by_school(hub_rows, "Neighborhood program moved out of an immersion hub", "César Chávez", NA_character_, "neighborhood program")
+) |> mutate(black_pct = black_n / students)
+chk_b <- black |> group_by(scenario, cause) |> summarise(b = sum(black_n), .groups = "drop") |>
+  left_join(groups |> select(scenario, cause = group, g = black_n), by = c("scenario", "cause"))
+if (any(abs(chk_b$b - chk_b$g) > 1e-6)) stop("Black counts by school don't add up to the group totals")
+write_csv(black, here("data", "equity_race_black.csv"))
+
 cat("\nRace and ethnicity of directly displaced students (shares):\n")
 print(as.data.frame(groups |> mutate(across(ends_with("_pct"), \(v) round(100 * v, 1)), students = round(students)) |>
   select(scenario, group, students, black_n, latino_pct, black_pct, asian_pct, native_american_pct, pacific_islander_pct, white_pct, hu_pct)), row.names = FALSE)

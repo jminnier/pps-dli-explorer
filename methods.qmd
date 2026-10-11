@@ -319,7 +319,9 @@ The precedent rate comes from one consolidation; other programs could fare bette
 
 All 189 rows pass. Whole-school totals match source 12 at 79 schools; Richmond differs by one student (511 vs 512).
 
-**Groups.** Latino includes students of any race; the other seven groups are not Latino, as in PPS's report. Per the report's footnote, "Latino ethnicity includes students identified as Hispanic/Latino regardless of race. Multiple Races category includes students identified as two or more races, exclusive of Hispanic/Latino." *Historically underserved* follows PPS's definition (source 12): Latino, Black, Native American, Pacific Islander and multiracial "other ancestries". It leaves out Asian and Asian/White students, so we report every group separately as well.
+**Groups.** Latino includes students of any race; the other seven groups are not Latino, as in PPS's report. Per the report's footnote, "Latino ethnicity includes students identified as Hispanic/Latino regardless of race. Multiple Races category includes students identified as two or more races, exclusive of Hispanic/Latino."
+
+So the single-race groups count only students who list one race and are not Latino. A Native American student who is also Latino counts as Latino, and one who lists two races counts as multiracial. The counts for small single-race groups, especially Native American and Pacific Islander students, are therefore minimums for those communities. *Historically underserved* follows PPS's definition (source 12): Latino, Black, Native American, Pacific Islander and multiracial "other ancestries". It leaves out Asian and Asian/White students, so we report every group separately as well.
 
 **Who would have to change schools** (`equity_race.R` → `equity_race_groups.csv`):
 
@@ -329,6 +331,15 @@ All 189 rows pass. Whole-school totals match source 12 at 79 schools; Richmond d
 - *Comparisons*: PPS's elementary and middle school section totals, since every move and closure is in grades K-8. We also total every K-8 immersion row, including whole-school immersion schools.
 
 **Each moving program** (`equity_race_programs.csv`) compares the program with its school's neighborhood row. **PPS's projected share of students from underserved racial groups** (`equity_race_schools.csv`) comes from each school guide (source 16). The page 4 table, "Who would the school serve?", gives it with no changes and under each option. Those projections include boundary changes and every other change at the school. So we can't trace them to the program move alone. PPS's figure for a school today matches the share we compute from source 23 (Atkinson: 44.0% vs 161 of 366).
+
+**Figures.** Four figures in Equity §3 show the same numbers as the tables, for Scenario A (`R/race_charts.R`):
+
+- *Who would have to change schools, by race and ethnicity*: shares from `equity_race_groups.csv`, with all PPS elementary and middle schools as the reference.
+- *Immersion program vs neighborhood program*: Black and Latino shares from `equity_race_programs.csv`.
+- *Black students who would have to change schools*: counts by school or program from `equity_race_black.csv`. They add up to the group totals; the script stops if they don't. The figure leaves out rows with fewer than one student.
+- *PPS's projected share from underserved racial groups*: `equity_race_schools.csv`.
+
+The figures use the site's three tested colors in a fixed order. Blue marks program moves, orange marks closures and aqua marks César Chávez's neighborhood program. Each also has its own marker shape, so color is never the only cue. A hollow gray ring marks the comparison or "no changes" value.
 
 **Limitations.** These are October 2025 counts, before any move. They describe the students enrolled now, not those who would follow a moved program. Groups with few students (Native American, Pacific Islander) are too small for program-by-program percentages. The history paragraph on the Equity page quotes source 24 directly.
 

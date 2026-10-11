@@ -6,6 +6,7 @@ subtitle: "The case for a different solution for immersion families"
 ```{r}
 source("R/site_data.R")
 source("R/charts.R")
+source("R/race_charts.R")
 library(gt)
 s44 <- read_data("pps_slide44.csv")
 grp <- read_data("equity_groups.csv")
@@ -50,6 +51,7 @@ rgv <- function(sc, grp, col) rg[[col]][rg$scenario == sc & rg$group == grp]
 MOV <- "Immersion program moves"; CLR <- "School closures (non-immersion students)"
 HUBN <- "Neighborhood program moved out of an immersion hub"; K8 <- "All PPS elementary and middle schools"; K8I <- "All PPS K-8 immersion programs"
 rp <- read_data("equity_race_programs.csv")
+rblk <- read_data("equity_race_black.csv")
 rs <- read_data("equity_race_schools.csv")
 rsv <- function(sc, school_key, col) rs[[col]][rs$scenario == sc & rs$key == school_key]
 rbp <- read_data("race_by_program_2025.csv") |> mutate(key = school_key(school))
@@ -112,6 +114,17 @@ The plan's burdens fall differently on each racial and ethnic group. The moving 
 We can see this because PPS's *Enrollment Summary by Race and Ethnicity* (October 2025) gives each immersion program its own row. The table reports each group separately. PPS's combined "historically underserved" share counts Latino, Black, Native American, Pacific Islander and multiracial students together, and it would hide these differences.
 
 ```{r}
+#| label: fig-race-groups
+#| fig-height: 6.2
+#| fig-cap: "Share of each racial and ethnic group among students who would have to change schools in Scenario A, compared with all PPS elementary and middle school students (hollow gray ring). October 2025 enrollment. Hover for counts; the table below has every number and Scenario B."
+fig_race_groups(rg)
+```
+
+::: {.source}
+`r cite("race_program", "scenarios", "closures", "guide_cc")`
+:::
+
+```{r}
 #| label: tbl-race
 rg |>
   filter(group != K8I) |>
@@ -131,7 +144,7 @@ rg |>
   cols_width(label ~ px(210)) |>
   tab_style(cell_text(weight = "bold"), cells_body(columns = black_pct)) |>
   tab_header(title = "Race and ethnicity of the students who would have to change schools", subtitle = "October 2025 enrollment") |>
-  tab_source_note("Latino includes students of any race. The other groups are not Latino. PPS defines historically underserved students as Latino, Black, Native American, Pacific Islander and multiracial (other ancestries); Asian and Asian/White students are not in its definition. Immersion moves use each program's row; César Chávez's grade 6-8 move uses its K-8 program's mix. Closing schools count students outside immersion (their immersion programs are counted as moves). Every move and closure is in grades K-8, so the comparison is PPS's elementary and middle schools.") |>
+  tab_source_note("Latino includes students of any race. The other groups count only students who are not Latino, and the single-race groups (Black, Asian, Native American, Pacific Islander, White) count only students who list one race. So Native American and Pacific Islander students who are also Latino or multiracial appear under Latino or multiracial. PPS defines historically underserved students as Latino, Black, Native American, Pacific Islander and multiracial (other ancestries); Asian and Asian/White students are not in its definition. Immersion moves use each program's row; César Chávez's grade 6-8 move uses its K-8 program's mix. Closing schools count students outside immersion (their immersion programs are counted as moves). Every move and closure is in grades K-8, so the comparison is PPS's elementary and middle schools.") |>
   tab_source_note(md(cite("race_program", "scenarios", "closures", "guide_cc")))
 ```
 
@@ -151,12 +164,34 @@ In 2011 the school board adopted a Racial Educational Equity Policy. In it, PPS 
 
 The Spanish programs that would move enroll almost no Black students (`r fmt_pct(min(sp_moves$black_pct))` to `r fmt_pct(max(sp_moves$black_pct))`). The neighborhood programs in the same buildings are more often Black: `r nb_blk_txt`. So in Scenario A, the program moves would move `r fmt_n(round(rgv("a", MOV, "black_n")))` Black students, `r fmt_n(rrow("mlkjr", "Mandarin Immersion", "black_n"))` of them from MLK Jr.
 
+```{r}
+#| label: fig-race-split
+#| fig-height: 6.4
+#| fig-cap: "Each moving immersion program (blue circle) compared with the neighborhood program in the same building (hollow gray ring): share of Black students (left) and Latino students (right), October 2025. César Chávez compares its whole K-8 Spanish program with its neighborhood program, which would also move."
+fig_race_split(rp)
+```
+
+::: {.source}
+`r cite("race_program", "scenarios")`
+:::
+
 The plan reaches more Black students in two other ways:
 
 - **Closures.** The schools that would close enroll `r fmt_n(rgv("a", CLR, "black_n"))` Black students outside immersion in Scenario A (`r fmt_n(rgv("b", CLR, "black_n"))` in Scenario B).
 - **César Chávez becomes immersion-only.** To make César Chávez a K-5 school with only Spanish immersion, PPS would move its neighborhood program out. Its K-5 students would go to Rosa Parks and its grade 6-8 students to George (`r SRC$guide_cc`). That program has `r fmt_n(rgv("a", HUBN, "students"))` students. **`r fmt_pct(rgv("a", HUBN, "black_pct"))` are Black**, `r round(rgv("a", HUBN, "black_pct") / rgv("all", K8, "black_pct"), 1)` times the share in PPS elementary and middle schools. `r fmt_pct(rgv("a", HUBN, "hu_pct"))` are historically underserved. This repeats the pattern of Lent's 2023 conversion. The district's equity audit found that the students displaced then "were disproportionately Black and Asian Lent neighborhood families" (`r SRC$audit_schools`, p. 47; see [Research](research.qmd#sec-lent)). We count them in §1 as directly displaced.
 
 Of the `r fmt_n(round(blk_disp_a))` Black students who would have to change schools in Scenario A, `r fmt_pct(rgv("a", CLR, "black_n") / blk_disp_a)` would move because their school closes.
+
+```{r}
+#| label: fig-black-displaced
+#| fig-height: 9
+#| fig-cap: "Black students who would have to change schools in Scenario A, by school or program and by reason, October 2025. Schools and programs with no Black students are not shown."
+fig_black_displaced(rblk)
+```
+
+::: {.source}
+`r cite("race_program", "scenarios", "closures", "guide_cc")`
+:::
 
 ```{r}
 #| label: tbl-race-programs
@@ -181,13 +216,26 @@ rp |>
 
 Asian students are `r fmt_pct(rgv("a", MOV, "asian_pct"))` of students in Scenario A's moving programs, compared with `r fmt_pct(rgv("all", K8, "asian_pct"))` of elementary and middle school students. Rose City Park's Vietnamese program and Clark's Mandarin program are mostly Asian. PPS's definition of historically underserved students leaves out Asian students. So PPS's own equity measures, and the "historically underserved" column above, don't show this burden on Vietnamese and Chinese families. Scenario B keeps the Vietnamese program in place (`r fmt_pct(rgv("b", MOV, "asian_pct"))` Asian).
 
-Native American and Pacific Islander students are rarely in immersion. PPS's K-8 immersion programs enroll `r fmt_n(rgv("all", K8I, "native_american_n"))` Native American students and `r fmt_n(rgv("all", K8I, "pacific_islander_n"))` Pacific Islander students. The schools that would close enroll `r fmt_n(rgv("a", CLR, "native_american_n"))` Native American and `r fmt_n(rgv("a", CLR, "pacific_islander_n"))` Pacific Islander students outside immersion in Scenario A. These numbers are too small for program-by-program comparisons, but they show that immersion barely reaches either group.
+Native American and Pacific Islander students are rarely in immersion, at least as PPS counts them. PPS's K-8 immersion programs enroll `r fmt_n(rgv("all", K8I, "native_american_n"))` Native American students and `r fmt_n(rgv("all", K8I, "pacific_islander_n"))` Pacific Islander students. These counts include only students who list one race and are not Latino. PPS counts Native American and Pacific Islander students who are also Latino as Latino. It counts students who list more than one race as multiracial (`r SRC$race_program`, page 6 footnote). So the true number of Native students in immersion is likely above zero.
+
+The schools that would close enroll `r fmt_n(rgv("a", CLR, "native_american_n"))` Native American and `r fmt_n(rgv("a", CLR, "pacific_islander_n"))` Pacific Islander students outside immersion in Scenario A. These numbers are too small for program-by-program comparisons. Even so, they suggest that immersion reaches few students in either group.
 
 ### Some schools that lose a program would become whiter {#sec-left-behind}
 
 Immersion programs bring many of the Latino and Asian students to the schools that host them. At Atkinson, the Spanish program has `r fmt_n(rrow("atkinson", "Spanish Immersion", "latino_n"))` of the school's `r fmt_n(rrow("atkinson", "Total", "latino_n"))` Latino students. The neighborhood program that stays is `r fmt_pct(rrow("atkinson", "Neighborhood Program", "white_pct") / 100)` white. At Beaumont Middle School, the Spanish program has `r fmt_n(rrow("beaumont", "Spanish Immersion", "latino_n"))` of `r fmt_n(rrow("beaumont", "Total", "latino_n"))` Latino students. Its neighborhood program is `r fmt_pct(rrow("beaumont", "Neighborhood Program", "white_pct") / 100)` white.
 
 PPS's own school guides show the result. They project that **Atkinson's share of students from underserved racial groups would fall from `r fmt_pct(rsv("a", "atkinson", "now"))` to `r fmt_pct(rsv("a", "atkinson", "after"))`**, and Beaumont's from `r fmt_pct(rsv("a", "beaumont", "now"))` to `r fmt_pct(rsv("a", "beaumont", "after"))`. Scott, MLK Jr. and César Chávez would also fall. Clark and Ockley Green would rise. The guides' projections include boundary changes too, so not all of each change comes from the program move. The measure also leaves out Asian students: Vestal's share falls because the Vietnamese program it would receive is mostly Asian.
+
+```{r}
+#| label: fig-race-schools
+#| fig-height: 6.2
+#| fig-cap: "PPS's projected share of students from underserved racial groups at each school that would lose or receive an immersion program: with no changes (hollow gray ring) and in Scenario A. The projections include boundary changes as well as program moves."
+fig_race_schools(rs)
+```
+
+::: {.source}
+`r cite("guide_demo", "scenarios")`
+:::
 
 ```{r}
 #| label: tbl-race-schools
