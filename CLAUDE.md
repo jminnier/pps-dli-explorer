@@ -30,7 +30,12 @@ To check a page visually, serve `_site` (`python3 -m http.server 8765`) and scre
 
 ## Conventions
 
-- **Plain language.** Write and edit prose by `STYLE.md`: main point first, one idea per sentence, active voice naming the actor, everyday words, terms defined at first use, descriptive headings. Plain language never drops a caveat: split the sentence instead. Run `python3 tools/readability.py` after editing (targets: English grade 9 or lower, Spanish Fernández-Huerta 70 or higher, under 10% of sentences over 25 words).
+- **Plain language, every time new text is added (user requirement).** Every new or rewritten section, in English and Spanish, must follow the Federal Plain Language Guidelines (digital.gov/guides/plain-language) as set out in `STYLE.md`: main point first, one idea per sentence, active voice naming the actor, everyday words, terms defined at first use, descriptive headings, bold used sparingly. Plain language never drops a caveat: split the sentence instead. Before committing new text:
+  - run `python3 tools/plaincheck.py <last-commit> <files>` (it also runs automatically as a pre-render warning on uncommitted `.qmd` edits) and fix every flag; long direct quotations are fine, in both languages
+  - run `python3 tools/readability.py` (targets: English grade 9 or lower, Spanish Fernández-Huerta 70 or higher, under 10% of sentences over 25 words)
+  - read the new section once against the STYLE.md checklist; the scripts can't check main-point-first, defined terms or bold
+  - write the Spanish version by the Spanish section of `STYLE.md` and `es/GLOSSARY.md`, which draw on the resources the user chose (USDR language-access list): GSA's *Spanish Language Style Guide and Glossaries* (ANLE-reviewed: grammar, capitalization, dates, U.S. number format, frequently mistranslated terms), (Re)Nombrar for inclusive language, the RAE dictionary, and DOL's plain-language approach. Adapt rather than translate word for word; usted; Black = "afrodescendientes".
+  - report the check results to the user.
 - **Cite everything.** Every table, figure, callout and headline number gets a source line: `tab_source_note(md(cite(...)))` for gt, or a `::: {.source}` block after a figure. Add new sources to `SRC` in `R/site_data.R` and to the sources table and calculation sections of `methods.qmd`.
 - **Methods must keep pace.** Any new number needs its definition, formula and limitations in `methods.qmd`.
 - **Parsers fail loudly.** Validate against totals printed in the source (row, school, section and district totals; printed percentages within ±0.51). Exit with a clear message rather than guess; leave a value blank if it is truly ambiguous.

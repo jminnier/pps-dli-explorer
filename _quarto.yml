@@ -1,7 +1,9 @@
 project:
   type: website
   output-dir: _site
-  pre-render: python3 tools/check_es_sync.py
+  pre-render:
+    - python3 tools/check_es_sync.py
+    - python3 tools/plaincheck.py --prerender
   execute-dir: project   # es/ pages source R/ and data/ from the project root, like the English pages
   render:
     - index.qmd

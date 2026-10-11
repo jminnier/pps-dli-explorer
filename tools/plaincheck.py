@@ -5,11 +5,22 @@ sentences over 25 words, paragraphs over 150 words, "e.g."/"i.e."/"and/or", dash
 (English only) likely passive voice. It is a screen, not a judge: read the flagged lines and the whole section.
 
 Usage: python3 tools/plaincheck.py <base-commit> <file.qmd> [...]
+       python3 tools/plaincheck.py --prerender   # uncommitted edits to any .qmd, warnings only (run before every render)
 """
 import re, subprocess, sys
-BASE = sys.argv[1]; files = sys.argv[2:]
+PRE = sys.argv[1:] == ["--prerender"]
+if PRE:
+    BASE = "HEAD"
+    changed = subprocess.run(["git", "diff", "--name-only", "HEAD", "--", "*.qmd"], capture_output=True, text=True).stdout.split()
+    new = subprocess.run(["git", "ls-files", "--others", "--exclude-standard", "--", "*.qmd"], capture_output=True, text=True).stdout.split()
+    files = changed + new
+else:
+    BASE = sys.argv[1]; files = sys.argv[2:]
+flagged = 0
 for f in files:
     diff = subprocess.run(["git", "diff", "-U0", BASE, "--", f], capture_output=True, text=True).stdout
+    if f in (new if PRE else []):
+        diff = "\n".join("+" + l for l in open(f, encoding="utf-8").read().split("\n"))
     added = [l[1:] for l in diff.split("\n") if l.startswith("+") and not l.startswith("+++")]
     es = f.startswith("es/")
     out = []
@@ -31,4 +42,11 @@ for f in files:
         if not es:
             for m in re.finditer(r"\b(is|are|was|were|be|been|being)\s+(\w+ed|shown|given|made|done|taken|seen|known|left|kept|counted)\b", noq):
                 out.append(f"PASSIVE? '{m.group(0)}': {noq[max(0,m.start()-50):m.end()+30]}")
-    print(f"== {f}: {len(out)} flags"); print("\n".join(out))
+    flagged += len(out)
+    if PRE and not out:
+        continue
+    print(f"== {f}: {len(out)} flags" + (" (plain language, STYLE.md)" if PRE else "")); print("\n".join(out))
+if PRE and flagged:
+    print(f"PLAIN LANGUAGE: {flagged} flag(s) in uncommitted text. Fix them (or confirm they are quotations) before publishing.")
+elif PRE:
+    print("Plain-language check: no flags in uncommitted text.")
