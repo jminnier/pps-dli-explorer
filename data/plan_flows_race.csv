@@ -1,74 +1,74 @@
-scenario,from_school,part,share,to_school,students,latino_n,black_n,asian_n,native_american_n,pacific_islander_n,white_n,asian_white_n,other_multi_n,basis
-a,Sabin,whole,1,MLK Jr,269,25,28,6,5,1,169,12,23,"Sabin guide: ""Its full neighborhood K-5 school boundary would move to Dr. Martin Luther King Jr. Elementary."""
-a,MLK Jr,Mandarin,1,Boise-Eliot/Humboldt,193,26,43,13,0,1,65,25,20,"MLK Jr. guide: ""The Mandarin Dual Language Immersion (DLI) program would move to Boise-Eliot/Humboldt (BEH)."""
-a,Buckman,whole,0.5,Abernethy,141.5,19,6.5,3.5,2,0.5,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Abernethy K-5"""
-a,Buckman,whole,0.5,Sunnyside Environmental,141.5,19,6.5,3.5,2,0.5,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Sunnyside K-5"""
-a,Marysville,whole,1,Arleta,307,64,37,35,5,16,110,7,33,"Marysville guide: pre-SEGC boundary to Arleta, Lent non-DLI area to Kelly; PPS projects Arleta +333 students by 2031-32 and Kelly +10, so nearly all go to Arleta"
-a,Atkinson,Spanish,1,Lent,178,124,0,1,0,0,50,1,2,"Atkinson guide: ""The Spanish Dual Language Immersion (DLI) program would move to Lent K-5."""
-a,Creston,whole,1,Atkinson,213,32,5,11,0,2,140,15,8,"Creston guide: ""Neighborhood K-5 students would move to Atkinson K-5."" (its Deaf and Hard of Hearing program moves to Glencoe; not separated in the race report)"
-a,Beach,Spanish,1,César Chávez,155,73,1,1,0,0,72,3,5,"Beach guide: ""The Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5."""
-a,Beach,neighborhood,1,Chief Joseph,133,14,31,4,0,0,60,9,15,"Beach guide: ""Students who live in the Beach neighborhood would now go to Chief Joseph."""
-a,James John,Spanish,1,César Chávez,133,100,3,0,0,0,28,1,1,"James John guide: ""Spanish Dual Language Immersion (DLI) students would move to César Chávez K-5."""
-a,James John,neighborhood,1,Sitton,232,74,25,5,3,1,88,10,26,"James John guide: ""Neighborhood K-5 students would move to Sitton K-5."""
-a,Sitton,Spanish,1,César Chávez,138,96,1,0,0,0,41,0,0,"Sitton guide: ""Its Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5."""
-a,César Chávez,neighborhood K-5,1,Rosa Parks,78,25.6,26.2,3.8,0.5,2.2,11.5,0.5,7.6,"César Chávez guide: ""Neighborhood (non-DLI) K-5 students would move to Rosa Parks K-5."""
-a,César Chávez,neighborhood 6-8,1,George,65,21.4,21.8,3.2,0.5,1.8,9.5,0.5,6.4,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School."""
-a,César Chávez,Spanish 6-8,1,George,105,82.9,1.4,0.7,0,0.3,16.8,1,1.8,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School."""
-a,Peninsula,whole,1,Rosa Parks,239,47,32,6,4,1,108,10,31,"Peninsula guide: ""Its full neighborhood K-5 school boundary would move to Rosa Parks K-5."""
-a,Clark,Mandarin,1,Woodstock,91,3,1,62,0,0,16,5,4,"Clark guide: ""The Mandarin Dual Language Immersion (DLI) program would move and bring students together at Woodstock K-5."""
-a,Scott,Spanish,1,Rigler,222,104,4,0,0,0,96,7,11,"Scott guide: ""Its Spanish DLI program would move to Rigler K-5."""
-a,Irvington,whole,1,Beverly Cleary,259,33,23,3,1,0,161,12,26,"Irvington guide: ""K-5 students would move to Beverly Cleary K-5."""
-a,Beverly Cleary,6-8,1,Beaumont,204,14.9,4.7,8.9,0,0,144.9,17.8,12.8,"Beverly Cleary guide: ""Middle grade (6th-8th) students would move to Beaumont Middle School."""
-a,Beaumont,Spanish,1,Roseway Heights,101,74,2,0,0,1,22,1,1,"Beaumont guide: ""The Spanish Dual Language Immersion (DLI) program at Beaumont would move to Roseway Heights Middle School."""
-a,Ockley Green,Spanish,1,George,63,20,0,0,0,0,38,2,3,"Ockley Green guide: ""The Spanish Dual Language Immersion (DLI) program would move to George Middle School."""
-a,Faubion,6-8,1,Ockley Green,223,65.4,50.5,3,2.6,7.8,60.6,2.6,30.5,"Faubion guide: ""Middle grade (6th-8th) students would move to Ockley Green Middle School."""
-a,Vernon,6-8,1,Harriet Tubman,196,24.3,27.5,1.4,1.4,0,108,9.1,24.3,"Vernon guide: ""Middle grade (6th-8th) students would move to Harriet Tubman Middle School."""
-a,Laurelhurst,6-8,1,Mt Tabor,235,15.4,5,7.3,0.8,0.4,173,18.1,15,"Laurelhurst guide: ""Middle grade (6th-8th) students would move to Mt. Tabor Middle School"""
-a,Sunnyside Environmental,6-8,1,Hosford,193,20.3,2.8,2.4,0,0.4,142.9,13.5,10.7,"Sunnyside guide: ""Middle grade (6th-8th) students would move to Hosford Middle School."""
-a,Bridger Creative Science,6-8,1,Harrison Park,140,13.2,4.7,9.1,1.3,0.9,97,4.7,9.1,"Bridger guide: ""Current middle grade (6th and 7th) students would be reassigned to Harrison Park Middle School or could choose to return to their neighborhood middle school."""
-a,Maplewood,whole,0.7,Hayhurst,200.9,22.4,3.5,2.8,1.4,0,135.1,21,14.7,"Maplewood guide: ""70% of the neighborhood boundary would move to Hayhurst K-5"""
-a,Maplewood,whole,0.3,Rieke,86.1,9.6,1.5,1.2,0.6,0,57.9,9,6.3,"Maplewood guide: ""30% would move to Rieke K-5"""
-a,Woodmere,whole,1,Whitman,227,57,23,28,2,1,77,4,35,"Woodmere guide: ""100% of its neighborhood K-5 school boundary would shift to Whitman K-5."""
-a,Sellwood,whole,0.36,Hosford,203,16.2,1.4,4,0,0,160.9,11.2,9.4,"Sellwood guide: Llewellyn-area students to Hosford; split by feeder-school enrollment (Llewellyn 345 of 966), an assumption"
-a,Sellwood,whole,0.64,Brentwood,361,28.8,2.6,7,0,0,286.1,19.8,16.6,"Sellwood guide: Duniway- and Lewis-area students to Brentwood; split by feeder-school enrollment (Duniway + Lewis 621 of 966), an assumption"
-a,Odyssey,whole,1,Metro. Learning Center,217,13,3,8,1,0,161,21,10,"Odyssey guide: ""The Odyssey K-8 special-focus choice program would move to the Metropolitan Learning Center (MLC) school."""
-a,Rose City Park,neighborhood,1,Scott,210,30,9,4,3,4,141,5,14,"Rose City Park guide: ""In Scenario A, 100% of its neighborhood K-5boundary would move to Scott K-5."""
-a,Rose City Park,Vietnamese,1,Vestal,207,3,0,131,0,0,50,16,7,"Rose City Park guide: ""In Scenario A, its Vietnamese Dual Language Immersion (DLI) program would move to Vestal K-5."""
-a,Stephenson,whole,0.7,Markham,196.7,18.9,5.6,7,0.7,0,134.4,22.4,7.7,"Stephenson guide: ""70% of its neighborhood school boundary would move to Markham K-5"""
-a,Stephenson,whole,0.3,Capitol Hill,84.3,8.1,2.4,3,0.3,0,57.6,9.6,3.3,"Stephenson guide: ""30% would move to Capitol Hill K-5"""
-a,Lewis,whole,1,Duniway,259,32,4,16,0,0,167,20,20,"Lewis guide: ""In Scenario A, neighborhood K-5 students would move to Duniway K-5."""
-a,Metro. Learning Center,9-12,1,(other high schools),39.9,4.5,0.6,0.3,0,0,29.2,1.7,3.5,"MLC guide: ""High school (9th-12th) students would transition to another PPS alternative school, attend a focus option or return to their designated neighborhood high schools."""
-b,Sabin,whole,1,MLK Jr,269,25,28,6,5,1,169,12,23,"Sabin guide: ""Its full neighborhood K-5 school boundary would move to Dr. Martin Luther King Jr. Elementary."""
-b,MLK Jr,Mandarin,1,Boise-Eliot/Humboldt,193,26,43,13,0,1,65,25,20,"MLK Jr. guide: ""The Mandarin Dual Language Immersion (DLI) program would move to Boise-Eliot/Humboldt (BEH)."""
-b,Buckman,whole,0.5,Abernethy,141.5,19,6.5,3.5,2,0.5,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Abernethy K-5"""
-b,Buckman,whole,0.5,Sunnyside Environmental,141.5,19,6.5,3.5,2,0.5,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Sunnyside K-5"""
-b,Marysville,whole,1,Arleta,307,64,37,35,5,16,110,7,33,"Marysville guide: pre-SEGC boundary to Arleta, Lent non-DLI area to Kelly; PPS projects Arleta +333 students by 2031-32 and Kelly +10, so nearly all go to Arleta"
-b,Atkinson,Spanish,1,Lent,178,124,0,1,0,0,50,1,2,"Atkinson guide: ""The Spanish Dual Language Immersion (DLI) program would move to Lent K-5."""
-b,Creston,whole,1,Atkinson,213,32,5,11,0,2,140,15,8,"Creston guide: ""Neighborhood K-5 students would move to Atkinson K-5."" (its Deaf and Hard of Hearing program moves to Glencoe; not separated in the race report)"
-b,Beach,Spanish,1,César Chávez,155,73,1,1,0,0,72,3,5,"Beach guide: ""The Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5."""
-b,Beach,neighborhood,1,Chief Joseph,133,14,31,4,0,0,60,9,15,"Beach guide: ""Students who live in the Beach neighborhood would now go to Chief Joseph."""
-b,James John,Spanish,1,César Chávez,133,100,3,0,0,0,28,1,1,"James John guide: ""Spanish Dual Language Immersion (DLI) students would move to César Chávez K-5."""
-b,James John,neighborhood,1,Sitton,232,74,25,5,3,1,88,10,26,"James John guide: ""Neighborhood K-5 students would move to Sitton K-5."""
-b,Sitton,Spanish,1,César Chávez,138,96,1,0,0,0,41,0,0,"Sitton guide: ""Its Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5."""
-b,César Chávez,neighborhood K-5,1,Rosa Parks,78,25.6,26.2,3.8,0.5,2.2,11.5,0.5,7.6,"César Chávez guide: ""Neighborhood (non-DLI) K-5 students would move to Rosa Parks K-5."""
-b,César Chávez,neighborhood 6-8,1,George,65,21.4,21.8,3.2,0.5,1.8,9.5,0.5,6.4,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School."""
-b,César Chávez,Spanish 6-8,1,George,105,82.9,1.4,0.7,0,0.3,16.8,1,1.8,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School."""
-b,Peninsula,whole,1,Rosa Parks,239,47,32,6,4,1,108,10,31,"Peninsula guide: ""Its full neighborhood K-5 school boundary would move to Rosa Parks K-5."""
-b,Clark,Mandarin,1,Woodstock,91,3,1,62,0,0,16,5,4,"Clark guide: ""The Mandarin Dual Language Immersion (DLI) program would move and bring students together at Woodstock K-5."""
-b,Scott,Spanish,1,Rigler,222,104,4,0,0,0,96,7,11,"Scott guide: ""Its Spanish DLI program would move to Rigler K-5."""
-b,Irvington,whole,1,Beverly Cleary,259,33,23,3,1,0,161,12,26,"Irvington guide: ""K-5 students would move to Beverly Cleary K-5."""
-b,Beverly Cleary,6-8,1,Beaumont,204,14.9,4.7,8.9,0,0,144.9,17.8,12.8,"Beverly Cleary guide: ""Middle grade (6th-8th) students would move to Beaumont Middle School."""
-b,Beaumont,Spanish,1,Roseway Heights,101,74,2,0,0,1,22,1,1,"Beaumont guide: ""The Spanish Dual Language Immersion (DLI) program at Beaumont would move to Roseway Heights Middle School."""
-b,Ockley Green,Spanish,1,George,63,20,0,0,0,0,38,2,3,"Ockley Green guide: ""The Spanish Dual Language Immersion (DLI) program would move to George Middle School."""
-b,Faubion,6-8,1,Ockley Green,223,65.4,50.5,3,2.6,7.8,60.6,2.6,30.5,"Faubion guide: ""Middle grade (6th-8th) students would move to Ockley Green Middle School."""
-b,Vernon,6-8,1,Harriet Tubman,196,24.3,27.5,1.4,1.4,0,108,9.1,24.3,"Vernon guide: ""Middle grade (6th-8th) students would move to Harriet Tubman Middle School."""
-b,Laurelhurst,6-8,1,Mt Tabor,235,15.4,5,7.3,0.8,0.4,173,18.1,15,"Laurelhurst guide: ""Middle grade (6th-8th) students would move to Mt. Tabor Middle School"""
-b,Sunnyside Environmental,6-8,1,Hosford,193,20.3,2.8,2.4,0,0.4,142.9,13.5,10.7,"Sunnyside guide: ""Middle grade (6th-8th) students would move to Hosford Middle School."""
-b,Bridger Creative Science,6-8,1,Harrison Park,140,13.2,4.7,9.1,1.3,0.9,97,4.7,9.1,"Bridger guide: ""Current middle grade (6th and 7th) students would be reassigned to Harrison Park Middle School or could choose to return to their neighborhood middle school."""
-b,Maplewood,whole,0.7,Hayhurst,200.9,22.4,3.5,2.8,1.4,0,135.1,21,14.7,"Maplewood guide: ""70% of the neighborhood boundary would move to Hayhurst K-5"""
-b,Maplewood,whole,0.3,Rieke,86.1,9.6,1.5,1.2,0.6,0,57.9,9,6.3,"Maplewood guide: ""30% would move to Rieke K-5"""
-b,Woodmere,whole,1,Whitman,227,57,23,28,2,1,77,4,35,"Woodmere guide: ""100% of its neighborhood K-5 school boundary would shift to Whitman K-5."""
-b,Sellwood,whole,0.36,Hosford,203,16.2,1.4,4,0,0,160.9,11.2,9.4,"Sellwood guide: Llewellyn-area students to Hosford; split by feeder-school enrollment (Llewellyn 345 of 966), an assumption"
-b,Sellwood,whole,0.64,Brentwood,361,28.8,2.6,7,0,0,286.1,19.8,16.6,"Sellwood guide: Duniway- and Lewis-area students to Brentwood; split by feeder-school enrollment (Duniway + Lewis 621 of 966), an assumption"
-b,Odyssey,whole,1,Metro. Learning Center,217,13,3,8,1,0,161,21,10,"Odyssey guide: ""The Odyssey K-8 special-focus choice program would move to the Metropolitan Learning Center (MLC) school."""
-b,Metro. Learning Center,9-12,1,(other high schools),39.9,4.5,0.6,0.3,0,0,29.2,1.7,3.5,"MLC guide: ""High school (9th-12th) students would transition to another PPS alternative school, attend a focus option or return to their designated neighborhood high schools."""
+scenario,from_school,part,share,to_school,students,latino_n,black_n,asian_n,native_american_n,pacific_islander_n,white_n,asian_white_n,other_multi_n,basis,latino_pct,black_pct,asian_pct,native_american_pct,pacific_islander_pct,white_pct,asian_white_pct,other_multi_pct
+a,Sabin,whole,1,MLK Jr,269,25,28,6,NA,NA,169,12,23,"Sabin guide: ""Its full neighborhood K-5 school boundary would move to Dr. Martin Luther King Jr. Elementary.""",0.09,0.1,0.02,0.02,NA,0.63,0.04,0.09
+a,MLK Jr,Mandarin,1,Boise-Eliot/Humboldt,193,26,43,13,NA,NA,65,25,20,"MLK Jr. guide: ""The Mandarin Dual Language Immersion (DLI) program would move to Boise-Eliot/Humboldt (BEH).""",0.13,0.22,0.07,NA,NA,0.34,0.13,0.1
+a,Buckman,whole,0.5,Abernethy,142,19,6,NA,NA,NA,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Abernethy K-5""",0.13,0.05,NA,NA,NA,0.63,0.05,0.1
+a,Buckman,whole,0.5,Sunnyside Environmental,142,19,6,NA,NA,NA,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Sunnyside K-5""",0.13,0.05,NA,NA,NA,0.63,0.05,0.1
+a,Marysville,whole,1,Arleta,307,64,37,35,5,16,110,7,33,"Marysville guide: pre-SEGC boundary to Arleta, Lent non-DLI area to Kelly; PPS projects Arleta +333 students by 2031-32 and Kelly +10, so nearly all go to Arleta",0.21,0.12,0.11,0.02,0.05,0.36,0.02,0.11
+a,Atkinson,Spanish,1,Lent,178,124,NA,NA,NA,NA,50,NA,NA,"Atkinson guide: ""The Spanish Dual Language Immersion (DLI) program would move to Lent K-5.""",0.7,NA,NA,NA,NA,0.28,NA,NA
+a,Creston,whole,1,Atkinson,213,32,5,11,NA,NA,140,15,8,"Creston guide: ""Neighborhood K-5 students would move to Atkinson K-5."" (its Deaf and Hard of Hearing program moves to Glencoe; not separated in the race report)",0.15,0.02,0.05,NA,NA,0.66,0.07,0.04
+a,Beach,Spanish,1,César Chávez,155,73,NA,NA,NA,NA,72,NA,5,"Beach guide: ""The Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5.""",0.47,NA,NA,NA,NA,0.46,NA,0.03
+a,Beach,neighborhood,1,Chief Joseph,133,14,31,NA,NA,NA,60,9,15,"Beach guide: ""Students who live in the Beach neighborhood would now go to Chief Joseph.""",0.11,0.23,NA,NA,NA,0.45,0.07,0.11
+a,James John,Spanish,1,César Chávez,133,100,NA,NA,NA,NA,28,NA,NA,"James John guide: ""Spanish Dual Language Immersion (DLI) students would move to César Chávez K-5.""",0.75,NA,NA,NA,NA,0.21,NA,NA
+a,James John,neighborhood,1,Sitton,232,74,25,5,NA,NA,88,10,26,"James John guide: ""Neighborhood K-5 students would move to Sitton K-5.""",0.32,0.11,0.02,NA,NA,0.38,0.04,0.11
+a,Sitton,Spanish,1,César Chávez,138,96,NA,NA,NA,NA,41,NA,NA,"Sitton guide: ""Its Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5.""",0.7,NA,NA,NA,NA,0.3,NA,NA
+a,César Chávez,neighborhood K-5,1,Rosa Parks,78,26,26,NA,NA,NA,11,NA,8,"César Chávez guide: ""Neighborhood (non-DLI) K-5 students would move to Rosa Parks K-5.""",0.33,0.34,NA,NA,NA,0.15,NA,0.1
+a,César Chávez,neighborhood 6-8,1,George,65,21,22,NA,NA,NA,10,NA,6,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School.""",0.33,0.34,NA,NA,NA,0.15,NA,0.1
+a,César Chávez,Spanish 6-8,1,George,105,83,NA,NA,NA,NA,17,NA,NA,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School.""",0.79,NA,NA,NA,NA,0.16,NA,NA
+a,Peninsula,whole,1,Rosa Parks,239,47,32,6,NA,NA,108,10,31,"Peninsula guide: ""Its full neighborhood K-5 school boundary would move to Rosa Parks K-5.""",0.2,0.13,0.03,NA,NA,0.45,0.04,0.13
+a,Clark,Mandarin,1,Woodstock,91,NA,NA,62,NA,NA,16,5,NA,"Clark guide: ""The Mandarin Dual Language Immersion (DLI) program would move and bring students together at Woodstock K-5.""",NA,NA,0.68,NA,NA,0.18,0.05,NA
+a,Scott,Spanish,1,Rigler,222,104,NA,NA,NA,NA,96,7,11,"Scott guide: ""Its Spanish DLI program would move to Rigler K-5.""",0.47,NA,NA,NA,NA,0.43,0.03,0.05
+a,Irvington,whole,1,Beverly Cleary,259,33,23,NA,NA,NA,161,12,26,"Irvington guide: ""K-5 students would move to Beverly Cleary K-5.""",0.13,0.09,NA,NA,NA,0.62,0.05,0.1
+a,Beverly Cleary,6-8,1,Beaumont,204,15,NA,9,NA,NA,145,18,13,"Beverly Cleary guide: ""Middle grade (6th-8th) students would move to Beaumont Middle School.""",0.07,NA,0.04,NA,NA,0.71,0.09,0.06
+a,Beaumont,Spanish,1,Roseway Heights,101,74,NA,NA,NA,NA,22,NA,NA,"Beaumont guide: ""The Spanish Dual Language Immersion (DLI) program at Beaumont would move to Roseway Heights Middle School.""",0.73,NA,NA,NA,NA,0.22,NA,NA
+a,Ockley Green,Spanish,1,George,63,20,NA,NA,NA,NA,38,NA,NA,"Ockley Green guide: ""The Spanish Dual Language Immersion (DLI) program would move to George Middle School.""",0.32,NA,NA,NA,NA,0.6,NA,NA
+a,Faubion,6-8,1,Ockley Green,223,65,51,NA,NA,8,61,NA,30,"Faubion guide: ""Middle grade (6th-8th) students would move to Ockley Green Middle School.""",0.29,0.23,NA,NA,0.03,0.27,NA,0.14
+a,Vernon,6-8,1,Harriet Tubman,196,24,28,NA,NA,NA,108,9,24,"Vernon guide: ""Middle grade (6th-8th) students would move to Harriet Tubman Middle School.""",0.12,0.14,NA,NA,NA,0.55,0.05,0.12
+a,Laurelhurst,6-8,1,Mt Tabor,235,15,5,7,NA,NA,173,18,15,"Laurelhurst guide: ""Middle grade (6th-8th) students would move to Mt. Tabor Middle School""",0.07,0.02,0.03,NA,NA,0.74,0.08,0.06
+a,Sunnyside Environmental,6-8,1,Hosford,193,20,NA,NA,NA,NA,143,14,11,"Sunnyside guide: ""Middle grade (6th-8th) students would move to Hosford Middle School.""",0.11,NA,NA,NA,NA,0.74,0.07,0.06
+a,Bridger Creative Science,6-8,1,Harrison Park,140,13,NA,9,NA,NA,97,NA,9,"Bridger guide: ""Current middle grade (6th and 7th) students would be reassigned to Harrison Park Middle School or could choose to return to their neighborhood middle school.""",0.09,NA,0.07,NA,NA,0.69,NA,0.07
+a,Maplewood,whole,0.7,Hayhurst,201,22,NA,NA,NA,NA,135,21,15,"Maplewood guide: ""70% of the neighborhood boundary would move to Hayhurst K-5""",0.11,NA,NA,NA,NA,0.67,0.1,0.07
+a,Maplewood,whole,0.3,Rieke,86,10,NA,NA,NA,NA,58,9,6,"Maplewood guide: ""30% would move to Rieke K-5""",0.11,NA,NA,NA,NA,0.67,0.1,0.07
+a,Woodmere,whole,1,Whitman,227,57,23,28,NA,NA,77,NA,35,"Woodmere guide: ""100% of its neighborhood K-5 school boundary would shift to Whitman K-5.""",0.25,0.1,0.12,NA,NA,0.34,NA,0.15
+a,Sellwood,whole,0.36,Hosford,203,16,NA,NA,NA,NA,161,11,9,"Sellwood guide: Llewellyn-area students to Hosford; split by feeder-school enrollment (Llewellyn 345 of 966), an assumption",0.08,NA,NA,NA,NA,0.79,0.05,0.05
+a,Sellwood,whole,0.64,Brentwood,361,29,NA,7,NA,NA,286,20,17,"Sellwood guide: Duniway- and Lewis-area students to Brentwood; split by feeder-school enrollment (Duniway + Lewis 621 of 966), an assumption",0.08,NA,0.02,NA,NA,0.79,0.05,0.05
+a,Odyssey,whole,1,Metro. Learning Center,217,13,NA,8,NA,NA,161,21,10,"Odyssey guide: ""The Odyssey K-8 special-focus choice program would move to the Metropolitan Learning Center (MLC) school.""",0.06,NA,0.04,NA,NA,0.74,0.1,0.05
+a,Rose City Park,neighborhood,1,Scott,210,30,9,NA,NA,NA,141,5,14,"Rose City Park guide: ""In Scenario A, 100% of its neighborhood K-5boundary would move to Scott K-5.""",0.14,0.04,NA,NA,NA,0.67,0.02,0.07
+a,Rose City Park,Vietnamese,1,Vestal,207,NA,NA,131,NA,NA,50,16,7,"Rose City Park guide: ""In Scenario A, its Vietnamese Dual Language Immersion (DLI) program would move to Vestal K-5.""",NA,NA,0.63,NA,NA,0.24,0.08,0.03
+a,Stephenson,whole,0.7,Markham,197,19,6,7,NA,NA,134,22,8,"Stephenson guide: ""70% of its neighborhood school boundary would move to Markham K-5""",0.1,0.03,0.04,NA,NA,0.68,0.11,0.04
+a,Stephenson,whole,0.3,Capitol Hill,84,8,NA,NA,NA,NA,58,10,NA,"Stephenson guide: ""30% would move to Capitol Hill K-5""",0.1,NA,NA,NA,NA,0.68,0.11,NA
+a,Lewis,whole,1,Duniway,259,32,NA,16,NA,NA,167,20,20,"Lewis guide: ""In Scenario A, neighborhood K-5 students would move to Duniway K-5.""",0.12,NA,0.06,NA,NA,0.64,0.08,0.08
+a,Metro. Learning Center,9-12,1,(other high schools),40,NA,NA,NA,NA,NA,29,NA,NA,"MLC guide: ""High school (9th-12th) students would transition to another PPS alternative school, attend a focus option or return to their designated neighborhood high schools.""",NA,NA,NA,NA,NA,0.73,NA,NA
+b,Sabin,whole,1,MLK Jr,269,25,28,6,NA,NA,169,12,23,"Sabin guide: ""Its full neighborhood K-5 school boundary would move to Dr. Martin Luther King Jr. Elementary.""",0.09,0.1,0.02,0.02,NA,0.63,0.04,0.09
+b,MLK Jr,Mandarin,1,Boise-Eliot/Humboldt,193,26,43,13,NA,NA,65,25,20,"MLK Jr. guide: ""The Mandarin Dual Language Immersion (DLI) program would move to Boise-Eliot/Humboldt (BEH).""",0.13,0.22,0.07,NA,NA,0.34,0.13,0.1
+b,Buckman,whole,0.5,Abernethy,142,19,6,NA,NA,NA,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Abernethy K-5""",0.13,0.05,NA,NA,NA,0.63,0.05,0.1
+b,Buckman,whole,0.5,Sunnyside Environmental,142,19,6,NA,NA,NA,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Sunnyside K-5""",0.13,0.05,NA,NA,NA,0.63,0.05,0.1
+b,Marysville,whole,1,Arleta,307,64,37,35,5,16,110,7,33,"Marysville guide: pre-SEGC boundary to Arleta, Lent non-DLI area to Kelly; PPS projects Arleta +333 students by 2031-32 and Kelly +10, so nearly all go to Arleta",0.21,0.12,0.11,0.02,0.05,0.36,0.02,0.11
+b,Atkinson,Spanish,1,Lent,178,124,NA,NA,NA,NA,50,NA,NA,"Atkinson guide: ""The Spanish Dual Language Immersion (DLI) program would move to Lent K-5.""",0.7,NA,NA,NA,NA,0.28,NA,NA
+b,Creston,whole,1,Atkinson,213,32,5,11,NA,NA,140,15,8,"Creston guide: ""Neighborhood K-5 students would move to Atkinson K-5."" (its Deaf and Hard of Hearing program moves to Glencoe; not separated in the race report)",0.15,0.02,0.05,NA,NA,0.66,0.07,0.04
+b,Beach,Spanish,1,César Chávez,155,73,NA,NA,NA,NA,72,NA,5,"Beach guide: ""The Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5.""",0.47,NA,NA,NA,NA,0.46,NA,0.03
+b,Beach,neighborhood,1,Chief Joseph,133,14,31,NA,NA,NA,60,9,15,"Beach guide: ""Students who live in the Beach neighborhood would now go to Chief Joseph.""",0.11,0.23,NA,NA,NA,0.45,0.07,0.11
+b,James John,Spanish,1,César Chávez,133,100,NA,NA,NA,NA,28,NA,NA,"James John guide: ""Spanish Dual Language Immersion (DLI) students would move to César Chávez K-5.""",0.75,NA,NA,NA,NA,0.21,NA,NA
+b,James John,neighborhood,1,Sitton,232,74,25,5,NA,NA,88,10,26,"James John guide: ""Neighborhood K-5 students would move to Sitton K-5.""",0.32,0.11,0.02,NA,NA,0.38,0.04,0.11
+b,Sitton,Spanish,1,César Chávez,138,96,NA,NA,NA,NA,41,NA,NA,"Sitton guide: ""Its Spanish Dual Language Immersion (DLI) program would move to César Chávez K-5.""",0.7,NA,NA,NA,NA,0.3,NA,NA
+b,César Chávez,neighborhood K-5,1,Rosa Parks,78,26,26,NA,NA,NA,11,NA,8,"César Chávez guide: ""Neighborhood (non-DLI) K-5 students would move to Rosa Parks K-5.""",0.33,0.34,NA,NA,NA,0.15,NA,0.1
+b,César Chávez,neighborhood 6-8,1,George,65,21,22,NA,NA,NA,10,NA,6,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School.""",0.33,0.34,NA,NA,NA,0.15,NA,0.1
+b,César Chávez,Spanish 6-8,1,George,105,83,NA,NA,NA,NA,17,NA,NA,"César Chávez guide: ""Middle grade (6th-8th) students would move to George Middle School.""",0.79,NA,NA,NA,NA,0.16,NA,NA
+b,Peninsula,whole,1,Rosa Parks,239,47,32,6,NA,NA,108,10,31,"Peninsula guide: ""Its full neighborhood K-5 school boundary would move to Rosa Parks K-5.""",0.2,0.13,0.03,NA,NA,0.45,0.04,0.13
+b,Clark,Mandarin,1,Woodstock,91,NA,NA,62,NA,NA,16,5,NA,"Clark guide: ""The Mandarin Dual Language Immersion (DLI) program would move and bring students together at Woodstock K-5.""",NA,NA,0.68,NA,NA,0.18,0.05,NA
+b,Scott,Spanish,1,Rigler,222,104,NA,NA,NA,NA,96,7,11,"Scott guide: ""Its Spanish DLI program would move to Rigler K-5.""",0.47,NA,NA,NA,NA,0.43,0.03,0.05
+b,Irvington,whole,1,Beverly Cleary,259,33,23,NA,NA,NA,161,12,26,"Irvington guide: ""K-5 students would move to Beverly Cleary K-5.""",0.13,0.09,NA,NA,NA,0.62,0.05,0.1
+b,Beverly Cleary,6-8,1,Beaumont,204,15,NA,9,NA,NA,145,18,13,"Beverly Cleary guide: ""Middle grade (6th-8th) students would move to Beaumont Middle School.""",0.07,NA,0.04,NA,NA,0.71,0.09,0.06
+b,Beaumont,Spanish,1,Roseway Heights,101,74,NA,NA,NA,NA,22,NA,NA,"Beaumont guide: ""The Spanish Dual Language Immersion (DLI) program at Beaumont would move to Roseway Heights Middle School.""",0.73,NA,NA,NA,NA,0.22,NA,NA
+b,Ockley Green,Spanish,1,George,63,20,NA,NA,NA,NA,38,NA,NA,"Ockley Green guide: ""The Spanish Dual Language Immersion (DLI) program would move to George Middle School.""",0.32,NA,NA,NA,NA,0.6,NA,NA
+b,Faubion,6-8,1,Ockley Green,223,65,51,NA,NA,8,61,NA,30,"Faubion guide: ""Middle grade (6th-8th) students would move to Ockley Green Middle School.""",0.29,0.23,NA,NA,0.03,0.27,NA,0.14
+b,Vernon,6-8,1,Harriet Tubman,196,24,28,NA,NA,NA,108,9,24,"Vernon guide: ""Middle grade (6th-8th) students would move to Harriet Tubman Middle School.""",0.12,0.14,NA,NA,NA,0.55,0.05,0.12
+b,Laurelhurst,6-8,1,Mt Tabor,235,15,5,7,NA,NA,173,18,15,"Laurelhurst guide: ""Middle grade (6th-8th) students would move to Mt. Tabor Middle School""",0.07,0.02,0.03,NA,NA,0.74,0.08,0.06
+b,Sunnyside Environmental,6-8,1,Hosford,193,20,NA,NA,NA,NA,143,14,11,"Sunnyside guide: ""Middle grade (6th-8th) students would move to Hosford Middle School.""",0.11,NA,NA,NA,NA,0.74,0.07,0.06
+b,Bridger Creative Science,6-8,1,Harrison Park,140,13,NA,9,NA,NA,97,NA,9,"Bridger guide: ""Current middle grade (6th and 7th) students would be reassigned to Harrison Park Middle School or could choose to return to their neighborhood middle school.""",0.09,NA,0.07,NA,NA,0.69,NA,0.07
+b,Maplewood,whole,0.7,Hayhurst,201,22,NA,NA,NA,NA,135,21,15,"Maplewood guide: ""70% of the neighborhood boundary would move to Hayhurst K-5""",0.11,NA,NA,NA,NA,0.67,0.1,0.07
+b,Maplewood,whole,0.3,Rieke,86,10,NA,NA,NA,NA,58,9,6,"Maplewood guide: ""30% would move to Rieke K-5""",0.11,NA,NA,NA,NA,0.67,0.1,0.07
+b,Woodmere,whole,1,Whitman,227,57,23,28,NA,NA,77,NA,35,"Woodmere guide: ""100% of its neighborhood K-5 school boundary would shift to Whitman K-5.""",0.25,0.1,0.12,NA,NA,0.34,NA,0.15
+b,Sellwood,whole,0.36,Hosford,203,16,NA,NA,NA,NA,161,11,9,"Sellwood guide: Llewellyn-area students to Hosford; split by feeder-school enrollment (Llewellyn 345 of 966), an assumption",0.08,NA,NA,NA,NA,0.79,0.05,0.05
+b,Sellwood,whole,0.64,Brentwood,361,29,NA,7,NA,NA,286,20,17,"Sellwood guide: Duniway- and Lewis-area students to Brentwood; split by feeder-school enrollment (Duniway + Lewis 621 of 966), an assumption",0.08,NA,0.02,NA,NA,0.79,0.05,0.05
+b,Odyssey,whole,1,Metro. Learning Center,217,13,NA,8,NA,NA,161,21,10,"Odyssey guide: ""The Odyssey K-8 special-focus choice program would move to the Metropolitan Learning Center (MLC) school.""",0.06,NA,0.04,NA,NA,0.74,0.1,0.05
+b,Metro. Learning Center,9-12,1,(other high schools),40,NA,NA,NA,NA,NA,29,NA,NA,"MLC guide: ""High school (9th-12th) students would transition to another PPS alternative school, attend a focus option or return to their designated neighborhood high schools.""",NA,NA,NA,NA,NA,0.73,NA,NA

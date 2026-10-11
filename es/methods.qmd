@@ -493,6 +493,14 @@ La página de [Investigación](research.qmd) revisa los trabajos publicados sobr
 - *Resultados de Lent*: se citan del análisis escuela por escuela de la auditoría de equidad (fuente 17, pp. 39, 45, 47) y del informe principal (p. 50). Los datos subyacentes a nivel de estudiante no son públicos.
 - *Declaraciones de PPS*: la sesión de la Junta del 6 de octubre de 2026 (presentación del personal en 2:25:37) y la sesión del comité del 8 de septiembre de 2026 (13:15), de las transcripciones automáticas en `data-raw/pps_transcripts/`. Una búsqueda en esas transcripciones y en las guías de cada escuela no encontró ninguna investigación citada para justificar la elección del modelo.
 
+## Cifras pequeñas {#small-numbers}
+
+Para proteger la privacidad de los estudiantes, este sitio nunca muestra un conteo racial o étnico menor de 5. Esto incluye el cero y nuestros propios cálculos. Cuando un grupo tiene de 0 a 4 estudiantes, las tablas y los textos emergentes muestran "<5", o un porcentaje como "<X%". X es el porcentaje que serían 5 estudiantes, redondeado hacia arriba. Por ejemplo, menos de 5 de 155 estudiantes aparece como "<4%". Las figuras dibujan estos valores cerca de cero con un marcador abierto. En la página de Equidad, las escuelas con menos de 5 estudiantes afrodescendientes se combinan en una barra por motivo.
+
+A veces se podría calcular un conteo oculto restando los demás grupos del total. Por eso, en cada fila de un archivo de datos con un solo grupo oculto, también ocultamos el siguiente conteo más pequeño. Los archivos de datos que escriben nuestros programas (`equity_race_*.csv`, `plan_*.csv`) dejan en blanco los conteos ocultos y dan los porcentajes en números enteros. Todos los totales, sumas e índices se calculan con las cifras exactas antes de ocultar nada.
+
+El informe de PPS imprime estas cifras pequeñas. Conservamos su tabla (`race_by_program_2025.csv`, fuente 23) tal como PPS la publicó, para que el análisis se pueda reproducir.
+
 ## Versión en español {#spanish}
 
 Todas las páginas se publican también en español latinoamericano (`es/`, botón **English** / **Español**). Escribimos la traducción a partir de las páginas en inglés con ayuda de inteligencia artificial (Claude) y la revisamos para verificar su exactitud. El mismo código de R calcula cada cifra de las páginas en español y en inglés. Una verificación confirma que ambas versiones muestran las mismas cifras. Las citas de documentos y reuniones en inglés son traducciones nuestras. Los títulos de los documentos se mantienen en su idioma original. La terminología sigue `es/GLOSSARY.md`. Si en algún momento las dos versiones difieren, la página en inglés es la referencia.

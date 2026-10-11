@@ -20,7 +20,7 @@ RC <- list(
     now = "PPS projection if nothing changes", scen_a = "Scenario A", points = "points", after_lose = "Scenario A: school loses an immersion program",
     after_recv = "Scenario A: school receives an immersion program",
     ur = "Underserved racial groups (PPS projection)",
-    closes = "closes", prog_fmt = "%s (%s)", grades_fmt = "%s (%s, grades 6-8)", hub_row = "César Chávez neighborhood program",
+    closes = "closes", other_row = "Other schools and programs (fewer than 5 each)", places = "Includes", prog_fmt = "%s (%s)", grades_fmt = "%s (%s, grades 6-8)", hub_row = "César Chávez neighborhood program",
     cause = c("Immersion program moves" = "Immersion program moves",
               "School closures (non-immersion students)" = "School closures",
               "Neighborhood program moved out of an immersion hub" = "César Chávez neighborhood program moved out")
@@ -38,7 +38,7 @@ RC <- list(
     now = "Proyección de PPS si nada cambia", scen_a = "Escenario A", points = "puntos", after_lose = "Escenario A: la escuela pierde un programa de inmersión",
     after_recv = "Escenario A: la escuela recibe un programa de inmersión",
     ur = "Grupos raciales desatendidos (proyección de PPS)",
-    closes = "cierra", prog_fmt = "%s (%s)", grades_fmt = "%s (%s, 6.º a 8.º)", hub_row = "César Chávez: programa del vecindario",
+    closes = "cierra", other_row = "Otras escuelas y programas (menos de 5 cada uno)", places = "Incluye", prog_fmt = "%s (%s)", grades_fmt = "%s (%s, 6.º a 8.º)", hub_row = "César Chávez: programa del vecindario",
     cause = c("Immersion program moves" = "Traslados de programas de inmersión",
               "School closures (non-immersion students)" = "Cierres de escuelas",
               "Neighborhood program moved out of an immersion hub" = "Salida del programa del vecindario de César Chávez")
@@ -62,17 +62,21 @@ fig_race_groups <- function(rg) {
     select(k, students, all_of(paste0(names(L$race), "_pct")), all_of(paste0(names(L$race), "_n"))) |>
     tidyr::pivot_longer(-c(k, students), names_to = c("race", ".value"), names_pattern = "(.*)_(pct|n)$") |>
     mutate(race_lab = L$race[race], name = unlist(L[k]),
-           tip = sprintf("<b>%s</b><br>%s: %s (%s %s %s %s)", race_lab, name, pct1(pct), fmt_n(round(n)), L$of, fmt_n(round(students)), L$students))
+           hidden = is.na(pct), x = small_x(pct, students),   # fewer than 5 students: drawn at 2.5 students' worth, open marker
+           tip = sprintf("<b>%s</b><br>%s: %s (%s %s %s %s)", race_lab, name, fmt_share(pct, students, 1), fmt_count(n), L$of, fmt_n(round(students)), L$students))
   lev <- wrap_label(rev(unname(L$race)), 22)
   d$y <- factor(wrap_label(d$race_lab, 22), lev)
-  rng <- d |> group_by(y) |> summarise(lo = min(pct), hi = max(pct))
+  rng <- d |> group_by(y) |> summarise(lo = min(x), hi = max(x))
   p <- plot_ly() |>
     add_segments(data = rng, x = ~lo, xend = ~hi, y = ~y, yend = ~y, line = list(color = PAL$grid, width = 2), hoverinfo = "skip", showlegend = FALSE) |>
-    add_markers(data = filter(d, k == "k8"), x = ~pct, y = ~y, name = wl(L$k8), text = ~tip, hoverinfo = "text",
+    add_markers(data = filter(d, k == "k8"), x = ~x, y = ~y, name = wl(L$k8), text = ~tip, hoverinfo = "text",
                 marker = list(color = "white", size = 10, line = list(color = PAL$muted, width = 2)))
   for (k in c("mov", "clr", "hub")) {
-    p <- add_markers(p, data = filter(d, k == !!k), x = ~pct, y = ~y, name = wl(unlist(L[k])), text = ~tip, hoverinfo = "text",
+    p <- add_markers(p, data = filter(d, k == !!k, !hidden), x = ~x, y = ~y, name = wl(unlist(L[k])), text = ~tip, hoverinfo = "text", legendgroup = k,
                      marker = list(color = RC_COL[[k]], symbol = RC_SYM[[k]], size = 10, line = list(color = "white", width = 1.5)))
+    if (any(d$hidden & d$k == k))
+      p <- add_markers(p, data = filter(d, k == !!k, hidden), x = ~x, y = ~y, name = wl(unlist(L[k])), text = ~tip, hoverinfo = "text", legendgroup = k,
+                       showlegend = FALSE, marker = list(color = RC_COL[[k]], symbol = paste0(RC_SYM[[k]], "-open"), size = 10, line = list(width = 2)))
   }
   viz_layout(p, xtitle = wl(L$share)) |> layout(xaxis = list(tickformat = ".0%", rangemode = "tozero"))
 }
@@ -84,15 +88,19 @@ fig_race_split <- function(rp) {
     mutate(lab = sprintf("%s (%s%s)", from_school, lang_case(language), case_when(kind == "grades" ~ ", K-8", band == "6-8" ~ ", 6-8", TRUE ~ "")))
   d$y <- factor(wrap_label(d$lab, 22), unique(wrap_label(d$lab, 22)))
   panel <- function(a, b, title, legend) {
-    tip_a <- sprintf("<b>%s</b><br>%s: %s", d$lab, L$imm, pct1(d[[a]]))
-    tip_b <- sprintf("<b>%s</b><br>%s: %s", d$lab, L$nb, pct1(d[[b]]))
-    plot_ly(d, y = ~y) |>
-      add_segments(x = d[[a]], xend = d[[b]], yend = ~y, line = list(color = PAL$grid, width = 2), hoverinfo = "skip", showlegend = FALSE) |>
-      add_markers(x = d[[b]], name = L$nb, text = tip_b, hoverinfo = "text", showlegend = legend, legendgroup = "nb",
+    # fewer than 5 students: drawn at 2.5 students' worth; the immersion marker is open
+    xa <- small_x(d[[a]], d$program_students); xb <- small_x(d[[b]], d$nb_students); ha <- is.na(d[[a]])
+    tip_a <- sprintf("<b>%s</b><br>%s: %s", d$lab, L$imm, fmt_share(d[[a]], d$program_students))
+    tip_b <- sprintf("<b>%s</b><br>%s: %s", d$lab, L$nb, fmt_share(d[[b]], d$nb_students))
+    p <- plot_ly(d, y = ~y) |>
+      add_segments(x = xa, xend = xb, yend = ~y, line = list(color = PAL$grid, width = 2), hoverinfo = "skip", showlegend = FALSE) |>
+      add_markers(x = xb, name = L$nb, text = tip_b, hoverinfo = "text", showlegend = legend, legendgroup = "nb",
                   marker = list(color = "white", size = 10, line = list(color = PAL$muted, width = 2))) |>
-      add_markers(x = d[[a]], name = L$imm, text = tip_a, hoverinfo = "text", showlegend = legend, legendgroup = "imm",
-                  marker = list(color = RC_COL[["mov"]], symbol = "circle", size = 10, line = list(color = "white", width = 1.5))) |>
-      layout(xaxis = list(tickformat = ".0%", rangemode = "tozero"))
+      add_markers(data = d[!ha, ], x = xa[!ha], name = L$imm, text = tip_a[!ha], hoverinfo = "text", showlegend = legend, legendgroup = "imm",
+                  marker = list(color = RC_COL[["mov"]], symbol = "circle", size = 10, line = list(color = "white", width = 1.5)))
+    if (any(ha)) p <- add_markers(p, data = d[ha, ], x = xa[ha], name = L$imm, text = tip_a[ha], hoverinfo = "text", showlegend = FALSE, legendgroup = "imm",
+                                  marker = list(color = RC_COL[["mov"]], symbol = "circle-open", size = 10, line = list(width = 2)))
+    layout(p, xaxis = list(tickformat = ".0%", rangemode = "tozero"))
   }
   s <- subplot(panel("black_pct", "nb_black_pct", L$black_share, TRUE), panel("latino_pct", "nb_latino_pct", L$latino_share, FALSE),
                shareY = TRUE, titleX = FALSE, margin = 0.04)
@@ -109,8 +117,10 @@ fig_race_split <- function(rp) {
 fig_black_displaced <- function(black) {
   L <- rc_lab()
   key <- c("Immersion program moves" = "mov", "School closures (non-immersion students)" = "clr", "Neighborhood program moved out of an immersion hub" = "hub")
-  d <- black |> filter(scenario == "a") |> mutate(k = key[cause], n = round(black_n)) |> filter(n >= 1) |> arrange(n)
+  d <- black |> filter(scenario == "a", !is.na(black_n)) |> mutate(k = key[cause], n = round(black_n)) |>
+    arrange(kind != "other", n)   # pooled "other" rows (schools with fewer than 5 each) at the bottom
   d$lab <- with(d, case_when(
+    kind == "other" ~ sprintf("%s: %s", L$cause[cause], L$other_row),
     kind == "closes" ~ sprintf("%s (%s)", school, L$closes),
     kind == "neighborhood program" ~ L$hub_row,
     kind == "grades 6-8" ~ sprintf(L$grades_fmt, school, lang_case(language)),
@@ -122,7 +132,8 @@ fig_black_displaced <- function(black) {
     p <- add_bars(p, data = dk, x = ~n, y = ~y, orientation = "h", name = wl(L$cause[[names(key)[key == k]]]),
                   marker = list(color = RC_COL[[k]], line = list(color = "white", width = 1)),
                   text = ~n, textposition = "outside", textfont = list(color = PAL$ink2, size = 11), cliponaxis = FALSE,
-                  hovertext = ~sprintf("<b>%s</b><br>%s %s (%s %s %s %s)", lab, n, tolower(L$race[["black"]]), pct1(black_pct), L$of, fmt_n(round(students)), L$students),
+                  hovertext = ~sprintf("<b>%s</b><br>%s %s (%s %s %s %s)%s", lab, n, tolower(L$race[["black"]]), pct1(black_pct), L$of, fmt_n(round(students)), L$students,
+                                       ifelse(kind == "other", paste0("<br>", L$places, ": ", gsub("; ", ", ", places)), "")),
                   hoverinfo = "text")
   }
   viz_layout(p, xtitle = wl(L$black_n)) |> layout(barmode = "overlay", bargap = 0.35, xaxis = list(rangemode = "tozero"))

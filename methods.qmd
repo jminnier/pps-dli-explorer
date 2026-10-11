@@ -488,6 +488,14 @@ The [Research](research.qmd) page reviews published work on whole-school versus 
 - *Lent outcomes* are quoted from the equity audit's school-by-school analysis (source 17, pp. 39, 45, 47) and main report (p. 50). The underlying student-level data isn't public.
 - *PPS statements*: the October 6, 2026 board meeting (staff presentation at 2:25:37) and the September 8, 2026 committee meeting (13:15), from the automated transcripts in `data-raw/pps_transcripts/`. A search of those transcripts and the per-school guides found no research cited for the model choice.
 
+## Small numbers {#small-numbers}
+
+To protect students' privacy, this site never shows a racial or ethnic count under 5. This includes zero and our own estimates. Where a group has 0 to 4 students, tables and hover text show "<5", or a share as "<X%". X is the share that 5 students would be, rounded up. For example, fewer than 5 of 155 students shows as "<4%". Figures draw these values near zero with an open marker. On the Equity page, one bar for each reason combines the schools with fewer than 5 Black students.
+
+Someone could sometimes work out a hidden count by subtracting the other groups from the total. So in any row of a data file with exactly one hidden group, we also hide the next-smallest count. The data files our scripts write (`equity_race_*.csv`, `plan_*.csv`) leave hidden counts blank and give shares as whole percents. We compute all totals, sums and indexes from the exact numbers before hiding anything.
+
+PPS's own report prints these small counts. We keep its table (`race_by_program_2025.csv`, source 23) as PPS published it, so others can reproduce the analysis.
+
 ## Spanish version {#spanish}
 
 Every page is also published in Latin American Spanish (`es/`, the **Español** button). We wrote the translation from the English pages with AI assistance (Claude) and reviewed it for accuracy. The same R code computes every number on the Spanish and English pages, and a check confirms both versions show the same numbers. Quotations from English documents and meetings are our translations. Document titles stay in their original language. Terminology follows `es/GLOSSARY.md`. If the two versions ever differ, the English page is the reference.

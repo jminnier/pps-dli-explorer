@@ -82,6 +82,7 @@ Rscript data-raw/equity_analysis.R
 .venv/bin/python3 data-raw/parse_race_by_program.py
 Rscript data-raw/equity_race.R               # after equity_analysis.R (reads equity_changes.csv)
 Rscript data-raw/school_changes.R            # School changes page
+# derived race files leave counts under 5 blank (see methods #small-numbers)
 Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R
 quarto render                               # -> _site/

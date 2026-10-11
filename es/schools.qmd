@@ -23,7 +23,7 @@ in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No chang
 tot <- function(col) sum(ps[[col]][ps$scenario == "a"])
 who <- function(s, role, col) ps$school[ps$scenario == s & ps$role %in% role & ps[[col]]]
 sv <- function(s, k, col) ps[[col]][ps$scenario == s & ps$key == k]
-sh <- function(s, k, g, when = "after") sv(s, k, paste0(g, "_", when)) / sv(s, k, paste0("students_", when))
+shp <- function(s, k, g, when = "after") fmt_share(sv(s, k, paste0(g, "_", when, "_pct")), sv(s, k, paste0("students_", when)))   # "<X%" if under 5 students
 pc <- function(x) sprintf("%.0f%%", 100 * x)
 sg <- function(area, st, unit, col = "latino_white_D") sprintf("%.2f", seg[[col]][seg$area == area & seg$state == st & seg$unit == unit])
 ELEM <- "All elementary (K-5 and K-8) schools"; MID <- "All middle schools"
@@ -167,11 +167,11 @@ Ni PPS ni el condado han dicho si un sitio SUN se muda con sus estudiantes cuand
 
 En muchas escuelas que reciben estudiantes cambiaría mucho quién asiste. Los cambios más grandes ocurren donde sale un programa de la escuela y llega otro grupo de estudiantes.
 
-- **MLK Jr.** Su programa de mandarín sale y llegan todos los estudiantes de Sabin. En Sabin, el `r pc(sh("a", "sabin", "white", "now"))` de los estudiantes son blancos. En el programa del vecindario de MLK Jr., el `r pc(rrow("mlkjr", "Neighborhood Program", "black_pct") / 100)` son afrodescendientes. Los estudiantes afrodescendientes pasarían del `r pc(sh("a", "mlkjr", "black", "now"))` de MLK Jr. al `r pc(sh("a", "mlkjr", "black"))`, y los blancos, del `r pc(sh("a", "mlkjr", "white", "now"))` al `r pc(sh("a", "mlkjr", "white"))`.
-- **Atkinson.** Su programa de español (`r pc(rrow("atkinson", "Spanish Immersion", "latino_pct") / 100)` latino) se traslada a Lent y llegan los estudiantes de Creston. Los estudiantes latinos pasarían del `r pc(sh("a", "atkinson", "latino", "now"))` al `r pc(sh("a", "atkinson", "latino"))` de la escuela. Los blancos pasarían del `r pc(sh("a", "atkinson", "white", "now"))` al `r pc(sh("a", "atkinson", "white"))`.
-- **Vestal (Escenario A).** Llega el programa de vietnamita de Rose City Park. Los estudiantes asiáticos pasarían del `r pc(sh("a", "vestal", "asian", "now"))` al `r pc(sh("a", "vestal", "asian"))` de la escuela. Los afrodescendientes pasarían del `r pc(sh("a", "vestal", "black", "now"))` al `r pc(sh("a", "vestal", "black"))`.
-- **Scott.** Su programa de español se traslada a Rigler. En el Escenario A llega el programa del vecindario de Rose City Park (`r pc(rrow("rosecitypark", "Neighborhood Program", "white_pct") / 100)` blanco). Los estudiantes latinos pasarían del `r pc(sh("a", "scott", "latino", "now"))` al `r pc(sh("a", "scott", "latino"))`, y los blancos, del `r pc(sh("a", "scott", "white", "now"))` al `r pc(sh("a", "scott", "white"))`. En el Escenario B, Scott se queda solo con su programa del vecindario, y los estudiantes afrodescendientes pasarían del `r pc(sh("b", "scott", "black", "now"))` al `r pc(sh("b", "scott", "black"))`.
-- **César Chávez.** Pasa a ser una escuela de inmersión en español y su programa del vecindario sale. Los estudiantes afrodescendientes pasarían del `r pc(sh("a", "cesarchavez", "black", "now"))` de la escuela al `r pc(sh("a", "cesarchavez", "black"))`. Vea [Equidad §3](equity.qmd#sec-black).
+- **MLK Jr.** Su programa de mandarín sale y llegan todos los estudiantes de Sabin. En Sabin, el `r shp("a", "sabin", "white", "now")` de los estudiantes son blancos. En el programa del vecindario de MLK Jr., el `r pc(rrow("mlkjr", "Neighborhood Program", "black_pct") / 100)` son afrodescendientes. Los estudiantes afrodescendientes pasarían del `r shp("a", "mlkjr", "black", "now")` de MLK Jr. al `r shp("a", "mlkjr", "black")`, y los blancos, del `r shp("a", "mlkjr", "white", "now")` al `r shp("a", "mlkjr", "white")`.
+- **Atkinson.** Su programa de español (`r pc(rrow("atkinson", "Spanish Immersion", "latino_pct") / 100)` latino) se traslada a Lent y llegan los estudiantes de Creston. Los estudiantes latinos pasarían del `r shp("a", "atkinson", "latino", "now")` al `r shp("a", "atkinson", "latino")` de la escuela. Los blancos pasarían del `r shp("a", "atkinson", "white", "now")` al `r shp("a", "atkinson", "white")`.
+- **Vestal (Escenario A).** Llega el programa de vietnamita de Rose City Park. Los estudiantes asiáticos pasarían del `r shp("a", "vestal", "asian", "now")` al `r shp("a", "vestal", "asian")` de la escuela. Los afrodescendientes pasarían del `r shp("a", "vestal", "black", "now")` al `r shp("a", "vestal", "black")`.
+- **Scott.** Su programa de español se traslada a Rigler. En el Escenario A llega el programa del vecindario de Rose City Park (`r pc(rrow("rosecitypark", "Neighborhood Program", "white_pct") / 100)` blanco). Los estudiantes latinos pasarían del `r shp("a", "scott", "latino", "now")` al `r shp("a", "scott", "latino")`, y los blancos, del `r shp("a", "scott", "white", "now")` al `r shp("a", "scott", "white")`. En el Escenario B, Scott se queda solo con su programa del vecindario, y los estudiantes afrodescendientes pasarían del `r shp("b", "scott", "black", "now")` al `r shp("b", "scott", "black")`.
+- **César Chávez.** Pasa a ser una escuela de inmersión en español y su programa del vecindario sale. Los estudiantes afrodescendientes pasarían del `r shp("a", "cesarchavez", "black", "now")` de la escuela al `r shp("a", "cesarchavez", "black")`. Vea [Equidad §3](equity.qmd#sec-black).
 - **Rosa Parks.** Recibe a Peninsula y al programa del vecindario de César Chávez. Su porcentaje de estudiantes de grupos raciales desatendidos bajaría del `r pc(sv("a", "rosaparks", "hu_now"))` al `r pc(sv("a", "rosaparks", "hu_after"))`.
 
 ```{r}
@@ -192,7 +192,7 @@ Las guías de PPS dan un porcentaje proyectado de estudiantes de grupos raciales
 #| tbl-cap: "Escuelas que recibirían estudiantes: porcentaje de cada grupo racial y étnico hoy → después del traslado. Los porcentajes de nativos americanos y de las islas del Pacífico son mínimos (vea la nota)."
 G <- c("latino", "black", "asian", "white", "asian_white", "other_multi", "native_american", "pacific_islander")
 tr <- ps |> filter(role %in% TAKE) |> mutate(school = short_school(school))
-for (g in G) tr[[g]] <- sprintf("%s → %s", pc(tr[[paste0(g, "_now")]] / tr$students_now), pc(tr[[paste0(g, "_after")]] / tr$students_after))
+for (g in G) tr[[g]] <- sprintf("%s → %s", fmt_share(tr[[paste0(g, "_now_pct")]], tr$students_now), fmt_share(tr[[paste0(g, "_after_pct")]], tr$students_after))
 tr <- tr |> mutate(sc = SCENARIOS_ES[scenario], size = sprintf("%s → %s", fmt_n(students_now), fmt_n(students_after))) |>
   arrange(sc, school) |> select(sc, school, size, all_of(G))
 gt(tr, groupname_col = "sc") |>
@@ -201,6 +201,7 @@ gt(tr, groupname_col = "sc") |>
              native_american = "Nativos americanos", pacific_islander = "De las islas del Pacífico") |>
   tab_style(style = cell_text(weight = "bold"), locations = cells_body(columns = black)) |>
   tab_footnote("PPS cuenta a un estudiante en un grupo de una sola raza solo si no es latino y marca una sola raza. Los estudiantes nativos americanos o de las islas del Pacífico que también son latinos o multirraciales se cuentan en otros grupos, así que estos porcentajes son mínimos.") |>
+  tab_footnote(small_note()) |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 

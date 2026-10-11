@@ -150,3 +150,45 @@ cite <- function(...) paste0(if (SITE_ES) "**Fuentes:** " else "**Sources:** ", 
 
 fmt_n <- function(x) formatC(round(x), format = "d", big.mark = ",")
 fmt_pct <- function(x) ifelse(is.na(x), "–", paste0(round(100 * x), "%"))
+
+# ---- small numbers (privacy) ---------------------------------------------------------------------
+# Racial/ethnic counts under 5 (0 to 4, actual or estimated) are never shown. Scripts in data-raw/ write
+# them as NA with suppress_counts(); pages show "<5" or "<X%" with the helpers below. See methods.qmd
+# #small-numbers. PPS's own source table (race_by_program_2025.csv) stays as PPS published it.
+SMALL_N <- 5
+is_small <- function(n) !is.na(n) & n < SMALL_N
+# Before writing a wide table: counts under 5 -> NA; in a row with exactly one such count, also hide the
+# next-smallest count (so the hidden one can't be found by subtracting from the total); shares -> whole
+# percent, NA where the count is under 5.
+suppress_counts <- function(d, groups, n_fmt = "%s_n", pct_fmt = "%s_pct") {
+  nc <- sprintf(n_fmt, groups); pcc <- sprintf(pct_fmt, groups)
+  N <- as.matrix(d[nc]); small <- !is.na(N) & N < SMALL_N; hide <- small
+  for (i in which(rowSums(small) == 1)) {
+    v <- N[i, ]; v[small[i, ] | is.na(v)] <- Inf
+    if (any(is.finite(v))) hide[i, which.min(v)] <- TRUE
+  }
+  for (j in seq_along(groups)) {
+    if (pcc[j] %in% names(d)) d[[pcc[j]]] <- ifelse(small[, j], NA, round(d[[pcc[j]]], 2))
+    d[[nc[j]]] <- ifelse(hide[, j], NA, round(d[[nc[j]]]))
+  }
+  d
+}
+# Fail if any count column still holds a value under 5.
+assert_no_small <- function(d, cols, what) {
+  bad <- cols[vapply(cols, \(cl) any(is_small(d[[cl]])), logical(1))]
+  if (length(bad)) stop(what, ": counts under 5 left in ", paste(bad, collapse = ", "))
+}
+# Display: a share whose count is hidden shows as "<X%" (X = the share 5 students would be), "none"
+# when there is no group at all (no denominator).
+fmt_share <- function(p, total, digits = 0) {
+  out <- ifelse(is.na(total) | total == 0, if (SITE_ES) "ninguno" else "none",
+                ifelse(is.na(p), sprintf("<%d%%", pmax(1, ceiling(100 * SMALL_N / total))),
+                       sprintf(paste0("%.", digits, "f%%"), 100 * p)))
+  unname(out)
+}
+fmt_count <- function(n) ifelse(is_small(n) | is.na(n), "<5", fmt_n(n))
+fmt_count_words <- function(n) if (is_small(n) || is.na(n)) (if (SITE_ES) "menos de 5" else "fewer than 5") else fmt_n(n)
+# Where a hidden share must be drawn, plot it at half the threshold (2.5 students' worth).
+small_x <- function(p, total) ifelse(is.na(p), 0.5 * SMALL_N / total, p)
+small_note <- function() if (SITE_ES) "Para proteger la privacidad, los grupos con menos de 5 estudiantes aparecen como <5 o <X% (el porcentaje que serían 5 estudiantes)." else
+  "To protect privacy, groups with fewer than 5 students show as <5 or <X% (the share 5 students would be)."

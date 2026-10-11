@@ -104,7 +104,9 @@ groups <- bind_rows(
     mutate(scenario = sc, group = "School closures (non-immersion students)"))),
   as_tibble(shares(k8)) |> mutate(scenario = "all", group = "All PPS elementary and middle schools")
 ) |> relocate(scenario, group)
-write_csv(groups, here("data", "equity_race_groups.csv"))
+groups_out <- suppress_counts(groups, names(RACE))   # counts under 5 hidden (methods #small-numbers)
+assert_no_small(groups_out, ncols, "equity_race_groups")
+write_csv(groups_out, here("data", "equity_race_groups.csv"))
 
 # ---- Black students who would have to change schools, by school and cause (for fig-black-displaced) --
 by_school <- function(rows, cause, place, language, kind) rows |>
@@ -118,7 +120,20 @@ black <- bind_rows(
 chk_b <- black |> group_by(scenario, cause) |> summarise(b = sum(black_n), .groups = "drop") |>
   left_join(groups |> select(scenario, cause = group, g = black_n), by = c("scenario", "cause"))
 if (any(abs(chk_b$b - chk_b$g) > 1e-6)) stop("Black counts by school don't add up to the group totals")
-write_csv(black, here("data", "equity_race_black.csv"))
+# Small numbers: schools/programs with fewer than 5 Black students are pooled into one "other" row per
+# scenario and cause. If the pool itself is under 5, the next-smallest school joins it, so no hidden
+# count can be found by subtracting from the cause total.
+black_out <- black |> group_by(scenario, cause) |> group_modify(function(d, k) {
+  d <- arrange(d, black_n); pool <- is_small(d$black_n)
+  while (any(pool) && sum(d$black_n[pool]) < SMALL_N && !all(pool)) pool[which(!pool)[1]] <- TRUE
+  if (!any(pool)) return(d)
+  other <- tibble(school = NA_character_, language = NA_character_, kind = "other", black_n = sum(d$black_n[pool]),
+                  students = sum(d$students[pool]), places = paste(sort(d$school[pool]), collapse = "; "))
+  bind_rows(d[!pool, ], other)
+}) |> ungroup() |> mutate(black_pct = black_n / students, black_n = if_else(is_small(black_n), NA_real_, round(black_n, 1)),
+                          black_pct = if_else(is.na(black_n), NA_real_, black_pct))
+assert_no_small(black_out, "black_n", "equity_race_black")
+write_csv(black_out, here("data", "equity_race_black.csv"))
 
 cat("\nRace and ethnicity of directly displaced students (shares):\n")
 print(as.data.frame(groups |> mutate(across(ends_with("_pct"), \(v) round(100 * v, 1)), students = round(students)) |>
@@ -133,15 +148,17 @@ prog <- movers |> filter(scenario == "a" | !(paste(from_key, language, band) %in
          nb = list(if (any(race$key == from_key & race$program == "Neighborhood Program")) shares(row_for(from_key)) else NULL),
          rc = list(shares(whole_school(to_key)))) |>
   ungroup()
+# a group's share, or NA when it has fewer than 5 students (methods #small-numbers)
+sp <- function(lst, g) sapply(lst, \(x) if (is.null(x)) NA else if (is_small(x[[paste0(g, "_n")]])) NA else round(x[[paste0(g, "_pct")]], 2))
 progs <- prog |> transmute(
   scenarios, from_school, to_school, language, band, kind, program_students = program_total, moving,
-  latino_pct = sapply(p, `[[`, "latino_pct"), black_pct = sapply(p, `[[`, "black_pct"), asian_pct = sapply(p, `[[`, "asian_pct"),
-  white_pct = sapply(p, `[[`, "white_pct"), hu_pct = sapply(p, `[[`, "hu_pct"),
+  latino_pct = sp(p, "latino"), black_pct = sp(p, "black"), asian_pct = sp(p, "asian"),
+  white_pct = sp(p, "white"), hu_pct = sapply(p, `[[`, "hu_pct"),
   nb_students = sapply(nb, \(x) if (is.null(x)) NA else x$students),
-  nb_latino_pct = sapply(nb, \(x) if (is.null(x)) NA else x$latino_pct), nb_black_pct = sapply(nb, \(x) if (is.null(x)) NA else x$black_pct),
-  nb_white_pct = sapply(nb, \(x) if (is.null(x)) NA else x$white_pct), nb_hu_pct = sapply(nb, \(x) if (is.null(x)) NA else x$hu_pct),
-  to_students = sapply(rc, `[[`, "students"), to_latino_pct = sapply(rc, `[[`, "latino_pct"), to_black_pct = sapply(rc, `[[`, "black_pct"),
-  to_white_pct = sapply(rc, `[[`, "white_pct"), to_hu_pct = sapply(rc, `[[`, "hu_pct"),
+  nb_latino_pct = sp(nb, "latino"), nb_black_pct = sp(nb, "black"),
+  nb_white_pct = sp(nb, "white"), nb_hu_pct = sapply(nb, \(x) if (is.null(x)) NA else x$hu_pct),
+  to_students = sapply(rc, `[[`, "students"), to_latino_pct = sp(rc, "latino"), to_black_pct = sp(rc, "black"),
+  to_white_pct = sp(rc, "white"), to_hu_pct = sapply(rc, `[[`, "hu_pct"),
   from_closes)
 write_csv(progs, here("data", "equity_race_programs.csv"))
 cat("\nEach moving program (shares, %):\n")

@@ -236,9 +236,23 @@ cat("\nSegregation measures (D: 0 = even, 1 = complete separation; exposure: whi
 print(as.data.frame(seg |> mutate(across(where(is.double), \(x) round(x, 3)))), row.names = FALSE)
 
 # ---- write -------------------------------------------------------------------------------------
-write_csv(fr |> select(scenario, from_school, part, share, to_school, students, all_of(NC), basis) |>
-            mutate(across(c(students, all_of(NC)), \(x) round(x, 1))), here("data", "plan_flows_race.csv"))
-write_csv(plan |> select(-check_closed) |> mutate(across(where(is.double), \(x) round(x, 4))) |>
+# Small numbers (methods #small-numbers): counts under 5 are written as NA, plus one more count in a row
+# that would otherwise have exactly one hidden; shares are whole percents, NA where the count is under 5.
+# Everything above (shares, segregation, checks) used the exact values.
+G <- sub("_n$", "", NC)
+fr_out <- fr |> select(scenario, from_school, part, share, to_school, students, all_of(NC), basis) |>
+  mutate(students = round(students, 1), across(all_of(NC), \(x) x / students, .names = "{sub('_n$', '_pct', .col)}"))
+fr_out <- suppress_counts(fr_out, G) |> mutate(students = round(students))
+assert_no_small(fr_out, NC, "plan_flows_race")
+write_csv(fr_out, here("data", "plan_flows_race.csv"))
+plan_out <- plan |> select(-check_closed)
+for (w in c("now", "after")) {
+  for (g in G) plan_out[[paste0(g, "_", w, "_pct")]] <- plan_out[[paste0(g, "_", w)]] / plan_out[[paste0("students_", w)]]
+  plan_out <- suppress_counts(plan_out, G, n_fmt = paste0("%s_", w), pct_fmt = paste0("%s_", w, "_pct"))
+}
+plan_out <- plan_out |> mutate(across(c(students_now, students_out, students_in, students_after), round))
+assert_no_small(plan_out, c(paste0(G, "_now"), paste0(G, "_after")), "plan_schools")
+write_csv(plan_out |> mutate(across(where(is.double), \(x) round(x, 4))) |>
             arrange(scenario, factor(role, c("Closes", "Program moves to another building", "Takes in students", "Takes in students and sends some away", "Sends students away", "Boundary or feeder change only", "No change")), school),
           here("data", "plan_schools.csv"))
 write_csv(seg, here("data", "plan_segregation.csv"))

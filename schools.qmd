@@ -22,7 +22,7 @@ in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No chang
 tot <- function(col) sum(ps[[col]][ps$scenario == "a"])
 who <- function(s, role, col) ps$school[ps$scenario == s & ps$role %in% role & ps[[col]]]
 sv <- function(s, k, col) ps[[col]][ps$scenario == s & ps$key == k]
-sh <- function(s, k, g, when = "after") sv(s, k, paste0(g, "_", when)) / sv(s, k, paste0("students_", when))
+shp <- function(s, k, g, when = "after") fmt_share(sv(s, k, paste0(g, "_", when, "_pct")), sv(s, k, paste0("students_", when)))   # "<X%" if under 5 students
 pc <- function(x) sprintf("%.0f%%", 100 * x)
 sg <- function(area, st, unit, col = "latino_white_D") sprintf("%.2f", seg[[col]][seg$area == area & seg$state == st & seg$unit == unit])
 ELEM <- "All elementary (K-5 and K-8) schools"; MID <- "All middle schools"
@@ -162,11 +162,11 @@ Neither PPS nor the county has said whether a SUN site moves with its students w
 
 Many schools that take in students would see a large change in who attends. The biggest changes come where a school's own program leaves and a different group of students arrives.
 
-- **MLK Jr.** MLK Jr.'s Mandarin program moves out and all of Sabin's students move in. Sabin is `r pc(sh("a", "sabin", "white", "now"))` white, and MLK Jr.'s neighborhood program is `r pc(rrow("mlkjr", "Neighborhood Program", "black_pct") / 100)` Black. Black students would go from `r pc(sh("a", "mlkjr", "black", "now"))` of MLK Jr. to `r pc(sh("a", "mlkjr", "black"))`, and white students from `r pc(sh("a", "mlkjr", "white", "now"))` to `r pc(sh("a", "mlkjr", "white"))`.
-- **Atkinson.** Its Spanish program (`r pc(rrow("atkinson", "Spanish Immersion", "latino_pct") / 100)` Latino) moves to Lent, and Creston's students arrive. Latino students would go from `r pc(sh("a", "atkinson", "latino", "now"))` to `r pc(sh("a", "atkinson", "latino"))` of the school. White students would go from `r pc(sh("a", "atkinson", "white", "now"))` to `r pc(sh("a", "atkinson", "white"))`.
-- **Vestal (Scenario A).** Rose City Park's Vietnamese program arrives. Asian students would go from `r pc(sh("a", "vestal", "asian", "now"))` to `r pc(sh("a", "vestal", "asian"))` of the school. Black students would go from `r pc(sh("a", "vestal", "black", "now"))` to `r pc(sh("a", "vestal", "black"))`.
-- **Scott.** Scott's Spanish program moves to Rigler. In Scenario A, Rose City Park's neighborhood program (`r pc(rrow("rosecitypark", "Neighborhood Program", "white_pct") / 100)` white) arrives. Latino students would go from `r pc(sh("a", "scott", "latino", "now"))` to `r pc(sh("a", "scott", "latino"))`, and white students from `r pc(sh("a", "scott", "white", "now"))` to `r pc(sh("a", "scott", "white"))`. In Scenario B, Scott keeps only its neighborhood program, and Black students would go from `r pc(sh("b", "scott", "black", "now"))` to `r pc(sh("b", "scott", "black"))`.
-- **César Chávez.** It becomes a Spanish immersion school, and its neighborhood program moves out. Black students would go from `r pc(sh("a", "cesarchavez", "black", "now"))` of the school to `r pc(sh("a", "cesarchavez", "black"))`. See [Equity §3](equity.qmd#sec-black).
+- **MLK Jr.** MLK Jr.'s Mandarin program moves out and all of Sabin's students move in. Sabin is `r shp("a", "sabin", "white", "now")` white, and MLK Jr.'s neighborhood program is `r pc(rrow("mlkjr", "Neighborhood Program", "black_pct") / 100)` Black. Black students would go from `r shp("a", "mlkjr", "black", "now")` of MLK Jr. to `r shp("a", "mlkjr", "black")`, and white students from `r shp("a", "mlkjr", "white", "now")` to `r shp("a", "mlkjr", "white")`.
+- **Atkinson.** Its Spanish program (`r pc(rrow("atkinson", "Spanish Immersion", "latino_pct") / 100)` Latino) moves to Lent, and Creston's students arrive. Latino students would go from `r shp("a", "atkinson", "latino", "now")` to `r shp("a", "atkinson", "latino")` of the school. White students would go from `r shp("a", "atkinson", "white", "now")` to `r shp("a", "atkinson", "white")`.
+- **Vestal (Scenario A).** Rose City Park's Vietnamese program arrives. Asian students would go from `r shp("a", "vestal", "asian", "now")` to `r shp("a", "vestal", "asian")` of the school. Black students would go from `r shp("a", "vestal", "black", "now")` to `r shp("a", "vestal", "black")`.
+- **Scott.** Scott's Spanish program moves to Rigler. In Scenario A, Rose City Park's neighborhood program (`r pc(rrow("rosecitypark", "Neighborhood Program", "white_pct") / 100)` white) arrives. Latino students would go from `r shp("a", "scott", "latino", "now")` to `r shp("a", "scott", "latino")`, and white students from `r shp("a", "scott", "white", "now")` to `r shp("a", "scott", "white")`. In Scenario B, Scott keeps only its neighborhood program, and Black students would go from `r shp("b", "scott", "black", "now")` to `r shp("b", "scott", "black")`.
+- **César Chávez.** It becomes a Spanish immersion school, and its neighborhood program moves out. Black students would go from `r shp("a", "cesarchavez", "black", "now")` of the school to `r shp("a", "cesarchavez", "black")`. See [Equity §3](equity.qmd#sec-black).
 - **Rosa Parks.** It takes in Peninsula and César Chávez's neighborhood program. Its share from underserved racial groups would fall from `r pc(sv("a", "rosaparks", "hu_now"))` to `r pc(sv("a", "rosaparks", "hu_after"))`.
 
 ```{r}
@@ -187,7 +187,7 @@ PPS's own guides give a projected share from underserved racial groups for each 
 #| tbl-cap: "Schools that would take in students: share of each racial and ethnic group today → after the move. Native American and Pacific Islander shares are minimums (see the note)."
 G <- c("latino", "black", "asian", "white", "asian_white", "other_multi", "native_american", "pacific_islander")
 tr <- ps |> filter(role %in% TAKE) |> mutate(school = short_school(school))
-for (g in G) tr[[g]] <- sprintf("%s → %s", pc(tr[[paste0(g, "_now")]] / tr$students_now), pc(tr[[paste0(g, "_after")]] / tr$students_after))
+for (g in G) tr[[g]] <- sprintf("%s → %s", fmt_share(tr[[paste0(g, "_now_pct")]], tr$students_now), fmt_share(tr[[paste0(g, "_after_pct")]], tr$students_after))
 tr <- tr |> mutate(sc = SCENARIOS[scenario], size = sprintf("%s → %s", fmt_n(students_now), fmt_n(students_after))) |>
   arrange(sc, school) |> select(sc, school, size, all_of(G))
 gt(tr, groupname_col = "sc") |>
@@ -196,6 +196,7 @@ gt(tr, groupname_col = "sc") |>
              native_american = "Native American", pacific_islander = "Pacific Islander") |>
   tab_style(style = cell_text(weight = "bold"), locations = cells_body(columns = black)) |>
   tab_footnote("PPS counts a student in a single-race group only if the student is not Latino and lists one race. Native American and Pacific Islander students who are also Latino or multiracial are counted elsewhere, so these shares are minimums.") |>
+  tab_footnote(small_note()) |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 

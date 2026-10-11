@@ -66,7 +66,7 @@ p1 <- function(x) sprintf("%.0f%%", 100 * x)
 race_tip <- function(d, L, when) {   # one line per group, now -> after
   g <- names(L$race)
   vapply(seq_len(nrow(d)), function(i) paste(sprintf("%s: %s → %s", L$race[g],
-    p1(unlist(d[i, paste0(g, "_now")]) / d$students_now[i]), p1(unlist(d[i, paste0(g, "_after")]) / d$students_after[i])), collapse = "<br>"),
+    fmt_share(unlist(d[i, paste0(g, "_now_pct")]), d$students_now[i]), fmt_share(unlist(d[i, paste0(g, "_after_pct")]), d$students_after[i])), collapse = "<br>"),
     character(1))
 }
 
@@ -130,9 +130,9 @@ fig_plan_clusters <- function(ps) {
   ord <- short_school(unlist(CL))
   d$y <- factor(d$school, rev(ord))
   long <- bind_rows(
-    d |> filter(scenario == "a") |> transmute(y, school, state = "now", n = students_now, latino = latino_now, white = white_now),
-    d |> filter(!closes) |> transmute(y, school, state = scenario, n = students_after, latino = latino_after, white = white_after)) |>
-    mutate(latino = latino / n, white = white / n)
+    d |> filter(scenario == "a") |> transmute(y, school, state = "now", n = students_now, latino_p = latino_now_pct, white_p = white_now_pct),
+    d |> filter(!closes) |> transmute(y, school, state = scenario, n = students_after, latino_p = latino_after_pct, white_p = white_after_pct)) |>
+    mutate(latino = small_x(latino_p, n), white = small_x(white_p, n))   # a hidden share (<5 students) is drawn at 2.5 students' worth
   st_lab <- c(now = L$now, a = L$a, b = L$b)
   panel <- function(col, legend) {
     rng <- long |> group_by(y) |> summarise(lo = min(.data[[col]]), hi = max(.data[[col]]))
@@ -143,8 +143,8 @@ fig_plan_clusters <- function(ps) {
       mk <- if (s == "now") list(color = "rgba(0,0,0,0)", size = 13, line = list(color = PAL$muted, width = 2)) else
         list(color = PC_COL[[s]], symbol = PC_SYM[[s]], size = PC_SIZE[[s]], line = list(color = "white", width = 1))
       p <- add_markers(p, data = ds, x = ds[[col]], y = ~y, name = st_lab[[s]], legendgroup = s, showlegend = legend, marker = mk, hoverinfo = "text",
-                       text = sprintf("<b>%s</b> (%s)<br>%s: %s<br>%s: %s<br>%s %s", ds$school, st_lab[[s]], L$latino_share, p1(ds$latino),
-                                      L$white_share, p1(ds$white), fmt_n(ds$n), L$students))
+                       text = sprintf("<b>%s</b> (%s)<br>%s: %s<br>%s: %s<br>%s %s", ds$school, st_lab[[s]], L$latino_share, fmt_share(ds$latino_p, ds$n),
+                                      L$white_share, fmt_share(ds$white_p, ds$n), fmt_n(ds$n), L$students))
     }
     p
   }

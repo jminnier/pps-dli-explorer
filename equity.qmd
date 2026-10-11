@@ -62,8 +62,9 @@ hub_a <- rgv("a", HUBN, "students")
 displaced_a <- g("a", DLI, "students") + g("a", CLO, "students") + hub_a
 lat_disp_a <- rgv("a", MOV, "latino_n") + rgv("a", CLR, "latino_n") + rgv("a", HUBN, "latino_n")
 sp_moves <- rp |> filter(language == "Spanish")
-nb_blk <- sp_moves |> filter(!is.na(nb_black_pct), from_school != "César Chávez") |> arrange(desc(nb_black_pct))
-nb_blk_txt <- paste(sprintf("%s %s", nb_blk$from_school, fmt_pct(nb_blk$nb_black_pct)), collapse = ", ")
+nb_blk <- sp_moves |> filter(!is.na(nb_students), from_school != "César Chávez") |> arrange(desc(coalesce(nb_black_pct, 0)))
+nb_blk_txt <- paste(sprintf("%s %s", nb_blk$from_school, fmt_share(nb_blk$nb_black_pct, nb_blk$nb_students)), collapse = ", ")
+stopifnot(all(is.na(sp_moves$black_pct)))   # every moving Spanish program has fewer than 5 Black students (text below)
 ```
 
 ::: {.callout-important appearance="simple"}
@@ -116,7 +117,7 @@ We can see this because PPS's *Enrollment Summary by Race and Ethnicity* (Octobe
 ```{r}
 #| label: fig-race-groups
 #| fig-height: 6.2
-#| fig-cap: "Share of each racial and ethnic group among students who would have to change schools in Scenario A, compared with all PPS elementary and middle school students (hollow gray ring). October 2025 enrollment. Hover for counts; the table below has every number and Scenario B."
+#| fig-cap: "Share of each racial and ethnic group among students who would have to change schools in Scenario A, compared with all PPS elementary and middle school students (hollow gray ring). October 2025 enrollment. An open marker means fewer than 5 students, drawn near zero. Hover for counts; the table below has every number and Scenario B."
 fig_race_groups(rg)
 ```
 
@@ -135,12 +136,15 @@ rg |>
   bind_rows(rg |> filter(group == K8I) |> mutate(scen = "PPS today", label = "All students in PPS K-8 immersion programs")) |>
   mutate(scen = factor(scen, c("Scenario A", "Scenario B", "Scenarios A and B", "PPS today"))) |> arrange(scen) |>
   select(scen, label, students, latino_pct, black_pct, asian_pct, native_american_pct, pacific_islander_pct, white_pct, asian_white_pct, other_multi_pct, hu_pct) |>
+  mutate(across(c(latino_pct, black_pct, asian_pct, native_american_pct, pacific_islander_pct, white_pct, asian_white_pct, other_multi_pct),
+                \(p) fmt_share(p, students))) |>   # "<X%" where a group has fewer than 5 students
   gt(groupname_col = "scen") |>
   cols_label(label = "", students = "Students", latino_pct = "Latino", black_pct = "Black", asian_pct = "Asian",
              native_american_pct = "Native American", pacific_islander_pct = "Pacific Islander", white_pct = "White",
              asian_white_pct = "Asian and White", other_multi_pct = "Other", hu_pct = "Historically underserved (PPS)") |>
   tab_spanner("Multiracial", c(asian_white_pct, other_multi_pct)) |>
-  fmt_number(students, decimals = 0) |> fmt_percent(ends_with("_pct"), decimals = 1) |>
+  fmt_number(students, decimals = 0) |> fmt_percent(hu_pct, decimals = 0) |>
+  cols_align("right", ends_with("_pct")) |> tab_footnote(small_note()) |>
   cols_width(label ~ px(210)) |>
   tab_style(cell_text(weight = "bold"), cells_body(columns = black_pct)) |>
   tab_header(title = "Race and ethnicity of the students who would have to change schools", subtitle = "October 2025 enrollment") |>
@@ -162,12 +166,12 @@ In 2011 the school board adopted a Racial Educational Equity Policy. In it, PPS 
 
 **Black students are largely missing from immersion.** They are `r fmt_pct(rgv("all", K8I, "black_pct"))` of students in PPS's K-8 immersion programs (`r fmt_n(rgv("all", K8I, "black_n"))` of `r fmt_n(rgv("all", K8I, "students"))`), compared with `r fmt_pct(rgv("all", K8, "black_pct"))` of elementary and middle school students. Nearly half of them, `r fmt_n(rrow("mlkjr", "Mandarin Immersion", "black_n"))`, are in one program: MLK Jr.'s Mandarin program. Both scenarios would move it to Boise-Eliot/Humboldt. That school is `r fmt_pct(rrow("boiseeliothumboldt", "School", "black_pct") / 100)` Black today.
 
-The Spanish programs that would move enroll almost no Black students (`r fmt_pct(min(sp_moves$black_pct))` to `r fmt_pct(max(sp_moves$black_pct))`). The neighborhood programs in the same buildings are more often Black: `r nb_blk_txt`. So in Scenario A, the program moves would move `r fmt_n(round(rgv("a", MOV, "black_n")))` Black students, `r fmt_n(rrow("mlkjr", "Mandarin Immersion", "black_n"))` of them from MLK Jr.
+The Spanish programs that would move enroll almost no Black students: each has fewer than `r SMALL_N`. The neighborhood programs in the same buildings are more often Black: `r nb_blk_txt`. So in Scenario A, the program moves would move `r fmt_n(round(rgv("a", MOV, "black_n")))` Black students, `r fmt_n(rrow("mlkjr", "Mandarin Immersion", "black_n"))` of them from MLK Jr.
 
 ```{r}
 #| label: fig-race-split
 #| fig-height: 6.4
-#| fig-cap: "Each moving immersion program (blue circle) compared with the neighborhood program in the same building (hollow gray ring): share of Black students (left) and Latino students (right), October 2025. César Chávez compares its whole K-8 Spanish program with its neighborhood program, which would also move."
+#| fig-cap: "Each moving immersion program (blue circle) compared with the neighborhood program in the same building (hollow gray ring): share of Black students (left) and Latino students (right), October 2025. César Chávez compares its whole K-8 Spanish program with its neighborhood program, which would also move. An open blue circle means fewer than 5 students, drawn near zero."
 fig_race_split(rp)
 ```
 
@@ -185,7 +189,7 @@ Of the `r fmt_n(round(blk_disp_a))` Black students who would have to change scho
 ```{r}
 #| label: fig-black-displaced
 #| fig-height: 9
-#| fig-cap: "Black students who would have to change schools in Scenario A, by school or program and by reason, October 2025. Schools and programs with no Black students are not shown."
+#| fig-cap: "Black students who would have to change schools in Scenario A, by school or program and by reason, October 2025. Schools and programs with fewer than 5 Black students are combined into one bar for each reason, to protect privacy; hover to see which ones."
 fig_black_displaced(rblk)
 ```
 
@@ -198,14 +202,16 @@ fig_black_displaced(rblk)
 rp |>
   arrange(desc(moving)) |>
   transmute(move = paste(from_school, "→", to_school), language, band, scenarios, moving,
-            latino_pct, black_pct, asian_pct, white_pct, nb_black_pct, nb_hu_pct) |>
+            across(c(latino_pct, black_pct, asian_pct, white_pct), \(p) fmt_share(p, program_students)),
+            nb_black_pct = fmt_share(nb_black_pct, nb_students), nb_hu_pct) |>
   gt() |>
   cols_label(move = "Program move", language = "Language", band = "Grades", scenarios = "Scenarios", moving = "Students moving",
              latino_pct = "Latino", black_pct = "Black", asian_pct = "Asian", white_pct = "White",
              nb_black_pct = "Black", nb_hu_pct = "Historically underserved") |>
   tab_spanner("Immersion program", c(latino_pct, black_pct, asian_pct, white_pct)) |>
   tab_spanner("Neighborhood program at the same school", c(nb_black_pct, nb_hu_pct)) |>
-  fmt_number(moving, decimals = 0) |> fmt_percent(ends_with("_pct"), decimals = 0) |>
+  fmt_number(moving, decimals = 0) |> fmt_percent(nb_hu_pct, decimals = 0) |>
+  cols_align("right", ends_with("_pct")) |> tab_footnote(small_note()) |>
   sub_missing(missing_text = "none") |>
   tab_header(title = "Each moving program, and the neighborhood program it shares a building with", subtitle = "October 2025") |>
   tab_source_note("César Chávez's grade 6-8 move uses the mix of its whole K-8 Spanish program. Its neighborhood program would not stay: PPS would move it to Rosa Parks and George. Beach and James John close in both scenarios, and Rose City Park in Scenario A, so their neighborhood programs move too; they are counted with closures above.") |>
@@ -216,9 +222,9 @@ rp |>
 
 Asian students are `r fmt_pct(rgv("a", MOV, "asian_pct"))` of students in Scenario A's moving programs, compared with `r fmt_pct(rgv("all", K8, "asian_pct"))` of elementary and middle school students. Rose City Park's Vietnamese program and Clark's Mandarin program are mostly Asian. PPS's definition of historically underserved students leaves out Asian students. So PPS's own equity measures, and the "historically underserved" column above, don't show this burden on Vietnamese and Chinese families. Scenario B keeps the Vietnamese program in place (`r fmt_pct(rgv("b", MOV, "asian_pct"))` Asian).
 
-Native American and Pacific Islander students are rarely in immersion, at least as PPS counts them. PPS's K-8 immersion programs enroll `r fmt_n(rgv("all", K8I, "native_american_n"))` Native American students and `r fmt_n(rgv("all", K8I, "pacific_islander_n"))` Pacific Islander students. These counts include only students who list one race and are not Latino. PPS counts Native American and Pacific Islander students who are also Latino as Latino. It counts students who list more than one race as multiracial (`r SRC$race_program`, page 6 footnote). So the true number of Native students in immersion is likely above zero.
+Native American and Pacific Islander students are rarely in immersion, at least as PPS counts them. PPS's K-8 immersion programs enroll `r fmt_count_words(rgv("all", K8I, "native_american_n"))` Native American students and `r fmt_count_words(rgv("all", K8I, "pacific_islander_n"))` Pacific Islander students. (To protect privacy, we don't show counts under 5.) These counts include only students who list one race and are not Latino. PPS counts Native American and Pacific Islander students who are also Latino as Latino. It counts students who list more than one race as multiracial (`r SRC$race_program`, page 6 footnote). So the true number of Native students in immersion is likely higher.
 
-The schools that would close enroll `r fmt_n(rgv("a", CLR, "native_american_n"))` Native American and `r fmt_n(rgv("a", CLR, "pacific_islander_n"))` Pacific Islander students outside immersion in Scenario A. These numbers are too small for program-by-program comparisons. Even so, they suggest that immersion reaches few students in either group.
+The schools that would close enroll `r fmt_count_words(rgv("a", CLR, "native_american_n"))` Native American and `r fmt_count_words(rgv("a", CLR, "pacific_islander_n"))` Pacific Islander students outside immersion in Scenario A. These numbers are too small for program-by-program comparisons. Even so, they suggest that immersion reaches few students in either group.
 
 ### Some schools that lose a program would become whiter {#sec-left-behind}
 
