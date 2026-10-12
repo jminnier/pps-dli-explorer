@@ -219,3 +219,104 @@ fig_plan_title1 <- function(ps, fl) {
   viz_layout(p, xtitle = L$enrolled_today) |> layout(barmode = "group", bargap = 0.3, xaxis = list(range = c(0, 1.25 * max(d$n)), nticks = 3, tickangle = 0, tickformat = "~s"),
                                                      legend = list(traceorder = "reversed"), margin = list(r = 30))
 }
+
+# 6. Map: one circle per K-8, middle and alternative school; area = students, colour = share from underserved
+# racial groups, in three views (today, Scenario A, Scenario B) picked with radio buttons. A dark outline marks a
+# share that moves 5+ points; a dashed gray ring marks a school that closes or whose program moves out.
+# Design inspired by the scenario map on ppsdata.info (Alex Meub). Leaflet, not plotly: plotly's map circles
+# can't draw outlines or dashed rings.
+PC$en$map <- list(
+  views = c(now = "Today", a = "Scenario A", b = "Scenario B"),
+  bins = c("Under 20%", "20% to 34%", "35% to 49%", "50% to 64%", "65% or more"),
+  color = "Share of students from underserved racial groups", size = "Circle size: students",
+  outline = "Dark ring: share changes by 5 points or more", closed = "Dashed gray ring: school closes or its program moves",
+  students = "Students", hu = "Underserved racial groups", today = "today", after = "after", points = "points",
+  gone = "No students left in this building", t1 = "Title I school today", sun = "SUN Community School today"
+)
+PC$es$map <- list(
+  views = c(now = "Hoy", a = "Escenario A", b = "Escenario B"),
+  bins = c("Menos de 20%", "De 20% a 34%", "De 35% a 49%", "De 50% a 64%", "65% o más"),
+  color = "Porcentaje de estudiantes de grupos raciales desatendidos", size = "Tamaño del círculo: estudiantes",
+  outline = "Anillo oscuro: el porcentaje cambia 5 puntos o más", closed = "Anillo gris punteado: la escuela cierra o su programa se muda",
+  students = "Estudiantes", hu = "Grupos raciales desatendidos", today = "hoy", after = "después", points = "puntos",
+  gone = "No quedan estudiantes en este edificio", t1 = "Escuela de Título I hoy", sun = "Escuela Comunitaria SUN hoy"
+)
+MAP_RAMP <- c("#86b6ef", "#5598e7", "#2a78d6", "#1c5cab", "#0d366b")   # PAL blue steps 250-700, validated (--ordinal)
+MAP_BREAKS <- c(-Inf, 0.20, 0.35, 0.50, 0.65, Inf)
+MAP_SHIFT <- 0.05                                                     # outline when the share moves this much
+map_radius <- function(n) 0.5 * sqrt(n)                               # px; area proportional to students (160 -> 6, 924 -> 15)
+
+map_views <- function(ps, pts) {
+  base <- ps |> filter(level != "High") |> inner_join(pts, by = "key")
+  now <- base |> filter(scenario == "a") |>
+    transmute(view = "now", key, school, lon, lat, title1_2026_27, sun_2026_27, role = NA_character_,
+              n = students_now, hu = hu_now, n0 = students_now, hu0 = hu_now, gone = FALSE)
+  after <- base |> transmute(view = scenario, key, school, lon, lat, title1_2026_27, sun_2026_27, role,
+                             n = students_after, hu = hu_after, n0 = students_now, hu0 = hu_now, gone = students_after == 0)
+  bind_rows(now, after) |>
+    mutate(shift = !gone & view != "now" & abs(round(100 * hu) - round(100 * hu0)) >= 100 * MAP_SHIFT,   # on the whole points shown
+           bin = cut(hu, MAP_BREAKS, labels = FALSE, right = FALSE))
+}
+
+fig_plan_map <- function(ps, pts) {
+  L <- pc_lab(); M <- L$map
+  d <- map_views(ps, pts)
+  tip <- function(x) {
+    head <- sprintf("<b>%s</b>", short_school(x$school))
+    role <- ifelse(x$view == "now", "", sprintf("<br>%s", L$role[x$role]))
+    dp <- round(100 * x$hu) - round(100 * x$hu0)   # change in whole points, as shown
+    body <- ifelse(x$view == "now",
+      sprintf("<br>%s: %s<br>%s: %s", M$students, fmt_n(x$n), M$hu, p1(x$hu)),
+      ifelse(x$gone, sprintf("<br>%s %s: %s<br>%s", M$students, M$today, fmt_n(x$n0), M$gone),
+        sprintf("<br>%s: %s %s → %s %s<br>%s: %s → %s (%s%.0f %s)", M$students, fmt_n(x$n0), M$today, fmt_n(x$n), M$after,
+                M$hu, p1(x$hu0), p1(x$hu), ifelse(dp > 0, "+", ifelse(dp < 0, "−", "")), abs(dp), M$points)))
+    flags <- paste0(ifelse(x$title1_2026_27, sprintf("<br>%s", M$t1), ""), ifelse(x$sun_2026_27, sprintf("<br>%s", M$sun), ""))
+    lapply(paste0(head, role, body, flags), htmltools::HTML)
+  }
+  m <- leaflet::leaflet(options = leaflet::leafletOptions(scrollWheelZoom = FALSE, minZoom = 10, zoomSnap = 0.25)) |>
+    leaflet::addProviderTiles(leaflet::providers$Esri.WorldGrayCanvas) |>   # light gray, no API key (CARTO now asks for one)
+    leaflet::fitBounds(min(d$lon), min(d$lat), max(d$lon), max(d$lat), options = list(padding = c(12, 12)))
+  for (v in c("now", "a", "b")) {
+    g <- M$views[[v]]
+    x <- d |> filter(view == v, !gone) |> arrange(desc(n))     # small circles drawn last, on top
+    z <- d |> filter(view == v, gone)
+    if (nrow(z)) m <- m |> leaflet::addCircleMarkers(data = z, lng = ~lon, lat = ~lat, radius = map_radius(z$n0), group = g,
+      stroke = TRUE, color = PAL$muted, weight = 1.5, opacity = 1, dashArray = "3 3", fill = TRUE, fillColor = "white", fillOpacity = 0.01,
+      label = tip(z), labelOptions = leaflet::labelOptions(direction = "auto", textsize = "13px"))
+    h <- filter(x, shift)    # halo: an ink ring just outside the circle, with a white gap, so it shows on dark fills too
+    if (nrow(h)) m <- m |> leaflet::addCircleMarkers(data = h, lng = ~lon, lat = ~lat, radius = map_radius(h$n) + 3, group = g,
+      stroke = TRUE, color = PAL$ink, weight = 2, opacity = 1, fill = FALSE, label = tip(h),
+      labelOptions = leaflet::labelOptions(direction = "auto", textsize = "13px"))
+    m <- m |> leaflet::addCircleMarkers(data = x, lng = ~lon, lat = ~lat, radius = map_radius(x$n), group = g,
+      stroke = TRUE, color = "white", weight = 1.5, opacity = 1,
+      fillColor = MAP_RAMP[x$bin], fillOpacity = 0.9,
+      label = tip(x), labelOptions = leaflet::labelOptions(direction = "auto", textsize = "13px"))
+  }
+  m |> leaflet::addLayersControl(baseGroups = unname(M$views), position = "topright",
+                                 options = leaflet::layersControlOptions(collapsed = FALSE)) |>
+    # Open on Scenario A (hideGroup() on base groups hides all three, so pick the radio button instead). On narrow
+    # screens, shrink every circle by the same factor (never below 65%), so the dense inner east side stays readable.
+    htmlwidgets::onRender("function(el) {
+      var map = this, k = Math.max(0.65, Math.min(1, el.clientWidth / 700));
+      function scale() { map.eachLayer(function(l) { if (l.setRadius && !l._scaled) { l._scaled = true; l.setRadius(l.getRadius() * k); } }); }
+      map.on('baselayerchange', scale);
+      var r = el.querySelectorAll('.leaflet-control-layers-base input'); if (r[1]) r[1].click();
+      scale();
+      document.querySelectorAll('.map-key .mk-size circle').forEach(function(c) { c.setAttribute('r', c.getAttribute('r') * k); });   // key matches the map
+    }")
+}
+
+# Key shown above the map (HTML, so it never covers schools on a phone).
+map_key <- function() {
+  M <- pc_lab()$map
+  sw <- function(col) sprintf('<svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="%s"/></svg>', col)
+  size <- paste(vapply(c(250, 500, 900), function(n) { r <- map_radius(n)
+    sprintf('<span class="mk-item"><svg class="mk-size" width="%.0f" height="%.0f" aria-hidden="true"><circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="%s" stroke-width="1.2"/></svg> %s</span>',
+            2 * r + 4, 2 * r + 4, r + 2, r + 2, r, PAL$ink2, fmt_n(n)) }, character(1)), collapse = " ")
+  htmltools::HTML(sprintf(paste0(
+    '<div class="map-key"><div><b>%s</b></div><div>%s</div><div><b>%s</b> %s</div>',
+    '<div><span class="mk-item mk-wrap"><svg width="18" height="18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="none" stroke="%s" stroke-width="1.6"/><circle cx="9" cy="9" r="5.5" fill="%s"/></svg> %s</span></div>',
+    '<div><span class="mk-item mk-wrap"><svg width="18" height="18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="none" stroke="%s" stroke-width="1.5" stroke-dasharray="3 3"/></svg> %s</span></div></div>'),
+    M$color, paste(sprintf('<span class="mk-item">%s %s</span>', vapply(MAP_RAMP, sw, character(1)), M$bins), collapse = " "),
+    M$size, size, PAL$ink, MAP_RAMP[3], M$outline, PAL$muted, M$closed))
+}

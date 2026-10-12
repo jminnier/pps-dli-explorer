@@ -135,6 +135,8 @@ SRC <- list(
   freire = "Freire, J. A., & Alemán, E., Jr. (2021). \"Two schools within a school\": Elitism, divisiveness, and intra-racial gentrification in a dual language strand. *Bilingual Research Journal, 44*(2), 249–269 ([doi](https://doi.org/10.1080/15235882.2021.1942325)); abstract",
   dejong = "de Jong, E. J., & Bearse, C. I. (2014). Dual language programs as a strand within a secondary school: Dilemmas of school organization and the TWI mission. *International Journal of Bilingual Education and Bilingualism, 17*(1), 15–31 ([doi](https://doi.org/10.1080/13670050.2012.725709)); abstract",
   nasem = "National Academies of Sciences, Engineering, and Medicine. (2017). *Promoting the educational success of children and youth learning English: Promising futures*, ch. 8, p. 300 ([read online](https://nap.nationalacademies.org/read/24677/chapter/10))",
+  school_points = "school locations: [pps-explorer](https://github.com/browniefed/pps-explorer) by Jason Brown (`public/data/sq_*_schools.geojson`), with Richmond moved to the Census geocode of its address; basemap: Esri, *World Light Gray Canvas*",
+  ppsdata = "map design inspired by the scenario map on [ppsdata.info](https://ppsdata.info) by Alex Meub ([meub/pps-data](https://github.com/meub/pps-data))",
   methods = "Method details: [Sources & methods](methods.qmd)"
 )
 # Spanish pages (es/) set options(site.lang = "es") before sourcing this file; their citations use the Spanish

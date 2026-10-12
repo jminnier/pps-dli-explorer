@@ -417,7 +417,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - *Room per grade* = (capacity − enrollment) ÷ 6 grades.
 - *Distance from Atkinson*: straight line between school locations on the status-quo map (Creston 0.8 mi, Lent 2.4 mi).
 - Creston's seismic status (unreinforced masonry, targeted for retrofit) is from the PPS facility data compiled in meub/pps-data. We did not check it against PPS's bond documents.
-- Richmond's point on the original pps-explorer map was a copy of Atkinson's (SE 58th & Division). We corrected it in this copy to the Census Bureau geocode of its address, 2276 SE 41st Ave, just north of Division. No figure on this site depends on Richmond's location.
+- Richmond's point on the original pps-explorer map was a copy of Atkinson's (SE 58th & Division). We corrected it in this copy to the Census Bureau geocode of its address, 2276 SE 41st Ave, just north of Division. The [map on the School changes page](schools.qmd#sec-map) uses the corrected point.
 
 ## School changes page {#school-changes}
 
@@ -437,6 +437,8 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 **Check against PPS.** PPS's guides give each school's projected share from underserved racial groups with no changes and under each scenario (source 16). Our estimate of each school's change matches the direction and size of PPS's. The correlation is 0.93 across 70 school-scenario pairs, and the median gap is 1.6 percentage points. The script stops if the correlation falls below 0.8.
 
 **Title I and SUN.** A school counts as Title I if it is on PPS's 2026-27 list, including the three bridge schools. PPS's guides leave bridge schools out of their Title I column, so we use the guides only for the projected status after the changes. The Title I figure counts every student in each group that moves, because PPS runs Title I school-wide. PPS publishes income (direct certification) only for whole schools, so we can't count the low-income students in each group. SUN status is the county's August 2026 contact list. The county's printable SUN map dates from August 2018 and is out of date.
+
+**Map.** The map shows every K-8, middle and alternative school (72 buildings). Each circle's area is proportional to the school's students: today, or after each scenario. Its color is the share of students from underserved racial groups, in five bands. A dark ring around the circle marks a school whose share changes by 5 percentage points or more. Schools that close, or whose program moves out, appear as dashed gray rings at today's size. School locations are pps-explorer's status-quo points (`data/plan_school_points.csv`). The map shows only whole-school totals, never a single racial group, so no small count appears. The design draws on the scenario map at [ppsdata.info](https://ppsdata.info) by Alex Meub, which sizes each school's circle by its enrollment.
 
 **Separation by race.** For groups *a* and *b*, the dissimilarity index is D = ½ Σ |*a*ᵢ/*A* − *b*ᵢ/*B*|. The sum runs over the units *i* in the area. It is the share of either group that would have to move for every unit to match the area's mix. Exposure is Σ (*a*ᵢ/*A*)(*w*ᵢ/*t*ᵢ), the white share of the unit attended by the typical student in group *a*. We compute both with two kinds of unit:
 

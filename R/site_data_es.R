@@ -54,5 +54,7 @@ SRC_ES <- list(
   freire = "Freire, J. A., & Alemán, E., Jr. (2021). \"Two schools within a school\": Elitism, divisiveness, and intra-racial gentrification in a dual language strand. *Bilingual Research Journal, 44*(2), 249–269 ([doi](https://doi.org/10.1080/15235882.2021.1942325)); resumen",
   dejong = "de Jong, E. J., & Bearse, C. I. (2014). Dual language programs as a strand within a secondary school: Dilemmas of school organization and the TWI mission. *International Journal of Bilingual Education and Bilingualism, 17*(1), 15–31 ([doi](https://doi.org/10.1080/13670050.2012.725709)); resumen",
   nasem = "National Academies of Sciences, Engineering, and Medicine. (2017). *Promoting the educational success of children and youth learning English: Promising futures*, cap. 8, pág. 300 ([leer en línea](https://nap.nationalacademies.org/read/24677/chapter/10))",
+  school_points = "ubicación de las escuelas: [pps-explorer](https://github.com/browniefed/pps-explorer) de Jason Brown (`public/data/sq_*_schools.geojson`), con Richmond en la geocodificación de su dirección de la Oficina del Censo; mapa base: Esri, *World Light Gray Canvas*",
+  ppsdata = "diseño del mapa inspirado en el mapa de escenarios de [ppsdata.info](https://ppsdata.info), de Alex Meub ([meub/pps-data](https://github.com/meub/pps-data))",
   methods = "Detalles del método: [Fuentes y métodos](methods.qmd)"
 )

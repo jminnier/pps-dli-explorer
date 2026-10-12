@@ -36,6 +36,11 @@ cut9_a <- who("a", "Closes", "sun_proposed_cut"); cut9_b <- who("b", "Closes", "
 pps_t1 <- function(s, k, when) sv(s, k, paste0("title1_guide_", when))
 t1g <- t1_groups(ps, fl)
 tg <- function(s, cat) sum(t1g$students[t1g$scenario == s & t1g$cat == cat])
+pts <- read_data("plan_school_points.csv")
+mv <- map_views(ps, pts)
+n_sh <- function(s, dir = "any") { x <- filter(mv, view == s, shift); d <- x$hu - x$hu0
+  sum(switch(dir, any = rep(TRUE, nrow(x)), down = d < 0, up = d > 0)) }
+mp <- function(s, k, col) pc(mv[[col]][mv$view == s & mv$key == k])
 ```
 
 ::: {.callout-note appearance="minimal"}
@@ -54,7 +59,28 @@ Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de l
 - **Escuelas SUN.** En el Escenario A cierran `r length(sun_close_a)` escuelas comunitarias SUN (`r length(sun_close_b)` en el B). En el Escenario A, `r length(cut9_a)` de ellas son sitios que el condado planeaba recortar en 2026 y luego salvó.
 - **Separación por raza.** En el distrito en su conjunto, el plan no haría que las escuelas estuvieran más separadas por raza. En algunos lugares, sí. Donde los programas de inmersión se reúnen en una sola escuela, estudiantes latinos y blancos que hoy comparten un edificio asistirían a edificios distintos. Donde se unen escuelas del vecindario, como Sabin y MLK Jr., la separación disminuye.
 
-## 1. Cuántas escuelas y estudiantes cambia el plan {#sec-count}
+## 1. Mapa: el porcentaje de estudiantes de grupos desatendidos en cada escuela {#sec-map}
+
+En el Escenario A, el porcentaje de estudiantes de grupos raciales desatendidos cambiaría 5 puntos o más en `r n_sh("a")` escuelas. En el Escenario B, `r n_sh("b")` escuelas tendrían un cambio así de grande. En el Escenario A, bajaría en `r n_sh("a", "down")` escuelas y subiría en `r n_sh("a", "up")`. En el Escenario B, bajaría en `r n_sh("b", "down")` y subiría en `r n_sh("b", "up")`. El cambio más grande es en Atkinson. Su programa de inmersión en español se mudaría a Lent, y llegarían los estudiantes del vecindario de Creston. Así, su porcentaje bajaría de `r mp("a", "atkinson", "hu0")` a `r mp("a", "atkinson", "hu")`. En Clark, el porcentaje subiría de `r mp("a", "clark", "hu0")` a `r mp("a", "clark", "hu")` cuando su programa de mandarín se mude a Woodstock.
+
+El mapa muestra cada escuela como un círculo. Un círculo más grande indica más estudiantes, y un azul más oscuro indica un porcentaje mayor de grupos desatendidos. Use los botones del mapa para pasar de hoy al Escenario A o al Escenario B. Pase el cursor sobre un círculo, o tóquelo, para ver las cifras de la escuela. Son los mismos cálculos del resto de la página: los estudiantes de hoy, trasladados a la vez (vea [Lo que este cálculo no puede mostrar](#sec-limits)).
+
+```{r}
+map_key()
+```
+
+```{r}
+#| label: fig-plan-map
+#| fig-cap: "Porcentaje de estudiantes de grupos raciales desatendidos en cada escuela K-8, intermedia y alternativa, hoy y después de cada escenario. El área del círculo indica los estudiantes. Un anillo oscuro marca un porcentaje que cambia 5 puntos o más. Un anillo gris punteado marca una escuela que cierra o cuyo programa se muda. No se muestran las preparatorias."
+#| fig-height: 6
+fig_plan_map(ps, pts)
+```
+
+::: {.source}
+`r cite("plan_flows", "race_program", "school_points", "ppsdata")`
+:::
+
+## 2. Cuántas escuelas y estudiantes cambia el plan {#sec-count}
 
 La mayoría de las escuelas que cambian no cierran. Reciben estudiantes, envían a algunos estudiantes a otra escuela, o ambas cosas. Una escuela "recibe estudiantes" cuando llega a ella una escuela que cierra, un programa de inmersión o un grupo de grados. Una escuela "envía estudiantes" cuando conserva su edificio pero pierde un programa o sus grados intermedios.
 
@@ -95,7 +121,7 @@ Los grupos que cambiarían de edificio en el Escenario A (unos `r fmt_n(movers("
 
 Las preparatorias solo aparecen por cambios de zona para futuros estudiantes. La única excepción es Metropolitan Learning Center, que dejaría de ofrecer los grados de preparatoria. Hoy tiene `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` estudiantes de preparatoria. Ellos elegirían otra escuela.
 
-## 2. Escuelas de Título I {#sec-title1}
+## 3. Escuelas de Título I {#sec-title1}
 
 Título I es dinero federal para escuelas con muchos estudiantes de familias de bajos ingresos. PPS explica su regla así: "Para que una escuela sea de Título I, al menos el 33% de sus estudiantes de kínder a 8.º grado deben recibir servicios de apoyo del estado". PPS tiene `r tot("title1_2026_27")` escuelas de Título I en 2026-27. Tres son escuelas "puente": Arleta, Atkinson y Roosevelt. Según PPS, las escuelas puente "dejaron de cumplir los requisitos de Título I hace poco, pero siguen recibiendo una cantidad limitada de fondos de Título I durante el año escolar 26-27".
 
@@ -149,7 +175,7 @@ gt(tf, groupname_col = "school") |>
   tab_source_note(md(cite("plan_flows", "guide_demo", "title1", "sun", "race_program")))
 ```
 
-## 3. Escuelas comunitarias SUN {#sec-sun}
+## 4. Escuelas comunitarias SUN {#sec-sun}
 
 El Condado de Multnomah administra las escuelas comunitarias SUN con organizaciones asociadas. Según el condado, tienen "programas después de clases", "conexiones con alimentos, vivienda y ayuda con las facturas de energía" y "actividades y eventos para padres y familias". En la lista del condado de agosto de 2026 hay `r tot("sun_2026_27")` escuelas de PPS con SUN.
 
@@ -163,7 +189,7 @@ Ni PPS ni el condado han dicho si un sitio SUN se muda con sus estudiantes cuand
 `r cite("sun", "sun_cuts", "plan_flows")`
 :::
 
-## 4. Cómo cambiarían las escuelas que reciben estudiantes {#sec-receiving-race}
+## 5. Cómo cambiarían las escuelas que reciben estudiantes {#sec-receiving-race}
 
 En muchas escuelas que reciben estudiantes cambiaría mucho quién asiste. Los cambios más grandes ocurren donde sale un programa de la escuela y llega otro grupo de estudiantes.
 
@@ -205,7 +231,7 @@ gt(tr, groupname_col = "sc") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 5. ¿Separarían los traslados a los estudiantes por raza? {#sec-segregation}
+## 6. ¿Separarían los traslados a los estudiantes por raza? {#sec-segregation}
 
 En el distrito en su conjunto, no. En los lugares donde los programas de inmersión se reúnen en una sola escuela, sí. Dos medidas ayudan a verlo.
 
@@ -263,7 +289,7 @@ gt(ts, groupname_col = "area") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 6. Lo que este cálculo no puede mostrar {#sec-limits}
+## 7. Lo que este cálculo no puede mostrar {#sec-limits}
 
 - **Usa a los estudiantes de hoy para medir el cambio.** Trasladamos a todos los estudiantes de octubre de 2025 a la vez, como lo describen las guías. Los cambios reales empiezan en 2027-28 o después, y muchos de los estudiantes de hoy ya se habrán ido. Por ejemplo, la escuela intermedia Sellwood cierra en 2028, cuando todos sus estudiantes actuales ya habrán terminado 8.º grado. Por eso nuestras cifras muestran el tamaño de cada cambio, no a los niños que se mudarán.
 - **Tamaño de las escuelas.** Nuestros tamaños pueden diferir de las proyecciones de PPS. Aquí Brentwood pasa de `r fmt_n(sv("a", "brentwood", "students_now"))` a `r fmt_n(sv("a", "brentwood", "students_after"))` estudiantes, pero PPS proyecta `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` para 2031-32, cuando todos los cambios ya estén en marcha. Las proyecciones de PPS incluyen efectos futuros de los cambios de zona y las tendencias de matrícula. Usamos las proyecciones de PPS para comprobar los porcentajes de raza y etnia, que son lo que compara esta página.

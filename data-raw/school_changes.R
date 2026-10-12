@@ -258,6 +258,16 @@ write_csv(plan_out |> mutate(across(where(is.double), \(x) round(x, 4))) |>
 write_csv(seg, here("data", "plan_segregation.csv"))
 write_csv(t1, here("data", "title1_schools.csv")); write_csv(sun, here("data", "sun_schools.csv"))
 
+# ---- school locations for the map (pps-explorer's status-quo school points, Richmond corrected) ----
+pts <- map_dfr(c("sq_k5", "sq_68", "sq_912"), function(f) {
+  g <- jsonlite::read_json(here("public", "data", paste0(f, "_schools.geojson")))$features
+  tibble(name = map_chr(g, \(x) x$properties$name), lon = map_dbl(g, \(x) x$geometry$coordinates[[1]]),
+         lat = map_dbl(g, \(x) x$geometry$coordinates[[2]]))
+}) |> mutate(key = school_key(name)) |> distinct(key, .keep_all = TRUE)
+map_keys <- unique(plan_out$key[plan_out$level != "High"])
+stopifnot("every K-8, middle and alternative school needs a map point" = all(map_keys %in% pts$key))
+write_csv(pts |> filter(key %in% map_keys) |> select(key, lon, lat) |> arrange(key), here("data", "plan_school_points.csv"))
+
 # ---- summary printed for the page text --------------------------------------------------------
 for (s in c("a", "b")) {
   p <- filter(plan, scenario == s, level != "High" | students_in + students_out > 0)

@@ -23,3 +23,11 @@ main td code { white-space: normal !important; overflow-wrap: anywhere; }
   color: rgba(255, 255, 255, 0.85); font-weight: 600; font-size: 0.95rem; text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 4px; padding: 0.1rem 0.45rem; }
 .lang-switch-mobile:hover { color: #fff; border-color: #fff; }
+
+// School changes map: key above the map, and the leaflet widget's own text.
+.map-key { font-size: 0.85rem; color: $gray-700; margin: 0.5rem 0 0.4rem; line-height: 1.5; }
+.map-key .mk-item { display: inline-flex; align-items: center; gap: 0.25rem; margin-right: 0.6rem; white-space: nowrap; }
+.map-key .mk-wrap { white-space: normal; }
+.map-key svg { vertical-align: middle; flex: none; }
+.leaflet-container { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+.leaflet-control-layers label { font-size: 0.9rem; margin: 0.15rem 0; }

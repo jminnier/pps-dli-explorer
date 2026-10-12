@@ -35,6 +35,11 @@ cut9_a <- who("a", "Closes", "sun_proposed_cut"); cut9_b <- who("b", "Closes", "
 pps_t1 <- function(s, k, when) sv(s, k, paste0("title1_guide_", when))
 t1g <- t1_groups(ps, fl)
 tg <- function(s, cat) sum(t1g$students[t1g$scenario == s & t1g$cat == cat])
+pts <- read_data("plan_school_points.csv")
+mv <- map_views(ps, pts)
+n_sh <- function(s, dir = "any") { x <- filter(mv, view == s, shift); d <- x$hu - x$hu0
+  sum(switch(dir, any = rep(TRUE, nrow(x)), down = d < 0, up = d > 0)) }
+mp <- function(s, k, col) pc(mv[[col]][mv$view == s & mv$key == k])
 ```
 
 The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
@@ -49,7 +54,28 @@ All numbers use October 2025 enrollment. We follow PPS's school guides to see wh
 - **SUN schools.** `r length(sun_close_a)` SUN Community Schools close in Scenario A (`r length(sun_close_b)` in B). In Scenario A, `r length(cut9_a)` of them are sites the county planned to cut in 2026 and then saved.
 - **Separation by race.** Across the district, the plan would not make schools more separated by race. Locally, it would. Where immersion programs gather into one school, Latino and white students who now share a building would attend different buildings. Where neighborhood schools merge, as at Sabin and MLK Jr., separation falls.
 
-## 1. How many schools and students the plan changes {#sec-count}
+## 1. Map: the share of students from underserved groups at each school {#sec-map}
+
+In Scenario A, the share of students from underserved racial groups would change by 5 points or more at `r n_sh("a")` schools. In Scenario B, `r n_sh("b")` schools would see a change that large. In Scenario A, it would fall at `r n_sh("a", "down")` schools and rise at `r n_sh("a", "up")`. In Scenario B, it would fall at `r n_sh("b", "down")` and rise at `r n_sh("b", "up")`. The biggest change is at Atkinson. Its Spanish immersion program would move to Lent, and Creston's neighborhood students would move in. So its share would fall from `r mp("a", "atkinson", "hu0")` to `r mp("a", "atkinson", "hu")`. At Clark, the share would rise from `r mp("a", "clark", "hu0")` to `r mp("a", "clark", "hu")` after its Mandarin program moves to Woodstock.
+
+The map shows each school as a circle. A bigger circle means more students, and a darker blue means a larger share from underserved groups. Use the buttons on the map to switch between today, Scenario A and Scenario B. Hover over or tap a circle to see a school's numbers. These are the same estimates as the rest of the page: today's students, moved all at once (see [What this estimate can't show](#sec-limits)).
+
+```{r}
+map_key()
+```
+
+```{r}
+#| label: fig-plan-map
+#| fig-cap: "Share of students from underserved racial groups at each K-8, middle and alternative school, today and after each scenario. Circle area shows students. A dark ring marks a share that changes by 5 points or more. A dashed gray ring marks a school that closes or whose program moves. High schools are not shown."
+#| fig-height: 6
+fig_plan_map(ps, pts)
+```
+
+::: {.source}
+`r cite("plan_flows", "race_program", "school_points", "ppsdata")`
+:::
+
+## 2. How many schools and students the plan changes {#sec-count}
 
 Most schools that change don't close. They take in students, send some students away, or both. A school "takes in students" when a closing school, an immersion program or a grade moves into it. A school "sends students away" when it keeps its building but loses a program or its middle grades.
 
@@ -90,7 +116,7 @@ The groups that would change buildings in Scenario A (about `r fmt_n(movers("a")
 
 High schools appear only through boundary changes for future students. The one exception is Metropolitan Learning Center, which would stop serving high school grades. It has `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` high school students today. They would choose another school.
 
-## 2. Title I schools {#sec-title1}
+## 3. Title I schools {#sec-title1}
 
 Title I is federal money for schools that serve many students from low-income families. PPS explains its rule this way: "In order to be identified as a Title I school, at least 33% of K-8 students need to be receiving support services from the state." PPS lists `r tot("title1_2026_27")` Title I schools for 2026-27. Three of them are "bridge" schools: Arleta, Atkinson and Roosevelt. PPS says bridge schools "have recently exited Title I eligibility but continue to receive a limited allocation of Title I funds for the 26-27 school year."
 
@@ -144,7 +170,7 @@ gt(tf, groupname_col = "school") |>
   tab_source_note(md(cite("plan_flows", "guide_demo", "title1", "sun", "race_program")))
 ```
 
-## 3. SUN Community Schools {#sec-sun}
+## 4. SUN Community Schools {#sec-sun}
 
 SUN Community Schools are run by Multnomah County with partner groups. The county says they have "After school programs", "Links to food, shelter, and help with energy bills" and "Parent and family activities and events". `r tot("sun_2026_27")` PPS schools are SUN sites on the county's August 2026 list.
 
@@ -158,7 +184,7 @@ Neither PPS nor the county has said whether a SUN site moves with its students w
 `r cite("sun", "sun_cuts", "plan_flows")`
 :::
 
-## 4. How schools that take in students would change {#sec-receiving-race}
+## 5. How schools that take in students would change {#sec-receiving-race}
 
 Many schools that take in students would see a large change in who attends. The biggest changes come where a school's own program leaves and a different group of students arrives.
 
@@ -200,7 +226,7 @@ gt(tr, groupname_col = "sc") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 5. Would the moves sort students by race? {#sec-segregation}
+## 6. Would the moves sort students by race? {#sec-segregation}
 
 Across the district, no. In the places where immersion programs gather into one school, yes. Two measures help show this.
 
@@ -258,7 +284,7 @@ gt(ts, groupname_col = "area") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 6. What this estimate can't show {#sec-limits}
+## 7. What this estimate can't show {#sec-limits}
 
 - **It uses today's students to measure the change.** We move October 2025 students all at once, as the school guides describe. The real changes start in 2027-28 or later, and many of today's students will have moved on. For example, Sellwood Middle School closes in 2028, after all of its current students have left 8th grade. So our counts show the size of each change, not the children who will move.
 - **School sizes.** Our sizes can differ from PPS's projections. Brentwood grows from `r fmt_n(sv("a", "brentwood", "students_now"))` to `r fmt_n(sv("a", "brentwood", "students_after"))` students here, but PPS projects `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` for 2031-32, when all the changes are in place. PPS's projections include future boundary effects and enrollment trends. We use PPS's projections as a check on the race and ethnicity shares, which are what this page compares.
