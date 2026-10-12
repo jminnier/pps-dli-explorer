@@ -47,6 +47,7 @@ We saved every source document in the repository under `data-raw/`. The script l
 | 24 | History of PPS and Black Portlanders | PPS, Center for Black Student Excellence, [*Historical Context*](https://www.pps.net/fs/pages/20941); City of Portland, Portland Housing Bureau, [*N/NE Neighborhood Housing Strategy: Historical Overview*](https://www.portland.gov/phb/nnehousing/historical-overview); PPS, [*Racial Educational Equity Policy*](https://www.pps.net/departments/racial-equity-social-justice/racial-educational-equity-policy) (2.10.010-P) | retrieved October 11, 2026 | – | quoted on the Equity page (§3) |
 | 25 | Title I schools | PPS Funded Programs, [*Title IA* page](https://www.pps.net/Page/1395): "2026-2027 Title IA Schools" (with bridge schools marked) and "2025-2026 Title IA Schools", and the eligibility rule | 2025-26 and 2026-27 (retrieved October 11, 2026) | `data-raw/title1/` | `title1_schools.csv` (copied with school keys by `school_changes.R`) |
 | 26 | SUN Community Schools | Multnomah County, [*SUN Community School Contact List – August 2026*](https://multco.us/file/sun_community_school_contact_list-0/download); proposed 2026 cuts from [Willamette Week (June 2, 2026)](https://www.wweek.com/news/schools/2026/06/02/multnomah-county-looks-to-cut-nine-sun-schools-heres-what-that-would-mean-at-creston-elementary/) and the county's [June 5, 2026 budget release](https://multco.us/news/news-release-multnomah-county-board-commissioners-closes-significant-spending-gap-adopts) | August 2026 (retrieved October 11, 2026) | `data-raw/sun/` | `sun_schools.csv` (via `school_changes.R`) |
+| 27 | Special education staffing (unofficial) | *Board Request as of 9/22* ([Google Sheet](https://docs.google.com/spreadsheets/d/15yL3mcAjWEHfSQQExKglYJmgfJBNhj_07rM3MrmxEvM)), SPED tab, "2026-27 Projected Allocation": Learning Center, SES, CB and ISC teacher positions and aides by school. Shared in the PPS Community Advocacy group; the sheet doesn't say who prepared it | Planned for 2026-27 (retrieved October 11, 2026) | `data-raw/sped/` | `sped_allocation_2026_27.csv`, `sped_moves.csv` (via `sped_programs.R`) |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -421,7 +422,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 
 ## School changes page {#school-changes}
 
-`data-raw/school_changes.R` builds every number on the [School changes](schools.qmd) page.
+`data-raw/school_changes.R` builds every number on the [School changes](schools.qmd) page except the special education section, which `data-raw/sped_programs.R` builds.
 
 **Where students go.** `data-raw/plan_flows.csv` has one row for each group of current students that would change buildings. Each row names the sending school, the part that moves and the receiving school. The part is the whole school, the neighborhood program, an immersion program, or grades 6-8. Each row also gives the share that moves and the sentence in PPS's school guide it rests on (page 3, "What is being proposed?"). Four rows rest on our assumptions rather than a PPS share:
 
@@ -437,6 +438,14 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 **Check against PPS.** PPS's guides give each school's projected share from underserved racial groups with no changes and under each scenario (source 16). Our estimate of each school's change matches the direction and size of PPS's. The correlation is 0.93 across 70 school-scenario pairs, and the median gap is 1.6 percentage points. The script stops if the correlation falls below 0.8.
 
 **Title I and SUN.** A school counts as Title I if it is on PPS's 2026-27 list, including the three bridge schools. PPS's guides leave bridge schools out of their Title I column, so we use the guides only for the projected status after the changes. The Title I figure counts every student in each group that moves, because PPS runs Title I school-wide. PPS publishes income (direct certification) only for whole schools, so we can't count the low-income students in each group. SUN status is the county's August 2026 contact list. The county's printable SUN map dates from August 2018 and is out of date.
+
+**Special education.** The script `data-raw/sped_programs.R` builds the special education section.
+
+- **Moves.** `data-raw/sped/sped_moves.csv` has one row for each special education program that a PPS guide says would move or stay. Each row quotes the guide (page 3).
+- **Staff.** Staff counts come from source 27, an unofficial spreadsheet of planned 2026-27 staffing. It counts teacher positions and aides, not students. It leaves out the Deaf and Hard of Hearing program, which Columbia Regional Inclusive Services (CRIS) runs with the school.
+- **Room.** PPS describes each SES, CB and ISC classroom as one teacher, 2 or 3 aides and 10 to 12 students. The "room for" estimate assumes one classroom per teacher position. It is room, not a count of children.
+- **Receiving schools.** "Has this kind of classroom today" means the spreadsheet shows at least one position of that type there.
+- **Checks.** The script stops if a school in the spreadsheet doesn't match the plan tables. It also stops if a closing school with an SES, CB or ISC position has no row in `sped_moves.csv`.
 
 **Map.** The map shows every K-8, middle and alternative school (72 buildings). Each circle's area is proportional to the school's students: today, or after each scenario. Its color is the share of students from underserved racial groups, in five bands. A dark ring around the circle marks a school whose share changes by 5 percentage points or more. Schools that close, or whose program moves out, appear as dashed gray rings at today's size. School locations are pps-explorer's status-quo points (`data/plan_school_points.csv`). The map shows only whole-school totals, never a single racial group, so no small count appears. The design draws on the scenario map at [ppsdata.info](https://ppsdata.info) by Alex Meub, which sizes each school's circle by its enrollment.
 
@@ -531,6 +540,7 @@ Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R
 Rscript data-raw/equity_race.R
 Rscript data-raw/school_changes.R
+Rscript data-raw/sped_programs.R
 quarto render
 ```
 

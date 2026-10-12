@@ -40,6 +40,14 @@ mv <- map_views(ps, pts)
 n_sh <- function(s, dir = "any") { x <- filter(mv, view == s, shift); d <- x$hu - x$hu0
   sum(switch(dir, any = rep(TRUE, nrow(x)), down = d < 0, up = d > 0)) }
 mp <- function(s, k, col) pc(mv[[col]][mv$view == s & mv$key == k])
+sm <- read_data("sped_moves.csv"); sa <- read_data("sped_allocation_2026_27.csv")
+fm <- function(s) filter(sm, scenario == s, status != "stays", program != "DHH")
+sp_n <- function(s, col = "positions") sum(fm(s)[[col]])
+sp_sch <- function(s) n_distinct(fm(s)$from_school)
+sp_to <- function(s, has) { x <- fm(s); unique(unlist(lapply(seq_len(nrow(x)), function(i) {
+  to <- trimws(strsplit(x$to_school[i], " or ")[[1]]); to[strsplit(x$to_has_type[i], " / ")[[1]] == has] }))) }
+sp_lc <- function(s, col) sum(sa[[col]][sa$key %in% ps$key[ps$scenario == s & ps$role == "Closes"]], na.rm = TRUE)
+s44 <- read_data("pps_slide44.csv"); s44g <- function(col) s44[[col]][s44$group == "Students Receiving Special Education Services"]
 ```
 
 The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
@@ -52,6 +60,7 @@ All numbers use October 2025 enrollment. We follow PPS's school guides to see wh
 - **Students.** The groups of students that would change buildings in Scenario A enroll about `r fmt_n(movers("a"))` students today (`r fmt_n(movers("b"))` in B). This number shows the size of the change, not a count of the children who will move. The changes start in 2027-28 or later, so many of today's students will have moved on by then. The schools that would take them in enroll about `r fmt_n(stayers("a"))` more students today. Those students stay put, but their school changes around them.
 - **Title I schools.** All `r length(t1_close)` closing Title I schools are the same in both scenarios: `r words(t1_close)`. PPS's own guides project that Brentwood Middle School would lose Title I status in both scenarios.
 - **SUN schools.** `r length(sun_close_a)` SUN Community Schools close in Scenario A (`r length(sun_close_b)` in B). In Scenario A, `r length(cut9_a)` of them are sites the county planned to cut in 2026 and then saved.
+- **Special education.** In Scenario A, special education classrooms with `r sp_n("a")` teachers would move out of `r sp_sch("a")` schools that close or lose grades. In Scenario B, `r sp_n("b")` teachers from `r sp_sch("b")` schools would. The guides name a new site for each classroom, but families and school teams will decide where each student goes. Creston's program for deaf and hard of hearing students would move to Glencoe.
 - **Separation by race.** Across the district, the plan would not make schools more separated by race. Locally, it would. Where immersion programs gather into one school, Latino and white students who now share a building would attend different buildings. Where neighborhood schools merge, as at Sabin and MLK Jr., separation falls.
 
 ## 1. Map: the share of students from underserved groups at each school {#sec-map}
@@ -184,7 +193,69 @@ Neither PPS nor the county has said whether a SUN site moves with its students w
 `r cite("sun", "sun_cuts", "plan_flows")`
 :::
 
-## 5. How schools that take in students would change {#sec-receiving-race}
+## 5. Special education classrooms {#sec-sped}
+
+PPS's school guides name a new building for each special education classroom in a school that closes or loses grades. They don't say where each student will go. Families and school teams will decide that, one student at a time. In Scenario A, classrooms with `r sp_n("a")` teachers and `r sp_n("a", "paras")` aides would move out of `r sp_sch("a")` schools. In Scenario B, classrooms with `r sp_n("b")` teachers and `r sp_n("b", "paras")` aides would move out of `r sp_sch("b")` schools. In both scenarios, Creston's program for deaf and hard of hearing students would move to Glencoe.
+
+**How PPS serves students with an IEP.** An IEP (Individualized Education Program) is a student's written plan for special education. Most of these students get help at their own school, in its Learning Center, which every PPS school has. Some students need a small classroom with more staff. PPS runs three kinds:
+
+- **Social Emotional Skills (SES) classrooms**, for students whose social, emotional or mental health needs keep them from learning in a general classroom without this help.
+- **Communication Behavior (CB) classrooms**, for students with significant social, behavior and sometimes developmental needs tied to communication and sensory challenges.
+- **Intensive Skills classrooms (ISC)**, for students whose cognitive and daily-living skill delays make the general curriculum hard to reach.
+
+PPS says each of these classrooms serves 10 to 12 students. The district chooses which school hosts each one, so many students attend one outside their neighborhood. Buckman's guide calls Buckman "a regional site" for SES classrooms.
+
+::: {.source}
+`r cite("sped_defs", "sped_guides")`
+:::
+
+### Where the guides say each classroom would go {#sec-sped-moves}
+
+The staff counts come from a spreadsheet of planned 2026-27 staffing, shared in the PPS Community Advocacy group. It doesn't say who prepared it, so we use it only to show how many staff each classroom has. It counts staff positions, not students.
+
+```{r}
+#| label: tbl-sped-moves
+#| tbl-cap: "Special education classrooms that PPS's school guides say would move, where they would go, and the staff planned for each in 2026-27. SES, CB and ISC are defined above; DHH is the Deaf and Hard of Hearing program. Rows apply to both scenarios unless marked. \"Has one today?\" asks whether the new school already has that kind of classroom. Staff counts are positions, not students."
+TL <- list(prog = c(SES = "SES", CB = "CB", ISC = "ISC", DHH = "DHH"), scen = c(ab = "A and B", a = "A only"), aonly = "Scenario A only", staff = "%g %s, %g aides", t1 = "teacher", tn = "teachers", cris = "Not in the sheet (CRIS)", stays = "Stays", or = " or ", yes = "Yes", no = "No", h = c("Classroom", "Now at", "Scenario", "Staff, 2026-27", "Moves to", "Has one today?"))
+st <- sm |> group_by(from_school, program, grades, to_school, status, positions, paras, to_has_type) |>
+  summarise(scen = paste(sort(unique(scenario)), collapse = ""), .groups = "drop") |>
+  mutate(ord = match(status, c("named", "split", "stays")), cls = paste(TL$prog[program], grades),
+         when = TL$scen[scen], staff = ifelse(is.na(positions), TL$cris, sprintf(TL$staff, positions, ifelse(positions == 1, TL$t1, TL$tn), paras)),
+         to = ifelse(status == "stays", TL$stays, gsub(" or ", TL$or, sub("Sunnyside Environmental", "Sunnyside", short_school(to_school)))),
+         has = ifelse(is.na(to_has_type) | status == "stays", "–", gsub("yes", TL$yes, gsub("no", TL$no, to_has_type)))) |>
+  arrange(ord, desc(scen), program, from_school)
+gt(st |> mutate(from = ifelse(scen == "a", sprintf("%s (%s)", short_school(from_school), TL$aonly), short_school(from_school))) |> select(cls, from, staff, to, has)) |>
+  cols_label(cls = TL$h[1], from = TL$h[2], staff = TL$h[4], to = TL$h[5], has = TL$h[6]) |>
+  tab_source_note(md(cite("sped_guides", "sped_sheet", "plan_flows")))
+```
+
+- **New rooms.** In Scenario A, `r words(sp_to("a", "no"))` don't have that kind of classroom today, so they would need space and staff set up for it. `r words(sp_to("a", "yes"))` already do. Their guides say the moved classroom would join the one there.
+- **Size.** PPS says each classroom serves 10 to 12 students. If each teacher position is one classroom, the classrooms that would move in Scenario A have room for about `r sp_n("a") * 10` to `r sp_n("a") * 12` students. This is an estimate of room, not a count of children.
+- **Arleta.** Its SES classroom for grades 3-5 stays. Arleta's guide says the program "will continue uninterrupted" when Marysville's students arrive.
+
+### Creston's program for deaf and hard of hearing students {#sec-dhh}
+
+Creston's Deaf and Hard of Hearing (DHH) program would move to Glencoe in both scenarios. Creston runs it with Columbia Regional Inclusive Services (CRIS). Creston's guide says it serves "students from across the region, extending to communities such as Molalla and West Linn-Wilsonville." Today these students go on to Mt. Tabor Middle School, but the rest of Creston's students don't. Glencoe sends its students to Mt. Tabor. So PPS says DHH students would move up with their Glencoe classmates. A PPS staff member told the board on October 6: "the deaf and hard of hearing students will flow as a cohort with their Glencoe peers onto Mount Tabor." The staffing spreadsheet doesn't include the DHH program.
+
+::: {.source}
+`r cite("memo_dhh", "sped_guides", "board1006_sped")`
+:::
+
+### What the guides leave open {#sec-sped-open}
+
+- **Each student's placement.** Every guide says: "A school or program move does not determine where an individual student receiving special education services will go."
+- **Sabin.** Its SES students would go to "either" Vernon or MLK Jr. The Special Education Department will decide with families.
+- **Learning Center staff.** In Scenario A, the closing schools have `r sprintf("%g", sp_lc("a", "lc_fte"))` Learning Center teacher positions (full-time equivalent) and `r sp_lc("a", "one_on_one_paras")` one-to-one aides planned for 2026-27. The guides don't say where those staff go. At the October 6 board meeting, a staff member said: "Services follow students, though. So if there's a paraeducator at one school, that paraeducator would follow the student to the other school."
+- **Silent guides.** Some guides say nothing about special education beyond the text every guide shares. They include Atkinson, which takes in Creston's neighborhood students, and Mt. Tabor, the DHH program's middle school. Sellwood, which closes, is silent too.
+- **Counts.** No guide gives the number of students in any special education classroom. PPS scheduled meetings for families of students with IEPs on October 9 and October 13, 2026.
+
+**PPS's own check.** PPS reports that `r fmt_n(s44g("a_number"))` K-8 students receiving special education services would move in Scenario A (`r pc(s44g("a_pct"))`). That is the same rate as all K-8 students (`r pc(s44$a_pct[s44$group == "All Students"])`). In Scenario B, `r fmt_n(s44g("b_number"))` would move (`r pc(s44g("b_pct"))`). PPS doesn't define "move" or show which programs these students are in.
+
+::: {.source}
+`r cite("sped_guides", "sped_sheet", "board1006_sped", "sped_sessions", "slide44")`
+:::
+
+## 6. How schools that take in students would change {#sec-receiving-race}
 
 Many schools that take in students would see a large change in who attends. The biggest changes come where a school's own program leaves and a different group of students arrives.
 
@@ -226,7 +297,7 @@ gt(tr, groupname_col = "sc") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 6. Would the moves sort students by race? {#sec-segregation}
+## 7. Would the moves sort students by race? {#sec-segregation}
 
 Across the district, no. In the places where immersion programs gather into one school, yes. Two measures help show this.
 
@@ -284,7 +355,7 @@ gt(ts, groupname_col = "area") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 7. What this estimate can't show {#sec-limits}
+## 8. What this estimate can't show {#sec-limits}
 
 - **It uses today's students to measure the change.** We move October 2025 students all at once, as the school guides describe. The real changes start in 2027-28 or later, and many of today's students will have moved on. For example, Sellwood Middle School closes in 2028, after all of its current students have left 8th grade. So our counts show the size of each change, not the children who will move.
 - **School sizes.** Our sizes can differ from PPS's projections. Brentwood grows from `r fmt_n(sv("a", "brentwood", "students_now"))` to `r fmt_n(sv("a", "brentwood", "students_after"))` students here, but PPS projects `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` for 2031-32, when all the changes are in place. PPS's projections include future boundary effects and enrollment trends. We use PPS's projections as a check on the race and ethnicity shares, which are what this page compares.

@@ -41,6 +41,14 @@ mv <- map_views(ps, pts)
 n_sh <- function(s, dir = "any") { x <- filter(mv, view == s, shift); d <- x$hu - x$hu0
   sum(switch(dir, any = rep(TRUE, nrow(x)), down = d < 0, up = d > 0)) }
 mp <- function(s, k, col) pc(mv[[col]][mv$view == s & mv$key == k])
+sm <- read_data("sped_moves.csv"); sa <- read_data("sped_allocation_2026_27.csv")
+fm <- function(s) filter(sm, scenario == s, status != "stays", program != "DHH")
+sp_n <- function(s, col = "positions") sum(fm(s)[[col]])
+sp_sch <- function(s) n_distinct(fm(s)$from_school)
+sp_to <- function(s, has) { x <- fm(s); unique(unlist(lapply(seq_len(nrow(x)), function(i) {
+  to <- trimws(strsplit(x$to_school[i], " or ")[[1]]); to[strsplit(x$to_has_type[i], " / ")[[1]] == has] }))) }
+sp_lc <- function(s, col) sum(sa[[col]][sa$key %in% ps$key[ps$scenario == s & ps$role == "Closes"]], na.rm = TRUE)
+s44 <- read_data("pps_slide44.csv"); s44g <- function(col) s44[[col]][s44$group == "Students Receiving Special Education Services"]
 ```
 
 ::: {.callout-note appearance="minimal"}
@@ -57,6 +65,7 @@ Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de l
 - **Estudiantes.** Los grupos de estudiantes que cambiarían de edificio en el Escenario A tienen hoy unos `r fmt_n(movers("a"))` estudiantes (`r fmt_n(movers("b"))` en el B). Esta cifra muestra el tamaño del cambio, no cuántos niños se mudarán. Los cambios empiezan en 2027-28 o después, así que muchos de los estudiantes de hoy ya se habrán ido. Las escuelas que los recibirían tienen hoy otros `r fmt_n(stayers("a"))` estudiantes. Esos estudiantes no se mudan, pero su escuela cambia a su alrededor.
 - **Escuelas de Título I.** Las `r length(t1_close)` escuelas de Título I que cierran son las mismas en ambos escenarios: `r words(t1_close)`. Las propias guías de PPS proyectan que la escuela intermedia Brentwood dejaría de ser de Título I en ambos escenarios.
 - **Escuelas SUN.** En el Escenario A cierran `r length(sun_close_a)` escuelas comunitarias SUN (`r length(sun_close_b)` en el B). En el Escenario A, `r length(cut9_a)` de ellas son sitios que el condado planeaba recortar en 2026 y luego salvó.
+- **Educación especial.** En el Escenario A, aulas de educación especial con `r sp_n("a")` docentes saldrían de `r sp_sch("a")` escuelas que cierran o pierden grados. En el Escenario B, saldrían `r sp_n("b")` docentes de `r sp_sch("b")` escuelas. Las guías nombran un sitio nuevo para cada aula, pero las familias y los equipos escolares decidirán a dónde va cada estudiante. El programa de Creston para estudiantes sordos y con pérdida auditiva se mudaría a Glencoe.
 - **Separación por raza.** En el distrito en su conjunto, el plan no haría que las escuelas estuvieran más separadas por raza. En algunos lugares, sí. Donde los programas de inmersión se reúnen en una sola escuela, estudiantes latinos y blancos que hoy comparten un edificio asistirían a edificios distintos. Donde se unen escuelas del vecindario, como Sabin y MLK Jr., la separación disminuye.
 
 ## 1. Mapa: el porcentaje de estudiantes de grupos desatendidos en cada escuela {#sec-map}
@@ -189,7 +198,69 @@ Ni PPS ni el condado han dicho si un sitio SUN se muda con sus estudiantes cuand
 `r cite("sun", "sun_cuts", "plan_flows")`
 :::
 
-## 5. Cómo cambiarían las escuelas que reciben estudiantes {#sec-receiving-race}
+## 5. Aulas de educación especial {#sec-sped}
+
+Las guías de las escuelas de PPS nombran un nuevo edificio para cada aula de educación especial de una escuela que cierra o pierde grados. No dicen a dónde irá cada estudiante. Eso lo decidirán las familias y los equipos escolares, estudiante por estudiante. En el Escenario A, aulas con `r sp_n("a")` docentes y `r sp_n("a", "paras")` asistentes saldrían de `r sp_sch("a")` escuelas. En el Escenario B, aulas con `r sp_n("b")` docentes y `r sp_n("b", "paras")` asistentes saldrían de `r sp_sch("b")` escuelas. En ambos escenarios, el programa de Creston para estudiantes sordos y con pérdida auditiva se mudaría a Glencoe.
+
+**Cómo atiende PPS a los estudiantes con un IEP.** Un IEP (Programa de Educación Individualizado) es el plan escrito de educación especial de un estudiante. La mayoría de estos estudiantes recibe apoyo en su propia escuela, en su Learning Center (centro de aprendizaje), que tiene cada escuela de PPS. Algunos estudiantes necesitan un aula pequeña con más personal. PPS tiene tres tipos:
+
+- **Aulas de habilidades socioemocionales (Social Emotional Skills, SES)**: para estudiantes con necesidades sociales, emocionales o de salud mental. Sin este apoyo, no pueden aprender en un aula general.
+- **Aulas de comunicación y conducta (Communication Behavior, CB)**: para estudiantes con grandes necesidades sociales y de conducta, a veces del desarrollo. Están ligadas a dificultades de comunicación y sensoriales.
+- **Aulas de habilidades intensivas (Intensive Skills, ISC)**: para estudiantes con retrasos cognitivos y de habilidades para la vida diaria. Esos retrasos les dificultan el acceso al currículo general.
+
+PPS dice que cada una de estas aulas atiende a entre 10 y 12 estudiantes. El distrito elige qué escuela tiene cada aula, así que muchos estudiantes asisten a una fuera de su vecindario. La guía de Buckman dice que Buckman es "un sitio regional" para las aulas SES.
+
+::: {.source}
+`r cite("sped_defs", "sped_guides")`
+:::
+
+### A dónde irían las aulas, según las guías {#sec-sped-moves}
+
+Las cifras de personal vienen de una hoja de cálculo con el personal previsto para 2026-27, compartida en el grupo PPS Community Advocacy. La hoja no dice quién la preparó, así que solo la usamos para mostrar cuánto personal tiene cada aula. Cuenta puestos de trabajo, no estudiantes.
+
+```{r}
+#| label: tbl-sped-moves
+#| tbl-cap: "Aulas de educación especial que, según las guías de PPS, se mudarían, a dónde irían y el personal previsto para cada una en 2026-27. Las siglas SES, CB e ISC se explican arriba; DHH es el programa para estudiantes sordos y con pérdida auditiva. Las filas valen para ambos escenarios salvo que se indique. \"¿Ya tiene una?\" indica si la nueva escuela ya tiene ese tipo de aula. Las cifras de personal son puestos, no estudiantes."
+TL <- list(prog = c(SES = "SES", CB = "CB", ISC = "ISC", DHH = "DHH"), scen = c(ab = "A y B", a = "Solo A"), aonly = "solo Escenario A", staff = "%g %s, %g asistentes", t1 = "docente", tn = "docentes", cris = "No está en la hoja (CRIS)", stays = "Se queda", or = " o ", yes = "Sí", no = "No", h = c("Aula", "Ahora en", "Escenario", "Personal, 2026-27", "Se muda a", "¿Ya tiene una?"))
+st <- sm |> group_by(from_school, program, grades, to_school, status, positions, paras, to_has_type) |>
+  summarise(scen = paste(sort(unique(scenario)), collapse = ""), .groups = "drop") |>
+  mutate(ord = match(status, c("named", "split", "stays")), cls = paste(TL$prog[program], grades),
+         when = TL$scen[scen], staff = ifelse(is.na(positions), TL$cris, sprintf(TL$staff, positions, ifelse(positions == 1, TL$t1, TL$tn), paras)),
+         to = ifelse(status == "stays", TL$stays, gsub(" or ", TL$or, sub("Sunnyside Environmental", "Sunnyside", short_school(to_school)))),
+         has = ifelse(is.na(to_has_type) | status == "stays", "–", gsub("yes", TL$yes, gsub("no", TL$no, to_has_type)))) |>
+  arrange(ord, desc(scen), program, from_school)
+gt(st |> mutate(from = ifelse(scen == "a", sprintf("%s (%s)", short_school(from_school), TL$aonly), short_school(from_school))) |> select(cls, from, staff, to, has)) |>
+  cols_label(cls = TL$h[1], from = TL$h[2], staff = TL$h[4], to = TL$h[5], has = TL$h[6]) |>
+  tab_source_note(md(cite("sped_guides", "sped_sheet", "plan_flows")))
+```
+
+- **Aulas nuevas.** En el Escenario A, `r words(sp_to("a", "no"))` no tienen hoy ese tipo de aula, así que necesitarían espacio y personal para ella. `r words(sp_to("a", "yes"))` ya la tienen. Sus guías dicen que el aula trasladada se uniría a la que ya existe.
+- **Tamaño.** PPS dice que cada aula atiende a entre 10 y 12 estudiantes. Si cada puesto docente es un aula, las aulas que se mudarían en el Escenario A tienen lugar para unos `r sp_n("a") * 10` a `r sp_n("a") * 12` estudiantes. Es un cálculo del espacio, no un conteo de niños.
+- **Arleta.** Su aula SES de 3.º a 5.º grado se queda. La guía de Arleta dice que el programa "continuará sin interrupción" cuando lleguen los estudiantes de Marysville.
+
+### El programa de Creston para estudiantes sordos y con pérdida auditiva {#sec-dhh}
+
+El programa para estudiantes sordos y con pérdida auditiva (Deaf and Hard of Hearing, DHH) de Creston se mudaría a Glencoe en ambos escenarios. Creston lo ofrece junto con Columbia Regional Inclusive Services (CRIS). La guía de Creston dice que atiende a "estudiantes de toda la región, incluidas comunidades como Molalla y West Linn-Wilsonville". Hoy estos estudiantes pasan a la escuela intermedia Mt. Tabor, pero el resto de los estudiantes de Creston no. Glencoe envía a sus estudiantes a Mt. Tabor. Por eso PPS dice que los estudiantes de DHH pasarían de grado junto con sus compañeros de Glencoe. Una persona del personal de PPS dijo a la Junta el 6 de octubre: "los estudiantes sordos y con pérdida auditiva pasarán como grupo con sus compañeros de Glencoe a Mount Tabor". La hoja de personal no incluye el programa DHH.
+
+::: {.source}
+`r cite("memo_dhh", "sped_guides", "board1006_sped")`
+:::
+
+### Lo que las guías dejan sin resolver {#sec-sped-open}
+
+- **La asignación de cada estudiante.** Todas las guías dicen: "El traslado de una escuela o de un programa no determina a dónde irá cada estudiante que recibe servicios de educación especial".
+- **Sabin.** Sus estudiantes de SES irían "ya sea" a Vernon o a MLK Jr. El Departamento de Educación Especial lo decidirá con las familias.
+- **Personal del Learning Center.** En el Escenario A, las escuelas que cierran tienen previstos para 2026-27 `r sprintf("%g", sp_lc("a", "lc_fte"))` puestos docentes de Learning Center (a tiempo completo). También tienen `r sp_lc("a", "one_on_one_paras")` asistentes individuales. Las guías no dicen a dónde irá ese personal. En la sesión de la Junta del 6 de octubre, una persona del personal dijo: "Los servicios siguen a los estudiantes. Así que, si hay un asistente educativo en una escuela, ese asistente seguiría al estudiante a la otra escuela".
+- **Guías que no dicen nada.** Algunas guías no dicen nada sobre educación especial aparte del texto que comparten todas. Entre ellas están Atkinson, que recibe a los estudiantes del vecindario de Creston, y Mt. Tabor, la escuela intermedia del programa DHH. Sellwood, que cierra, tampoco dice nada.
+- **Cifras.** Ninguna guía da el número de estudiantes de un aula de educación especial. PPS programó reuniones para familias de estudiantes con IEP el 9 y el 13 de octubre de 2026.
+
+**La propia revisión de PPS.** PPS informa que `r fmt_n(s44g("a_number"))` estudiantes de K-8 que reciben servicios de educación especial se mudarían en el Escenario A (`r pc(s44g("a_pct"))`). Es la misma tasa que la de todos los estudiantes de K-8 (`r pc(s44$a_pct[s44$group == "All Students"])`). En el Escenario B se mudarían `r fmt_n(s44g("b_number"))` (`r pc(s44g("b_pct"))`). PPS no define "mudarse" ni muestra en qué programas están estos estudiantes.
+
+::: {.source}
+`r cite("sped_guides", "sped_sheet", "board1006_sped", "sped_sessions", "slide44")`
+:::
+
+## 6. Cómo cambiarían las escuelas que reciben estudiantes {#sec-receiving-race}
 
 En muchas escuelas que reciben estudiantes cambiaría mucho quién asiste. Los cambios más grandes ocurren donde sale un programa de la escuela y llega otro grupo de estudiantes.
 
@@ -231,7 +302,7 @@ gt(tr, groupname_col = "sc") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 6. ¿Separarían los traslados a los estudiantes por raza? {#sec-segregation}
+## 7. ¿Separarían los traslados a los estudiantes por raza? {#sec-segregation}
 
 En el distrito en su conjunto, no. En los lugares donde los programas de inmersión se reúnen en una sola escuela, sí. Dos medidas ayudan a verlo.
 
@@ -289,7 +360,7 @@ gt(ts, groupname_col = "area") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 7. Lo que este cálculo no puede mostrar {#sec-limits}
+## 8. Lo que este cálculo no puede mostrar {#sec-limits}
 
 - **Usa a los estudiantes de hoy para medir el cambio.** Trasladamos a todos los estudiantes de octubre de 2025 a la vez, como lo describen las guías. Los cambios reales empiezan en 2027-28 o después, y muchos de los estudiantes de hoy ya se habrán ido. Por ejemplo, la escuela intermedia Sellwood cierra en 2028, cuando todos sus estudiantes actuales ya habrán terminado 8.º grado. Por eso nuestras cifras muestran el tamaño de cada cambio, no a los niños que se mudarán.
 - **Tamaño de las escuelas.** Nuestros tamaños pueden diferir de las proyecciones de PPS. Aquí Brentwood pasa de `r fmt_n(sv("a", "brentwood", "students_now"))` a `r fmt_n(sv("a", "brentwood", "students_after"))` estudiantes, pero PPS proyecta `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` para 2031-32, cuando todos los cambios ya estén en marcha. Las proyecciones de PPS incluyen efectos futuros de los cambios de zona y las tendencias de matrícula. Usamos las proyecciones de PPS para comprobar los porcentajes de raza y etnia, que son lo que compara esta página.

@@ -1,0 +1,74 @@
+key,school,lc_fte,ses,cb,isc,qmhp,ses_paras,cb_paras,isc_paras,one_on_one_paras,nsm_building_para,tic
+abernethy,Abernethy,1,0,0,0,NA,0,0,0,3,NA,NA
+access,Access,1,0,0,0,NA,0,0,0,1,NA,NA
+ainsworth,Ainsworth,1,0,0,0,NA,0,0,0,1,NA,NA
+alameda,Alameda,1.5,0,2,0,NA,0,6,0,NA,NA,NA
+arleta,Arleta,1,1,0,0,0.5,3,0,0,2,NA,0.938
+astor,Astor,4,0,0,0,NA,0,0,0,1,5,NA
+atkinson,Atkinson,1,0,0,2,NA,0,0,6,4,NA,NA
+beach,Beach,1,0,0,0,NA,0,0,0,1,NA,NA
+beverlycleary,Beverly Cleary,1.5,0,0,1,NA,0,0,3,2,NA,NA
+boiseeliothumboldt,Boise-Eliot/Humboldt,2,0,2,0,NA,0,6,0,3,NA,NA
+bridgercreativescience,Bridger Creative Science,2.5,0,0,0,NA,0,0,0,1,NA,NA
+bridlemile,Bridlemile,1,0,2,0,NA,0,6,0,0,NA,NA
+buckman,Buckman,1,2,0,0,1,6,0,0,1,NA,0.938
+capitolhill,Capitol Hill,1,0,0,0,NA,0,0,0,1,NA,NA
+cesarchavez,César Chávez,2.5,0,0,0,NA,0,0,0,NA,3,NA
+chapman,Chapman,1.5,0,0,0,NA,0,0,0,0,2,NA
+chiefjoseph,Chief Joseph,1,0,0,0,NA,0,0,0,2,NA,NA
+clark,Clark,1,0,1,0,NA,0,3,0,1,NA,NA
+creston,Creston,1,0,0,0,NA,0,0,0,2,NA,NA
+mlkjr,MLK Jr,1,0,0,0,NA,0,0,0,1,NA,NA
+duniway,Duniway,1,0,0,0,NA,0,0,0,1,NA,NA
+faubion,Faubion,2.5,0,1,0,NA,0,3,0,1,NA,NA
+forestpark,Forest Park,0.5,0,0,0,NA,0,0,0,1,NA,NA
+glencoe,Glencoe,1,0,0,0,NA,0,0,0,NA,NA,NA
+grout,Grout,1,0,2,0,NA,0,6,0,1,NA,NA
+hayhurst,Hayhurst,1,2,0,0,1,6,0,0,NA,NA,0.938
+irvington,Irvington,1,0,0,0,NA,0,0,0,1,NA,NA
+jamesjohn,James John,2,0,0,0,0.5,0,0,0,1,4,NA
+kelly,Kelly,1,0,0,0,NA,0,0,0,NA,NA,NA
+laurelhurst,Laurelhurst,2,0,0,0,NA,0,0,0,1,NA,NA
+sunrise,Sunrise,1.5,0,2,0,NA,0,6,0,NA,NA,NA
+lent,Lent,1,0,0,0,NA,0,0,0,NA,NA,NA
+lewis,Lewis,1,0,1,0,NA,0,3,0,NA,NA,NA
+llewellyn,Llewellyn,1.5,0,2,0,NA,0,6,0,2,NA,NA
+maplewood,Maplewood,1,0,0,1,NA,0,0,3,3,NA,NA
+markham,Markham,1,0,0,1,NA,0,0,3,4,NA,NA
+marysville,Marysville,3,0,0,0,NA,0,0,0,1,3,NA
+metropolitanlearningcenter,Metro. Learning Center,2,0,0,0,NA,0,0,0,2,NA,NA
+odyssey,Odyssey,1,0,0,0,NA,0,0,0,1,NA,NA
+peninsula,Peninsula,4,0,0,0,NA,0,0,0,4,8,NA
+richmond,Richmond,1,0,0,0,NA,0,0,0,NA,NA,NA
+rieke,Rieke,1,0,0,0,NA,0,0,0,NA,NA,NA
+rigler,Rigler,1,0,0,0,NA,0,0,0,NA,NA,NA
+rosaparks,Rosa Parks,2,0,0,0,NA,0,0,0,0,4,NA
+rosecitypark,Rose City Park,1,0,0,0,NA,0,0,0,NA,NA,NA
+sabin,Sabin,1,2,0,0,1,6,0,0,2,NA,0.938
+scott,Scott,1.5,0,0,1,NA,0,0,3,2,NA,NA
+sitton,Sitton,3.5,0,0,0,NA,0,0,0,6,4,NA
+skyline,Skyline,1,0,0,0,NA,0,0,0,1,NA,NA
+stephenson,Stephenson,1,0,1,0,NA,0,3,0,1,NA,NA
+sunnysideenvironmental,Sunnyside Environmental,2.5,0,0,0,NA,0,0,0,3,NA,NA
+vestal,Vestal,1,0,0,2,NA,0,0,6,2,NA,NA
+vernon,Vernon,1.5,0,0,0,NA,0,0,0,1,NA,NA
+whitman,Whitman,3,0,0,0,NA,0,0,0,NA,6,NA
+winterhaven,Winterhaven,0.5,0,0,0,NA,0,0,0,NA,NA,NA
+woodlawn,Woodlawn,1,0,2,0,NA,0,6,0,5,NA,NA
+woodmere,Woodmere,1,0,2,0,NA,0,6,0,2,NA,NA
+woodstock,Woodstock,1,0,1,0,NA,0,3,0,NA,NA,NA
+beaumont,Beaumont,2,1,0,2,0.5,3,0,6,1,NA,NA
+davinci,Da Vinci,2,0,0,0,NA,0,0,0,2,NA,NA
+george,George,3,1,0,2,0.5,3,0,5,3,NA,1
+harriettubman,Harriet Tubman,2,0,0,1,NA,0,0,2,1,NA,NA
+harrisonpark,Harrison Park,2,0,0,0,NA,0,0,0,NA,NA,NA
+hosford,Hosford,2,0,0,1,NA,0,0,3,2,NA,NA
+jackson,Jackson,3,0,0,1,NA,0,0,3,NA,NA,NA
+kellogg,Kellogg,2,1,0,1,0.5,3,0,3,1,NA,NA
+brentwood,Lane,2.5,1,0,1,1,2,0,3,1,NA,NA
+mttabor,Mt Tabor,1,0,0,1,NA,0,0,3,1,NA,NA
+ockleygreen,Ockley Green,2,0,0,0,NA,0,0,0,1,NA,NA
+gray,Gray,2,1,0,0,0.5,3,0,0,NA,NA,NA
+rosewayheights,Roseway Heights,2.5,1,0,0,0.5,3,0,0,1,NA,NA
+sellwood,Sellwood,2.5,0,0,0,NA,0,0,0,1,NA,NA
+westsylvan,West Sylvan,2,0,0,1,NA,0,0,3,3,NA,NA

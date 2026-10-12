@@ -51,6 +51,7 @@ Guardamos todos los documentos fuente en el repositorio, en `data-raw/`. El scri
 | 24 | Historia de PPS y de la población afrodescendiente de Portland | PPS, Center for Black Student Excellence, [*Historical Context*](https://www.pps.net/fs/pages/20941); Ciudad de Portland, Portland Housing Bureau, [*N/NE Neighborhood Housing Strategy: Historical Overview*](https://www.portland.gov/phb/nnehousing/historical-overview); PPS, [*Racial Educational Equity Policy*](https://www.pps.net/departments/racial-equity-social-justice/racial-educational-equity-policy) (2.10.010-P) | consultado el 11 de octubre de 2026 | – | citado en la página de Equidad (§3) |
 | 25 | Escuelas de Título I | PPS Funded Programs, [página *Title IA*](https://www.pps.net/Page/1395): "2026-2027 Title IA Schools" (con las escuelas puente marcadas) y "2025-2026 Title IA Schools", y la regla para calificar | 2025-26 y 2026-27 (consultado el 11 de octubre de 2026) | `data-raw/title1/` | `title1_schools.csv` (copiado con claves de escuela por `school_changes.R`) |
 | 26 | Escuelas comunitarias SUN | Condado de Multnomah, [*SUN Community School Contact List – August 2026*](https://multco.us/file/sun_community_school_contact_list-0/download); recortes propuestos en 2026 según [Willamette Week (2 de junio de 2026)](https://www.wweek.com/news/schools/2026/06/02/multnomah-county-looks-to-cut-nine-sun-schools-heres-what-that-would-mean-at-creston-elementary/) y el [comunicado del condado del 5 de junio de 2026](https://multco.us/news/news-release-multnomah-county-board-commissioners-closes-significant-spending-gap-adopts) | agosto de 2026 (consultado el 11 de octubre de 2026) | `data-raw/sun/` | `sun_schools.csv` (con `school_changes.R`) |
+| 27 | Personal de educación especial (no oficial) | *Board Request as of 9/22* ([hoja de Google](https://docs.google.com/spreadsheets/d/15yL3mcAjWEHfSQQExKglYJmgfJBNhj_07rM3MrmxEvM)), pestaña SPED, "2026-27 Projected Allocation": puestos docentes y asistentes de Learning Center, SES, CB e ISC por escuela. Compartida en el grupo PPS Community Advocacy; la hoja no dice quién la preparó | Previsto para 2026-27 (consultada el 11 de octubre de 2026) | `data-raw/sped/` | `sped_allocation_2026_27.csv`, `sped_moves.csv` (con `sped_programs.R`) |
 | 9 | Idioma del hogar por sección censal | Oficina del Censo de EE. UU., estimaciones de 5 años de la American Community Survey, tablas **C16001** (idioma que se habla en el hogar, población de 5 años o más) y **B16007** (idioma que se habla en el hogar por edad), mediante la API del Censo | 2020–2024 | guardados localmente, no incluidos en el repositorio | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Población por manzana censal | Oficina del Censo de EE. UU., datos de redistribución del Censo 2020 (P.L. 94-171), tablas P1 y P3, mediante la API del Censo | 2020 | guardados localmente, no incluidos en el repositorio | usado en `acs_language_access.R` y `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -426,7 +427,7 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 
 ## Página de cambios por escuela {#school-changes}
 
-`data-raw/school_changes.R` calcula todas las cifras de la página [Cambios por escuela](schools.qmd).
+`data-raw/school_changes.R` calcula todas las cifras de la página [Cambios por escuela](schools.qmd). La única excepción es la sección de educación especial, que calcula `data-raw/sped_programs.R`.
 
 **A dónde van los estudiantes.** `data-raw/plan_flows.csv` tiene una fila por cada grupo de estudiantes actuales que cambiaría de edificio. Cada fila indica la escuela que envía, la parte que se traslada y la escuela receptora. La parte es toda la escuela, el programa del vecindario, un programa de inmersión o los grados 6.º a 8.º. Cada fila también da la proporción que se traslada y la oración de la guía de PPS en que se basa (página 3, "What is being proposed?"). Cuatro filas se basan en supuestos nuestros y no en una proporción de PPS:
 
@@ -442,6 +443,14 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 **Comprobación con PPS.** Las guías de PPS dan el porcentaje proyectado de estudiantes de grupos raciales desatendidos en cada escuela, sin cambios y en cada escenario (fuente 16). Nuestro cálculo del cambio en cada escuela coincide en dirección y tamaño con el de PPS. La correlación es de 0.93 en 70 pares de escuela y escenario. La diferencia mediana es de 1.6 puntos porcentuales. El programa se detiene si la correlación baja de 0.8.
 
 **Título I y SUN.** Una escuela cuenta como de Título I si está en la lista de PPS de 2026-27, incluidas las tres escuelas puente. Las guías de PPS no incluyen las escuelas puente en su columna de Título I. Por eso usamos las guías solo para la situación proyectada después de los cambios. La figura de Título I cuenta a todos los estudiantes de cada grupo que se muda. Esto es porque PPS aplica el Título I a toda la escuela. PPS publica los ingresos (certificación directa) solo por escuela completa, así que no podemos contar a los estudiantes de bajos ingresos de cada grupo. La situación de SUN viene de la lista de contactos del condado de agosto de 2026. El mapa imprimible de SUN del condado es de agosto de 2018 y está desactualizado.
+
+**Educación especial.** El script `data-raw/sped_programs.R` calcula la sección de educación especial.
+
+- **Traslados.** `data-raw/sped/sped_moves.csv` tiene una fila por cada programa de educación especial que, según su guía, se muda o se queda. Cada fila cita la guía (página 3).
+- **Personal.** Las cifras de personal vienen de la fuente 27, una hoja de cálculo no oficial con el personal previsto para 2026-27. Cuenta puestos docentes y asistentes, no estudiantes. No incluye el programa para estudiantes sordos y con pérdida auditiva, que ofrece Columbia Regional Inclusive Services (CRIS) con la escuela.
+- **Lugar.** PPS describe cada aula SES, CB e ISC con un docente, 2 o 3 asistentes y entre 10 y 12 estudiantes. El cálculo de "lugar para" supone un aula por puesto docente. Es espacio, no un conteo de niños.
+- **Escuelas receptoras.** "Ya tiene este tipo de aula" significa que la hoja muestra al menos un puesto de ese tipo allí.
+- **Controles.** El script se detiene si una escuela de la hoja no coincide con las tablas del plan. También se detiene si una escuela que cierra con un puesto SES, CB o ISC no tiene fila en `sped_moves.csv`.
 
 **Mapa.** El mapa muestra todas las escuelas K-8, intermedias y alternativas (72 edificios). El área de cada círculo es proporcional a los estudiantes de la escuela: hoy, o después de cada escenario. Su color es el porcentaje de estudiantes de grupos raciales desatendidos, en cinco rangos. Un anillo oscuro alrededor del círculo marca una escuela cuyo porcentaje cambia 5 puntos porcentuales o más. Las escuelas que cierran, o cuyo programa se muda, aparecen como anillos grises punteados con el tamaño de hoy. Las ubicaciones son los puntos de la situación actual de pps-explorer (`data/plan_school_points.csv`). El mapa muestra solo totales por escuela, nunca un solo grupo racial, así que no aparece ninguna cifra pequeña. El diseño se inspira en el mapa de escenarios de [ppsdata.info](https://ppsdata.info), de Alex Meub. Ese mapa da a cada escuela un círculo del tamaño de su matrícula.
 
@@ -536,6 +545,7 @@ Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R
 Rscript data-raw/equity_race.R
 Rscript data-raw/school_changes.R
+Rscript data-raw/sped_programs.R
 quarto render
 ```
 
