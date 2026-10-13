@@ -63,7 +63,11 @@ rbp <- read_data("race_by_program_2025.csv") |> mutate(key = school_key(school))
 source("R/plan_charts.R"); source("R/freeway_charts.R")
 fws <- read_data("freeway_schools.csv"); fwsum <- read_data("freeway_summary.csv"); fwfl <- read_data("freeway_flows.csv"); fwt <- read_data("freeway_test.csv")
 fdist <- function(k, col = "dist_m") fws[[col]][fws$key == k]
-FT <- c(all = "All students today", near = "Students at schools within 150 m today", moved = "All students the plan moves",
+near_after <- function(s) { d <- fws[fws$dist_m <= 150 & fws[[paste0("after_", s)]] > 0, ]; weighted.mean(d[[paste0("hu_after_", s)]], d[[paste0("after_", s)]]) }
+hs_near <- read_data("plan_high_school_students.csv") |> filter(scenario == "a") |>   # high schools are outside the K-8 counts; side note only
+  inner_join(read_data("freeway_distance.csv") |> filter(grounds_to_freeway_m <= 150) |> select(key, grounds_to_freeway_m), by = "key")
+FT <- c(all = "All students today", near = "Students at schools within 150 m today", all_hs = "All students today, with high schools",
+        near_hs = "Students at schools within 150 m today, with high schools", moved = "All students the plan moves",
         into = "Moved into schools within 150 m", out = "Moved out of schools within 150 m")
 ft <- function(s, g, col = "hu_pct") fwt[[col]][fwt$scenario == s & fwt$group == FT[[g]]]
 fsum <- function(st, col = "students") fwsum[[col]][fwsum$state == st & fwsum$band == "within 150 m"]
@@ -628,21 +632,23 @@ The data point to options that would take less from immersion families. PPS shou
 
 Both scenarios move Atkinson's Spanish immersion program into Lent. Lent's school grounds are about `r fdist("lent")` meters from I-205. The US Environmental Protection Agency (EPA) says pollution from traffic is highest within about 150 meters (500 feet) of a busy road. It falls to background levels by about 600 meters (2,000 feet). In Scenario A, the plan would move groups from schools farther away into schools within 150 meters of a freeway. These groups enroll about `r fmt_n(ft("a", "into", "students"))` students today. In Scenario B, those groups enroll about `r fmt_n(ft("b", "into", "students"))` students.
 
-**A few specific moves drive this.** In Scenario A, `r fmt_pct(ft("a", "into"))` of the students in these groups are from underserved racial groups. That compares with `r fmt_pct(ft("a", "moved"))` of all students the plan moves and `r fmt_pct(ft("now", "all"))` of all PPS students. In Scenario B, the share is `r fmt_pct(ft("b", "into"))`, against `r fmt_pct(ft("b", "moved"))` of all students it moves. The pattern comes from which programs PPS chose to move, not from a district-wide trend:
+**A few specific moves drive this.** In Scenario A, `r fmt_pct(ft("a", "into"))` of the students in these groups are from underserved racial groups. That compares with `r fmt_pct(ft("a", "moved"))` of all students the plan moves and `r fmt_pct(ft("now", "all"))` of all K-8 students. In Scenario B, the share is `r fmt_pct(ft("b", "into"))`, against `r fmt_pct(ft("b", "moved"))` of all students it moves. The pattern comes from which programs PPS chose to move, not from a district-wide trend:
 
 - **Atkinson's Spanish immersion program to Lent** (both scenarios): `r fmt_pct(fmv("a", "Atkinson"))` from underserved groups. Lent is `r fdist("lent")` m from I-205.
 - **Faubion's grades 6-8 to Ockley Green** (both): `r fmt_pct(fmv("a", "Faubion"))`. Ockley Green is `r fdist("ockleygreen")` m from I-5.
 - **Vernon's grades 6-8 to Harriet Tubman** (both): `r fmt_pct(fmv("a", "Vernon"))`. Tubman is `r fdist("harriettubman")` m from I-5.
 - **Stephenson's students to Markham and Capitol Hill** (Scenario A only): `r fmt_pct(fmv("a", "Stephenson"))`. Both schools are within `r max(fdist("markham"), fdist("capitolhill"))` m of I-5.
 
-Schools near freeways are not more underserved overall. Today, `r fmt_pct(ft("now", "near"))` of the students at schools within 150 m of a freeway are from underserved racial groups. That is about the same as all PPS students (`r fmt_pct(ft("now", "all"))`). One move goes the other way: Odyssey would leave a building `r fdist("odyssey")` m from US 26. Mandarin immersion would move from MLK Jr. to Boise-Eliot/Humboldt. Its grounds are `r fdist("boiseeliothumboldt", "ramp_m")` m from an I-5 ramp and `r fdist("boiseeliothumboldt")` m from the freeway itself.
+K-8 schools near freeways already enroll somewhat more students from underserved groups. Today, `r fmt_pct(ft("now", "near"))` of the K-8 students at schools within 150 m of a freeway are from underserved racial groups. That compares with `r fmt_pct(ft("now", "all"))` of all K-8 students. The plan would widen that gap. After Scenario A, `r fmt_pct(near_after("a"))` of the students at schools within 150 m would be from underserved groups (`r fmt_pct(near_after("b"))` after Scenario B). One move goes the other way: Odyssey would leave a building `r fdist("odyssey")` m from US 26. Mandarin immersion would move from MLK Jr. to Boise-Eliot/Humboldt. Its grounds are `r fdist("boiseeliothumboldt", "ramp_m")` m from an I-5 ramp and `r fdist("boiseeliothumboldt")` m from the freeway itself.
 
-Today, `r fmt_n(fsum("now"))` students (`r fmt_pct(fsum("now", "share"))`) attend schools within 150 m of a freeway. After Scenario A, schools that close to a freeway would enroll about `r fmt_n(fsum("a"))` (`r fmt_pct(fsum("a", "share"))`). After Scenario B, they would enroll about `r fmt_n(fsum("b"))` (`r fmt_pct(fsum("b", "share"))`). These counts use today's students, like the rest of this page.
+Today, `r fmt_n(fsum("now"))` students (`r fmt_pct(fsum("now", "share"))`) attend schools within 150 m of a freeway. After Scenario A, schools that close to a freeway would enroll about `r fmt_n(fsum("a"))` (`r fmt_pct(fsum("a", "share"))`). After Scenario B, they would enroll about `r fmt_n(fsum("b"))` (`r fmt_pct(fsum("b", "share"))`). These counts use today's K-8 students, like the rest of this page.
+
+**With high school students.** `r knitr::combine_words(hs_near$school)` high schools are also within 150 m of a freeway. The plan doesn't move any high school students to or from them. Counting their students, `r fmt_n(fsum("now_hs"))` students attend schools within 150 m today (`r fmt_n(fsum("a_hs"))` after Scenario A, `r fmt_n(fsum("b_hs"))` after B). Of them, `r fmt_pct(ft("now", "near_hs"))` are from underserved racial groups, about the same as all PPS students (`r fmt_pct(ft("now", "all_hs"))`).
 
 ```{r}
 #| label: tbl-freeway
 #| tbl-cap: "K-8, middle and alternative schools whose grounds are within 400 m of a freeway: distance, what each scenario does, and the share of students from underserved racial groups today (PPS's guides). Student counts are October 2025 enrollment, a measure of the size of each change. Ramp distance is shown when a ramp is much closer than the mainline."
-L <- pc_lab(); TL <- list(cell = "%s (%s after)", dist = "%s m (%s)", dist_ramp = "%s m (%s); ramp %s m", hu = "Underserved racial groups", into = "Moved within 150 m", moved = "All moved", all = "All students today", sa = "Scenario A", sb = "Scenario B", h = c("School", "Grounds to freeway", "Students today", "Scenario A", "Scenario B", "Underserved today (PPS)"))
+L <- pc_lab(); TL <- list(cell = "%s (%s after)", dist = "%s m (%s)", dist_ramp = "%s m (%s); ramp %s m", hu = "Underserved racial groups", into = "Moved within 150 m", moved = "All moved", all = "All K-8 students today", sa = "Scenario A", sb = "Scenario B", h = c("School", "Grounds to freeway", "Students today", "Scenario A", "Scenario B", "Underserved today (PPS)"))
 cell <- function(role, now, after) ifelse(role == "No change", L$role[role], sprintf(TL$cell, L$role[role], fmt_n(after)))
 fws |> filter(level != "High", dist_m <= 400) |>
   transmute(school = short_school(school),
@@ -656,7 +662,7 @@ fws |> filter(level != "High", dist_m <= 400) |>
 
 ```{r}
 #| label: tbl-freeway-race
-#| tbl-cap: "Race and ethnicity of the groups the plan would move into schools within 150 m of a freeway (from schools farther away), compared with all groups the plan moves and all PPS students today. October 2025 enrollment; counts by program for immersion moves."
+#| tbl-cap: "Race and ethnicity of the groups the plan would move into schools within 150 m of a freeway (from schools farther away), compared with all groups the plan moves and all K-8 students today. October 2025 enrollment; counts by program for immersion moves."
 G8 <- c("latino", "black", "asian", "native_american", "pacific_islander", "white", "asian_white", "other_multi")
 col <- function(s, g) { r <- fwt[fwt$scenario == s & fwt$group == FT[[g]], ]
   x <- c(fmt_share(unlist(r[paste0(G8, "_pct")]), r$students), fmt_share(r$hu_pct, r$students)); x[x == "0%"] <- "<1%"; x }   # a real count that rounds to 0%

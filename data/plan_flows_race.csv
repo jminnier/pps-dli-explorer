@@ -37,7 +37,6 @@ a,Rose City Park,Vietnamese,1,Vestal,207,NA,NA,131,NA,NA,50,16,7,"Rose City Park
 a,Stephenson,whole,0.7,Markham,197,19,6,7,NA,NA,134,22,8,"Stephenson guide: ""70% of its neighborhood school boundary would move to Markham K-5""",0.1,0.03,0.04,NA,NA,0.68,0.11,0.04
 a,Stephenson,whole,0.3,Capitol Hill,84,8,NA,NA,NA,NA,58,10,NA,"Stephenson guide: ""30% would move to Capitol Hill K-5""",0.1,NA,NA,NA,NA,0.68,0.11,NA
 a,Lewis,whole,1,Duniway,259,32,NA,16,NA,NA,167,20,20,"Lewis guide: ""In Scenario A, neighborhood K-5 students would move to Duniway K-5.""",0.12,NA,0.06,NA,NA,0.64,0.08,0.08
-a,Metro. Learning Center,9-12,1,(other high schools),40,NA,NA,NA,NA,NA,29,NA,NA,"MLC guide: ""High school (9th-12th) students would transition to another PPS alternative school, attend a focus option or return to their designated neighborhood high schools.""",NA,NA,NA,NA,NA,0.73,NA,NA
 b,Sabin,whole,1,MLK Jr,269,25,28,6,NA,NA,169,12,23,"Sabin guide: ""Its full neighborhood K-5 school boundary would move to Dr. Martin Luther King Jr. Elementary.""",0.09,0.1,0.02,0.02,NA,0.63,0.04,0.09
 b,MLK Jr,Mandarin,1,Boise-Eliot/Humboldt,193,26,43,13,NA,NA,65,25,20,"MLK Jr. guide: ""The Mandarin Dual Language Immersion (DLI) program would move to Boise-Eliot/Humboldt (BEH).""",0.13,0.22,0.07,NA,NA,0.34,0.13,0.1
 b,Buckman,whole,0.5,Abernethy,142,19,6,NA,NA,NA,89,7,14,"Buckman guide: ""Half of the neighborhood goes to Abernethy K-5""",0.13,0.05,NA,NA,NA,0.63,0.05,0.1
@@ -71,4 +70,3 @@ b,Woodmere,whole,1,Whitman,227,57,23,28,NA,NA,77,NA,35,"Woodmere guide: ""100% o
 b,Sellwood,whole,0.36,Hosford,203,16,NA,NA,NA,NA,161,11,9,"Sellwood guide: Llewellyn-area students to Hosford; split by feeder-school enrollment (Llewellyn 345 of 966), an assumption",0.08,NA,NA,NA,NA,0.79,0.05,0.05
 b,Sellwood,whole,0.64,Brentwood,361,29,NA,7,NA,NA,286,20,17,"Sellwood guide: Duniway- and Lewis-area students to Brentwood; split by feeder-school enrollment (Duniway + Lewis 621 of 966), an assumption",0.08,NA,0.02,NA,NA,0.79,0.05,0.05
 b,Odyssey,whole,1,Metro. Learning Center,217,13,NA,8,NA,NA,161,21,10,"Odyssey guide: ""The Odyssey K-8 special-focus choice program would move to the Metropolitan Learning Center (MLC) school.""",0.06,NA,0.04,NA,NA,0.74,0.1,0.05
-b,Metro. Learning Center,9-12,1,(other high schools),40,NA,NA,NA,NA,NA,29,NA,NA,"MLC guide: ""High school (9th-12th) students would transition to another PPS alternative school, attend a focus option or return to their designated neighborhood high schools.""",NA,NA,NA,NA,NA,0.73,NA,NA

@@ -432,6 +432,7 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - **Bands.** Within 150 m (500 feet), where the EPA says near-road pollution is highest; 150 to 600 m; and over 600 m (2,000 feet), about background.
 - **Check.** A first run done by hand in a browser gave the same grounds for all 82 schools and distances within 7 m.
 - **Moves.** Each group in `plan_flows.csv` gets its current and new school's distance. A group "moves within 150 m" when its new school is within 150 m and its current school is not.
+- **K-8 only.** Counts and shares cover students in kindergarten through grade 8, like the School changes page. The "with high school students" note adds the high schools back, using the same race report. No high school student moves to or from a freeway school in the plan.
 - **Race and ethnicity.** These come from the same program-level counts as the rest of the School changes analysis, before any count is hidden. The tables hide counts under 5 (#small-numbers).
 - **Limits.** OpenStreetMap grounds are drawn by volunteers and may include fields or parks. Distance is not exposure. We don't model wind, terrain, sound walls, traffic volume or trucks, and we don't count busy streets that aren't freeways. Student counts are today's students moved all at once.
 
@@ -450,14 +451,15 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 
 **Roles.** "Closes" uses PPS's guides ("School would close") plus Sellwood, which closes in 2028. "Takes in students" means at least one part arrives. "Sends students away" means at least one part leaves but the building stays open. "Boundary or feeder change only" means PPS's guide lists a change, but no current student moves (for example, future middle schoolers from Kelly going to Harrison Park).
 
-**Students the plan affects.** The table at the top of the page counts each student once, by October 2025 enrollment. Students change buildings if their school closes, if Odyssey's program moves, or if their program or grades leave a school that stays open. The others at a school that takes in students count as staying at a school that takes in students. The others at a school that only sends students away count separately. The last row adds every student at a school with only a boundary or feeder change. The total equals all students at schools the plan changes in any way. The page stops building if it doesn't (`plan_affected()` in `R/plan_charts.R`).
+**K-8 only.** The School changes page counts students in kindergarten through grade 8, the students this site is about. It leaves out high schools and Metropolitan Learning Center's grades 9-12, whose students we remove using its October 2025 grade counts (source 2). The "with high school students" notes add them back from `data/plan_high_school_students.csv`. High schools change only through boundaries and feeder schools for future students. The one exception is Metropolitan Learning Center's grades 9-12, which end; those students choose another school.
+
+**Students the plan affects.** The table at the top of the page counts each K-8 student once, by October 2025 enrollment. Students change buildings if their school closes, if Odyssey's program moves, or if their program or grades leave a school that stays open. The others at a school that takes in students count as staying at a school that takes in students. The others at a school that only sends students away count separately. The last row adds every student at a school with only a boundary or feeder change. The total equals all students at schools the plan changes in any way. The page stops building if it doesn't (`plan_affected()` in `R/plan_charts.R`).
 
 ```{r}
 #| echo: false
 source("R/charts.R"); source("R/plan_charts.R")
 ps <- read_data("plan_schools.csv"); fl <- read_data("plan_flows_race.csv")
 af_arr <- function(s) sum(ps$students_in[ps$scenario == s]); af_mv <- function(s) sum(ps$students_out[ps$scenario == s])
-af_mlc <- round(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))
 ```
 
 The tables below show the same counts school by school. Each group's subtotal is one row of the table on the School changes page:
@@ -466,7 +468,7 @@ The tables below show the same counts school by school. Each group's subtotal is
 - "Stay" at schools that take in students and at schools that only send some away are the two "stay" rows.
 - The boundary and feeder group is the last row. All of its students stay.
 
-"Arriving" (students arriving from other schools) is for reference only. We count each moving student once, at the school they leave. Arrivals add up to `r fmt_n(af_arr("a"))` in Scenario A, not `r fmt_n(af_mv("a"))`. Metropolitan Learning Center's `r fmt_n(af_mlc)` high school students would choose another school, so they have no receiving school here. The rest of the gap is rounding, because some groups split between two schools.
+"Arriving" (students arriving from other schools) is for reference only. We count each moving student once, at the school they leave. Arrivals (`r fmt_n(af_arr("a"))` in Scenario A) and students who change buildings (`r fmt_n(af_mv("a"))`) can differ by a student or two. Some groups split between two schools, and we round each part.
 
 ::: {.panel-tabset}
 ### Scenario A {#affected-a}

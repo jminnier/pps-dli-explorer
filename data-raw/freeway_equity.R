@@ -39,9 +39,24 @@ schools_out <- sch |> filter(scenario == "a") |>
   mutate(across(c(students_now, after_a, after_b), round), across(starts_with("hu_"), \(x) round(x, 3))) |>
   arrange(dist_m)
 
-summ <- bind_rows(
+# High schools (and MLC's grades 9-12) are outside the K-8 counts. They are kept here only for the
+# "with high schools" side notes: no high school student moves to or from a freeway school in the plan.
+hs <- sc$hs |> filter(scenario == "a") |> left_join(fd |> select(key, dist_m = grounds_to_freeway_m), by = "key") |> mutate(band = band(dist_m))
+stopifnot(!anyNA(hs$dist_m))
+hs_n <- bind_rows(lapply(seq_len(nrow(hs)), \(i) as.list(sc$part_counts(hs$key[i], if (hs$change[i] == "Grades 9-12 end") "9-12" else "whole"))))
+hs <- bind_cols(hs, hs_n) |> mutate(students = rowSums(across(all_of(NC))))
+stopifnot(all(abs(hs$students - hs$students_now) < 1))
+
+k8 <- bind_rows(
   sch |> filter(scenario == "a") |> group_by(band) |> summarise(students = sum(students_now), schools = sum(students_now > 0)) |> mutate(state = "now"),
-  sch |> group_by(state = scenario, band) |> summarise(students = sum(students_after), schools = sum(students_after > 0), .groups = "drop")) |>
+  sch |> group_by(state = scenario, band) |> summarise(students = sum(students_after), schools = sum(students_after > 0), .groups = "drop"))
+with_hs <- bind_rows(lapply(c("now", "a", "b"), \(st) {   # "_hs": the same with high school students added
+  h <- if (st == "now") hs else filter(hs, change != "Grades 9-12 end")   # MLC's grades 9-12 leave in A and B
+  filter(k8, state == st) |>
+    full_join(h |> group_by(band) |> summarise(hs = sum(students), hs_schools = sum(change != "Grades 9-12 end")), by = "band") |>
+    transmute(state = paste0(st, "_hs"), band, students = coalesce(students, 0) + coalesce(hs, 0), schools = coalesce(schools, 0L) + coalesce(hs_schools, 0L))
+}))
+summ <- bind_rows(k8, with_hs) |>
   group_by(state) |> mutate(share = students / sum(students)) |> ungroup() |>
   mutate(students = round(students), share = round(share, 4)) |> relocate(state)
 
@@ -65,6 +80,8 @@ names(near_now) <- c(NC, "students")
 test <- bind_rows(
   grp(now_all, "All students today") |> mutate(scenario = "now"),
   grp(near_now, "Students at schools within 150 m today") |> mutate(scenario = "now"),
+  grp(bind_rows(now_all, select(hs, all_of(NC), students)), "All students today, with high schools") |> mutate(scenario = "now"),
+  grp(bind_rows(near_now, select(filter(hs, dist_m <= 150), all_of(NC), students)), "Students at schools within 150 m today, with high schools") |> mutate(scenario = "now"),
   bind_rows(lapply(c("a", "b"), \(s) bind_rows(
     grp(filter(fl, scenario == s), "All students the plan moves"),
     grp(filter(fl, scenario == s, into_near), "Moved into schools within 150 m"),

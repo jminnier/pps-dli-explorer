@@ -437,6 +437,7 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 - **Rangos.** Usamos tres rangos. El primero es a menos de 150 m (500 pies), donde la EPA dice que la contaminación cerca de la vía es mayor. Los otros son de 150 a 600 m, y a más de 600 m (2,000 pies), donde el aire está cerca del nivel normal.
 - **Verificación.** Una primera corrida hecha a mano en un navegador dio el mismo terreno para las 82 escuelas. Las distancias difirieron en menos de 7 m.
 - **Traslados.** Cada grupo de `plan_flows.csv` recibe la distancia de su escuela actual y de la nueva. Un grupo "se traslada a menos de 150 m" cuando su nueva escuela está a menos de 150 m y la actual no.
+- **Solo de kínder a 8.º grado.** Las cifras y los porcentajes cubren a los estudiantes de kínder a 8.º grado, como la página Cambios por escuela. La nota "con los estudiantes de preparatoria" vuelve a sumar las preparatorias, con el mismo informe de raza. En el plan, ningún estudiante de preparatoria se traslada hacia una escuela cerca de una autopista ni desde ella.
 - **Raza y grupo étnico.** Vienen de las mismas cifras por programa que el resto del análisis de cambios por escuela, antes de ocultar cifras. Las tablas ocultan las cifras menores de 5 (#small-numbers).
 - **Límites.** Los terrenos de OpenStreetMap los dibujan voluntarios y pueden incluir canchas o parques. La distancia no es exposición. No tomamos en cuenta el viento, el terreno, los muros contra el ruido, la cantidad de tráfico ni los camiones. Tampoco contamos calles muy transitadas que no son autopistas. Las cifras de estudiantes son los estudiantes de hoy trasladados todos a la vez.
 
@@ -455,14 +456,15 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 
 **Funciones.** "Cierra" usa las guías de PPS ("School would close") más Sellwood, que cierra en 2028. "Recibe estudiantes" significa que llega al menos una parte. "Envía estudiantes" significa que sale al menos una parte pero el edificio sigue abierto. "Solo cambia de zona o de escuela de continuación" significa que la guía de PPS indica un cambio, pero ningún estudiante actual se muda. Un ejemplo son los futuros estudiantes de escuela intermedia de Kelly que irían a Harrison Park.
 
-**Estudiantes que afecta el plan.** La tabla al principio de la página cuenta a cada estudiante una sola vez, según la matrícula de octubre de 2025. Un estudiante cambia de edificio si su escuela cierra o si se muda el programa de Odyssey. También cambia si su programa o sus grados salen de una escuela que sigue abierta. Los demás estudiantes de una escuela que recibe estudiantes cuentan como estudiantes que se quedan en ella. Los demás estudiantes de una escuela que solo envía estudiantes cuentan aparte. La última fila suma a todos los estudiantes de escuelas que solo cambian de zona o de escuela de continuación. El total es igual a todos los estudiantes de las escuelas que el plan cambia de alguna forma. La página no se genera si no coinciden (`plan_affected()` en `R/plan_charts.R`).
+**Solo de kínder a 8.º grado.** La página Cambios por escuela cuenta a los estudiantes de kínder a 8.º grado, que son el tema de este sitio. No incluye las preparatorias ni los grados 9.º a 12.º de Metropolitan Learning Center. Restamos esos estudiantes con los conteos por grado de octubre de 2025 (fuente 2). Las notas "con los estudiantes de preparatoria" los vuelven a sumar a partir de `data/plan_high_school_students.csv`. Las preparatorias solo cambian por las zonas y las escuelas de origen de futuros estudiantes. La única excepción son los grados 9.º a 12.º de Metropolitan Learning Center, que terminan; esos estudiantes eligen otra escuela.
+
+**Estudiantes que afecta el plan.** La tabla al principio de la página cuenta a cada estudiante de kínder a 8.º grado una sola vez. Usa la matrícula de octubre de 2025. Un estudiante cambia de edificio si su escuela cierra o si se muda el programa de Odyssey. También cambia si su programa o sus grados salen de una escuela que sigue abierta. Los demás estudiantes de una escuela que recibe estudiantes cuentan como estudiantes que se quedan en ella. Los demás estudiantes de una escuela que solo envía estudiantes cuentan aparte. La última fila suma a todos los estudiantes de escuelas que solo cambian de zona o de escuela de continuación. El total es igual a todos los estudiantes de las escuelas que el plan cambia de alguna forma. La página no se genera si no coinciden (`plan_affected()` en `R/plan_charts.R`).
 
 ```{r}
 #| echo: false
 source("R/charts.R"); source("R/plan_charts.R")
 ps <- read_data("plan_schools.csv"); fl <- read_data("plan_flows_race.csv")
 af_arr <- function(s) sum(ps$students_in[ps$scenario == s]); af_mv <- function(s) sum(ps$students_out[ps$scenario == s])
-af_mlc <- round(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))
 ```
 
 Las tablas de abajo muestran las mismas cifras escuela por escuela. El subtotal de cada grupo es una fila de la tabla de la página Cambios por escuela:
@@ -471,7 +473,7 @@ Las tablas de abajo muestran las mismas cifras escuela por escuela. El subtotal 
 - "Se quedan" en escuelas que reciben estudiantes y en escuelas que solo envían a algunos son las dos filas de estudiantes que se quedan.
 - El grupo de cambios de zona o de escuela de continuación es la última fila. Todos sus estudiantes se quedan.
 
-"Llegan" (estudiantes que llegan de otras escuelas) es solo para referencia. Contamos a cada estudiante que se muda una sola vez, en la escuela de la que sale. Las llegadas suman `r fmt_n(af_arr("a"))` en el Escenario A, no `r fmt_n(af_mv("a"))`. Los `r fmt_n(af_mlc)` estudiantes de preparatoria de Metropolitan Learning Center elegirían otra escuela, así que aquí no tienen escuela receptora. El resto de la diferencia se debe al redondeo, porque algunos grupos se dividen entre dos escuelas.
+"Llegan" (estudiantes que llegan de otras escuelas) es solo para referencia. Contamos a cada estudiante que se muda una sola vez, en la escuela de la que sale. Las llegadas (`r fmt_n(af_arr("a"))` en el Escenario A) y los estudiantes que cambian de edificio (`r fmt_n(af_mv("a"))`) pueden diferir en uno o dos estudiantes. Algunos grupos se dividen entre dos escuelas, y cada parte se redondea.
 
 ::: {.panel-tabset}
 ### Escenario A {#affected-a}

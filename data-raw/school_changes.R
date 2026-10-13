@@ -14,6 +14,8 @@
 #   data/plan_flows_race.csv         each flow with its students by race and ethnicity
 #   data/plan_schools.csv            school x scenario: role, students in/out, now vs after by group,
 #                                    PPS's projected underserved share, Title I, SUN
+#   data/plan_high_school_students.csv  high schools (and MLC grades 9-12) left out of the K-8 counts: students
+#                                    today and whether the guides change them, for the "with high schools" notes
 #   data/plan_segregation.csv        dissimilarity index now vs A vs B (elementary and middle buildings)
 #   data/title1_schools.csv, data/sun_schools.csv  tidy copies with school keys
 #
@@ -24,6 +26,10 @@
 #   - Splits PPS gives as boundary shares (Buckman 50/50, Maplewood 70/30, Stephenson 70/30) are applied
 #     to enrolled students. Sellwood is split by feeder-school enrollment. Marysville goes to Arleta
 #     (PPS projects Arleta +333 and Kelly +10 by 2031-32).
+#   - K-8 only (user decision, Oct 13, 2026): the site counts students in grades K-8, the population the
+#     immersion analysis is about. High schools are left out, and so are Metropolitan Learning Center's
+#     grades 9-12 (its high school grades end; those students choose another school). High school boundary
+#     and feeder changes move no current K-8 student.
 #   - Future-cohort feeder changes (for example Kelly-area middle schoolers to Harrison Park) move no
 #     current students, so they are not flows; those schools count as "boundary change only".
 #
@@ -78,6 +84,7 @@ part_counts <- function(k, part) {
 flows0 <- read_csv(here("data-raw", "plan_flows.csv"), show_col_types = FALSE)
 flows <- bind_rows(lapply(c("a", "b"), \(s) filter(flows0, scenario %in% c(s, "ab")) |> mutate(scenario = s))) |>
   mutate(from_key = school_key(from_school), to_key = if_else(grepl("^\\(", to_school), "other", school_key(to_school)))
+flows <- filter(flows, !grepl("9-12$", part))   # K-8 only (see Assumptions)
 fr <- bind_cols(flows, bind_rows(map2(flows$from_key, flows$part, \(k, p) as.list(part_counts(k, p))))) |>
   mutate(across(all_of(NC), \(x) x * share), students = rowSums(across(all_of(NC))))
 
@@ -99,11 +106,13 @@ unmatched(t1$key, "Title I"); unmatched(sun$key, "SUN")
 
 level_of <- race |> filter(row_type %in% c("school", "school_total")) |> distinct(key, level)
 # whole-school immersion schools (Lent, Rigler, Richmond) print only their immersion row
-schools <- race |> filter(level != "Alternative programs" | key == "metropolitanlearningcenter") |>
+schools <- race |> filter(level != "High", level != "Alternative programs" | key == "metropolitanlearningcenter") |>
   group_by(key) |> filter(n() == 1 | row_type %in% c("school", "school_total")) |> ungroup() |>
   distinct(key, school, level)
 stopifnot(!anyDuplicated(schools$key))
-now <- bind_rows(lapply(schools$key, \(k) as.list(part_counts(k, "whole")))) |> mutate(key = schools$key)
+# K-8 students only: a school that also has grades 9-12 (Metropolitan Learning Center) loses that share.
+k8_counts <- function(k) { x <- part_counts(k, "whole"); if (any(grade$key == k & grade$grade %in% band_grades[["9-12"]])) x <- x - part_counts(k, "9-12"); x }
+now <- bind_rows(lapply(schools$key, \(k) as.list(k8_counts(k)))) |> mutate(key = schools$key)
 
 out <- fr |> group_by(scenario, key = from_key) |> summarise(across(all_of(NC), sum), students = sum(students), .groups = "drop")
 inn <- fr |> filter(to_key != "other") |> group_by(scenario, key = to_key) |> summarise(across(all_of(NC), sum), students = sum(students), .groups = "drop")
@@ -150,8 +159,22 @@ plan <- tot |> left_join(wide, by = c("scenario", "key")) |>
          hu_after = if_else(closes, NA_real_, hu_after))
 if (!all(plan$check_closed)) stop("closing school not fully allocated: ", paste(plan$key[!plan$check_closed], collapse = ", "))
 # every school in the guides with a change must be in the table (high schools come from the race report too)
-miss <- setdiff(guide$key[guide$scenario != "sq" & !grepl("^No changes", guide$type_of_change)], plan$key)
+miss <- setdiff(guide$key[guide$scenario != "sq" & !grepl("^No changes", guide$type_of_change)], c(plan$key, race$key[race$level == "High"]))
 if (length(miss)) message("guide schools with changes but no race row: ", paste(miss, collapse = ", "))
+
+# ---- high school students (left out above; kept for the side notes on how totals change with them) ----
+# One row per high school per scenario, plus Metropolitan Learning Center's grades 9-12, which end in both
+# scenarios (those students choose another school, so they change buildings).
+hs_keys <- race |> filter(level == "High") |> group_by(key) |> filter(n() == 1 | row_type %in% c("school", "school_total")) |> ungroup() |> distinct(key, school)
+hs <- bind_rows(
+  expand_grid(scenario = c("a", "b"), hs_keys) |>
+    mutate(students_now = map_dbl(key, \(k) sum(part_counts(k, "whole")))) |>
+    left_join(gsc, by = c("key", "scenario")) |>
+    mutate(change = if_else(!is.na(type_of_change) & !grepl("^No changes", type_of_change), "Boundary or feeder change only", "No change")),
+  tibble(scenario = c("a", "b"), key = "metropolitanlearningcenter", school = "Metropolitan Learning Center (grades 9-12)",
+         students_now = sum(part_counts("metropolitanlearningcenter", "9-12")), change = "Grades 9-12 end")) |>
+  transmute(scenario, key, school, change, students_now = round(students_now))
+stopifnot(!anyDuplicated(hs[c("scenario", "key", "change")]), !any(hs$key[hs$change != "Grades 9-12 end"] %in% plan$key))
 
 # ---- checks against PPS's own projections -----------------------------------------------------
 chk <- plan |> filter(!closes, students_after > 0, students_in + students_out > 0, !is.na(hu_after_pps)) |>
@@ -192,6 +215,10 @@ units_now <- race |> filter(key %in% schools$key[schools$level != "High"]) |> gr
   mutate(unit = if_else(key == "odyssey", "Odyssey", unit_name(program))) |>
   select(key, unit, all_of(NC))
 stopifnot(!anyDuplicated(units_now[c("key", "unit")]))
+for (k in unique(grade$key[grade$grade %in% band_grades[["9-12"]]])) if (k %in% units_now$key) {   # K-8 only, as in `now`
+  stopifnot(sum(units_now$key == k) == 1)
+  units_now[units_now$key == k, NC] <- as.list(unlist(units_now[units_now$key == k, NC]) - part_counts(k, "9-12"))
+}
 part_unit <- function(k, part) {
   lang <- regmatches(part, regexpr("^(Spanish|Mandarin|Vietnamese)", part))
   if (length(lang)) return(lang)
@@ -256,6 +283,7 @@ write_csv(plan_out |> mutate(across(where(is.double), \(x) round(x, 4))) |>
             arrange(scenario, factor(role, c("Closes", "Program moves to another building", "Takes in students", "Takes in students and sends some away", "Sends students away", "Boundary or feeder change only", "No change")), school),
           here("data", "plan_schools.csv"))
 write_csv(seg, here("data", "plan_segregation.csv"))
+write_csv(hs, here("data", "plan_high_school_students.csv"))
 write_csv(t1, here("data", "title1_schools.csv")); write_csv(sun, here("data", "sun_schools.csv"))
 
 # ---- school locations for the map (pps-explorer's status-quo school points, Richmond corrected) ----

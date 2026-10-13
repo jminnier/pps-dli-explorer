@@ -1,0 +1,21 @@
+scenario,key,school,change,students_now
+a,benson,Benson,No change,1025
+a,cleveland,Cleveland,Boundary or feeder change only,1451
+a,franklin,Franklin,Boundary or feeder change only,1780
+a,grant,Grant,No change,2074
+a,idabwellsbarnett,Ida B. Wells-Barnett,No change,1574
+a,jefferson,Jefferson,Boundary or feeder change only,391
+a,lincoln,Lincoln,Boundary or feeder change only,1647
+a,mcdaniel,McDaniel,Boundary or feeder change only,1629
+a,roosevelt,Roosevelt,Boundary or feeder change only,1419
+b,benson,Benson,No change,1025
+b,cleveland,Cleveland,Boundary or feeder change only,1451
+b,franklin,Franklin,Boundary or feeder change only,1780
+b,grant,Grant,No change,2074
+b,idabwellsbarnett,Ida B. Wells-Barnett,No change,1574
+b,jefferson,Jefferson,Boundary or feeder change only,391
+b,lincoln,Lincoln,Boundary or feeder change only,1647
+b,mcdaniel,McDaniel,Boundary or feeder change only,1629
+b,roosevelt,Roosevelt,Boundary or feeder change only,1419
+a,metropolitanlearningcenter,Metropolitan Learning Center (grades 9-12),Grades 9-12 end,40
+b,metropolitanlearningcenter,Metropolitan Learning Center (grades 9-12),Grades 9-12 end,40

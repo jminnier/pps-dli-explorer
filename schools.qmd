@@ -17,8 +17,11 @@ n_role <- function(s, roles) sum(ps$scenario == s & ps$role %in% roles)
 n_all <- function(s) sum(ps$scenario == s)
 n_aff <- function(s) sum(ps$scenario == s & ps$role != "No change")
 movers <- function(s) sum(ps$students_out[ps$scenario == s])
-bnd <- filter(ps, scenario == "a", role == "Boundary or feeder change only", level == "High"); bnd_hs <- sum(bnd$students_now); bnd_hs_n <- nrow(bnd)
-stopifnot(identical(sort(bnd$school), sort(ps$school[ps$scenario == "b" & ps$role == "Boundary or feeder change only" & ps$level == "High"])))
+hs <- read_data("plan_high_school_students.csv")   # left out of the K-8 counts; used only in the "with high schools" notes
+hsv <- function(s, ch) sum(hs$students_now[hs$scenario == s & hs$change %in% ch]); hsn <- function(s, ch) sum(hs$scenario == s & hs$change %in% ch)
+all_n <- function(s) sum(ps$students_now[ps$scenario == s]) + sum(hs$students_now[hs$scenario == s])
+with_hs <- function(s) af("total", s) + hsv(s, c("Boundary or feeder change only", "Grades 9-12 end"))
+stopifnot(hsv("a", "Boundary or feeder change only") == hsv("b", "Boundary or feeder change only"))
 aff <- plan_affected(ps); af <- function(row, s, col = "students") aff[[paste0(col, "_", s)]][aff$row == row]
 stayers <- function(s) with(filter(ps, scenario == s, role %in% TAKE), sum(students_now - students_out))
 in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No change"])
@@ -56,9 +59,9 @@ k8m <- fl |> filter(scenario == "a", grepl("6-8", part), from_school != "Beaumon
 k8_conv <- unique(k8m$from_school); k8_sub <- sum(k8s$subsidy_fte[k8s$key %in% k8m$key])
 ```
 
-The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
+The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools with grades K-8 would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
 
-All numbers use October 2025 enrollment. We follow PPS's school guides to see where each school's students would go. "Underserved racial groups" is PPS's term for Latino, Black, Native American, Pacific Islander and multiracial students of other ancestries.
+All numbers count students in kindergarten through grade 8, the students this site is about, in October 2025. They leave out high schools. We follow PPS's school guides to see where each school's students would go. "Underserved racial groups" is PPS's term for Latino, Black, Native American, Pacific Islander and multiracial students of other ancestries.
 
 ## In brief {#sec-brief}
 
@@ -71,13 +74,15 @@ All numbers use October 2025 enrollment. We follow PPS's school guides to see wh
 
 ### How many students the plan affects {#sec-affected}
 
-In Scenario A, `r fmt_n(af("sub", "a"))` students would change buildings or see their school change around them. That is `r pc(af("sub", "a", "share"))` of the `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` students in all the PPS schools on this page. In Scenario B, `r fmt_n(af("sub", "b"))` students would (`r pc(af("sub", "b", "share"))`). Some schools have only a boundary or feeder change. Their students stay, but PPS may assign future students to a different school. Most of these students, `r fmt_n(bnd_hs)`, attend `r bnd_hs_n` high schools. Counting them too, the plan touches `r fmt_n(af("total", "a"))` students in Scenario A (`r pc(af("total", "a", "share"))`) and `r fmt_n(af("total", "b"))` in Scenario B (`r pc(af("total", "b", "share"))`). This larger total doesn't mean that three in four students change schools. None of today's students in that last group move.
+In Scenario A, `r fmt_n(af("sub", "a"))` students would change buildings or see their school change around them. That is `r pc(af("sub", "a", "share"))` of the `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` K-8 students in PPS schools. In Scenario B, `r fmt_n(af("sub", "b"))` students would (`r pc(af("sub", "b", "share"))`). Some schools have only a boundary or feeder change. Their students stay, but PPS may assign future students to a different school. Counting them too, the plan touches `r fmt_n(af("total", "a"))` students in Scenario A (`r pc(af("total", "a", "share"))`) and `r fmt_n(af("total", "b"))` in Scenario B (`r pc(af("total", "b", "share"))`). None of today's students in that last group move.
+
+**With high school students.** Metropolitan Learning Center would stop teaching grades 9-12. Its `r fmt_n(hsv("a", "Grades 9-12 end"))` high school students would choose another school. Another `r fmt_n(hsv("a", "Boundary or feeder change only"))` students attend the `r hsn("a", "Boundary or feeder change only")` high schools whose boundaries or feeder schools change. None of them move. Counting all of these students, the total would be `r fmt_n(with_hs("a"))` in Scenario A (`r pc(with_hs("a") / all_n("a"))` of all `r fmt_n(all_n("a"))` PPS students) and `r fmt_n(with_hs("b"))` in Scenario B (`r pc(with_hs("b") / all_n("b"))`).
 
 The table counts each student once. At a school that sends some students away and takes in others, the students who leave count as changing buildings. The rest count as staying at a school that takes in students. Like the rest of the page, these are October 2025 students. So the numbers show the size of each change, not how many children will move.
 
 ```{r}
 #| label: tbl-plan-affected
-#| tbl-cap: "Students at each kind of school change, October 2025 enrollment. Each cell gives students and, in parentheses, their share of all students in the PPS schools on this page. Bold rows are totals of the rows above them."
+#| tbl-cap: "Students at each kind of school change, October 2025 enrollment. Kindergarten through grade 8 only. Each cell gives students and, in parentheses, their share of all K-8 students. Bold rows are totals of the rows above them."
 tbl_plan_affected(ps) |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
 ```
 
@@ -141,7 +146,7 @@ The groups that would change buildings in Scenario A (about `r fmt_n(movers("a")
 - middle-grade students at K-8 schools that become K-5;
 - César Chávez's neighborhood students, who move so the school can become a Spanish immersion school.
 
-High schools appear only through boundary changes for future students. The one exception is Metropolitan Learning Center, which would stop serving high school grades. It has `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` high school students today. They would choose another school.
+This page leaves out high school students. The plan changes high schools only through boundaries for future students, with one exception. Metropolitan Learning Center would stop teaching grades 9-12. It has `r fmt_n(hsv("a", "Grades 9-12 end"))` high school students today, who would choose another school.
 
 ## 3. Title I schools {#sec-title1}
 

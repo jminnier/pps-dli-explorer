@@ -18,8 +18,11 @@ n_role <- function(s, roles) sum(ps$scenario == s & ps$role %in% roles)
 n_all <- function(s) sum(ps$scenario == s)
 n_aff <- function(s) sum(ps$scenario == s & ps$role != "No change")
 movers <- function(s) sum(ps$students_out[ps$scenario == s])
-bnd <- filter(ps, scenario == "a", role == "Boundary or feeder change only", level == "High"); bnd_hs <- sum(bnd$students_now); bnd_hs_n <- nrow(bnd)
-stopifnot(identical(sort(bnd$school), sort(ps$school[ps$scenario == "b" & ps$role == "Boundary or feeder change only" & ps$level == "High"])))
+hs <- read_data("plan_high_school_students.csv")   # left out of the K-8 counts; used only in the "with high schools" notes
+hsv <- function(s, ch) sum(hs$students_now[hs$scenario == s & hs$change %in% ch]); hsn <- function(s, ch) sum(hs$scenario == s & hs$change %in% ch)
+all_n <- function(s) sum(ps$students_now[ps$scenario == s]) + sum(hs$students_now[hs$scenario == s])
+with_hs <- function(s) af("total", s) + hsv(s, c("Boundary or feeder change only", "Grades 9-12 end"))
+stopifnot(hsv("a", "Boundary or feeder change only") == hsv("b", "Boundary or feeder change only"))
 aff <- plan_affected(ps); af <- function(row, s, col = "students") aff[[paste0(col, "_", s)]][aff$row == row]
 stayers <- function(s) with(filter(ps, scenario == s, role %in% TAKE), sum(students_now - students_out))
 in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No change"])
@@ -61,9 +64,9 @@ k8_conv <- unique(k8m$from_school); k8_sub <- sum(k8s$subsidy_fte[k8s$key %in% k
 *Esta es una traducción del sitio en inglés. Las citas de documentos en inglés están traducidas al español.*
 :::
 
-Los escenarios cambian muchas más escuelas que las que cierran. En el Escenario A, `r n_aff("a")` de las `r n_all("a")` escuelas de PPS cerrarían, enviarían estudiantes a otra escuela, recibirían estudiantes o cambiarían sus zonas. En el Escenario B, serían `r n_aff("b")`. Esta página cuenta esas escuelas y a sus estudiantes. También revisa las escuelas de Título I y SUN, y si los traslados separarían a los estudiantes por raza.
+Los escenarios cambian muchas más escuelas que las que cierran. PPS tiene `r n_all("a")` escuelas con grados de kínder a 8.º. En el Escenario A, `r n_aff("a")` de ellas cerrarían, enviarían estudiantes a otra escuela, recibirían estudiantes o cambiarían sus zonas. En el Escenario B, serían `r n_aff("b")`. Esta página cuenta esas escuelas y a sus estudiantes. También revisa las escuelas de Título I y SUN, y si los traslados separarían a los estudiantes por raza.
 
-Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de las escuelas de PPS para ver a dónde irían los estudiantes de cada escuela. "Grupos raciales desatendidos" es el término de PPS para los estudiantes latinos, afroamericanos, nativos americanos, de las islas del Pacífico y multirraciales de otros orígenes.
+Todas las cifras cuentan a los estudiantes de kínder a 8.º grado, que son el tema de este sitio, en octubre de 2025. No incluyen las preparatorias. Seguimos las guías de las escuelas de PPS para ver a dónde irían los estudiantes de cada escuela. "Grupos raciales desatendidos" es el término de PPS para los estudiantes latinos, afroamericanos, nativos americanos, de las islas del Pacífico y multirraciales de otros orígenes.
 
 ## En resumen {#sec-brief}
 
@@ -76,13 +79,15 @@ Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de l
 
 ### Cuántos estudiantes afecta el plan {#sec-affected}
 
-En el Escenario A, `r fmt_n(af("sub", "a"))` estudiantes cambiarían de edificio o verían cambiar su escuela. Son el `r pc(af("sub", "a", "share"))` de los `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` estudiantes de todas las escuelas de PPS de esta página. En el Escenario B, serían `r fmt_n(af("sub", "b"))` estudiantes (`r pc(af("sub", "b", "share"))`). Algunas escuelas solo cambian de zona o de escuela de continuación. Sus estudiantes se quedan, pero PPS podría asignar a los futuros estudiantes a otra escuela. La mayoría de estos estudiantes, `r fmt_n(bnd_hs)`, asisten a `r bnd_hs_n` preparatorias. Si se cuentan también, el plan afecta a `r fmt_n(af("total", "a"))` estudiantes en el Escenario A (`r pc(af("total", "a", "share"))`) y a `r fmt_n(af("total", "b"))` en el Escenario B (`r pc(af("total", "b", "share"))`). Este total más grande no significa que tres de cada cuatro estudiantes cambien de escuela. Ninguno de los estudiantes actuales de ese último grupo se muda.
+En el Escenario A, `r fmt_n(af("sub", "a"))` estudiantes cambiarían de edificio o verían cambiar su escuela. Son el `r pc(af("sub", "a", "share"))` de los `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` estudiantes de kínder a 8.º grado de PPS. En el Escenario B, serían `r fmt_n(af("sub", "b"))` estudiantes (`r pc(af("sub", "b", "share"))`). Algunas escuelas solo cambian de zona o de escuela de continuación. Sus estudiantes se quedan, pero PPS podría asignar a los futuros estudiantes a otra escuela. Si se cuentan también, el plan afecta a `r fmt_n(af("total", "a"))` estudiantes en el Escenario A (`r pc(af("total", "a", "share"))`) y a `r fmt_n(af("total", "b"))` en el Escenario B (`r pc(af("total", "b", "share"))`). Ninguno de los estudiantes actuales de ese último grupo se muda.
+
+**Con los estudiantes de preparatoria.** Metropolitan Learning Center dejaría de ofrecer los grados 9.º a 12.º. Sus `r fmt_n(hsv("a", "Grades 9-12 end"))` estudiantes de preparatoria elegirían otra escuela. Otros `r fmt_n(hsv("a", "Boundary or feeder change only"))` estudiantes asisten a las `r hsn("a", "Boundary or feeder change only")` preparatorias que cambian de zona o de escuelas de origen. Ninguno de ellos se muda. Con todos ellos, el total sería de `r fmt_n(with_hs("a"))` en el Escenario A, el `r pc(with_hs("a") / all_n("a"))` de los `r fmt_n(all_n("a"))` estudiantes de PPS. En el Escenario B sería de `r fmt_n(with_hs("b"))` (`r pc(with_hs("b") / all_n("b"))`).
 
 La tabla cuenta a cada estudiante una sola vez. En una escuela que envía a algunos estudiantes y recibe a otros, los que salen cuentan como estudiantes que cambian de edificio. Los demás cuentan como estudiantes que se quedan en una escuela que recibe estudiantes. Como en el resto de la página, son los estudiantes de octubre de 2025. Por eso las cifras muestran el tamaño de cada cambio, no cuántos niños se mudarán.
 
 ```{r}
 #| label: tbl-plan-affected
-#| tbl-cap: "Estudiantes en cada tipo de cambio escolar, matrícula de octubre de 2025. Cada celda da los estudiantes y, entre paréntesis, su porcentaje de todos los estudiantes de las escuelas de PPS de esta página. Las filas en negrita son totales de las filas de arriba."
+#| tbl-cap: "Estudiantes en cada tipo de cambio escolar, matrícula de octubre de 2025. Solo de kínder a 8.º grado. Cada celda da los estudiantes y, entre paréntesis, su porcentaje de todos los estudiantes de kínder a 8.º. Las filas en negrita son totales de las filas de arriba."
 tbl_plan_affected(ps) |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
 ```
 
@@ -146,7 +151,7 @@ Los grupos que cambiarían de edificio en el Escenario A (unos `r fmt_n(movers("
 - estudiantes de 6.º a 8.º grado de escuelas K-8 que pasan a ser K-5;
 - los estudiantes del vecindario de César Chávez, que se mudan para que la escuela sea solo de inmersión en español.
 
-Las preparatorias solo aparecen por cambios de zona para futuros estudiantes. La única excepción es Metropolitan Learning Center, que dejaría de ofrecer los grados de preparatoria. Hoy tiene `r fmt_n(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))` estudiantes de preparatoria. Ellos elegirían otra escuela.
+Esta página no incluye a los estudiantes de preparatoria. El plan solo cambia las preparatorias por medio de las zonas para futuros estudiantes, con una excepción. Metropolitan Learning Center dejaría de ofrecer los grados 9.º a 12.º. Hoy tiene `r fmt_n(hsv("a", "Grades 9-12 end"))` estudiantes de preparatoria, que elegirían otra escuela.
 
 ## 3. Escuelas de Título I {#sec-title1}
 

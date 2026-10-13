@@ -64,7 +64,11 @@ rbp <- read_data("race_by_program_2025.csv") |> mutate(key = school_key(school))
 source("R/plan_charts.R"); source("R/freeway_charts.R")
 fws <- read_data("freeway_schools.csv"); fwsum <- read_data("freeway_summary.csv"); fwfl <- read_data("freeway_flows.csv"); fwt <- read_data("freeway_test.csv")
 fdist <- function(k, col = "dist_m") fws[[col]][fws$key == k]
-FT <- c(all = "All students today", near = "Students at schools within 150 m today", moved = "All students the plan moves",
+near_after <- function(s) { d <- fws[fws$dist_m <= 150 & fws[[paste0("after_", s)]] > 0, ]; weighted.mean(d[[paste0("hu_after_", s)]], d[[paste0("after_", s)]]) }
+hs_near <- read_data("plan_high_school_students.csv") |> filter(scenario == "a") |>   # high schools are outside the K-8 counts; side note only
+  inner_join(read_data("freeway_distance.csv") |> filter(grounds_to_freeway_m <= 150) |> select(key, grounds_to_freeway_m), by = "key")
+FT <- c(all = "All students today", near = "Students at schools within 150 m today", all_hs = "All students today, with high schools",
+        near_hs = "Students at schools within 150 m today, with high schools", moved = "All students the plan moves",
         into = "Moved into schools within 150 m", out = "Moved out of schools within 150 m")
 ft <- function(s, g, col = "hu_pct") fwt[[col]][fwt$scenario == s & fwt$group == FT[[g]]]
 fsum <- function(st, col = "students") fwsum[[col]][fwsum$state == st & fwsum$band == "within 150 m"]
@@ -652,21 +656,23 @@ Los datos apuntan a opciones que le quitarían menos a las familias de inmersió
 
 Ambos escenarios trasladan el programa de inmersión en español de Atkinson a Lent. El terreno de Lent está a unos `r fdist("lent")` metros de la I-205. La Agencia de Protección Ambiental de EE. UU. (EPA) dice que la contaminación del tráfico es mayor a menos de unos 150 metros (500 pies) de una vía con mucho tráfico. Baja a niveles normales a unos 600 metros (2,000 pies). En el Escenario A, el plan trasladaría grupos desde escuelas más lejanas a escuelas a menos de 150 metros de una autopista. Esos grupos tienen hoy unos `r fmt_n(ft("a", "into", "students"))` estudiantes. En el Escenario B, esos grupos tienen unos `r fmt_n(ft("b", "into", "students"))` estudiantes.
 
-**Unos pocos traslados concretos explican esto.** En el Escenario A, el `r fmt_pct(ft("a", "into"))` de los estudiantes de estos grupos es de grupos raciales desatendidos. En cambio, lo es el `r fmt_pct(ft("a", "moved"))` de todos los estudiantes que el plan traslada y el `r fmt_pct(ft("now", "all"))` de todos los estudiantes de PPS. En el Escenario B, el porcentaje es del `r fmt_pct(ft("b", "into"))`, frente al `r fmt_pct(ft("b", "moved"))` de todos los que traslada. El patrón viene de los programas que PPS eligió trasladar, no de una tendencia en todo el distrito:
+**Unos pocos traslados concretos explican esto.** En el Escenario A, el `r fmt_pct(ft("a", "into"))` de los estudiantes de estos grupos es de grupos raciales desatendidos. En cambio, lo es el `r fmt_pct(ft("a", "moved"))` de todos los estudiantes que el plan traslada. Y lo es el `r fmt_pct(ft("now", "all"))` de todos los estudiantes de kínder a 8.º grado. En el Escenario B, el porcentaje es del `r fmt_pct(ft("b", "into"))`, frente al `r fmt_pct(ft("b", "moved"))` de todos los que traslada. El patrón viene de los programas que PPS eligió trasladar, no de una tendencia en todo el distrito:
 
 - **El programa de inmersión en español de Atkinson a Lent** (ambos escenarios): `r fmt_pct(fmv("a", "Atkinson"))` de grupos desatendidos. Lent está a `r fdist("lent")` m de la I-205.
 - **Los grados 6.º a 8.º de Faubion a Ockley Green** (ambos): `r fmt_pct(fmv("a", "Faubion"))`. Ockley Green está a `r fdist("ockleygreen")` m de la I-5.
 - **Los grados 6.º a 8.º de Vernon a Harriet Tubman** (ambos): `r fmt_pct(fmv("a", "Vernon"))`. Tubman está a `r fdist("harriettubman")` m de la I-5.
 - **Los estudiantes de Stephenson a Markham y Capitol Hill** (solo Escenario A): `r fmt_pct(fmv("a", "Stephenson"))`. Las dos escuelas están a menos de `r max(fdist("markham"), fdist("capitolhill"))` m de la I-5.
 
-En general, las escuelas cerca de autopistas no tienen más estudiantes de grupos desatendidos. Hoy, el `r fmt_pct(ft("now", "near"))` de los estudiantes de escuelas a menos de 150 m de una autopista es de grupos raciales desatendidos. Es casi igual que en todo PPS (`r fmt_pct(ft("now", "all"))`). Un traslado va en sentido contrario: Odyssey dejaría un edificio a `r fdist("odyssey")` m de la US 26. La inmersión en mandarín pasaría de MLK Jr. a Boise-Eliot/Humboldt. Su terreno está a `r fdist("boiseeliothumboldt", "ramp_m")` m de una rampa de la I-5 y a `r fdist("boiseeliothumboldt")` m de la autopista misma.
+Las escuelas de kínder a 8.º cerca de autopistas ya tienen algo más de estudiantes de grupos desatendidos. Veamos las escuelas a menos de 150 m de una autopista. Hoy, el `r fmt_pct(ft("now", "near"))` de sus estudiantes de kínder a 8.º es de grupos raciales desatendidos. En cambio, lo es el `r fmt_pct(ft("now", "all"))` de todos los estudiantes de kínder a 8.º. El plan ampliaría esa diferencia. Después del Escenario A, el `r fmt_pct(near_after("a"))` de sus estudiantes sería de grupos desatendidos. Después del Escenario B, sería el `r fmt_pct(near_after("b"))`. Un traslado va en sentido contrario: Odyssey dejaría un edificio a `r fdist("odyssey")` m de la US 26. La inmersión en mandarín pasaría de MLK Jr. a Boise-Eliot/Humboldt. Su terreno está a `r fdist("boiseeliothumboldt", "ramp_m")` m de una rampa de la I-5 y a `r fdist("boiseeliothumboldt")` m de la autopista misma.
 
-Hoy, `r fmt_n(fsum("now"))` estudiantes (`r fmt_pct(fsum("now", "share"))`) asisten a escuelas a menos de 150 m de una autopista. Después del Escenario A, esas escuelas tendrían unos `r fmt_n(fsum("a"))` (`r fmt_pct(fsum("a", "share"))`). Después del Escenario B, tendrían unos `r fmt_n(fsum("b"))` (`r fmt_pct(fsum("b", "share"))`). Estas cifras usan a los estudiantes de hoy, como el resto de esta página.
+Hoy, `r fmt_n(fsum("now"))` estudiantes (`r fmt_pct(fsum("now", "share"))`) asisten a escuelas a menos de 150 m de una autopista. Después del Escenario A, esas escuelas tendrían unos `r fmt_n(fsum("a"))` (`r fmt_pct(fsum("a", "share"))`). Después del Escenario B, tendrían unos `r fmt_n(fsum("b"))` (`r fmt_pct(fsum("b", "share"))`). Estas cifras usan a los estudiantes de kínder a 8.º de hoy, como el resto de esta página.
+
+**Con los estudiantes de preparatoria.** Las preparatorias `r knitr::combine_words(hs_near$school, and = " y ", oxford_comma = FALSE)` también están a menos de 150 m de una autopista. El plan no traslada a ningún estudiante de preparatoria hacia ellas ni desde ellas. Con sus estudiantes, `r fmt_n(fsum("now_hs"))` estudiantes asisten hoy a escuelas a menos de 150 m. Serían `r fmt_n(fsum("a_hs"))` después del Escenario A y `r fmt_n(fsum("b_hs"))` después del B. De ellos, el `r fmt_pct(ft("now", "near_hs"))` es de grupos raciales desatendidos, casi igual que en todo PPS (`r fmt_pct(ft("now", "all_hs"))`).
 
 ```{r}
 #| label: tbl-freeway
 #| tbl-cap: "Escuelas K-8, intermedias y alternativas cuyo terreno está a menos de 400 m de una autopista: distancia, qué hace cada escenario y el porcentaje de estudiantes de grupos raciales desatendidos hoy (guías de PPS). Las cifras de estudiantes son la inscripción de octubre de 2025 y miden el tamaño de cada cambio. Se muestra la distancia a una rampa cuando está mucho más cerca que la vía principal."
-L <- pc_lab(); TL <- list(cell = "%s (%s después)", dist = "%s m (%s)", dist_ramp = "%s m (%s); rampa %s m", hu = "Grupos raciales desatendidos", into = "Trasladados a menos de 150 m", moved = "Todos los trasladados", all = "Todos los estudiantes hoy", sa = "Escenario A", sb = "Escenario B", h = c("Escuela", "Terreno a la autopista", "Estudiantes hoy", "Escenario A", "Escenario B", "Desatendidos hoy (PPS)"))
+L <- pc_lab(); TL <- list(cell = "%s (%s después)", dist = "%s m (%s)", dist_ramp = "%s m (%s); rampa %s m", hu = "Grupos raciales desatendidos", into = "Trasladados a menos de 150 m", moved = "Todos los trasladados", all = "Todos los estudiantes de K-8 hoy", sa = "Escenario A", sb = "Escenario B", h = c("Escuela", "Terreno a la autopista", "Estudiantes hoy", "Escenario A", "Escenario B", "Desatendidos hoy (PPS)"))
 cell <- function(role, now, after) ifelse(role == "No change", L$role[role], sprintf(TL$cell, L$role[role], fmt_n(after)))
 fws |> filter(level != "High", dist_m <= 400) |>
   transmute(school = short_school(school),
@@ -680,7 +686,7 @@ fws |> filter(level != "High", dist_m <= 400) |>
 
 ```{r}
 #| label: tbl-freeway-race
-#| tbl-cap: "Raza y grupo étnico de los grupos que el plan trasladaría a escuelas a menos de 150 m de una autopista (desde escuelas más lejanas), frente a todos los grupos que el plan traslada y a todos los estudiantes de PPS hoy. Inscripción de octubre de 2025; cifras por programa para los traslados de inmersión."
+#| tbl-cap: "Raza y grupo étnico de los grupos que el plan trasladaría a escuelas a menos de 150 m de una autopista (desde escuelas más lejanas), frente a todos los grupos que el plan traslada y a todos los estudiantes de kínder a 8.º hoy. Inscripción de octubre de 2025; cifras por programa para los traslados de inmersión."
 G8 <- c("latino", "black", "asian", "native_american", "pacific_islander", "white", "asian_white", "other_multi")
 col <- function(s, g) { r <- fwt[fwt$scenario == s & fwt$group == FT[[g]], ]
   x <- c(fmt_share(unlist(r[paste0(G8, "_pct")]), r$students), fmt_share(r$hu_pct, r$students)); x[x == "0%"] <- "<1%"; x }   # a real count that rounds to 0%

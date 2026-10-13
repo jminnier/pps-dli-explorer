@@ -37,7 +37,6 @@ a,César Chávez,neighborhood 6-8,George,65,2880,3924,over 600 m,over 600 m,FALS
 a,César Chávez,Spanish 6-8,George,105,2880,3924,over 600 m,over 600 m,FALSE,FALSE,0.823
 a,Ockley Green,Spanish,George,63,120,3924,within 150 m,over 600 m,FALSE,TRUE,0.365
 a,James John,neighborhood,Sitton,232,5243,5645,over 600 m,over 600 m,FALSE,FALSE,0.556
-a,Metro. Learning Center,9-12,(other high schools),40,433,,150-600 m,,FALSE,FALSE,0.215
 b,Vernon,6-8,Harriet Tubman,196,2634,10,over 600 m,within 150 m,TRUE,FALSE,0.396
 b,Atkinson,Spanish,Lent,178,2446,37,over 600 m,within 150 m,TRUE,FALSE,0.708
 b,Faubion,6-8,Ockley Green,223,3364,120,over 600 m,within 150 m,TRUE,FALSE,0.703
@@ -71,4 +70,3 @@ b,César Chávez,neighborhood 6-8,George,65,2880,3924,over 600 m,over 600 m,FALS
 b,César Chávez,Spanish 6-8,George,105,2880,3924,over 600 m,over 600 m,FALSE,FALSE,0.823
 b,Ockley Green,Spanish,George,63,120,3924,within 150 m,over 600 m,FALSE,TRUE,0.365
 b,James John,neighborhood,Sitton,232,5243,5645,over 600 m,over 600 m,FALSE,FALSE,0.556
-b,Metro. Learning Center,9-12,(other high schools),40,433,,150-600 m,,FALSE,FALSE,0.215

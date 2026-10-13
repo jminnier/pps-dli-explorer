@@ -1,9 +1,11 @@
 scenario,group,students,latino_n,black_n,asian_n,native_american_n,pacific_islander_n,white_n,asian_white_n,other_multi_n,hu_n,hu_pct,latino_pct,black_pct,asian_pct,native_american_pct,pacific_islander_pct,white_pct,asian_white_pct,other_multi_pct
-now,All students today,39694,7230,3151,2227,193,326,21452,2410,2705,13605,0.343,0.18,0.08,0.06,0,0.01,0.54,0.06,0.07
-now,Students at schools within 150 m today,5605,1005,503,322,22,30,2996,349,378,1938,0.346,0.18,0.09,0.06,0,0.01,0.53,0.06,0.07
-a,All students the plan moves,6940,1474,450,406,38,43,3663,363,503,2508,0.361,0.21,0.06,0.06,0.01,0.01,0.53,0.05,0.07
+now,All students today,26664,4953,2092,1440,150,235,14237,1640,1917,9347,0.351,0.19,0.08,0.05,0.01,0.01,0.53,0.06,0.07
+now,Students at schools within 150 m today,2933,558,318,129,13,26,1516,162,211,1126,0.384,0.19,0.11,0.04,0,0.01,0.52,0.06,0.07
+now,"All students today, with high schools",39694,7230,3151,2227,193,326,21452,2410,2705,13605,0.343,0.18,0.08,0.06,0,0.01,0.54,0.06,0.07
+now,"Students at schools within 150 m today, with high schools",5605,1005,503,322,22,30,2996,349,378,1938,0.346,0.18,0.09,0.06,0,0.01,0.53,0.06,0.07
+a,All students the plan moves,6900,1469,450,406,38,43,3634,361,499,2499,0.362,0.21,0.07,0.06,0.01,0.01,0.53,0.05,0.07
 a,Moved into schools within 150 m,878,241,86,15,5,8,411,45,68,407,0.464,0.27,0.1,0.02,0.01,0.01,0.47,0.05,0.08
 a,Moved out of schools within 150 m,280,33,,8,,,199,23,13,50,0.179,0.12,,0.03,,,0.71,0.08,0.05
-b,All students the plan moves,5983,1382,429,245,34,39,3113,290,451,2335,0.39,0.23,0.07,0.04,0.01,0.01,0.52,0.05,0.08
+b,All students the plan moves,5943,1377,429,245,34,39,3084,288,447,2326,0.391,0.23,0.07,0.04,0.01,0.01,0.52,0.05,0.08
 b,Moved into schools within 150 m,597,214,78,,,8,219,13,57,360,0.604,0.36,0.13,0.01,,0.01,0.37,0.02,0.1
 b,Moved out of schools within 150 m,280,33,,8,,,199,23,13,50,0.179,0.12,,0.03,,,0.71,0.08,0.05
