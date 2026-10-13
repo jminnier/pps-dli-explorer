@@ -229,7 +229,7 @@ PPS says each of these classrooms serves 10 to 12 students. The district chooses
 
 ### Where the guides say each classroom would go {#sec-sped-moves}
 
-The staff counts come from a spreadsheet of planned 2026-27 staffing, shared in the PPS Community Advocacy group. It doesn't say who prepared it, so we use it only to show how many staff each classroom has. It counts staff positions, not students.
+The staff counts come from a spreadsheet of planned 2026-27 staffing called *Board Request as of 9/22*. Board member Virginia La Forte requested the data and shared the spreadsheet on her Facebook account. She wrote that she "wanted to see a basic lay of the land." PPS has not published it as a report. So we use it only to show how many staff each classroom has. It counts staff positions, not students.
 
 ```{r}
 #| label: tbl-sped-moves

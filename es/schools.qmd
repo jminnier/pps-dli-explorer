@@ -234,7 +234,7 @@ PPS dice que cada una de estas aulas atiende a entre 10 y 12 estudiantes. El dis
 
 ### A dónde irían las aulas, según las guías {#sec-sped-moves}
 
-Las cifras de personal vienen de una hoja de cálculo con el personal previsto para 2026-27, compartida en el grupo PPS Community Advocacy. La hoja no dice quién la preparó, así que solo la usamos para mostrar cuánto personal tiene cada aula. Cuenta puestos de trabajo, no estudiantes.
+Las cifras de personal vienen de una hoja de cálculo con el personal previsto para 2026-27, llamada *Board Request as of 9/22*. Virginia La Forte, miembro de la Junta, pidió los datos y compartió la hoja en su cuenta de Facebook. Escribió que quería "ver un panorama básico". PPS no la ha publicado como informe. Por eso solo la usamos para mostrar cuánto personal tiene cada aula. Cuenta puestos de trabajo, no estudiantes.
 
 ```{r}
 #| label: tbl-sped-moves

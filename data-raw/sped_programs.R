@@ -2,7 +2,7 @@
 #
 # Inputs
 #   data-raw/sped/sped_allocation_2026_27_raw.csv  "SPED" tab of the Google Sheet "Board Request as of 9/22"
-#       (2026-27 projected special education staffing by school; shared in the PPS Community Advocacy group;
+#       (2026-27 projected special education staffing by school; requested by board member Virginia La Forte, who shared it on Facebook and in the PPS Community Advocacy group;
 #       see data-raw/sped/README.md). Staff positions, not students.
 #   data-raw/sped/sped_moves.csv  hand-entered: one row per special education program the PPS school guides
 #       (October 8, 2026, page 3) say would move, with the guide's sentence.

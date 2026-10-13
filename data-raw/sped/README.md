@@ -4,7 +4,7 @@
 
 - **What:** the "SPED" tab of the Google Sheet *Board Request as of 9/22*
   (https://docs.google.com/spreadsheets/d/15yL3mcAjWEHfSQQExKglYJmgfJBNhj_07rM3MrmxEvM), headed "2026-27 Projected Allocation".
-- **Where it came from:** it was shared in the PPS Community Advocacy group. The sheet doesn't say who prepared it. Its Readme tab links to a Google Doc that isn't public. Treat it as an unofficial source.
+- **Where it came from:** PPS board member Virginia La Forte requested the data and shared the sheet on her Facebook account, with this post: “I wanted to see a basic lay of the land and requested this data: How many students and how many sections are there in every grade band at every school including blends? What does staffing look like? What does every individual middle school offer? How many students are in each of those classes? For the data-inclined, see link in comments.” The link was in the comments. It was also shared in the PPS Community Advocacy group. The sheet itself doesn't name who prepared it, and its Readme tab links to a Google Doc that isn't public. It is data a board member requested, not a report PPS has published.
 - **Retrieved:** October 11, 2026, with an anonymous CSV export (`gviz/tq?tqx=out:csv&sheet=SPED`). The link opens without signing in.
 - **What it counts:** **staff positions, not students.** Each value is a planned 2026-27 allocation for one school (73 K-8, middle and alternative schools; no high schools).
 - **Columns, as headed in the sheet:**
