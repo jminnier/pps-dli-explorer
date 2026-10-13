@@ -61,6 +61,15 @@ rblk <- read_data("equity_race_black.csv")
 rs <- read_data("equity_race_schools.csv")
 rsv <- function(sc, school_key, col) rs[[col]][rs$scenario == sc & rs$key == school_key]
 rbp <- read_data("race_by_program_2025.csv") |> mutate(key = school_key(school))
+source("R/plan_charts.R"); source("R/freeway_charts.R")
+fws <- read_data("freeway_schools.csv"); fwsum <- read_data("freeway_summary.csv"); fwfl <- read_data("freeway_flows.csv"); fwt <- read_data("freeway_test.csv")
+fdist <- function(k, col = "dist_m") fws[[col]][fws$key == k]
+FT <- c(all = "All students today", near = "Students at schools within 150 m today", moved = "All students the plan moves",
+        into = "Moved into schools within 150 m", out = "Moved out of schools within 150 m")
+ft <- function(s, g, col = "hu_pct") fwt[[col]][fwt$scenario == s & fwt$group == FT[[g]]]
+fsum <- function(st, col = "students") fwsum[[col]][fwsum$state == st & fwsum$band == "within 150 m"]
+fin <- fwfl |> filter(into_near)
+fmv <- function(s, from, col = "hu_pct") fin[[col]][fin$scenario == s & fin$from_school == from][1]
 rrow <- function(k, prog, col) rbp[[col]][rbp$key == k & rbp$program == prog]
 blk_disp_a <- rgv("a", MOV, "black_n") + rgv("a", CLR, "black_n") + rgv("a", HUBN, "black_n")
 hub_a <- rgv("a", HUBN, "students")
@@ -638,6 +647,104 @@ Los datos apuntan a opciones que le quitarían menos a las familias de inmersió
 - **Llenar los salones de inmersión con "baja inscripción" desde las listas de espera** en lugar de trasladarlos.
 - **Introducir los cambios por etapas y proteger a las familias actuales.** Permitir que los estudiantes inscritos terminen donde están. Garantizar transporte a cualquier programa reubicado.
 - **Hacer el análisis de equidad que PPS no ha publicado.** Reportar cada cambio por matrícula de inmersión, idioma del hogar, condición de estudiante aprendiendo inglés, raza e ingresos. Incluir la distancia del hogar a la escuela antes y después. Publicar la proporción de familias que, según las proyecciones, seguirá a cada programa trasladado. A juzgar por las guías de las escuelas, es alrededor del `r round(100 * mean(fol1$followed))`%. Luego, medir cuántas realmente lo hacen. PPS tiene los datos a nivel de estudiante para hacerlo.
+
+## 10. Algunos traslados llevarían estudiantes a escuelas junto a autopistas {#sec-freeway}
+
+Ambos escenarios trasladan el programa de inmersión en español de Atkinson a Lent. El terreno de Lent está a unos `r fdist("lent")` metros de la I-205. La Agencia de Protección Ambiental de EE. UU. (EPA) dice que la contaminación del tráfico es mayor a menos de unos 150 metros (500 pies) de una vía con mucho tráfico. Baja a niveles normales a unos 600 metros (2,000 pies). En el Escenario A, el plan trasladaría grupos desde escuelas más lejanas a escuelas a menos de 150 metros de una autopista. Esos grupos tienen hoy unos `r fmt_n(ft("a", "into", "students"))` estudiantes. En el Escenario B, esos grupos tienen unos `r fmt_n(ft("b", "into", "students"))` estudiantes.
+
+**Unos pocos traslados concretos explican esto.** En el Escenario A, el `r fmt_pct(ft("a", "into"))` de los estudiantes de estos grupos es de grupos raciales desatendidos. En cambio, lo es el `r fmt_pct(ft("a", "moved"))` de todos los estudiantes que el plan traslada y el `r fmt_pct(ft("now", "all"))` de todos los estudiantes de PPS. En el Escenario B, el porcentaje es del `r fmt_pct(ft("b", "into"))`, frente al `r fmt_pct(ft("b", "moved"))` de todos los que traslada. El patrón viene de los programas que PPS eligió trasladar, no de una tendencia en todo el distrito:
+
+- **El programa de inmersión en español de Atkinson a Lent** (ambos escenarios): `r fmt_pct(fmv("a", "Atkinson"))` de grupos desatendidos. Lent está a `r fdist("lent")` m de la I-205.
+- **Los grados 6.º a 8.º de Faubion a Ockley Green** (ambos): `r fmt_pct(fmv("a", "Faubion"))`. Ockley Green está a `r fdist("ockleygreen")` m de la I-5.
+- **Los grados 6.º a 8.º de Vernon a Harriet Tubman** (ambos): `r fmt_pct(fmv("a", "Vernon"))`. Tubman está a `r fdist("harriettubman")` m de la I-5.
+- **Los estudiantes de Stephenson a Markham y Capitol Hill** (solo Escenario A): `r fmt_pct(fmv("a", "Stephenson"))`. Las dos escuelas están a menos de `r max(fdist("markham"), fdist("capitolhill"))` m de la I-5.
+
+En general, las escuelas cerca de autopistas no tienen más estudiantes de grupos desatendidos. Hoy, el `r fmt_pct(ft("now", "near"))` de los estudiantes de escuelas a menos de 150 m de una autopista es de grupos raciales desatendidos. Es casi igual que en todo PPS (`r fmt_pct(ft("now", "all"))`). Un traslado va en sentido contrario: Odyssey dejaría un edificio a `r fdist("odyssey")` m de la US 26. La inmersión en mandarín pasaría de MLK Jr. a Boise-Eliot/Humboldt. Su terreno está a `r fdist("boiseeliothumboldt", "ramp_m")` m de una rampa de la I-5 y a `r fdist("boiseeliothumboldt")` m de la autopista misma.
+
+Hoy, `r fmt_n(fsum("now"))` estudiantes (`r fmt_pct(fsum("now", "share"))`) asisten a escuelas a menos de 150 m de una autopista. Después del Escenario A, esas escuelas tendrían unos `r fmt_n(fsum("a"))` (`r fmt_pct(fsum("a", "share"))`). Después del Escenario B, tendrían unos `r fmt_n(fsum("b"))` (`r fmt_pct(fsum("b", "share"))`). Estas cifras usan a los estudiantes de hoy, como el resto de esta página.
+
+```{r}
+#| label: tbl-freeway
+#| tbl-cap: "Escuelas K-8, intermedias y alternativas cuyo terreno está a menos de 400 m de una autopista: distancia, qué hace cada escenario y el porcentaje de estudiantes de grupos raciales desatendidos hoy (guías de PPS). Las cifras de estudiantes son la inscripción de octubre de 2025 y miden el tamaño de cada cambio. Se muestra la distancia a una rampa cuando está mucho más cerca que la vía principal."
+L <- pc_lab(); TL <- list(cell = "%s (%s después)", dist = "%s m (%s)", dist_ramp = "%s m (%s); rampa %s m", hu = "Grupos raciales desatendidos", into = "Trasladados a menos de 150 m", moved = "Todos los trasladados", all = "Todos los estudiantes hoy", sa = "Escenario A", sb = "Escenario B", h = c("Escuela", "Terreno a la autopista", "Estudiantes hoy", "Escenario A", "Escenario B", "Desatendidos hoy (PPS)"))
+cell <- function(role, now, after) ifelse(role == "No change", L$role[role], sprintf(TL$cell, L$role[role], fmt_n(after)))
+fws |> filter(level != "High", dist_m <= 400) |>
+  transmute(school = short_school(school),
+            dist = ifelse(ramp_m < dist_m - 50, sprintf(TL$dist_ramp, dist_m, freeway, ramp_m), sprintf(TL$dist, dist_m, freeway)),
+            now = fmt_n(students_now), a = cell(role_a, students_now, after_a), b = cell(role_b, students_now, after_b),
+            hu = ifelse(is.na(hu_now_pps), "–", sprintf("%.0f%%", 100 * hu_now_pps))) |>
+  gt() |>
+  cols_label(school = TL$h[1], dist = TL$h[2], now = TL$h[3], a = TL$h[4], b = TL$h[5], hu = TL$h[6]) |>
+  tab_source_note(md(cite("osm_freeway", "plan_flows", "guide_demo")))
+```
+
+```{r}
+#| label: tbl-freeway-race
+#| tbl-cap: "Raza y grupo étnico de los grupos que el plan trasladaría a escuelas a menos de 150 m de una autopista (desde escuelas más lejanas), frente a todos los grupos que el plan traslada y a todos los estudiantes de PPS hoy. Inscripción de octubre de 2025; cifras por programa para los traslados de inmersión."
+G8 <- c("latino", "black", "asian", "native_american", "pacific_islander", "white", "asian_white", "other_multi")
+col <- function(s, g) { r <- fwt[fwt$scenario == s & fwt$group == FT[[g]], ]
+  x <- c(fmt_share(unlist(r[paste0(G8, "_pct")]), r$students), fmt_share(r$hu_pct, r$students)); x[x == "0%"] <- "<1%"; x }   # a real count that rounds to 0%
+tibble(group = c(unname(pc_lab()$race[G8]), TL$hu),
+       into_a = col("a", "into"), moved_a = col("a", "moved"), into_b = col("b", "into"), moved_b = col("b", "moved"), all = col("now", "all")) |>
+  gt() |>
+  cols_label(group = "", into_a = TL$into, moved_a = TL$moved, into_b = TL$into, moved_b = TL$moved, all = TL$all) |>
+  tab_spanner(TL$sa, c(into_a, moved_a)) |> tab_spanner(TL$sb, c(into_b, moved_b)) |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = group == TL$hu)) |>
+  tab_source_note(small_note()) |>
+  tab_source_note(md(cite("race_program", "plan_flows", "osm_freeway")))
+```
+
+```{r}
+#| label: fig-freeway-moves
+#| fig-cap: "Traslados que empiezan o terminan a menos de 600 m de una autopista: distancia desde el terreno de la escuela actual (círculo abierto) hasta el de la nueva escuela (rombo). La franja sombreada es la zona a menos de 150 m. Los traslados valen para ambos escenarios salvo que el texto emergente diga solo A. Pase el cursor para ver estudiantes y distancias."
+#| fig-height: 6.5
+fig_freeway_moves(fwfl)
+```
+
+::: {.source}
+`r cite("osm_freeway", "plan_flows", "epa_nearroad")`
+:::
+
+### Lo que sabemos del aire en Lent y en Tubman {#sec-freeway-lent}
+
+Nadie ha medido el aire en Lent como lo hizo la Universidad Estatal de Portland en la escuela intermedia Harriet Tubman. Ese estudio de 2018 encontró que la contaminación del tráfico baja con la distancia a la I-5 y llega "a niveles normales a unos 200 a 300 pies de la autopista". El estudio recomendó "limitar las actividades de los estudiantes al aire libre en HTMS, sobre todo en las horas de mucho tráfico", y filtros de al menos MERV 16.
+
+Para Lent, lo que existe son testimonios de grupos de defensa y muestreos del vecindario, no mediciones en la escuela:
+
+- En 2017, la organización Green Lents escribió a un comité del Senado estatal: "Hay varias escuelas primarias (Lent y Kelly) a pocas cuadras de la I-205".
+- En 2019, Neighbors for Clean Air dijo a la Legislatura que la I-5 y la I-205 pasan junto a "Tubman y la primaria Lent, entre otras". Agregó: "En la primaria Lent, a las familias les preocupa que sus hijos estén enfermos más tiempo de lo normal y tengan problemas para respirar".
+- En 2016-17, un proyecto comunitario en Lents midió el carbono negro, una señal de los gases del diésel, con un monitor portátil. Una de las organizaciones dijo que los niveles "superan con creces los valores de referencia de Oregón". La noticia no nombra ninguna escuela entre los lugares medidos. Dice que esa organización culpó a los motores diésel viejos, no a la autopista.
+
+Las guías de las escuelas de PPS no mencionan autopistas ni el aire exterior. En la sesión de la Junta del 6 de octubre, la directora Virginia La Forte dijo sobre Tubman: "sabemos que hay serias preocupaciones por la calidad del aire. Es un hecho. Tenemos las pruebas, tenemos los estudios, sabemos que es real". No encontramos ninguna mención de la calidad del aire en Lent en las sesiones de la Junta que revisamos.
+
+::: {.source}
+`r cite("psu_tubman", "greenlents2017", "nca2019", "eastpdx2017", "laforte1006", "guides")`
+:::
+
+### Lo que pueden hacer las escuelas cerca de autopistas {#sec-freeway-options}
+
+La EPA sugiere medidas para escuelas cerca de vías con mucho tráfico:
+
+- **Filtros.** Usar "los filtros con la calificación MERV más alta que pueda manejar el sistema de ventilación". Los filtros MERV 11 a 16 pueden reducir las partículas en el interior entre un 74% y un 97% frente al exterior.
+- **Horarios.** "Planear las actividades físicas intensas al aire libre fuera de las horas pico y de las horas de entrada y salida".
+- **Distribución.** Poner los patios de juego, las canchas y los salones lejos de la vía, y el estacionamiento o el almacenamiento más cerca.
+
+No sabemos qué filtros ni qué horarios usan hoy Lent, Ockley Green, Markham o Capitol Hill.
+
+::: {.source}
+`r cite("epa_nearroad")`
+:::
+
+### Límites {#sec-freeway-limits}
+
+- **Terrenos, no patios.** Medimos desde el borde del terreno de cada escuela, según el mapa de los voluntarios de OpenStreetMap. Ese terreno puede incluir canchas o parques. El edificio de Lent está a unos `r fdist("lent", "point_m")` m de la I-205, más lejos que su terreno.
+- **Solo la distancia.** No tomamos en cuenta el viento, las colinas, los muros contra el ruido, la cantidad de tráfico ni los camiones.
+- **Solo autopistas.** Calles muy transitadas como la avenida 82, Powell, Lombard y el bulevar Columbia también tienen mucho tráfico. No las contamos.
+- **Los estudiantes de hoy.** Los grupos son los estudiantes de hoy trasladados todos a la vez, como en el resto de esta página. Los cambios empezarían en 2027-28 o después.
+
+::: {.source}
+`r cite("osm_freeway", "methods")`
+:::
 
 ## Detalles: estimaciones de distancia y todos los cambios {#sec-distance-detail}
 

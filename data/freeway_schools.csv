@@ -1,0 +1,82 @@
+key,school,level,dist_m,ramp_m,point_m,freeway,band,students_now,hu_now,hu_now_pps,role_a,after_a,hu_after_a,role_b,after_b,hu_after_b
+harriettubman,Harriet Tubman,Middle,10,4,68,I-5,within 150 m,402,0.505,0.505,Takes in students,598,0.469,Takes in students,598,0.469
+capitolhill,Capitol Hill,Elementary,23,23,116,I-5,within 150 m,325,0.234,0.234,Takes in students,409,0.22,No change,325,0.234
+westsylvan,West Sylvan,Middle,24,24,98,US 26,within 150 m,683,0.245,0.245,No change,683,0.245,No change,683,0.245
+lent,Lent,Elementary,37,37,138,I-205,within 150 m,256,0.719,0.719,Takes in students,434,0.714,Takes in students,434,0.714
+lincoln,Lincoln,High,45,11,144,I-405,within 150 m,1647,0.216,0.216,Boundary or feeder change only,1647,0.216,Boundary or feeder change only,1647,0.216
+odyssey,Odyssey,Elementary,55,31,193,US 26,within 150 m,217,0.124,0.124,Program moves to another building,0,,Program moves to another building,0,
+benson,Benson,High,59,59,140,I-84,within 150 m,1025,0.445,0.445,No change,1025,0.445,No change,1025,0.445
+markham,Markham,Elementary,78,78,250,I-5,within 150 m,339,0.401,0.401,Takes in students,536,0.315,No change,339,0.401
+ockleygreen,Ockley Green,Middle,120,107,130,I-5,within 150 m,460,0.483,0.483,Takes in students and sends some away,620,0.574,Takes in students and sends some away,620,0.574
+sunrise,Sunrise,Elementary,130,130,296,I-205,within 150 m,251,0.442,0.442,No change,251,0.442,No change,251,0.442
+laurelhurst,Laurelhurst,Elementary,222,222,330,I-84,150-600 m,610,0.156,0.156,Sends students away,375,0.156,Sends students away,375,0.156
+beverlycleary,Beverly Cleary,Elementary,252,225,300,I-84,150-600 m,480,0.158,0.158,Takes in students and sends some away,535,0.237,Takes in students and sends some away,535,0.237
+jackson,Jackson,Middle,276,269,636,I-5,150-600 m,689,0.26,0.26,Boundary or feeder change only,689,0.26,Boundary or feeder change only,689,0.26
+clark,Clark,Elementary,279,279,319,I-205,150-600 m,364,0.519,0.519,Sends students away,273,0.663,Sends students away,273,0.663
+ainsworth,Ainsworth,Elementary,314,293,410,US 26,150-600 m,560,0.361,0.361,No change,560,0.361,No change,560,0.361
+boiseeliothumboldt,Boise-Eliot-Humboldt,Elementary,315,51,426,I-5,150-600 m,294,0.741,0.741,Takes in students,487,0.632,Takes in students,487,0.632
+kelly,Kelly,Elementary,318,318,394,I-205,150-600 m,411,0.423,0.423,Boundary or feeder change only,411,0.423,Boundary or feeder change only,411,0.423
+grant,Grant,High,386,370,546,I-84,150-600 m,2074,0.2,0.2,No change,2074,0.2,No change,2074,0.2
+metropolitanlearningcenter,Metropolitan Learning Center,Alternative programs,433,402,490,I-405,150-600 m,274,0.215,0.215,Takes in students and sends some away,451,0.172,Takes in students and sends some away,451,0.172
+jefferson,Jefferson,High,437,411,514,I-5,150-600 m,391,0.783,0.783,Boundary or feeder change only,391,0.783,Boundary or feeder change only,391,0.783
+mcdaniel,McDaniel,High,475,475,788,I-84,150-600 m,1629,0.487,0.487,Boundary or feeder change only,1629,0.487,Boundary or feeder change only,1629,0.487
+beach,Beach,Elementary,485,399,509,I-5,150-600 m,288,0.483,0.483,Closes,0,,Closes,0,
+davinci,da Vinci,Middle,573,573,622,I-84,150-600 m,429,0.31,0.31,No change,429,0.31,No change,429,0.31
+idabwellsbarnett,Ida B. Wells-Barnett,High,647,580,788,I-5,over 600 m,1574,0.199,,No change,1574,0.199,No change,1574,0.199
+mttabor,Mt. Tabor,Middle,649,546,723,I-84,over 600 m,430,0.16,0.16,Takes in students,665,0.159,Takes in students,665,0.159
+chapman,Chapman,Elementary,680,567,758,US 30,over 600 m,330,0.412,0.412,No change,330,0.412,No change,330,0.412
+harrisonpark,Harrison Park,Middle,693,626,724,I-205,over 600 m,419,0.365,0.365,Takes in students,559,0.326,Takes in students,559,0.326
+rieke,Rieke,Elementary,767,733,852,I-5,over 600 m,264,0.189,0.189,Takes in students,350,0.194,Takes in students,350,0.194
+rosewayheights,Roseway Heights,Middle,787,787,939,I-84,over 600 m,572,0.416,0.416,Takes in students,673,0.47,Takes in students,673,0.47
+vestal,Vestal,Elementary,819,731,893,I-84,over 600 m,283,0.463,0.463,Takes in students,490,0.288,No change,283,0.463
+chiefjoseph,Chief Joseph,Elementary,910,896,991,I-5,over 600 m,242,0.24,0.24,Takes in students,375,0.315,Takes in students,375,0.315
+rosecitypark,Rose City Park,Elementary,914,914,1011,I-84,over 600 m,417,0.168,0.168,Closes,0,,No change,417,0.168
+buckman,Buckman,Elementary,917,807,965,I-84,over 600 m,283,0.297,0.297,Closes,0,,Closes,0,
+irvington,Irvington,Elementary,1060,1000,1182,I-84,over 600 m,259,0.32,0.32,Closes,0,,Closes,0,
+glencoe,Glencoe,Elementary,1061,1061,1137,I-84,over 600 m,339,0.198,0.198,Boundary or feeder change only,339,0.198,Boundary or feeder change only,339,0.198
+abernethy,Abernethy,Elementary,1184,1184,1282,I-5,over 600 m,269,0.149,0.149,Takes in students,410,0.2,Takes in students,410,0.2
+bridgercreativescience,Bridger-Creative Science,Elementary,1221,1211,1284,I-205,over 600 m,446,0.209,0.209,Sends students away,306,0.209,Sends students away,306,0.209
+woodmere,Woodmere,Elementary,1242,1210,1293,I-205,over 600 m,227,0.52,0.52,Closes,0,,Closes,0,
+marysville,Marysville,Elementary,1286,1286,1337,I-205,over 600 m,307,0.505,0.505,Closes,0,,Closes,0,
+whitman,Whitman,Elementary,1352,1352,1516,I-205,over 600 m,194,0.505,0.505,Takes in students,421,0.513,Takes in students,421,0.513
+mlkjr,Dr. Martin Luther King Jr.,Elementary,1411,1266,1524,I-5,over 600 m,319,0.63,0.63,Takes in students and sends some away,395,0.489,Takes in students and sends some away,395,0.489
+alameda,Alameda,Elementary,1484,1446,1582,I-84,over 600 m,513,0.138,0.138,No change,513,0.138,No change,513,0.138
+gray,Gray,Middle,1570,1549,1650,I-5,over 600 m,432,0.213,0.213,Boundary or feeder change only,432,0.213,Boundary or feeder change only,432,0.213
+peninsula,Peninsula,Elementary,1595,1501,1608,I-5,over 600 m,239,0.481,0.481,Closes,0,,Closes,0,
+stephenson,Stephenson,Elementary,1603,1603,1740,I-5,over 600 m,281,0.167,0.167,Closes,0,,No change,281,0.167
+beaumont,Beaumont,Middle,1618,1602,1692,I-84,over 600 m,416,0.329,0.329,Takes in students and sends some away,519,0.176,Takes in students and sends some away,519,0.176
+bridlemile,Bridlemile,Elementary,1680,1650,1756,US 26,over 600 m,423,0.168,0.168,No change,423,0.168,No change,423,0.168
+winterhaven,Winterhaven,Elementary,1728,1700,1756,I-5,over 600 m,316,0.142,0.142,No change,316,0.142,No change,316,0.142
+sunnysideenvironmental,Sunnyside,Elementary,1765,1765,1827,I-84,over 600 m,485,0.177,0.177,Takes in students and sends some away,434,0.216,Takes in students and sends some away,434,0.216
+maplewood,Maplewood,Elementary,1928,1855,1982,I-5,over 600 m,287,0.209,0.209,Closes,0,,Closes,0,
+woodlawn,Woodlawn,Elementary,1948,1847,1999,I-5,over 600 m,323,0.598,0.598,No change,323,0.598,No change,323,0.598
+llewellyn,Llewellyn,Elementary,1952,1952,2029,I-5,over 600 m,345,0.151,0.151,Boundary or feeder change only,345,0.151,No change,345,0.151
+kellogg,Kellogg,Middle,1971,1898,2047,I-205,over 600 m,531,0.469,0.469,Boundary or feeder change only,531,0.469,Boundary or feeder change only,531,0.469
+scott,Scott,Elementary,2026,2026,2080,I-205,over 600 m,476,0.563,0.563,Takes in students and sends some away,464,0.45,Sends students away,254,0.587
+sabin,Sabin,Elementary,2139,1704,2259,I-5,over 600 m,269,0.305,0.305,Closes,0,,Closes,0,
+hosford,Hosford,Middle,2222,2222,2346,I-5,over 600 m,528,0.199,0.199,Takes in students,924,0.18,Takes in students,924,0.18
+sellwood,Sellwood,Middle,2266,2266,2316,I-5,over 600 m,564,0.133,0.133,Closes,0,,Closes,0,
+arleta,Arleta,Elementary,2305,2305,2344,I-205,over 600 m,230,0.296,0.296,Takes in students,537,0.415,Takes in students,537,0.415
+rosaparks,Rosa Parks,Elementary,2313,2067,2379,I-5,over 600 m,160,0.819,0.819,Takes in students,477,0.646,Takes in students,477,0.646
+richmond,Richmond,Elementary,2374,2374,2441,I-84,over 600 m,511,0.104,0.104,No change,511,0.104,No change,511,0.104
+cleveland,Cleveland,High,2435,2435,2498,I-5,over 600 m,1451,0.158,0.158,Boundary or feeder change only,1451,0.158,Boundary or feeder change only,1451,0.158
+brentwood,Brentwood,Middle,2436,2436,2612,I-205,over 600 m,447,0.465,0.465,Takes in students,808,0.317,Takes in students,808,0.317
+atkinson,Atkinson,Elementary,2446,2353,2481,I-84,over 600 m,366,0.44,0.44,Takes in students and sends some away,401,0.204,Takes in students and sends some away,401,0.204
+franklin,Franklin,High,2446,2363,2795,I-84,over 600 m,1780,0.315,0.315,Boundary or feeder change only,1780,0.315,Boundary or feeder change only,1780,0.315
+vernon,Vernon,Elementary,2634,2523,2735,I-5,over 600 m,541,0.396,0.396,Sends students away,345,0.396,Sends students away,345,0.396
+rigler,Rigler,Elementary,2635,2549,2696,I-84,over 600 m,289,0.668,0.668,Takes in students,511,0.611,Takes in students,511,0.611
+hayhurst,Hayhurst,Elementary,2850,2801,2932,I-5,over 600 m,290,0.286,0.286,Takes in students,491,0.255,Takes in students,491,0.255
+cesarchavez,Cesar Chavez,Elementary,2880,2620,2958,I-5,over 600 m,443,0.815,0.815,Takes in students and sends some away,621,0.709,Takes in students and sends some away,621,0.709
+grout,Grout,Elementary,3120,3101,3164,I-5,over 600 m,327,0.367,0.367,No change,327,0.367,No change,327,0.367
+forestpark,Forest Park,Elementary,3300,3148,3392,US 26,over 600 m,264,0.167,0.167,No change,264,0.167,No change,264,0.167
+faubion,Faubion,Elementary,3364,3297,3438,I-5,over 600 m,600,0.703,0.703,Sends students away,377,0.703,Sends students away,377,0.703
+creston,Creston,Elementary,3417,3391,3563,I-84,over 600 m,213,0.221,0.221,Closes,0,,Closes,0,
+woodstock,Woodstock,Elementary,3544,3472,3571,I-205,over 600 m,367,0.158,0.158,Takes in students,458,0.144,Takes in students,458,0.144
+lewis,Lewis,Elementary,3744,3742,3838,I-205,over 600 m,259,0.216,0.216,Closes,0,,Boundary or feeder change only,259,0.216
+duniway,Duniway,Elementary,3769,3769,3804,I-5,over 600 m,362,0.116,0.116,Takes in students,621,0.158,No change,362,0.116
+astor,Astor,Elementary,3811,3568,3910,I-5,over 600 m,400,0.365,0.365,Boundary or feeder change only,400,0.365,Boundary or feeder change only,400,0.365
+george,George,Middle,3924,3749,4021,I-5,over 600 m,358,0.768,0.768,Takes in students,591,0.738,Takes in students,591,0.738
+roosevelt,Roosevelt,High,4102,3905,4244,I-5,over 600 m,1419,0.578,0.578,Boundary or feeder change only,1419,0.578,Boundary or feeder change only,1419,0.578
+jamesjohn,James John,Elementary,5243,5049,5278,I-5,over 600 m,365,0.638,0.638,Closes,0,,Closes,0,
+sitton,Sitton,Elementary,5645,5486,5740,I-5,over 600 m,345,0.629,0.629,Takes in students and sends some away,439,0.567,Takes in students and sends some away,439,0.567
+skyline,Skyline,Elementary,6737,6616,6855,US 26,over 600 m,207,0.203,0.203,Boundary or feeder change only,207,0.203,Boundary or feeder change only,207,0.203

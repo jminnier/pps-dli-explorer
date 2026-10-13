@@ -53,6 +53,7 @@ Guardamos todos los documentos fuente en el repositorio, en `data-raw/`. El scri
 | 26 | Escuelas comunitarias SUN | Condado de Multnomah, [*SUN Community School Contact List – August 2026*](https://multco.us/file/sun_community_school_contact_list-0/download); recortes propuestos en 2026 según [Willamette Week (2 de junio de 2026)](https://www.wweek.com/news/schools/2026/06/02/multnomah-county-looks-to-cut-nine-sun-schools-heres-what-that-would-mean-at-creston-elementary/) y el [comunicado del condado del 5 de junio de 2026](https://multco.us/news/news-release-multnomah-county-board-commissioners-closes-significant-spending-gap-adopts) | agosto de 2026 (consultado el 11 de octubre de 2026) | `data-raw/sun/` | `sun_schools.csv` (con `school_changes.R`) |
 | 27 | Personal de educación especial (no oficial) | *Board Request as of 9/22* ([hoja de Google](https://docs.google.com/spreadsheets/d/15yL3mcAjWEHfSQQExKglYJmgfJBNhj_07rM3MrmxEvM)), pestaña SPED, "2026-27 Projected Allocation": puestos docentes y asistentes de Learning Center, SES, CB e ISC por escuela. Compartida en el grupo PPS Community Advocacy; la hoja no dice quién la preparó | Previsto para 2026-27 (consultada el 11 de octubre de 2026) | `data-raw/sped/` | `sped_allocation_2026_27.csv`, `sped_moves.csv` (con `sped_programs.R`) |
 | 28 | Diapositivas de PPS al comité sobre inmersión y grados intermedios | PPS, [*PPS Dual Language Immersion (DLI) Programs*](https://meetings.boardbook.org/Documents/FileViewerOrPublic/915?file=14540954) y [*Middle School Student Experience: K-8 & 6-8 Schools*](https://meetings.boardbook.org/Documents/FileViewerOrPublic/915?file=14535647), Comité de Enseñanza, Aprendizaje e Inscripción, 13 de octubre de 2026 | 13 de octubre de 2026 | `data-raw/pps_board/tle_*_2026-10-13.pdf` | `tle_dli_k_2026_27.csv`, `tle_k8_subsidy.csv` (con `tle_slides.R`) |
+| 29 | Autopistas y terrenos escolares | [OpenStreetMap](https://www.openstreetmap.org/copyright) con la API Overpass: polígonos `highway=motorway`, `highway=motorway_link` y `amenity=school` (ODbL) | Datos del 13 de octubre de 2026 | `data-raw/osm/` (respuesta guardada) | `freeway_distance.csv` (con `freeway_distance.R`), `freeway_*.csv` (con `freeway_equity.R`) |
 | 9 | Idioma del hogar por sección censal | Oficina del Censo de EE. UU., estimaciones de 5 años de la American Community Survey, tablas **C16001** (idioma que se habla en el hogar, población de 5 años o más) y **B16007** (idioma que se habla en el hogar por edad), mediante la API del Censo | 2020–2024 | guardados localmente, no incluidos en el repositorio | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Población por manzana censal | Oficina del Censo de EE. UU., datos de redistribución del Censo 2020 (P.L. 94-171), tablas P1 y P3, mediante la API del Censo | 2020 | guardados localmente, no incluidos en el repositorio | usado en `acs_language_access.R` y `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -426,6 +427,19 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 - La situación sísmica de Creston (mampostería no reforzada, programada para refuerzo) viene de los datos de instalaciones de PPS recopilados en meub/pps-data. No la verificamos contra los documentos de bonos de PPS.
 - El punto de Richmond en el mapa original de pps-explorer era una copia del de Atkinson (SE 58th y Division). En esta copia lo corregimos con la geocodificación de su dirección de la Oficina del Censo: 2276 SE 41st Ave, justo al norte de Division. El [mapa de la página Cambios por escuela](schools.qmd#sec-map) usa el punto corregido.
 
+## Aire junto a autopistas (Equidad §10) {#freeway}
+
+`data-raw/freeway_distance.R` mide a qué distancia de una autopista está cada escuela. `data-raw/freeway_equity.R` une esas distancias con el plan.
+
+- **Autopistas.** Vías de OpenStreetMap marcadas `highway=motorway` (I-5, I-84, I-205, I-405, US 26, OR 217 y partes de la US 30). Las rampas (`motorway_link`) se informan aparte.
+- **Terrenos escolares.** El polígono escolar de OpenStreetMap que contiene el punto de cada escuela en el mapa. Cuando un punto queda justo fuera de su terreno, el script usa el polígono escolar más cercano a menos de 30 m (Peninsula, 1 m). El terreno de la preparatoria Cleveland está marcado como antigua escuela; igual lo usamos. El script se detiene si una escuela no tiene terreno.
+- **Distancia.** Es la distancia más corta en línea recta desde el borde del terreno hasta la autopista más cercana. Está en metros, en la zona UTM 10N (EPSG:32610). Es 0 si se tocan. También damos la distancia desde el punto del mapa, que es más o menos el edificio.
+- **Rangos.** Usamos tres rangos. El primero es a menos de 150 m (500 pies), donde la EPA dice que la contaminación cerca de la vía es mayor. Los otros son de 150 a 600 m, y a más de 600 m (2,000 pies), donde el aire está cerca del nivel normal.
+- **Verificación.** Una primera corrida hecha a mano en un navegador dio el mismo terreno para las 82 escuelas. Las distancias difirieron en menos de 7 m.
+- **Traslados.** Cada grupo de `plan_flows.csv` recibe la distancia de su escuela actual y de la nueva. Un grupo "se traslada a menos de 150 m" cuando su nueva escuela está a menos de 150 m y la actual no.
+- **Raza y grupo étnico.** Vienen de las mismas cifras por programa que el resto del análisis de cambios por escuela, antes de ocultar cifras. Las tablas ocultan las cifras menores de 5 (#small-numbers).
+- **Límites.** Los terrenos de OpenStreetMap los dibujan voluntarios y pueden incluir canchas o parques. La distancia no es exposición. No tomamos en cuenta el viento, el terreno, los muros contra el ruido, la cantidad de tráfico ni los camiones. Tampoco contamos calles muy transitadas que no son autopistas. Las cifras de estudiantes son los estudiantes de hoy trasladados todos a la vez.
+
 ## Página de cambios por escuela {#school-changes}
 
 `data-raw/school_changes.R` calcula todas las cifras de la página [Cambios por escuela](schools.qmd). La única excepción es la sección de educación especial, que calcula `data-raw/sped_programs.R`.
@@ -550,6 +564,8 @@ Rscript data-raw/equity_race.R
 Rscript data-raw/school_changes.R
 Rscript data-raw/sped_programs.R
 Rscript data-raw/tle_slides.R
+Rscript data-raw/freeway_distance.R           # needs network on first run (Overpass); cached in data-raw/osm/
+Rscript data-raw/freeway_equity.R
 quarto render
 ```
 

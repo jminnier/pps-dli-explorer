@@ -49,6 +49,7 @@ We saved every source document in the repository under `data-raw/`. The script l
 | 26 | SUN Community Schools | Multnomah County, [*SUN Community School Contact List – August 2026*](https://multco.us/file/sun_community_school_contact_list-0/download); proposed 2026 cuts from [Willamette Week (June 2, 2026)](https://www.wweek.com/news/schools/2026/06/02/multnomah-county-looks-to-cut-nine-sun-schools-heres-what-that-would-mean-at-creston-elementary/) and the county's [June 5, 2026 budget release](https://multco.us/news/news-release-multnomah-county-board-commissioners-closes-significant-spending-gap-adopts) | August 2026 (retrieved October 11, 2026) | `data-raw/sun/` | `sun_schools.csv` (via `school_changes.R`) |
 | 27 | Special education staffing (unofficial) | *Board Request as of 9/22* ([Google Sheet](https://docs.google.com/spreadsheets/d/15yL3mcAjWEHfSQQExKglYJmgfJBNhj_07rM3MrmxEvM)), SPED tab, "2026-27 Projected Allocation": Learning Center, SES, CB and ISC teacher positions and aides by school. Shared in the PPS Community Advocacy group; the sheet doesn't say who prepared it | Planned for 2026-27 (retrieved October 11, 2026) | `data-raw/sped/` | `sped_allocation_2026_27.csv`, `sped_moves.csv` (via `sped_programs.R`) |
 | 28 | PPS committee slides on immersion and middle grades | PPS, [*PPS Dual Language Immersion (DLI) Programs*](https://meetings.boardbook.org/Documents/FileViewerOrPublic/915?file=14540954) and [*Middle School Student Experience: K-8 & 6-8 Schools*](https://meetings.boardbook.org/Documents/FileViewerOrPublic/915?file=14535647), Teaching, Learning, and Enrollment Committee, October 13, 2026 | October 13, 2026 | `data-raw/pps_board/tle_*_2026-10-13.pdf` | `tle_dli_k_2026_27.csv`, `tle_k8_subsidy.csv` (via `tle_slides.R`) |
+| 29 | Freeways and school grounds | [OpenStreetMap](https://www.openstreetmap.org/copyright) via the Overpass API: `highway=motorway`, `highway=motorway_link` and `amenity=school` polygons (ODbL) | Snapshot of October 13, 2026 | `data-raw/osm/` (cached response) | `freeway_distance.csv` (via `freeway_distance.R`), `freeway_*.csv` (via `freeway_equity.R`) |
 | 9 | Home language by census tract | US Census Bureau, American Community Survey 5-year estimates, tables **C16001** (language spoken at home, population 5+) and **B16007** (language spoken at home by age), via the Census API | 2020–2024 | cached locally, not committed | `acs_language_access.R` → `acs_language_tract.csv`, `tracts.geojson`, `access_tract.csv`, `access_area.csv` |
 | 10 | Population by census block | US Census Bureau, 2020 Census redistricting data (P.L. 94-171), tables P1 and P3, via the Census API | 2020 | cached locally, not committed | used in `acs_language_access.R` and `check_access_robustness.R` → `access_summary.csv`, `access_robustness.csv`, `access_robustness_ci.csv` |
 
@@ -421,6 +422,19 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 - Creston's seismic status (unreinforced masonry, targeted for retrofit) is from the PPS facility data compiled in meub/pps-data. We did not check it against PPS's bond documents.
 - Richmond's point on the original pps-explorer map was a copy of Atkinson's (SE 58th & Division). We corrected it in this copy to the Census Bureau geocode of its address, 2276 SE 41st Ave, just north of Division. The [map on the School changes page](schools.qmd#sec-map) uses the corrected point.
 
+## Freeway air (Equity §10) {#freeway}
+
+`data-raw/freeway_distance.R` measures how far each school is from a freeway. `data-raw/freeway_equity.R` joins those distances to the plan.
+
+- **Freeways.** OpenStreetMap ways tagged `highway=motorway` (I-5, I-84, I-205, I-405, US 26, OR 217 and parts of US 30). We report ramps (`motorway_link`) separately.
+- **School grounds.** The OpenStreetMap school polygon that contains each school's map point. When a point sits just outside its grounds, the script uses the nearest school polygon within 30 m (Peninsula, 1 m). OpenStreetMap tags Cleveland High's grounds as a former school; we use them anyway. The script stops if any school has no grounds.
+- **Distance.** The shortest straight-line distance from the edge of the grounds to the nearest freeway segment, in meters, in UTM zone 10N (EPSG:32610). It is 0 if they touch. We also report the distance from the map point, which is roughly the building.
+- **Bands.** Within 150 m (500 feet), where the EPA says near-road pollution is highest; 150 to 600 m; and over 600 m (2,000 feet), about background.
+- **Check.** A first run done by hand in a browser gave the same grounds for all 82 schools and distances within 7 m.
+- **Moves.** Each group in `plan_flows.csv` gets its current and new school's distance. A group "moves within 150 m" when its new school is within 150 m and its current school is not.
+- **Race and ethnicity.** These come from the same program-level counts as the rest of the School changes analysis, before any count is hidden. The tables hide counts under 5 (#small-numbers).
+- **Limits.** OpenStreetMap grounds are drawn by volunteers and may include fields or parks. Distance is not exposure. We don't model wind, terrain, sound walls, traffic volume or trucks, and we don't count busy streets that aren't freeways. Student counts are today's students moved all at once.
+
 ## School changes page {#school-changes}
 
 `data-raw/school_changes.R` builds every number on the [School changes](schools.qmd) page except the special education section, which `data-raw/sped_programs.R` builds.
@@ -545,6 +559,8 @@ Rscript data-raw/equity_race.R
 Rscript data-raw/school_changes.R
 Rscript data-raw/sped_programs.R
 Rscript data-raw/tle_slides.R
+Rscript data-raw/freeway_distance.R           # needs network on first run (Overpass); cached in data-raw/osm/
+Rscript data-raw/freeway_equity.R
 quarto render
 ```
 

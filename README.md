@@ -53,6 +53,8 @@ Each source is saved under `data-raw/`, and each script stops on any row that fa
 | `school_changes.R` | `plan_flows.csv` (where each school's students go, from the guides), the race table, guides, PPS Title I lists (`data-raw/title1/`), county SUN list (`data-raw/sun/`), pps-explorer's school points (`public/data/sq_*_schools.geojson`) | `plan_schools.csv`, `plan_flows_race.csv`, `plan_segregation.csv`, `title1_schools.csv`, `sun_schools.csv`, `plan_school_points.csv` |
 | `sped_programs.R` | `data-raw/sped/` (unofficial 2026-27 special education staffing sheet shared in the PPS Community Advocacy group; `sped_moves.csv` hand-entered from the guides), `plan_schools.csv` | `sped_allocation_2026_27.csv`, `sped_moves.csv` |
 | `tle_slides.R` | PPS's October 13, 2026 committee decks (`data-raw/pps_board/tle_*_2026-10-13.pdf`), hand-entered with total checks | `tle_dli_k_2026_27.csv`, `tle_k8_subsidy.csv` |
+| `freeway_distance.R` | OpenStreetMap freeways and school grounds (Overpass, cached in `data-raw/osm/`), school points | `freeway_distance.csv` |
+| `freeway_equity.R` | `freeway_distance.csv`, exact plan counts from `school_changes.R` | `freeway_schools.csv`, `freeway_summary.csv`, `freeway_flows.csv`, `freeway_test.csv` |
 | `parse_school_guides.py` | PPS *How Could Your School Be Impacted?* school guides (Oct 8, 2026) | `guide_enrollment.csv`, `guide_school.csv`, `guide_text.csv` |
 | `parse_enroll_by_neighborhood.py` | PPS *School Enrollment by Neighborhood of Residence*, Oct 2023–Oct 2025 | `enroll_by_neighborhood.csv` |
 | `check_home_distance.R` | the table above + scenario maps + census blocks | `equity_home_check*.csv` |
@@ -86,6 +88,8 @@ Rscript data-raw/equity_race.R               # after equity_analysis.R (reads eq
 Rscript data-raw/school_changes.R            # School changes page
 Rscript data-raw/sped_programs.R             # School changes page, special education section
 Rscript data-raw/tle_slides.R                # tables from PPS's Oct 13, 2026 committee slides
+Rscript data-raw/freeway_distance.R          # school grounds to freeway (OpenStreetMap; cached in data-raw/osm/)
+Rscript data-raw/freeway_equity.R            # Equity §10 freeway tables
 # derived race files leave counts under 5 blank (see methods #small-numbers)
 Rscript data-raw/check_home_distance.R
 Rscript data-raw/history_tables.R

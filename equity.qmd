@@ -60,6 +60,15 @@ rblk <- read_data("equity_race_black.csv")
 rs <- read_data("equity_race_schools.csv")
 rsv <- function(sc, school_key, col) rs[[col]][rs$scenario == sc & rs$key == school_key]
 rbp <- read_data("race_by_program_2025.csv") |> mutate(key = school_key(school))
+source("R/plan_charts.R"); source("R/freeway_charts.R")
+fws <- read_data("freeway_schools.csv"); fwsum <- read_data("freeway_summary.csv"); fwfl <- read_data("freeway_flows.csv"); fwt <- read_data("freeway_test.csv")
+fdist <- function(k, col = "dist_m") fws[[col]][fws$key == k]
+FT <- c(all = "All students today", near = "Students at schools within 150 m today", moved = "All students the plan moves",
+        into = "Moved into schools within 150 m", out = "Moved out of schools within 150 m")
+ft <- function(s, g, col = "hu_pct") fwt[[col]][fwt$scenario == s & fwt$group == FT[[g]]]
+fsum <- function(st, col = "students") fwsum[[col]][fwsum$state == st & fwsum$band == "within 150 m"]
+fin <- fwfl |> filter(into_near)
+fmv <- function(s, from, col = "hu_pct") fin[[col]][fin$scenario == s & fin$from_school == from][1]
 rrow <- function(k, prog, col) rbp[[col]][rbp$key == k & rbp$program == prog]
 blk_disp_a <- rgv("a", MOV, "black_n") + rgv("a", CLR, "black_n") + rgv("a", HUBN, "black_n")
 hub_a <- rgv("a", HUBN, "students")
@@ -614,6 +623,104 @@ The data point to options that would take less from immersion families. PPS shou
 - **Fill "underenrolled" immersion classrooms from the waitlists** instead of moving them.
 - **Phase changes in and protect current families.** Let enrolled students finish where they are. Guarantee transportation to any relocated program.
 - **Do the equity analysis PPS hasn't published.** Report every change by immersion enrollment, home language, English-learner status, race and income. Include home-to-school distance before and after. Publish the share of families the projections assume will follow each moved program. Judging by the school guides, it is about `r round(100 * mean(fol1$followed))`%. Then track how many actually do. PPS has the student-level data to do this.
+
+## 10. Some moves would send students to schools beside freeways {#sec-freeway}
+
+Both scenarios move Atkinson's Spanish immersion program into Lent. Lent's school grounds are about `r fdist("lent")` meters from I-205. The US Environmental Protection Agency (EPA) says pollution from traffic is highest within about 150 meters (500 feet) of a busy road. It falls to background levels by about 600 meters (2,000 feet). In Scenario A, the plan would move groups from schools farther away into schools within 150 meters of a freeway. These groups enroll about `r fmt_n(ft("a", "into", "students"))` students today. In Scenario B, those groups enroll about `r fmt_n(ft("b", "into", "students"))` students.
+
+**A few specific moves drive this.** In Scenario A, `r fmt_pct(ft("a", "into"))` of the students in these groups are from underserved racial groups. That compares with `r fmt_pct(ft("a", "moved"))` of all students the plan moves and `r fmt_pct(ft("now", "all"))` of all PPS students. In Scenario B, the share is `r fmt_pct(ft("b", "into"))`, against `r fmt_pct(ft("b", "moved"))` of all students it moves. The pattern comes from which programs PPS chose to move, not from a district-wide trend:
+
+- **Atkinson's Spanish immersion program to Lent** (both scenarios): `r fmt_pct(fmv("a", "Atkinson"))` from underserved groups. Lent is `r fdist("lent")` m from I-205.
+- **Faubion's grades 6-8 to Ockley Green** (both): `r fmt_pct(fmv("a", "Faubion"))`. Ockley Green is `r fdist("ockleygreen")` m from I-5.
+- **Vernon's grades 6-8 to Harriet Tubman** (both): `r fmt_pct(fmv("a", "Vernon"))`. Tubman is `r fdist("harriettubman")` m from I-5.
+- **Stephenson's students to Markham and Capitol Hill** (Scenario A only): `r fmt_pct(fmv("a", "Stephenson"))`. Both schools are within `r max(fdist("markham"), fdist("capitolhill"))` m of I-5.
+
+Schools near freeways are not more underserved overall. Today, `r fmt_pct(ft("now", "near"))` of the students at schools within 150 m of a freeway are from underserved racial groups. That is about the same as all PPS students (`r fmt_pct(ft("now", "all"))`). One move goes the other way: Odyssey would leave a building `r fdist("odyssey")` m from US 26. Mandarin immersion would move from MLK Jr. to Boise-Eliot/Humboldt. Its grounds are `r fdist("boiseeliothumboldt", "ramp_m")` m from an I-5 ramp and `r fdist("boiseeliothumboldt")` m from the freeway itself.
+
+Today, `r fmt_n(fsum("now"))` students (`r fmt_pct(fsum("now", "share"))`) attend schools within 150 m of a freeway. After Scenario A, schools that close to a freeway would enroll about `r fmt_n(fsum("a"))` (`r fmt_pct(fsum("a", "share"))`). After Scenario B, they would enroll about `r fmt_n(fsum("b"))` (`r fmt_pct(fsum("b", "share"))`). These counts use today's students, like the rest of this page.
+
+```{r}
+#| label: tbl-freeway
+#| tbl-cap: "K-8, middle and alternative schools whose grounds are within 400 m of a freeway: distance, what each scenario does, and the share of students from underserved racial groups today (PPS's guides). Student counts are October 2025 enrollment, a measure of the size of each change. Ramp distance is shown when a ramp is much closer than the mainline."
+L <- pc_lab(); TL <- list(cell = "%s (%s after)", dist = "%s m (%s)", dist_ramp = "%s m (%s); ramp %s m", hu = "Underserved racial groups", into = "Moved within 150 m", moved = "All moved", all = "All students today", sa = "Scenario A", sb = "Scenario B", h = c("School", "Grounds to freeway", "Students today", "Scenario A", "Scenario B", "Underserved today (PPS)"))
+cell <- function(role, now, after) ifelse(role == "No change", L$role[role], sprintf(TL$cell, L$role[role], fmt_n(after)))
+fws |> filter(level != "High", dist_m <= 400) |>
+  transmute(school = short_school(school),
+            dist = ifelse(ramp_m < dist_m - 50, sprintf(TL$dist_ramp, dist_m, freeway, ramp_m), sprintf(TL$dist, dist_m, freeway)),
+            now = fmt_n(students_now), a = cell(role_a, students_now, after_a), b = cell(role_b, students_now, after_b),
+            hu = ifelse(is.na(hu_now_pps), "–", sprintf("%.0f%%", 100 * hu_now_pps))) |>
+  gt() |>
+  cols_label(school = TL$h[1], dist = TL$h[2], now = TL$h[3], a = TL$h[4], b = TL$h[5], hu = TL$h[6]) |>
+  tab_source_note(md(cite("osm_freeway", "plan_flows", "guide_demo")))
+```
+
+```{r}
+#| label: tbl-freeway-race
+#| tbl-cap: "Race and ethnicity of the groups the plan would move into schools within 150 m of a freeway (from schools farther away), compared with all groups the plan moves and all PPS students today. October 2025 enrollment; counts by program for immersion moves."
+G8 <- c("latino", "black", "asian", "native_american", "pacific_islander", "white", "asian_white", "other_multi")
+col <- function(s, g) { r <- fwt[fwt$scenario == s & fwt$group == FT[[g]], ]
+  x <- c(fmt_share(unlist(r[paste0(G8, "_pct")]), r$students), fmt_share(r$hu_pct, r$students)); x[x == "0%"] <- "<1%"; x }   # a real count that rounds to 0%
+tibble(group = c(unname(pc_lab()$race[G8]), TL$hu),
+       into_a = col("a", "into"), moved_a = col("a", "moved"), into_b = col("b", "into"), moved_b = col("b", "moved"), all = col("now", "all")) |>
+  gt() |>
+  cols_label(group = "", into_a = TL$into, moved_a = TL$moved, into_b = TL$into, moved_b = TL$moved, all = TL$all) |>
+  tab_spanner(TL$sa, c(into_a, moved_a)) |> tab_spanner(TL$sb, c(into_b, moved_b)) |>
+  tab_style(cell_text(weight = "bold"), cells_body(rows = group == TL$hu)) |>
+  tab_source_note(small_note()) |>
+  tab_source_note(md(cite("race_program", "plan_flows", "osm_freeway")))
+```
+
+```{r}
+#| label: fig-freeway-moves
+#| fig-cap: "Moves that start or end within 600 m of a freeway: distance from the current school's grounds (open circle) to the new school's grounds (diamond). The shaded band is within 150 m. Moves in both scenarios unless the hover says A only. Hover for students and distances."
+#| fig-height: 6.5
+fig_freeway_moves(fwfl)
+```
+
+::: {.source}
+`r cite("osm_freeway", "plan_flows", "epa_nearroad")`
+:::
+
+### What we know about the air at Lent and Tubman {#sec-freeway-lent}
+
+No one has measured the air at Lent the way Portland State University measured it at Harriet Tubman Middle School. That 2018 study found traffic pollution falling with distance from I-5, "reaching background levels about 200-300 feet from the freeway." The study recommended that "Student outdoor activities be limited at HTMS, especially during high traffic periods," and filters rated at least MERV 16.
+
+For Lent, what exists is advocacy and neighborhood sampling, not school measurements:
+
+- In 2017, the Lents nonprofit Green Lents wrote to a state Senate committee: "There are several elementary schools (Lent and Kelly Elementary) within a few short blocks of I-205."
+- In 2019, Neighbors for Clean Air told the Legislature that I-5 and I-205 flank "Tubman and Lent Elementary among others." It added: "At Lent Elementary, parents are worried about their kids staying sick longer than normal, and having breathing problems."
+- In 2016-17, a community project in Lents measured black carbon, a sign of diesel exhaust, with a handheld monitor. A partner said readings "far exceed the benchmarks that Oregon has set." The news report names no school as a sampling site. It says the partner blamed old diesel engines, not the freeway.
+
+PPS's school guides don't mention freeways or outdoor air. At the October 6 board meeting, Director Virginia La Forte said of Tubman: "we know that there are significant air quality concerns. That's a fact. We have the tests, we have the studies, we know that that's real." We found no mention of air quality at Lent in the board meetings we reviewed.
+
+::: {.source}
+`r cite("psu_tubman", "greenlents2017", "nca2019", "eastpdx2017", "laforte1006", "guides")`
+:::
+
+### What schools near freeways can do {#sec-freeway-options}
+
+The EPA suggests steps for schools near busy roads:
+
+- **Filters.** Use "the highest MERV-rated filters that the HVAC system can handle." Filters rated MERV 11 to 16 can cut particles indoors by 74% to 97% compared with outdoors.
+- **Timing.** "Plan strenuous outdoor activities outside of rush hour and drop-off/pick-up times."
+- **Layout.** Put playgrounds, fields and classrooms farther from the road, and parking or storage closest to it.
+
+We don't know what filters or schedules Lent, Ockley Green, Markham or Capitol Hill use now.
+
+::: {.source}
+`r cite("epa_nearroad")`
+:::
+
+### Limits {#sec-freeway-limits}
+
+- **Grounds, not playgrounds.** We measure from the edge of each school's grounds as mapped by OpenStreetMap volunteers. Mapped grounds may include fields or parks. Lent's building is about `r fdist("lent", "point_m")` m from I-205, farther than its grounds.
+- **Distance only.** We don't model wind, hills, sound walls, traffic volume or trucks.
+- **Freeways only.** Busy streets such as 82nd Avenue, Powell, Lombard and Columbia Boulevard also carry heavy traffic. We don't count them.
+- **Today's students.** The groups are today's students moved all at once, as on the rest of this page. The changes would start in 2027-28 or later.
+
+::: {.source}
+`r cite("osm_freeway", "methods")`
+:::
 
 ## Details: distance estimates and every change {#sec-distance-detail}
 

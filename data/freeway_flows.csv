@@ -1,0 +1,74 @@
+scenario,from_school,part,to_school,students,from_m,to_m,from_band,to_band,into_near,out_of_near,hu_pct
+a,Vernon,6-8,Harriet Tubman,196,2634,10,over 600 m,within 150 m,TRUE,FALSE,0.396
+a,Stephenson,whole,Capitol Hill,84,1603,23,over 600 m,within 150 m,TRUE,FALSE,0.168
+a,Atkinson,Spanish,Lent,178,2446,37,over 600 m,within 150 m,TRUE,FALSE,0.708
+a,Stephenson,whole,Markham,197,1603,78,over 600 m,within 150 m,TRUE,FALSE,0.167
+a,Faubion,6-8,Ockley Green,223,3364,120,over 600 m,within 150 m,TRUE,FALSE,0.703
+a,Irvington,whole,Beverly Cleary,259,1060,252,over 600 m,150-600 m,FALSE,FALSE,0.32
+a,MLK Jr,Mandarin,Boise-Eliot/Humboldt,193,1411,315,over 600 m,150-600 m,FALSE,FALSE,0.466
+a,Odyssey,whole,Metro. Learning Center,217,55,433,within 150 m,150-600 m,FALSE,TRUE,0.124
+a,Laurelhurst,6-8,Mt Tabor,235,222,649,150-600 m,over 600 m,FALSE,FALSE,0.156
+a,Bridger Creative Science,6-8,Harrison Park,140,1221,693,over 600 m,over 600 m,FALSE,FALSE,0.209
+a,Maplewood,whole,Rieke,86,1928,767,over 600 m,over 600 m,FALSE,FALSE,0.209
+a,Beaumont,Spanish,Roseway Heights,101,1618,787,over 600 m,over 600 m,FALSE,FALSE,0.772
+a,Rose City Park,Vietnamese,Vestal,207,914,819,over 600 m,over 600 m,FALSE,FALSE,0.048
+a,Beach,neighborhood,Chief Joseph,133,485,910,150-600 m,over 600 m,FALSE,FALSE,0.451
+a,Buckman,whole,Abernethy,142,917,1184,over 600 m,over 600 m,FALSE,FALSE,0.296
+a,Woodmere,whole,Whitman,227,1242,1352,over 600 m,over 600 m,FALSE,FALSE,0.52
+a,Sabin,whole,MLK Jr,269,2139,1411,over 600 m,over 600 m,FALSE,FALSE,0.305
+a,Beverly Cleary,6-8,Beaumont,204,252,1618,150-600 m,over 600 m,FALSE,FALSE,0.158
+a,Buckman,whole,Sunnyside Environmental,142,917,1765,over 600 m,over 600 m,FALSE,FALSE,0.296
+a,Rose City Park,neighborhood,Scott,210,914,2026,over 600 m,over 600 m,FALSE,FALSE,0.286
+a,Sunnyside Environmental,6-8,Hosford,193,1765,2222,over 600 m,over 600 m,FALSE,FALSE,0.177
+a,Sellwood,whole,Hosford,203,2266,2222,over 600 m,over 600 m,FALSE,FALSE,0.133
+a,Marysville,whole,Arleta,307,1286,2305,over 600 m,over 600 m,FALSE,FALSE,0.505
+a,César Chávez,neighborhood K-5,Rosa Parks,78,2880,2313,over 600 m,over 600 m,FALSE,FALSE,0.797
+a,Peninsula,whole,Rosa Parks,239,1595,2313,over 600 m,over 600 m,FALSE,FALSE,0.481
+a,Sellwood,whole,Brentwood,361,2266,2436,over 600 m,over 600 m,FALSE,FALSE,0.133
+a,Creston,whole,Atkinson,213,3417,2446,over 600 m,over 600 m,FALSE,FALSE,0.221
+a,Scott,Spanish,Rigler,222,2026,2635,over 600 m,over 600 m,FALSE,FALSE,0.536
+a,Maplewood,whole,Hayhurst,201,1928,2850,over 600 m,over 600 m,FALSE,FALSE,0.209
+a,Beach,Spanish,César Chávez,155,485,2880,150-600 m,over 600 m,FALSE,FALSE,0.51
+a,James John,Spanish,César Chávez,133,5243,2880,over 600 m,over 600 m,FALSE,FALSE,0.782
+a,Sitton,Spanish,César Chávez,138,5645,2880,over 600 m,over 600 m,FALSE,FALSE,0.703
+a,Clark,Mandarin,Woodstock,91,279,3544,150-600 m,over 600 m,FALSE,FALSE,0.088
+a,Lewis,whole,Duniway,259,3744,3769,over 600 m,over 600 m,FALSE,FALSE,0.216
+a,César Chávez,neighborhood 6-8,George,65,2880,3924,over 600 m,over 600 m,FALSE,FALSE,0.797
+a,César Chávez,Spanish 6-8,George,105,2880,3924,over 600 m,over 600 m,FALSE,FALSE,0.823
+a,Ockley Green,Spanish,George,63,120,3924,within 150 m,over 600 m,FALSE,TRUE,0.365
+a,James John,neighborhood,Sitton,232,5243,5645,over 600 m,over 600 m,FALSE,FALSE,0.556
+a,Metro. Learning Center,9-12,(other high schools),40,433,,150-600 m,,FALSE,FALSE,0.215
+b,Vernon,6-8,Harriet Tubman,196,2634,10,over 600 m,within 150 m,TRUE,FALSE,0.396
+b,Atkinson,Spanish,Lent,178,2446,37,over 600 m,within 150 m,TRUE,FALSE,0.708
+b,Faubion,6-8,Ockley Green,223,3364,120,over 600 m,within 150 m,TRUE,FALSE,0.703
+b,Irvington,whole,Beverly Cleary,259,1060,252,over 600 m,150-600 m,FALSE,FALSE,0.32
+b,MLK Jr,Mandarin,Boise-Eliot/Humboldt,193,1411,315,over 600 m,150-600 m,FALSE,FALSE,0.466
+b,Odyssey,whole,Metro. Learning Center,217,55,433,within 150 m,150-600 m,FALSE,TRUE,0.124
+b,Laurelhurst,6-8,Mt Tabor,235,222,649,150-600 m,over 600 m,FALSE,FALSE,0.156
+b,Bridger Creative Science,6-8,Harrison Park,140,1221,693,over 600 m,over 600 m,FALSE,FALSE,0.209
+b,Maplewood,whole,Rieke,86,1928,767,over 600 m,over 600 m,FALSE,FALSE,0.209
+b,Beaumont,Spanish,Roseway Heights,101,1618,787,over 600 m,over 600 m,FALSE,FALSE,0.772
+b,Beach,neighborhood,Chief Joseph,133,485,910,150-600 m,over 600 m,FALSE,FALSE,0.451
+b,Buckman,whole,Abernethy,142,917,1184,over 600 m,over 600 m,FALSE,FALSE,0.296
+b,Woodmere,whole,Whitman,227,1242,1352,over 600 m,over 600 m,FALSE,FALSE,0.52
+b,Sabin,whole,MLK Jr,269,2139,1411,over 600 m,over 600 m,FALSE,FALSE,0.305
+b,Beverly Cleary,6-8,Beaumont,204,252,1618,150-600 m,over 600 m,FALSE,FALSE,0.158
+b,Buckman,whole,Sunnyside Environmental,142,917,1765,over 600 m,over 600 m,FALSE,FALSE,0.296
+b,Sunnyside Environmental,6-8,Hosford,193,1765,2222,over 600 m,over 600 m,FALSE,FALSE,0.177
+b,Sellwood,whole,Hosford,203,2266,2222,over 600 m,over 600 m,FALSE,FALSE,0.133
+b,Marysville,whole,Arleta,307,1286,2305,over 600 m,over 600 m,FALSE,FALSE,0.505
+b,César Chávez,neighborhood K-5,Rosa Parks,78,2880,2313,over 600 m,over 600 m,FALSE,FALSE,0.797
+b,Peninsula,whole,Rosa Parks,239,1595,2313,over 600 m,over 600 m,FALSE,FALSE,0.481
+b,Sellwood,whole,Brentwood,361,2266,2436,over 600 m,over 600 m,FALSE,FALSE,0.133
+b,Creston,whole,Atkinson,213,3417,2446,over 600 m,over 600 m,FALSE,FALSE,0.221
+b,Scott,Spanish,Rigler,222,2026,2635,over 600 m,over 600 m,FALSE,FALSE,0.536
+b,Maplewood,whole,Hayhurst,201,1928,2850,over 600 m,over 600 m,FALSE,FALSE,0.209
+b,Beach,Spanish,César Chávez,155,485,2880,150-600 m,over 600 m,FALSE,FALSE,0.51
+b,James John,Spanish,César Chávez,133,5243,2880,over 600 m,over 600 m,FALSE,FALSE,0.782
+b,Sitton,Spanish,César Chávez,138,5645,2880,over 600 m,over 600 m,FALSE,FALSE,0.703
+b,Clark,Mandarin,Woodstock,91,279,3544,150-600 m,over 600 m,FALSE,FALSE,0.088
+b,César Chávez,neighborhood 6-8,George,65,2880,3924,over 600 m,over 600 m,FALSE,FALSE,0.797
+b,César Chávez,Spanish 6-8,George,105,2880,3924,over 600 m,over 600 m,FALSE,FALSE,0.823
+b,Ockley Green,Spanish,George,63,120,3924,within 150 m,over 600 m,FALSE,TRUE,0.365
+b,James John,neighborhood,Sitton,232,5243,5645,over 600 m,over 600 m,FALSE,FALSE,0.556
+b,Metro. Learning Center,9-12,(other high schools),40,433,,150-600 m,,FALSE,FALSE,0.215
