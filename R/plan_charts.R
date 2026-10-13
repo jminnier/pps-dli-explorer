@@ -1,4 +1,4 @@
-# Figures for the School changes page (schools.qmd, es/schools.qmd), built from data/plan_schools.csv and
+# Figures and tables for the School changes page (schools.qmd, es/schools.qmd), built from data/plan_schools.csv and
 # data/plan_segregation.csv (data-raw/school_changes.R). Labels switch to Spanish when the page sets
 # options(site.lang = "es"), so both pages run the same code.
 #
@@ -23,6 +23,11 @@ PC <- list(
                nt = "Move from a non-Title I school to a Title I school", lose = "Stay at a school that would lose Title I",
                gain = "Stay at a school that would become Title I"),
     enrolled_today = "Students enrolled today", stays = "stay",
+    aff = c(closes = "Their school closes", odyssey = "Their whole program moves to another building (Odyssey)",
+            prog = "Their program or grades move out of a school that stays open",
+            move = "Change buildings", take = "Stay at a school that takes in students",
+            send = "Stay at a school that loses a program or grades", sub = "Change buildings or see their school change",
+            bound = "At a school with only a boundary or feeder change", total = "All students at a school the plan changes"),
     d_axis = "Latino–white dissimilarity index (0 = even, 1 = fully separate)",
     area = c("All elementary (K-5 and K-8) schools" = "All elementary schools", "All middle schools" = "All middle schools",
              "Northeast: Scott, Rigler, Rose City Park, Vestal" = "Northeast: Scott, Rigler, Rose City Park, Vestal",
@@ -46,6 +51,11 @@ PC <- list(
                nt = "Pasan de una escuela sin Título I a una de Título I", lose = "Se quedan en una escuela que perdería el Título I",
                gain = "Se quedan en una escuela que pasaría a ser de Título I"),
     enrolled_today = "Estudiantes inscritos hoy", stays = "se quedan",
+    aff = c(closes = "Su escuela cierra", odyssey = "Todo su programa se muda a otro edificio (Odyssey)",
+            prog = "Su programa o sus grados salen de una escuela que sigue abierta",
+            move = "Cambian de edificio", take = "Se quedan en una escuela que recibe estudiantes",
+            send = "Se quedan en una escuela que pierde un programa o grados", sub = "Cambian de edificio o su escuela cambia",
+            bound = "En una escuela que solo cambia de zona o de escuela de continuación", total = "Todos los estudiantes de escuelas que el plan cambia"),
     d_axis = "Índice de disimilitud entre latinos y blancos (0 = parejo, 1 = totalmente separados)",
     area = c("All elementary (K-5 and K-8) schools" = "Todas las primarias", "All middle schools" = "Todas las intermedias",
              "Northeast: Scott, Rigler, Rose City Park, Vestal" = "Noreste: Scott, Rigler, Rose City Park, Vestal",
@@ -74,6 +84,35 @@ race_tip <- function(d, L, when) {   # one line per group, now -> after
 school_lines <- function(x, per_line = 4) {
   x <- sort(short_school(x))
   paste(vapply(split(x, ceiling(seq_along(x) / per_line)), paste, character(1), collapse = ", "), collapse = ",<br>")
+}
+
+# Students the plan affects, one row per kind of change (October 2025 enrollment). Each student is counted once:
+# at a school that sends some students away, those who leave count as "change buildings" and the rest by
+# what happens to the school. The total equals all students at schools whose role is not "No change".
+plan_affected <- function(ps) {
+  one <- function(s) {
+    d <- ps[ps$scenario == s, ]; r <- function(roles, col) sum(d[[col]][d$role %in% roles])
+    stay <- function(roles) r(roles, "students_now") - r(roles, "students_out")
+    v <- c(closes = r("Closes", "students_now"), odyssey = r("Program moves to another building", "students_now"),
+           prog = r(c("Sends students away", "Takes in students and sends some away"), "students_out"))
+    v <- c(v, move = sum(v), take = stay(c("Takes in students", "Takes in students and sends some away")),
+           send = stay("Sends students away"))
+    v <- c(v, sub = sum(v[c("move", "take", "send")]), bound = r("Boundary or feeder change only", "students_now"))
+    v <- c(v, total = sum(v[c("sub", "bound")]))
+    stopifnot(abs(v[["total"]] - sum(d$students_now[d$role != "No change"])) < 1)
+    tibble::tibble(row = names(v), students = unname(v), share = unname(v) / sum(d$students_now))
+  }
+  dplyr::full_join(one("a"), one("b"), by = "row", suffix = c("_a", "_b"))
+}
+tbl_plan_affected <- function(ps) {
+  L <- pc_lab(); d <- plan_affected(ps)
+  bold <- d$row %in% c("move", "sub", "total")
+  cell <- function(n, p) sprintf("%s (%s)", fmt_n(n), p1(p))
+  d |> dplyr::transmute(row = unname(L$aff[row]), a = cell(students_a, share_a), b = cell(students_b, share_b)) |> gt::gt() |>
+    gt::cols_label(row = "", a = L$a, b = L$b) |> gt::cols_align("right", c(a, b)) |>
+    gt::tab_style(gt::cell_text(weight = "bold"), gt::cells_body(rows = bold)) |>
+    gt::tab_style(gt::cell_borders(sides = "top", color = PAL$ink2, weight = gt::px(1.5)), gt::cells_body(rows = bold)) |>
+    gt::tab_style(gt::cell_text(indent = gt::px(14)), gt::cells_body(columns = row, rows = !bold))
 }
 
 # 1. Bars: number of schools in each role, Scenario A and B; hover gives students today, Title I and SUN.

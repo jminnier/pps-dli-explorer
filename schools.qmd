@@ -16,7 +16,8 @@ words <- function(x) knitr::combine_words(short_school(x), and = if (SITE_ES) " 
 n_role <- function(s, roles) sum(ps$scenario == s & ps$role %in% roles)
 n_all <- function(s) sum(ps$scenario == s)
 n_aff <- function(s) sum(ps$scenario == s & ps$role != "No change")
-movers <- function(s) sum(fl$students[fl$scenario == s])
+movers <- function(s) sum(ps$students_out[ps$scenario == s])
+aff <- plan_affected(ps); af <- function(row, s, col = "students") aff[[paste0(col, "_", s)]][aff$row == row]
 stayers <- function(s) with(filter(ps, scenario == s, role %in% TAKE), sum(students_now - students_out))
 in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No change"])
 tot <- function(col) sum(ps[[col]][ps$scenario == "a"])
@@ -60,11 +61,23 @@ All numbers use October 2025 enrollment. We follow PPS's school guides to see wh
 ## In brief {#sec-brief}
 
 - **Schools.** In Scenario A, `r n_role("a", "Closes")` schools close and `r n_role("a", TAKE)` schools take in students from closed schools or moved programs. In Scenario B, `r n_role("b", "Closes")` close and `r n_role("b", TAKE)` take in students.
-- **Students.** The groups of students that would change buildings in Scenario A enroll about `r fmt_n(movers("a"))` students today (`r fmt_n(movers("b"))` in B). This number shows the size of the change, not a count of the children who will move. The changes start in 2027-28 or later, so many of today's students will have moved on by then. The schools that would take them in enroll about `r fmt_n(stayers("a"))` more students today. Those students stay put, but their school changes around them.
+- **Students.** The groups of students that would change buildings in Scenario A enroll about `r fmt_n(movers("a"))` students today (`r fmt_n(movers("b"))` in B). This number shows the size of the change, not a count of the children who will move. The changes start in 2027-28 or later, so many of today's students will have moved on by then. The schools that would take them in enroll about `r fmt_n(stayers("a"))` more students today. Those students stay put, but their school changes around them. The [table below](#sec-affected) counts every group.
 - **Title I schools.** All `r length(t1_close)` closing Title I schools are the same in both scenarios: `r words(t1_close)`. PPS's own guides project that Brentwood Middle School would lose Title I status in both scenarios.
 - **SUN schools.** `r length(sun_close_a)` SUN Community Schools close in Scenario A (`r length(sun_close_b)` in B). In Scenario A, `r length(cut9_a)` of them are sites the county planned to cut in 2026 and then saved.
 - **Special education.** In Scenario A, special education classrooms with `r sp_n("a")` teachers would move out of `r sp_sch("a")` schools that close or lose grades. In Scenario B, `r sp_n("b")` teachers from `r sp_sch("b")` schools would. The guides name a new site for each classroom, but families and school teams will decide where each student goes. Creston's program for deaf and hard of hearing students would move to Glencoe.
 - **Separation by race.** Across the district, the plan would not make schools more separated by race. Locally, it would. Where immersion programs gather into one school, Latino and white students who now share a building would attend different buildings. Where neighborhood schools merge, as at Sabin and MLK Jr., separation falls.
+
+### How many students the plan affects {#sec-affected}
+
+In Scenario A, `r fmt_n(af("sub", "a"))` students would change buildings or see their school change around them. That is `r pc(af("sub", "a", "share"))` of the `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` students in all the PPS schools on this page. In Scenario B, `r fmt_n(af("sub", "b"))` students would (`r pc(af("sub", "b", "share"))`). Some schools have only a boundary or feeder change. Their students stay, but PPS may assign future students to a different school. Counting them too, the plan touches `r fmt_n(af("total", "a"))` students in Scenario A (`r pc(af("total", "a", "share"))`) and `r fmt_n(af("total", "b"))` in Scenario B (`r pc(af("total", "b", "share"))`).
+
+The table counts each student once. At a school that sends some students away and takes in others, the students who leave count as changing buildings. The rest count as staying at a school that takes in students. Like the rest of the page, these are October 2025 students. So the numbers show the size of each change, not how many children will move.
+
+```{r}
+#| label: tbl-plan-affected
+#| tbl-cap: "Students at each kind of school change, October 2025 enrollment. Each cell gives students and, in parentheses, their share of all students in the PPS schools on this page. Bold rows are totals of the rows above them."
+tbl_plan_affected(ps) |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
+```
 
 ## 1. Map: the share of students from underserved groups at each school {#sec-map}
 

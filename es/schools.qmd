@@ -17,7 +17,8 @@ words <- function(x) knitr::combine_words(short_school(x), and = if (SITE_ES) " 
 n_role <- function(s, roles) sum(ps$scenario == s & ps$role %in% roles)
 n_all <- function(s) sum(ps$scenario == s)
 n_aff <- function(s) sum(ps$scenario == s & ps$role != "No change")
-movers <- function(s) sum(fl$students[fl$scenario == s])
+movers <- function(s) sum(ps$students_out[ps$scenario == s])
+aff <- plan_affected(ps); af <- function(row, s, col = "students") aff[[paste0(col, "_", s)]][aff$row == row]
 stayers <- function(s) with(filter(ps, scenario == s, role %in% TAKE), sum(students_now - students_out))
 in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No change"])
 tot <- function(col) sum(ps[[col]][ps$scenario == "a"])
@@ -65,11 +66,23 @@ Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de l
 ## En resumen {#sec-brief}
 
 - **Escuelas.** En el Escenario A, cierran `r n_role("a", "Closes")` escuelas y `r n_role("a", TAKE)` escuelas reciben estudiantes de escuelas cerradas o de programas trasladados. En el Escenario B, cierran `r n_role("b", "Closes")` y `r n_role("b", TAKE)` reciben estudiantes.
-- **Estudiantes.** Los grupos de estudiantes que cambiarían de edificio en el Escenario A tienen hoy unos `r fmt_n(movers("a"))` estudiantes (`r fmt_n(movers("b"))` en el B). Esta cifra muestra el tamaño del cambio, no cuántos niños se mudarán. Los cambios empiezan en 2027-28 o después, así que muchos de los estudiantes de hoy ya se habrán ido. Las escuelas que los recibirían tienen hoy otros `r fmt_n(stayers("a"))` estudiantes. Esos estudiantes no se mudan, pero su escuela cambia a su alrededor.
+- **Estudiantes.** Los grupos de estudiantes que cambiarían de edificio en el Escenario A tienen hoy unos `r fmt_n(movers("a"))` estudiantes (`r fmt_n(movers("b"))` en el B). Esta cifra muestra el tamaño del cambio, no cuántos niños se mudarán. Los cambios empiezan en 2027-28 o después, así que muchos de los estudiantes de hoy ya se habrán ido. Las escuelas que los recibirían tienen hoy otros `r fmt_n(stayers("a"))` estudiantes. Esos estudiantes no se mudan, pero su escuela cambia a su alrededor. La [tabla de abajo](#sec-affected) cuenta cada grupo.
 - **Escuelas de Título I.** Las `r length(t1_close)` escuelas de Título I que cierran son las mismas en ambos escenarios: `r words(t1_close)`. Las propias guías de PPS proyectan que la escuela intermedia Brentwood dejaría de ser de Título I en ambos escenarios.
 - **Escuelas SUN.** En el Escenario A cierran `r length(sun_close_a)` escuelas comunitarias SUN (`r length(sun_close_b)` en el B). En el Escenario A, `r length(cut9_a)` de ellas son sitios que el condado planeaba recortar en 2026 y luego salvó.
 - **Educación especial.** En el Escenario A, aulas de educación especial con `r sp_n("a")` docentes saldrían de `r sp_sch("a")` escuelas que cierran o pierden grados. En el Escenario B, saldrían `r sp_n("b")` docentes de `r sp_sch("b")` escuelas. Las guías nombran un sitio nuevo para cada aula, pero las familias y los equipos escolares decidirán a dónde va cada estudiante. El programa de Creston para estudiantes sordos y con pérdida auditiva se mudaría a Glencoe.
 - **Separación por raza.** En el distrito en su conjunto, el plan no haría que las escuelas estuvieran más separadas por raza. En algunos lugares, sí. Donde los programas de inmersión se reúnen en una sola escuela, estudiantes latinos y blancos que hoy comparten un edificio asistirían a edificios distintos. Donde se unen escuelas del vecindario, como Sabin y MLK Jr., la separación disminuye.
+
+### Cuántos estudiantes afecta el plan {#sec-affected}
+
+En el Escenario A, `r fmt_n(af("sub", "a"))` estudiantes cambiarían de edificio o verían cambiar su escuela. Son el `r pc(af("sub", "a", "share"))` de los `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` estudiantes de todas las escuelas de PPS de esta página. En el Escenario B, serían `r fmt_n(af("sub", "b"))` estudiantes (`r pc(af("sub", "b", "share"))`). Algunas escuelas solo cambian de zona o de escuela de continuación. Sus estudiantes se quedan, pero PPS podría asignar a los futuros estudiantes a otra escuela. Si se cuentan también, el plan afecta a `r fmt_n(af("total", "a"))` estudiantes en el Escenario A (`r pc(af("total", "a", "share"))`) y a `r fmt_n(af("total", "b"))` en el Escenario B (`r pc(af("total", "b", "share"))`).
+
+La tabla cuenta a cada estudiante una sola vez. En una escuela que envía a algunos estudiantes y recibe a otros, los que salen cuentan como estudiantes que cambian de edificio. Los demás cuentan como estudiantes que se quedan en una escuela que recibe estudiantes. Como en el resto de la página, son los estudiantes de octubre de 2025. Por eso las cifras muestran el tamaño de cada cambio, no cuántos niños se mudarán.
+
+```{r}
+#| label: tbl-plan-affected
+#| tbl-cap: "Estudiantes en cada tipo de cambio escolar, matrícula de octubre de 2025. Cada celda da los estudiantes y, entre paréntesis, su porcentaje de todos los estudiantes de las escuelas de PPS de esta página. Las filas en negrita son totales de las filas de arriba."
+tbl_plan_affected(ps) |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
+```
 
 ## 1. Mapa: el porcentaje de estudiantes de grupos desatendidos en cada escuela {#sec-map}
 
