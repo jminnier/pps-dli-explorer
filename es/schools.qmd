@@ -18,6 +18,8 @@ n_role <- function(s, roles) sum(ps$scenario == s & ps$role %in% roles)
 n_all <- function(s) sum(ps$scenario == s)
 n_aff <- function(s) sum(ps$scenario == s & ps$role != "No change")
 movers <- function(s) sum(ps$students_out[ps$scenario == s])
+bnd <- filter(ps, scenario == "a", role == "Boundary or feeder change only", level == "High"); bnd_hs <- sum(bnd$students_now); bnd_hs_n <- nrow(bnd)
+stopifnot(identical(sort(bnd$school), sort(ps$school[ps$scenario == "b" & ps$role == "Boundary or feeder change only" & ps$level == "High"])))
 aff <- plan_affected(ps); af <- function(row, s, col = "students") aff[[paste0(col, "_", s)]][aff$row == row]
 stayers <- function(s) with(filter(ps, scenario == s, role %in% TAKE), sum(students_now - students_out))
 in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No change"])
@@ -74,7 +76,7 @@ Todas las cifras usan la matrícula de octubre de 2025. Seguimos las guías de l
 
 ### Cuántos estudiantes afecta el plan {#sec-affected}
 
-En el Escenario A, `r fmt_n(af("sub", "a"))` estudiantes cambiarían de edificio o verían cambiar su escuela. Son el `r pc(af("sub", "a", "share"))` de los `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` estudiantes de todas las escuelas de PPS de esta página. En el Escenario B, serían `r fmt_n(af("sub", "b"))` estudiantes (`r pc(af("sub", "b", "share"))`). Algunas escuelas solo cambian de zona o de escuela de continuación. Sus estudiantes se quedan, pero PPS podría asignar a los futuros estudiantes a otra escuela. Si se cuentan también, el plan afecta a `r fmt_n(af("total", "a"))` estudiantes en el Escenario A (`r pc(af("total", "a", "share"))`) y a `r fmt_n(af("total", "b"))` en el Escenario B (`r pc(af("total", "b", "share"))`).
+En el Escenario A, `r fmt_n(af("sub", "a"))` estudiantes cambiarían de edificio o verían cambiar su escuela. Son el `r pc(af("sub", "a", "share"))` de los `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` estudiantes de todas las escuelas de PPS de esta página. En el Escenario B, serían `r fmt_n(af("sub", "b"))` estudiantes (`r pc(af("sub", "b", "share"))`). Algunas escuelas solo cambian de zona o de escuela de continuación. Sus estudiantes se quedan, pero PPS podría asignar a los futuros estudiantes a otra escuela. La mayoría de estos estudiantes, `r fmt_n(bnd_hs)`, asisten a `r bnd_hs_n` preparatorias. Si se cuentan también, el plan afecta a `r fmt_n(af("total", "a"))` estudiantes en el Escenario A (`r pc(af("total", "a", "share"))`) y a `r fmt_n(af("total", "b"))` en el Escenario B (`r pc(af("total", "b", "share"))`). Este total más grande no significa que tres de cada cuatro estudiantes cambien de escuela. Ninguno de los estudiantes actuales de ese último grupo se muda.
 
 La tabla cuenta a cada estudiante una sola vez. En una escuela que envía a algunos estudiantes y recibe a otros, los que salen cuentan como estudiantes que cambian de edificio. Los demás cuentan como estudiantes que se quedan en una escuela que recibe estudiantes. Como en el resto de la página, son los estudiantes de octubre de 2025. Por eso las cifras muestran el tamaño de cada cambio, no cuántos niños se mudarán.
 

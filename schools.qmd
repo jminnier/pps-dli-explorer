@@ -17,6 +17,8 @@ n_role <- function(s, roles) sum(ps$scenario == s & ps$role %in% roles)
 n_all <- function(s) sum(ps$scenario == s)
 n_aff <- function(s) sum(ps$scenario == s & ps$role != "No change")
 movers <- function(s) sum(ps$students_out[ps$scenario == s])
+bnd <- filter(ps, scenario == "a", role == "Boundary or feeder change only", level == "High"); bnd_hs <- sum(bnd$students_now); bnd_hs_n <- nrow(bnd)
+stopifnot(identical(sort(bnd$school), sort(ps$school[ps$scenario == "b" & ps$role == "Boundary or feeder change only" & ps$level == "High"])))
 aff <- plan_affected(ps); af <- function(row, s, col = "students") aff[[paste0(col, "_", s)]][aff$row == row]
 stayers <- function(s) with(filter(ps, scenario == s, role %in% TAKE), sum(students_now - students_out))
 in_aff <- function(s, col) sum(ps[[col]][ps$scenario == s & ps$role != "No change"])
@@ -69,7 +71,7 @@ All numbers use October 2025 enrollment. We follow PPS's school guides to see wh
 
 ### How many students the plan affects {#sec-affected}
 
-In Scenario A, `r fmt_n(af("sub", "a"))` students would change buildings or see their school change around them. That is `r pc(af("sub", "a", "share"))` of the `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` students in all the PPS schools on this page. In Scenario B, `r fmt_n(af("sub", "b"))` students would (`r pc(af("sub", "b", "share"))`). Some schools have only a boundary or feeder change. Their students stay, but PPS may assign future students to a different school. Counting them too, the plan touches `r fmt_n(af("total", "a"))` students in Scenario A (`r pc(af("total", "a", "share"))`) and `r fmt_n(af("total", "b"))` in Scenario B (`r pc(af("total", "b", "share"))`).
+In Scenario A, `r fmt_n(af("sub", "a"))` students would change buildings or see their school change around them. That is `r pc(af("sub", "a", "share"))` of the `r fmt_n(sum(ps$students_now[ps$scenario == "a"]))` students in all the PPS schools on this page. In Scenario B, `r fmt_n(af("sub", "b"))` students would (`r pc(af("sub", "b", "share"))`). Some schools have only a boundary or feeder change. Their students stay, but PPS may assign future students to a different school. Most of these students, `r fmt_n(bnd_hs)`, attend `r bnd_hs_n` high schools. Counting them too, the plan touches `r fmt_n(af("total", "a"))` students in Scenario A (`r pc(af("total", "a", "share"))`) and `r fmt_n(af("total", "b"))` in Scenario B (`r pc(af("total", "b", "share"))`). This larger total doesn't mean that three in four students change schools. None of today's students in that last group move.
 
 The table counts each student once. At a school that sends some students away and takes in others, the students who leave count as changing buildings. The rest count as staying at a school that takes in students. Like the rest of the page, these are October 2025 students. So the numbers show the size of each change, not how many children will move.
 

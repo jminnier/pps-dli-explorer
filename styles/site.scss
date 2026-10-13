@@ -31,3 +31,8 @@ main td code { white-space: normal !important; overflow-wrap: anywhere; }
 .map-key svg { vertical-align: middle; flex: none; }
 .leaflet-container { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
 .leaflet-control-layers label { font-size: 0.9rem; margin: 0.15rem 0; }
+
+// Tabbed tables (Methods, per-school counts): drop the tab box's side padding on phones so a 5-column table fits.
+@media (max-width: 576px) {
+  .panel-tabset .tab-content { padding-left: 0; padding-right: 0; border-left: 0; border-right: 0; }
+}

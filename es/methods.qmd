@@ -457,6 +457,38 @@ El informe *School Enrollment by Neighborhood of Residence* da, para cada escuel
 
 **Estudiantes que afecta el plan.** La tabla al principio de la página cuenta a cada estudiante una sola vez, según la matrícula de octubre de 2025. Un estudiante cambia de edificio si su escuela cierra o si se muda el programa de Odyssey. También cambia si su programa o sus grados salen de una escuela que sigue abierta. Los demás estudiantes de una escuela que recibe estudiantes cuentan como estudiantes que se quedan en ella. Los demás estudiantes de una escuela que solo envía estudiantes cuentan aparte. La última fila suma a todos los estudiantes de escuelas que solo cambian de zona o de escuela de continuación. El total es igual a todos los estudiantes de las escuelas que el plan cambia de alguna forma. La página no se genera si no coinciden (`plan_affected()` en `R/plan_charts.R`).
 
+```{r}
+#| echo: false
+source("R/charts.R"); source("R/plan_charts.R")
+ps <- read_data("plan_schools.csv"); fl <- read_data("plan_flows_race.csv")
+af_arr <- function(s) sum(ps$students_in[ps$scenario == s]); af_mv <- function(s) sum(ps$students_out[ps$scenario == s])
+af_mlc <- round(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))
+```
+
+Las tablas de abajo muestran las mismas cifras escuela por escuela. El subtotal de cada grupo es una fila de la tabla de la página Cambios por escuela:
+
+- "Cambian de edificio" suma los subtotales de esa columna: escuelas que cierran, Odyssey, y los estudiantes que salen de escuelas que reciben o envían estudiantes.
+- "Se quedan" en escuelas que reciben estudiantes y en escuelas que solo envían a algunos son las dos filas de estudiantes que se quedan.
+- El grupo de cambios de zona o de escuela de continuación es la última fila. Todos sus estudiantes se quedan.
+
+"Llegan" (estudiantes que llegan de otras escuelas) es solo para referencia. Contamos a cada estudiante que se muda una sola vez, en la escuela de la que sale. Las llegadas suman `r fmt_n(af_arr("a"))` en el Escenario A, no `r fmt_n(af_mv("a"))`. Los `r fmt_n(af_mlc)` estudiantes de preparatoria de Metropolitan Learning Center elegirían otra escuela, así que aquí no tienen escuela receptora. El resto de la diferencia se debe al redondeo, porque algunos grupos se dividen entre dos escuelas.
+
+::: {.panel-tabset}
+### Escenario A {#affected-a}
+
+```{r}
+#| echo: false
+tbl_plan_affected_schools(ps, "a") |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
+```
+
+### Escenario B {#affected-b}
+
+```{r}
+#| echo: false
+tbl_plan_affected_schools(ps, "b") |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
+```
+:::
+
 **Comprobación con PPS.** Las guías de PPS dan el porcentaje proyectado de estudiantes de grupos raciales desatendidos en cada escuela, sin cambios y en cada escenario (fuente 16). Nuestro cálculo del cambio en cada escuela coincide en dirección y tamaño con el de PPS. La correlación es de 0.93 en 70 pares de escuela y escenario. La diferencia mediana es de 1.6 puntos porcentuales. El programa se detiene si la correlación baja de 0.8.
 
 **Título I y SUN.** Una escuela cuenta como de Título I si está en la lista de PPS de 2026-27, incluidas las tres escuelas puente. Las guías de PPS no incluyen las escuelas puente en su columna de Título I. Por eso usamos las guías solo para la situación proyectada después de los cambios. La figura de Título I cuenta a todos los estudiantes de cada grupo que se muda. Esto es porque PPS aplica el Título I a toda la escuela. PPS publica los ingresos (certificación directa) solo por escuela completa, así que no podemos contar a los estudiantes de bajos ingresos de cada grupo. La situación de SUN viene de la lista de contactos del condado de agosto de 2026. El mapa imprimible de SUN del condado es de agosto de 2018 y está desactualizado.

@@ -452,6 +452,38 @@ The *School Enrollment by Neighborhood of Residence* report gives, for each scho
 
 **Students the plan affects.** The table at the top of the page counts each student once, by October 2025 enrollment. Students change buildings if their school closes, if Odyssey's program moves, or if their program or grades leave a school that stays open. The others at a school that takes in students count as staying at a school that takes in students. The others at a school that only sends students away count separately. The last row adds every student at a school with only a boundary or feeder change. The total equals all students at schools the plan changes in any way. The page stops building if it doesn't (`plan_affected()` in `R/plan_charts.R`).
 
+```{r}
+#| echo: false
+source("R/charts.R"); source("R/plan_charts.R")
+ps <- read_data("plan_schools.csv"); fl <- read_data("plan_flows_race.csv")
+af_arr <- function(s) sum(ps$students_in[ps$scenario == s]); af_mv <- function(s) sum(ps$students_out[ps$scenario == s])
+af_mlc <- round(sum(fl$students[fl$scenario == "a" & fl$from_school == "Metro. Learning Center"]))
+```
+
+The tables below show the same counts school by school. Each group's subtotal is one row of the table on the School changes page:
+
+- "Change buildings" adds the subtotals of that column: closing schools, Odyssey, and the students who leave schools that take in or send away students.
+- "Stay" at schools that take in students and at schools that only send some away are the two "stay" rows.
+- The boundary and feeder group is the last row. All of its students stay.
+
+"Arriving" (students arriving from other schools) is for reference only. We count each moving student once, at the school they leave. Arrivals add up to `r fmt_n(af_arr("a"))` in Scenario A, not `r fmt_n(af_mv("a"))`. Metropolitan Learning Center's `r fmt_n(af_mlc)` high school students would choose another school, so they have no receiving school here. The rest of the gap is rounding, because some groups split between two schools.
+
+::: {.panel-tabset}
+### Scenario A {#affected-a}
+
+```{r}
+#| echo: false
+tbl_plan_affected_schools(ps, "a") |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
+```
+
+### Scenario B {#affected-b}
+
+```{r}
+#| echo: false
+tbl_plan_affected_schools(ps, "b") |> tab_source_note(md(cite("plan_flows", "guide_demo", "race_program")))
+```
+:::
+
 **Check against PPS.** PPS's guides give each school's projected share from underserved racial groups with no changes and under each scenario (source 16). Our estimate of each school's change matches the direction and size of PPS's. The correlation is 0.93 across 70 school-scenario pairs, and the median gap is 1.6 percentage points. The script stops if the correlation falls below 0.8.
 
 **Title I and SUN.** A school counts as Title I if it is on PPS's 2026-27 list, including the three bridge schools. PPS's guides leave bridge schools out of their Title I column, so we use the guides only for the projected status after the changes. The Title I figure counts every student in each group that moves, because PPS runs Title I school-wide. PPS publishes income (direct certification) only for whole schools, so we can't count the low-income students in each group. SUN status is the county's August 2026 contact list. The county's printable SUN map dates from August 2018 and is out of date.

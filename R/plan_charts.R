@@ -23,6 +23,10 @@ PC <- list(
                nt = "Move from a non-Title I school to a Title I school", lose = "Stay at a school that would lose Title I",
                gain = "Stay at a school that would become Title I"),
     enrolled_today = "Students enrolled today", stays = "stay",
+    aff_cols = c(school = "School", now = "Today", move = "Change buildings", stay = "Stay", arrive = "Arriving",
+                 sub = "Subtotal", total = "All schools the plan changes"),
+    aff_grp = c(closes = "Closes", odyssey = "Program moves to another building (Odyssey)", take = "Takes in students (some also send students away)",
+                send = "Only sends some students away", bound = "Boundary or feeder change only"),
     aff = c(closes = "Their school closes", odyssey = "Their whole program moves to another building (Odyssey)",
             prog = "Their program or grades move out of a school that stays open",
             move = "Change buildings", take = "Stay at a school that takes in students",
@@ -51,6 +55,10 @@ PC <- list(
                nt = "Pasan de una escuela sin Título I a una de Título I", lose = "Se quedan en una escuela que perdería el Título I",
                gain = "Se quedan en una escuela que pasaría a ser de Título I"),
     enrolled_today = "Estudiantes inscritos hoy", stays = "se quedan",
+    aff_cols = c(school = "Escuela", now = "Hoy", move = "Cambian de edificio", stay = "Se quedan", arrive = "Llegan",
+                 sub = "Subtotal", total = "Todas las escuelas que el plan cambia"),
+    aff_grp = c(closes = "Cierra", odyssey = "El programa se muda a otro edificio (Odyssey)", take = "Recibe estudiantes (algunas también envían)",
+                send = "Solo envía a algunos estudiantes", bound = "Solo cambia de zona o de escuela de continuación"),
     aff = c(closes = "Su escuela cierra", odyssey = "Todo su programa se muda a otro edificio (Odyssey)",
             prog = "Su programa o sus grados salen de una escuela que sigue abierta",
             move = "Cambian de edificio", take = "Se quedan en una escuela que recibe estudiantes",
@@ -113,6 +121,34 @@ tbl_plan_affected <- function(ps) {
     gt::tab_style(gt::cell_text(weight = "bold"), gt::cells_body(rows = bold)) |>
     gt::tab_style(gt::cell_borders(sides = "top", color = PAL$ink2, weight = gt::px(1.5)), gt::cells_body(rows = bold)) |>
     gt::tab_style(gt::cell_text(indent = gt::px(14)), gt::cells_body(columns = row, rows = !bold))
+}
+
+# Methods: the same counts school by school for one scenario, grouped by what happens to the school. Group
+# subtotals add up to the rows of tbl_plan_affected(); "arriving" is shown for reference and is not added
+# (arriving students are counted at the school they leave).
+tbl_plan_affected_schools <- function(ps, s) {
+  L <- pc_lab()
+  grp <- c("Closes" = "closes", "Program moves to another building" = "odyssey", "Takes in students" = "take",
+           "Takes in students and sends some away" = "take", "Sends students away" = "send", "Boundary or feeder change only" = "bound")
+  d <- ps[ps$scenario == s & ps$role %in% names(grp), ] |>
+    dplyr::transmute(g = factor(grp[role], unique(grp)), school = short_school(school), now = students_now, move = students_out,
+                     stay = students_now - students_out, arrive = students_in) |>
+    dplyr::arrange(g, school)
+  tot <- function(x, lab) dplyr::summarise(x, dplyr::across(c(now, move, stay, arrive), sum)) |> dplyr::mutate(school = lab, kind = "sum")
+  rows <- dplyr::bind_rows(c(unname(lapply(split(d, d$g, drop = TRUE), function(x)
+                                    dplyr::bind_rows(dplyr::mutate(x, kind = "school"), tot(x, L$aff_cols[["sub"]])) |> dplyr::mutate(g = as.character(x$g[1])))),
+                             list(tot(d, L$aff_cols[["total"]]) |> dplyr::mutate(g = "total")))) |>
+    dplyr::mutate(g = ifelse(g == "total", " ", unname(L$aff_grp[g])), g = factor(g, unique(g)))
+  rows |> gt::gt(groupname_col = "g") |> gt::cols_hide(kind) |>
+    gt::cols_label(school = L$aff_cols[["school"]], now = L$aff_cols[["now"]], move = L$aff_cols[["move"]],
+                   stay = L$aff_cols[["stay"]], arrive = L$aff_cols[["arrive"]]) |>
+    gt::fmt_number(c(now, move, stay, arrive), decimals = 0) |>
+    gt::tab_style(gt::cell_text(weight = "bold"), gt::cells_row_groups()) |>
+    gt::tab_style(list(gt::cell_text(weight = "bold"), gt::cell_borders(sides = "top", color = PAL$ink2, weight = gt::px(1.5))),
+                  gt::cells_body(rows = kind == "sum")) |>
+    gt::tab_style(gt::cell_text(color = PAL$ink2), gt::cells_body(columns = arrive)) |>
+    gt::tab_options(data_row.padding = gt::px(3), data_row.padding.horizontal = gt::px(2), column_labels.padding.horizontal = gt::px(2), row_group.padding.horizontal = gt::px(2), table.font.size = gt::px(13), column_labels.font.size = gt::px(13), row_group.font.size = gt::px(13)) |>
+    gt::cols_width(school ~ gt::pct(30))
 }
 
 # 1. Bars: number of schools in each role, Scenario A and B; hover gives students today, Title I and SUN.
