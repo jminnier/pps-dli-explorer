@@ -48,6 +48,9 @@ sp_to <- function(s, has) { x <- fm(s); unique(unlist(lapply(seq_len(nrow(x)), f
   to <- trimws(strsplit(x$to_school[i], " or ")[[1]]); to[strsplit(x$to_has_type[i], " / ")[[1]] == has] }))) }
 sp_lc <- function(s, col) sum(sa[[col]][sa$key %in% ps$key[ps$scenario == s & ps$role == "Closes"]], na.rm = TRUE)
 s44 <- read_data("pps_slide44.csv"); s44g <- function(col) s44[[col]][s44$group == "Students Receiving Special Education Services"]
+k8s <- read_data("tle_k8_subsidy.csv") |> mutate(key = school_key(school))
+k8m <- fl |> filter(scenario == "a", grepl("6-8", part), from_school != "Beaumont") |> mutate(key = school_key(from_school))
+k8_conv <- unique(k8m$from_school); k8_sub <- sum(k8s$subsidy_fte[k8s$key %in% k8m$key])
 ```
 
 The scenarios change far more schools than the ones that close. In Scenario A, `r n_aff("a")` of PPS's `r n_all("a")` schools would close, send students away, take in students or change boundaries. In Scenario B, `r n_aff("b")` would. This page counts those schools and the students in them. It also looks at Title I and SUN schools, and at whether the moves would sort students by race.
@@ -355,7 +358,27 @@ gt(ts, groupname_col = "area") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 8. What this estimate can't show {#sec-limits}
+## 8. Middle grades: K-8 schools that send grades 6-8 away {#sec-middle}
+
+In both scenarios, `r length(k8_conv)` K-8 schools would send their grades 6-8 to middle schools: `r words(k8_conv)`. Those grades enroll about `r fmt_n(sum(k8m$students))` students today. Studies of similar changes elsewhere found that moving to a separate middle school lowers achievement. In Florida, the math drop was largest for Black students and for students who started behind. PPS's slides say there is no difference.
+
+**PPS's case.** PPS made its case to the board's Teaching, Learning, and Enrollment Committee on October 13. Middle grades in K-8 schools are small, with 77 to 234 students. They offer fewer electives, world languages and extra-help classes than 6-8 schools, which have 377 to 701 students. To staff them, PPS adds `r sprintf("%.1f", sum(k8s$subsidy_fte))` teacher positions beyond its usual formula (about $`r sprintf("%.1f", sum(k8s$subsidy_usd) / 1e6)` million). The K-8 schools that would convert use `r sprintf("%.1f", k8_sub)` of those positions.
+
+**PPS's evidence.** The slides say state test results "do not show significant differences between 6-8 and K-8 schools". They quote a 2011 Education Northwest review, which found "little evidence" of cause and effect between grade configuration and achievement. That means the evidence was too weak to tell, not that the two kinds of school do equally well.
+
+**Later research.** Studies that follow the same students over time found drops when students move to a separate middle school:
+
+- **New York City.** Students who moved to a middle school in grade 6 or 7 fell behind in both math and English. The drop lasted at least through grade 8 (Rockoff and Lockwood, 2010).
+- **Florida.** Math fell by 0.12 standard deviations and reading by 0.09 when students moved at grade 6. The math drop was larger for students who started behind and for Black students. Students who went to a middle school were also more likely to have left Florida public schools by grade 10 (Schwerdt and West, 2013).
+- **A 2018 study** used school closures and new boundaries in one district. Its results were "much less supportive of a K-8 policy than previous research" (Hong, Zimmer and Engberg). So the evidence isn't one-sided.
+
+None of these studies is from Portland. We found no study showing that 6-8 schools raise achievement compared with K-8 schools. If PPS goes ahead, it could track these students' attendance and test results by group after the move. The change would also leave middle schools slightly more separated by race (see [Would the moves sort students by race?](#sec-segregation)).
+
+::: {.source}
+`r cite("tle_mg", "plan_flows", "nwrel2011", "rockoff2010", "schwerdt2013", "hong2018")`
+:::
+
+## 9. What this estimate can't show {#sec-limits}
 
 - **It uses today's students to measure the change.** We move October 2025 students all at once, as the school guides describe. The real changes start in 2027-28 or later, and many of today's students will have moved on. For example, Sellwood Middle School closes in 2028, after all of its current students have left 8th grade. So our counts show the size of each change, not the children who will move.
 - **School sizes.** Our sizes can differ from PPS's projections. Brentwood grows from `r fmt_n(sv("a", "brentwood", "students_now"))` to `r fmt_n(sv("a", "brentwood", "students_after"))` students here, but PPS projects `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` for 2031-32, when all the changes are in place. PPS's projections include future boundary effects and enrollment trends. We use PPS's projections as a check on the race and ethnicity shares, which are what this page compares.

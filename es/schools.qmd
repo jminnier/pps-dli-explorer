@@ -49,6 +49,9 @@ sp_to <- function(s, has) { x <- fm(s); unique(unlist(lapply(seq_len(nrow(x)), f
   to <- trimws(strsplit(x$to_school[i], " or ")[[1]]); to[strsplit(x$to_has_type[i], " / ")[[1]] == has] }))) }
 sp_lc <- function(s, col) sum(sa[[col]][sa$key %in% ps$key[ps$scenario == s & ps$role == "Closes"]], na.rm = TRUE)
 s44 <- read_data("pps_slide44.csv"); s44g <- function(col) s44[[col]][s44$group == "Students Receiving Special Education Services"]
+k8s <- read_data("tle_k8_subsidy.csv") |> mutate(key = school_key(school))
+k8m <- fl |> filter(scenario == "a", grepl("6-8", part), from_school != "Beaumont") |> mutate(key = school_key(from_school))
+k8_conv <- unique(k8m$from_school); k8_sub <- sum(k8s$subsidy_fte[k8s$key %in% k8m$key])
 ```
 
 ::: {.callout-note appearance="minimal"}
@@ -360,7 +363,27 @@ gt(ts, groupname_col = "area") |>
   tab_source_note(md(cite("race_program", "plan_flows")))
 ```
 
-## 8. Lo que este cálculo no puede mostrar {#sec-limits}
+## 8. Grados intermedios: escuelas K-8 que envían sus grados 6.º a 8.º a otra escuela {#sec-middle}
+
+En ambos escenarios, `r length(k8_conv)` escuelas K-8 enviarían sus grados 6.º a 8.º a escuelas intermedias: `r words(k8_conv)`. Esos grados tienen hoy unos `r fmt_n(sum(k8m$students))` estudiantes. Estudios de cambios similares en otros lugares encontraron que pasar a una escuela intermedia aparte baja el rendimiento. En Florida, la caída en matemáticas fue mayor para los estudiantes afrodescendientes y para los que iban atrasados. Las diapositivas de PPS dicen que no hay diferencia.
+
+**Los argumentos de PPS.** PPS los presentó al Comité de Enseñanza, Aprendizaje e Inscripción de la Junta el 13 de octubre. Los grados intermedios de las escuelas K-8 son pequeños, de 77 a 234 estudiantes. Ofrecen menos materias optativas, idiomas y clases de apoyo que las escuelas 6-8, que tienen de 377 a 701 estudiantes. Para darles personal, PPS agrega `r sprintf("%.1f", sum(k8s$subsidy_fte))` puestos docentes por encima de su fórmula habitual (unos $`r sprintf("%.1f", sum(k8s$subsidy_usd) / 1e6)` millones). Las escuelas K-8 que cambiarían usan `r sprintf("%.1f", k8_sub)` de esos puestos.
+
+**La evidencia de PPS.** Las diapositivas dicen que los resultados de las pruebas estatales "no muestran diferencias significativas entre las escuelas 6-8 y K-8". Citan una revisión de Education Northwest de 2011. Esa revisión encontró "poca evidencia" de causa y efecto entre la organización por grados y el rendimiento. Eso significa que la evidencia era demasiado débil para saberlo, no que los dos tipos de escuela den el mismo resultado.
+
+**Estudios posteriores.** Los estudios que siguen a los mismos estudiantes a lo largo del tiempo encontraron caídas cuando los estudiantes pasan a una escuela intermedia aparte:
+
+- **Ciudad de Nueva York.** Los estudiantes que pasaron a una escuela intermedia en 6.º o 7.º grado se atrasaron en matemáticas y en inglés. La caída duró por lo menos hasta 8.º grado (Rockoff y Lockwood, 2010).
+- **Florida.** Matemáticas bajó 0.12 desviaciones estándar y lectura 0.09 cuando los estudiantes cambiaron de escuela en 6.º grado. La caída en matemáticas fue mayor para los estudiantes que iban atrasados y para los afrodescendientes. Además, los que fueron a una escuela intermedia dejaron más a menudo las escuelas públicas antes de 10.º grado (Schwerdt y West, 2013).
+- **Un estudio de 2018** usó cierres de escuelas y nuevas zonas en un distrito. Sus resultados apoyaron "mucho menos una política K-8 que estudios anteriores" (Hong, Zimmer y Engberg). Así que la evidencia no apunta en un solo sentido.
+
+Ninguno de estos estudios es de Portland. No encontramos ningún estudio que muestre que las escuelas 6-8 mejoren el rendimiento frente a las K-8. Si PPS sigue adelante, podría seguir la asistencia y los resultados de estos estudiantes por grupo después del cambio. El cambio también dejaría las escuelas intermedias un poco más separadas por raza (vea [¿Separarían los traslados a los estudiantes por raza?](#sec-segregation)).
+
+::: {.source}
+`r cite("tle_mg", "plan_flows", "nwrel2011", "rockoff2010", "schwerdt2013", "hong2018")`
+:::
+
+## 9. Lo que este cálculo no puede mostrar {#sec-limits}
 
 - **Usa a los estudiantes de hoy para medir el cambio.** Trasladamos a todos los estudiantes de octubre de 2025 a la vez, como lo describen las guías. Los cambios reales empiezan en 2027-28 o después, y muchos de los estudiantes de hoy ya se habrán ido. Por ejemplo, la escuela intermedia Sellwood cierra en 2028, cuando todos sus estudiantes actuales ya habrán terminado 8.º grado. Por eso nuestras cifras muestran el tamaño de cada cambio, no a los niños que se mudarán.
 - **Tamaño de las escuelas.** Nuestros tamaños pueden diferir de las proyecciones de PPS. Aquí Brentwood pasa de `r fmt_n(sv("a", "brentwood", "students_now"))` a `r fmt_n(sv("a", "brentwood", "students_after"))` estudiantes, pero PPS proyecta `r ge <- read_data("guide_enrollment.csv"); fmt_n(ge$enrollment[ge$school == "Brentwood" & ge$scenario == "a" & ge$year == "2031-32"])` para 2031-32, cuando todos los cambios ya estén en marcha. Las proyecciones de PPS incluyen efectos futuros de los cambios de zona y las tendencias de matrícula. Usamos las proyecciones de PPS para comprobar los porcentajes de raza y etnia, que son lo que compara esta página.

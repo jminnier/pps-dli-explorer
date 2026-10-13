@@ -34,11 +34,12 @@ El personal de PPS y miembros de la Junta Educativa dicen que la escuela de inme
 ## Respuesta corta
 
 - **No encontramos ningún estudio que compare los resultados de los estudiantes en escuelas de inmersión completa y en programas paralelos.** La investigación sólida compara a estudiantes *en* inmersión con estudiantes que *no* están en ella. Sus resultados positivos vienen de programas paralelos, de escuelas completas y de combinaciones de ambos.
+- **Las propias diapositivas de PPS del 13 de octubre coinciden en que la estructura no es lo principal.** Dan una lista de condiciones para un buen programa de inmersión. Dicen que estas "importan más que la configuración (escuela completa o programa paralelo) por sí sola". Ninguno de los estudios que citan compara los dos modelos ([detalles](#sec-pps-said)).
 - **El argumento a favor de las escuelas completas se basa en el personal y la cultura escolar.** Las guías del campo dicen que un programa paralelo puede funcionar si toda la escuela lo apoya. Algunos estudios de caso describen tensiones en escuelas con programa paralelo. Ninguna de las dos fuentes mide resultados de los estudiantes.
 - **La conversión de Lent que hizo PPS es la evidencia local más cercana, y es mixta.** Los estudiantes que se quedaron después de que Lent se convirtió en escuela completa mejoraron. Pero son el 43% de los estudiantes originales, y no hay grupo de comparación. La auditoría dice que los resultados "no prueban causalidad". Ese año se fue la mayoría del estudiantado de la escuela, en una proporción desmedida niños afrodescendientes y asiáticos. Muchos eran estudiantes del vecindario que PPS asignó a Marysville, y algunos eran estudiantes de 5.º grado que pasaban a la escuela intermedia, como cada año ([detalles](#sec-lent)). Lent perdió el 63% de su personal en un año.
 - **La meta declarada de PPS es tener menos programas paralelos de *un solo* grupo por grado.** Es decir, menos programas con un solo grupo de inmersión en cada grado. Dos grupos de inmersión por grado en una escuela compartida también cumplen esa meta. PPS ya tiene programas paralelos de ese tamaño.
 
-`r cite("steele2017", "bibler", "utah2021", "nasem", "cal", "freire", "audit_schools", "board1006", "by_grade")`
+`r cite("steele2017", "bibler", "utah2021", "nasem", "cal", "freire", "audit_schools", "board1006", "by_grade", "tle_dli")`
 :::
 
 ## PPS dice que el problema son los programas de un solo grupo {#sec-pps-said}
@@ -49,10 +50,12 @@ El personal de PPS señala dos problemas: los programas de *un solo* grupo por g
 
 Un mes antes, el personal habló ante el Comité de Enseñanza, Aprendizaje e Inscripción de la Junta. Dijo que "la colaboración entre maestros del mismo grado es difícil, en particular en el edificio de DLI compartido, donde la inscripción es desigual y el currículo es diferente entre los programas".
 
-En un programa de un solo grupo, cada grado tiene un solo maestro de inmersión. Ningún colega enseña el mismo grado en el mismo idioma. No encontramos investigación citada para justificar la elección del modelo. Revisamos las transcripciones de las sesiones de la Junta y del comité de septiembre y octubre de 2026. También revisamos las guías de cada escuela.
+En un programa de un solo grupo, cada grado tiene un solo maestro de inmersión. Ningún colega enseña el mismo grado en el mismo idioma. Hasta el 13 de octubre, PPS no citó investigación para justificar la elección del modelo. Revisamos las transcripciones de las sesiones de la Junta y del comité de septiembre y octubre de 2026. También revisamos las guías de cada escuela.
+
+El 13 de octubre, el personal llevó al mismo comité unas diapositivas sobre estudios. La diapositiva 3 da cuatro condiciones para un buen programa de inmersión. Dos de ellas son una visión común y bastante personal bilingüe. Luego dice: "Estas condiciones importan más que la configuración (escuela completa o programa paralelo) por sí sola". La diapositiva 9 dice que el modelo de escuela completa "está estructuralmente en la mejor posición para lograr" estas condiciones. La diapositiva 14 da sus fuentes: guías de práctica, páginas web de PPS y estudios de los programas de inmersión de PPS. Ninguna compara escuelas completas con programas paralelos (vea [Investigación sobre resultados](#sec-outcomes)).
 
 ::: {.source}
-`r cite("board1006", "tle0908s", "guides")`
+`r cite("board1006", "tle0908s", "guides", "tle_dli")`
 :::
 
 ## Los estudios comparan la inmersión con la falta de inmersión {#sec-outcomes}
@@ -176,10 +179,12 @@ Esta es la evidencia local más sólida a favor del modelo de escuela completa. 
 - El 63% del personal de Lent se fue después de 2022-23, "casi el doble del promedio de 32% de las escuelas de SEGC" (escuela por escuela, p. 39).
 - Lent tiene una matrícula de más o menos la mitad de los 527 estudiantes que PPS proyectó para la escuela. Vea [Lent y Chávez](history.qmd#sec-lent) y [Equidad §5](equity.qmd#sec-optout).
 
+**Las diapositivas de PPS del 13 de octubre llaman a Lent "una prueba de PPS" ("a PPS proof point").** Dicen que Lent "produjo mejores resultados para los estudiantes, en particular para los estudiantes multilingües y los que aprenden inglés, que muestran avances significativos". Agregan que su trayectoria "es exactamente lo que predicen las condiciones de la investigación y los datos de Collier y Thomas". Las diapositivas no mencionan los límites de la auditoría ni los costos de arriba. El estudio más conocido de Collier y Thomas compara tipos de programas para quienes aprenden inglés. No compara escuelas completas con programas paralelos.
+
 La auditoría concluye que Lent "demuestra la promesa de un modelo de DLI en español sólido y culturalmente afirmativo, pero también muestra los riesgos para la equidad racial de lograr ese modelo mediante un proceso que desplazó a otros estudiantes de color" (escuela por escuela, p. 47).
 
 ::: {.source}
-`r cite("audit", "audit_schools")`
+`r cite("audit", "audit_schools", "tle_dli", "collier2004")`
 :::
 
 ## PPS tiene datos que podrían responder la pregunta {#sec-data}

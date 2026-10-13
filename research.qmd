@@ -29,11 +29,12 @@ PPS staff and board members have called whole-school immersion the better model 
 ## Short answer
 
 - **No study we could find compares student outcomes in whole-school and strand immersion programs.** The strong research on immersion compares students *in* immersion with students *not* in it. Its positive results come from strand programs, whole-school programs and mixes of both.
+- **PPS's own October 13 slides agree that structure isn't the main factor.** They list conditions for strong immersion programs and say these "matter more than configuration (full-school vs. strand) alone". None of the studies they cite compares the two models ([details](#sec-pps-said)).
 - **The case for whole schools rests on staffing and school culture.** Field guides say strands can work when the whole school supports them. Some case studies describe tension in strand schools. Neither measures student outcomes.
 - **PPS's own conversion of Lent is the closest local evidence, and it is mixed.** Students who stayed after Lent became a whole school improved. But they are 43% of the original students, and there is no comparison group. The audit says the results "do not prove causality". Most of the school's students left that year, disproportionately Black and Asian children. Many were neighborhood students PPS assigned to Marysville, and some were fifth-graders moving up to middle school as usual ([details](#sec-lent)). Lent lost 63% of its staff in one year.
 - **PPS's stated goal is fewer *single* strands.** A single strand has one immersion class per grade. Two immersion classes per grade in a shared school also meet that goal. PPS already runs strands that size.
 
-`r cite("steele2017", "bibler", "utah2021", "nasem", "cal", "freire", "audit_schools", "board1006", "by_grade")`
+`r cite("steele2017", "bibler", "utah2021", "nasem", "cal", "freire", "audit_schools", "board1006", "by_grade", "tle_dli")`
 :::
 
 ## PPS says the problem is single strands {#sec-pps-said}
@@ -44,10 +45,12 @@ PPS staff point to two problems: the *single* strand, and the strain of running 
 
 A month earlier, staff spoke to the board's Teaching, Learning and Enrollment Committee. They said that "grade-level teacher collaboration is challenging, particularly in the co-located DLI building where enrollment is uneven and curriculum is different across strands."
 
-In a single strand, one immersion teacher works alone at each grade. No colleague teaches the same grade in the same language. We found no research cited for the choice of model. We checked the transcripts of the September and October 2026 board and committee meetings, and the per-school guides.
+In a single strand, one immersion teacher works alone at each grade. No colleague teaches the same grade in the same language. Until October 13, PPS cited no research for the choice of model. We checked the transcripts of the September and October 2026 board and committee meetings, and the per-school guides.
+
+On October 13, staff brought research slides to the same committee. Slide 3 lists four conditions for strong immersion programs, such as a shared vision and enough bilingual staff. It then says: "These conditions matter more than configuration (full-school vs. strand) alone." Slide 9 says a whole-school model "is structurally best positioned to deliver" these conditions. The sources listed on slide 14 are practice guides, PPS web pages and studies of PPS's own immersion programs. None of them compares whole-school and strand programs (see [Outcome research](#sec-outcomes)).
 
 ::: {.source}
-`r cite("board1006", "tle0908s", "guides")`
+`r cite("board1006", "tle0908s", "guides", "tle_dli")`
 :::
 
 ## Outcome research compares immersion with no immersion {#sec-outcomes}
@@ -171,10 +174,12 @@ This is the strongest local evidence for the whole-school model. But it has limi
 - 63% of Lent staff left after 2022-23, "nearly double the SEGC-school average of 32%" (school-by-school p. 39).
 - Lent enrolls about half the 527 students PPS projected for it. See [Lent & Chávez](history.qmd#sec-lent) and [Equity §5](equity.qmd#sec-optout).
 
+**PPS's October 13 slides call Lent "a PPS proof point".** They say Lent "produced better outcomes for students, particularly Multilingual Learners and English Learners, who are showing significant gains." They add that its trajectory "is exactly what the research conditions and the Collier & Thomas data predict". The slides don't mention the audit's limits or the costs above. Collier and Thomas's best-known paper compares kinds of programs for English learners. It doesn't compare whole-school and strand programs.
+
 The audit concludes that Lent "demonstrates the promise of a strong, culturally affirming Spanish DLI model, but it also shows the racial equity risks of achieving that model through a process that displaced other students of color" (school-by-school p. 47).
 
 ::: {.source}
-`r cite("audit", "audit_schools")`
+`r cite("audit", "audit_schools", "tle_dli", "collier2004")`
 :::
 
 ## PPS has data that could answer the question {#sec-data}

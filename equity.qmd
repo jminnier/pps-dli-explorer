@@ -41,6 +41,11 @@ rig_own <- sites |> filter(school_key == "rigler", language == "Spanish", band =
 ge_r <- read_data("guide_enrollment.csv") |> filter(school == "Rigler", year %in% c("2027-28", "2031-32"))
 gr <- function(sc, yr) ge_r$enrollment[ge_r$scenario == sc & ge_r$year == yr]
 gs_r <- read_data("guide_school.csv") |> filter(school == "Rigler")
+gs_cc <- read_data("guide_school.csv") |> filter(school == "Cesar Chavez"); gcc <- function(sc, col) gs_cc[[col]][gs_cc$scenario == sc]
+tk <- read_data("tle_dli_k_2026_27.csv"); tks <- function(col) tk[[col]][tk$language == "Spanish"]
+l27 <- read_data("lottery_results.csv") |> filter(year == "2026-27", grade == "K", language == "Spanish", !is_total) |>
+  group_by(school) |> summarise(applications = sum(applications, na.rm = TRUE), offered = sum(offered, na.rm = TRUE), waitlisted = sum(waitlisted, na.rm = TRUE))
+lw <- function(s) l27$waitlisted[l27$school == s]
 gsr <- function(opt, col) gs_r[[col]][gs_r$option == opt]
 capt <- read_data("equity_capture.csv")
 cv <- function(gr, yr, col = "capture") capt[[col]][capt$group == gr & capt$year == yr]
@@ -108,6 +113,12 @@ Atkinson and Beach, the two programs with the most demand, have far more familie
 
 Other moves are different. James John and Sitton draw little more than one application per seat. Clark has had no waitlist, and its applicants are often placed at programs they ranked higher. The case for consolidating those programs is stronger. A plan that treated these programs differently would take less from immersion families than one that moves them all. The [Demand & scorecard](scorecard.qmd) page has more on demand. It also explains why Lent's own lottery numbers understate its draw.
 
+**District totals hide where the demand is.** PPS's October 13 slides count `r tks("lottery_slots_k")` Spanish kindergarten lottery seats for 2026-27 and `r tks("enrolled_k")` Spanish kindergartners enrolled. That looks like spare room. The 2026-27 lottery shows where families actually applied. `r sum(l27$waitlisted)` Spanish applicants were waitlisted, most of them at Atkinson (`r lw("Atkinson")`), Ainsworth (`r lw("Ainsworth")`) and Beach (`r lw("Beach")`). Scott, James John and Sitton waitlisted only `r min(sapply(c("Scott", "James John", "Sitton"), lw))` to `r max(sapply(c("Scott", "James John", "Sitton"), lw))` each. Atkinson and Beach are two of the programs PPS would move. (The slide doesn't say what its counts include. In October 2025, PPS enrolled `r rv <- read_data("enrollment_by_program_grade.csv"); sum(rv$enrollment[rv$year == "2025-26" & rv$grade == "K" & rv$language %in% "Spanish"])` Spanish immersion kindergartners.)
+
+::: {.source}
+`r cite("tle_dli", "lottery26", "by_grade")`
+:::
+
 ## 3. Who would have to move, by race and ethnicity {#sec-who}
 
 The plan's burdens fall differently on each racial and ethnic group. The moving immersion programs are mostly Latino, with many Asian students in the Mandarin and Vietnamese programs. Few Black students are in immersion, so the plan reaches Black students mainly through closures and the César Chávez change.
@@ -122,7 +133,7 @@ fig_race_groups(rg)
 ```
 
 ::: {.source}
-`r cite("race_program", "scenarios", "closures", "guide_cc")`
+`r cite("race_program", "scenarios", "closures", "guide_cc", "guide_who", "tle_dli")`
 :::
 
 ```{r}
@@ -183,6 +194,7 @@ The plan reaches more Black students in two other ways:
 
 - **Closures.** The schools that would close enroll `r fmt_n(rgv("a", CLR, "black_n"))` Black students outside immersion in Scenario A (`r fmt_n(rgv("b", CLR, "black_n"))` in Scenario B).
 - **César Chávez becomes immersion-only.** To make César Chávez a K-5 school with only Spanish immersion, PPS would move its neighborhood program out. Its K-5 students would go to Rosa Parks and its grade 6-8 students to George (`r SRC$guide_cc`). That program has `r fmt_n(rgv("a", HUBN, "students"))` students. **`r fmt_pct(rgv("a", HUBN, "black_pct"))` are Black**, `r round(rgv("a", HUBN, "black_pct") / rgv("all", K8, "black_pct"), 1)` times the share in PPS elementary and middle schools. `r fmt_pct(rgv("a", HUBN, "hu_pct"))` are historically underserved. This repeats the pattern of Lent's 2023 conversion. The district's equity audit found that the students displaced then "were disproportionately Black and Asian Lent neighborhood families" (`r SRC$audit_schools`, p. 47; see [whole-school vs. strand research](research.qmd#sec-lent)). We count them in §1 as directly displaced.
+- **César Chávez after the change.** PPS's own guide projects how the school would change. Its share of students from underserved racial groups would fall from `r fmt_pct(gcc("sq", "pct_underserved_race"))` to `r fmt_pct(gcc("a/b", "pct_underserved_race"))`. Its share of students in poverty would fall from `r fmt_pct(gcc("sq", "pct_poverty"))` to `r fmt_pct(gcc("a/b", "pct_poverty"))`, and its share in special education from `r fmt_pct(gcc("sq", "pct_sped"))` to `r fmt_pct(gcc("a/b", "pct_sped"))`. PPS's October 13 slides on César Chávez show only today's mix.
 
 Of the `r fmt_n(round(blk_disp_a))` Black students who would have to change schools in Scenario A, `r fmt_pct(rgv("a", CLR, "black_n") / blk_disp_a)` would move because their school closes.
 
@@ -360,6 +372,12 @@ viz_layout(p, xtitle = "Miles from home (estimate)") |>
 :::
 
 PPS's report of where each program's students live offers a check. `r fmt_pct(hc("a", "own_share"))` of students in the moving programs live in their school's own attendance area. PPS reports the rest only by high-school area. Placing them there gives an increase of `r sprintf("%.1f", hc("a", "change_mi"))` to `r sprintf("%.1f", hc("a", "change_mi_nearer"))` miles, close to the model. But the model overstates how far families live from school today: `r sprintf("%.1f", hc("a", "model_before_mi"))` miles, against `r sprintf("%.1f", hc("a", "before_mi"))` miles in the check. The [details and sensitivity checks](#sec-distance-detail) are at the end of this page.
+
+**Buses (PPS's October 13 plan).** PPS doesn't bus every immersion student today. Its October 13 slides say kindergarten routes go first to native and heritage speakers. Any other student can ask to ride an existing route as a "hitcher". For the North Portland Spanish moves to César Chávez, PPS proposes 3 to 4 bus routes just for immersion students. They would have 10 to 14 stops, at schools and community centers, and take about 20 minutes on average. Draft routes are due in spring 2027. The slides show no bus plan for the Southeast (Atkinson to Lent) or the Northeast (Scott to Rigler). They also show none for the neighborhood students who would have to leave César Chávez.
+
+::: {.source}
+`r cite("tle_dli")`
+:::
 
 ## 5. Moving a program loses the families who would have joined it {#sec-optout}
 

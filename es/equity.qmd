@@ -42,6 +42,11 @@ rig_own <- sites |> filter(school_key == "rigler", language == "Spanish", band =
 ge_r <- read_data("guide_enrollment.csv") |> filter(school == "Rigler", year %in% c("2027-28", "2031-32"))
 gr <- function(sc, yr) ge_r$enrollment[ge_r$scenario == sc & ge_r$year == yr]
 gs_r <- read_data("guide_school.csv") |> filter(school == "Rigler")
+gs_cc <- read_data("guide_school.csv") |> filter(school == "Cesar Chavez"); gcc <- function(sc, col) gs_cc[[col]][gs_cc$scenario == sc]
+tk <- read_data("tle_dli_k_2026_27.csv"); tks <- function(col) tk[[col]][tk$language == "Spanish"]
+l27 <- read_data("lottery_results.csv") |> filter(year == "2026-27", grade == "K", language == "Spanish", !is_total) |>
+  group_by(school) |> summarise(applications = sum(applications, na.rm = TRUE), offered = sum(offered, na.rm = TRUE), waitlisted = sum(waitlisted, na.rm = TRUE))
+lw <- function(s) l27$waitlisted[l27$school == s]
 gsr <- function(opt, col) gs_r[[col]][gs_r$option == opt]
 capt <- read_data("equity_capture.csv")
 cv <- function(gr, yr, col = "capture") capt[[col]][capt$group == gr & capt$year == yr]
@@ -112,6 +117,12 @@ d_a |>
 Atkinson y Beach, los dos programas con más demanda, tienen muchas más familias que lugares. Son los dos programas de español con más solicitantes del distrito. Cada uno recibe de cuatro a cinco solicitudes por cada lugar de kínder. Cada año, decenas de familias quedan en lista de espera. Sus salones son pequeños porque PPS ofrece pocos lugares, no porque las familias no los pidan.
 
 Otros traslados son distintos. James John y Sitton reciben poco más de una solicitud por lugar. Clark no ha tenido lista de espera, y a sus solicitantes a menudo se les asigna a programas que pusieron más arriba en su lista. El argumento para consolidar esos programas es más sólido. Un plan que tratara estos programas de manera diferente le quitaría menos a las familias de inmersión que uno que los traslada a todos. La página [Demanda y evaluación](scorecard.qmd) tiene más sobre la demanda. También explica por qué los números del propio sorteo de Lent subestiman su atractivo.
+
+**Los totales del distrito esconden dónde está la demanda.** Las diapositivas de PPS del 13 de octubre cuentan `r tks("lottery_slots_k")` lugares de kínder en español en el sorteo de 2026-27 y `r tks("enrolled_k")` niños de kínder inscritos en español. Eso parece indicar lugares libres. El sorteo de 2026-27 muestra dónde presentaron solicitud las familias. `r sum(l27$waitlisted)` solicitantes de español quedaron en lista de espera, la mayoría en Atkinson (`r lw("Atkinson")`), Ainsworth (`r lw("Ainsworth")`) y Beach (`r lw("Beach")`). Scott, James John y Sitton pusieron en lista de espera solo de `r min(sapply(c("Scott", "James John", "Sitton"), lw))` a `r max(sapply(c("Scott", "James John", "Sitton"), lw))` cada una. Atkinson y Beach son dos de los programas que PPS trasladaría. (La diapositiva no dice qué incluyen sus cifras. En octubre de 2025, PPS tenía `r rv <- read_data("enrollment_by_program_grade.csv"); sum(rv$enrollment[rv$year == "2025-26" & rv$grade == "K" & rv$language %in% "Spanish"])` niños de kínder en inmersión en español).
+
+::: {.source}
+`r cite("tle_dli", "lottery26", "by_grade")`
+:::
 
 ## 3. Quiénes tendrían que cambiar de escuela, por raza y grupo étnico {#sec-who}
 
@@ -190,6 +201,7 @@ El plan afecta a más estudiantes afrodescendientes de otras dos maneras:
 
 - **Cierres.** Las escuelas que cerrarían tienen `r fmt_n(rgv("a", CLR, "black_n"))` estudiantes afrodescendientes fuera de inmersión en el Escenario A (`r fmt_n(rgv("b", CLR, "black_n"))` en el Escenario B).
 - **César Chávez pasa a ser solo de inmersión.** Para que César Chávez sea una escuela de kínder a 5.º con solo inmersión en español, PPS sacaría de allí su programa del vecindario. Sus estudiantes de kínder a 5.º irían a Rosa Parks, y los de 6.º a 8.º, a George (`r SRC$guide_cc`). Ese programa tiene `r fmt_n(rgv("a", HUBN, "students"))` estudiantes. **El `r fmt_pct(rgv("a", HUBN, "black_pct"))` son afrodescendientes**, `r round(rgv("a", HUBN, "black_pct") / rgv("all", K8, "black_pct"), 1)` veces la proporción en las escuelas primarias e intermedias de PPS. El `r fmt_pct(rgv("a", HUBN, "hu_pct"))` es históricamente desatendido. Esto repite lo que pasó con la conversión de Lent en 2023. La auditoría de equidad del distrito encontró que los estudiantes desplazados entonces "eran, en una proporción desmedida, familias afrodescendientes y asiáticas del vecindario de Lent" (`r SRC$audit_schools`, p. 47; vea [investigación sobre escuela completa o programa paralelo](research.qmd#sec-lent)). En la §1 los contamos como desplazados directamente.
+- **César Chávez después del cambio.** La propia guía de PPS proyecta cómo cambiaría la escuela. Su porcentaje de estudiantes de grupos raciales desatendidos bajaría del `r fmt_pct(gcc("sq", "pct_underserved_race"))` al `r fmt_pct(gcc("a/b", "pct_underserved_race"))`. Su porcentaje de estudiantes en situación de pobreza bajaría del `r fmt_pct(gcc("sq", "pct_poverty"))` al `r fmt_pct(gcc("a/b", "pct_poverty"))`, y el de educación especial, del `r fmt_pct(gcc("sq", "pct_sped"))` al `r fmt_pct(gcc("a/b", "pct_sped"))`. Las diapositivas de PPS del 13 de octubre sobre César Chávez solo muestran la composición de hoy.
 
 De los `r fmt_n(round(blk_disp_a))` estudiantes afrodescendientes que tendrían que cambiar de escuela en el Escenario A, el `r fmt_pct(rgv("a", CLR, "black_n") / blk_disp_a)` se trasladaría porque su escuela cierra.
 
@@ -201,7 +213,7 @@ fig_black_displaced(rblk)
 ```
 
 ::: {.source}
-`r cite("race_program", "scenarios", "closures", "guide_cc")`
+`r cite("race_program", "scenarios", "closures", "guide_cc", "guide_who", "tle_dli")`
 :::
 
 ```{r}
@@ -373,6 +385,12 @@ viz_layout(p, xtitle = "Millas desde el hogar (estimación)") |>
 :::
 
 El informe de PPS sobre dónde viven los estudiantes de cada programa permite verificarlo. El `r fmt_pct(hc("a", "own_share"))` de los estudiantes de los programas que se trasladan vive en la propia zona de asistencia de su escuela. Del resto, PPS solo reporta la zona de preparatoria. Si los ubicamos allí, el aumento es de `r sprintf("%.1f", hc("a", "change_mi"))` a `r sprintf("%.1f", hc("a", "change_mi_nearer"))` millas, cercano al modelo. Pero el modelo exagera qué tan lejos de la escuela viven hoy las familias: `r sprintf("%.1f", hc("a", "model_before_mi"))` millas, frente a `r sprintf("%.1f", hc("a", "before_mi"))` millas en la verificación. Los [detalles y las pruebas de sensibilidad](#sec-distance-detail) están al final de esta página.
+
+**Autobuses (el plan de PPS del 13 de octubre).** Hoy PPS no ofrece autobús a todos los estudiantes de inmersión. Sus diapositivas del 13 de octubre dicen que las rutas de kínder son primero para hablantes nativos y de herencia. Cualquier otro estudiante puede pedir subirse a una ruta existente como "hitcher" (pasajero adicional). Para los traslados de español en el norte de Portland hacia César Chávez, PPS propone de 3 a 4 rutas solo para estudiantes de inmersión. Tendrían de 10 a 14 paradas, en escuelas y centros comunitarios, y tardarían unos 20 minutos en promedio. Los borradores de las rutas estarían listos en la primavera de 2027. Las diapositivas no muestran un plan de autobuses para el sureste (de Atkinson a Lent) ni para el noreste (de Scott a Rigler). Tampoco muestran uno para los estudiantes del vecindario que tendrían que dejar César Chávez.
+
+::: {.source}
+`r cite("tle_dli")`
+:::
 
 ## 5. Al trasladar un programa se pierden las familias que se habrían unido a él {#sec-optout}
 
