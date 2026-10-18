@@ -12,10 +12,14 @@ project:
     - schools.qmd
     - history.qmd
     - research.qmd
+    - handouts.qmd
     - es/*.qmd
     - methods.qmd
   resources:
     - data/*.csv
+    - handouts/atkinson_dli_slide1*.png
+    - handouts/atkinson_dli_slide3*.png
+    - handouts/atkinson_lent_travel_times.csv
     - data/*.geojson
 
 website:
@@ -36,6 +40,8 @@ website:
         text: Lent & Chávez
       - href: research.qmd
         text: Whole-school vs. strand
+      - href: handouts.qmd
+        text: Handouts
       - href: methods.qmd
         text: Methods
     right:

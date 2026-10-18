@@ -1,0 +1,13 @@
+mode,group,students,to_atkinson_min,to_lent_min,to_atkinson_mi,to_lent_mi
+drive,all mapped immersion students,167,6.2,10.6,2.04,3.69
+bike,all mapped immersion students,167,13.4,22.1,1.88,3.43
+walk,all mapped immersion students,167,40.4,70.0,1.88,3.33
+drive,Atkinson's own neighborhood,60,1.9,9.9,0.58,3.16
+bike,Atkinson's own neighborhood,60,4.6,19.9,0.59,3.08
+walk,Atkinson's own neighborhood,60,12.6,61.7,0.59,2.94
+drive,Franklin HS area (outside Atkinson's neighborhood),55,6.8,8.5,2.15,2.70
+drive,Cleveland HS area,29,10.5,14.4,3.41,4.89
+drive,McDaniel HS area,21,10.5,12.2,3.91,5.68
+# Method: Atkinson Spanish immersion students by area of residence (PPS Enrollment by Neighborhood of Residence, 2025-26; 11 out-of-district/undetermined left out; Grant area has 2 students).
+# Within each area, students spread like children 5-17 across census tracts (ACS); own neighborhood = 29 evenly spaced points in Atkinson's attendance area.
+# Routes and times from OSRM (OpenStreetMap): driving = router.project-osrm.org (free-flow, no traffic); walking and biking = routing.openstreetmap.de. Each way, one trip. Retrieved Oct 18, 2026.
