@@ -1,0 +1,208 @@
+---
+title: "Rumores y hechos"
+subtitle: "De la campaña Keep DLI at Atkinson, después de la sesión de la Junta de PPS del 4 de noviembre de 2026"
+toc-depth: 2
+---
+
+```{r}
+options(site.lang = "es")
+source("R/site_data.R")
+source("R/charts.R")
+prof <- read_data("school_profiles_2025.csv")
+lent <- prof[prof$school == "Lent", ]
+hp <- read_data("history_projection.csv")
+lent_a <- hp$enrollment[hp$school == "Lent" & hp$scenario == "a" & hp$year == "2027-28"]
+rp <- read_data("race_by_program_2025.csv")
+atk <- rp[rp$school == "Atkinson" & rp$program == "Spanish Immersion", ]
+atk_all <- rp$total[rp$school == "Atkinson" & rp$program == "Total"]
+atk_und <- (atk$latino_n + atk$black_n + atk$native_american_n + atk$pacific_islander_n + atk$other_multi_n) / atk$total
+atk_ml <- read_data("dli_track_profiles.csv") |> filter(year == "2025-26", school == "Atkinson")
+kids <- read_data("facts_spanish_kids_2mi.csv")
+kl <- kids[kids$key == "lent", ]
+ka <- kids[kids$key == "atkinson", ]
+near10 <- function(x) round(x, -1)
+surv_low <- lent$enrollment_2025 + 0.15 * atk$total
+surv_high <- surv_low + 0.11 * atk$total
+cap_pct <- function(x) paste0(round(100 * x / lent$functional_capacity), "%")
+```
+
+::: {.callout-note}
+## Esta página toma partido
+A diferencia del resto de este sitio, esta página viene de la campaña Keep DLI at Atkinson. La campaña le pide a PPS que mantenga la inmersión en español en Atkinson. La inmersión en dos idiomas (DLI) enseña a los niños en dos idiomas. Cada tarjeta da su fuente, y [Fuentes y métodos](#sources-methods) da los detalles.
+:::
+
+PPS tiene su propia página de "rumores y hechos". Aquí están los nuestros, de Atkinson: una escuela DLI **y** de vecindario.
+
+En la sesión de la Junta del 4 de noviembre, PPS mostró una diapositiva llamada "Student Journey: Atkinson to Lent" (el recorrido de un estudiante de Atkinson a Lent). Dejó fuera mucho de lo que hace funcionar a nuestra escuela.
+
+## La diapositiva de PPS sobre Atkinson dejó fuera mucho {#left-out}
+
+```{=html}
+<table class="compare">
+<thead><tr><th scope="col">Tema</th><th scope="col">Lo que mostró PPS</th><th scope="col">Atkinson hoy</th></tr></thead>
+<tbody>
+<tr><th scope="row">Comunidad DLI</th><td data-label="Lo que mostró PPS">Programa DLI de una sola clase por grado.</td><td data-label="Atkinson hoy">Programa DLI desde 1994. Maestros y familias de varias generaciones.</td></tr>
+<tr><th scope="row">Idioma</th><td data-label="Lo que mostró PPS">Cerca de la mitad de los estudiantes de Atkinson aprende y practica español cada día.</td><td data-label="Atkinson hoy">DLI y vecindario juntos: es parte del modelo, no una falla.</td></tr>
+<tr><th scope="row">Maestros</th><td data-label="Lo que mostró PPS">Un solo maestro DLI por grado.</td><td data-label="Atkinson hoy">Maestros DLI y de vecindario planean juntos lecciones y eventos culturales.</td></tr>
+<tr><th scope="row">Enriquecimiento</th><td data-label="Lo que mostró PPS">Los maestros de Arte, Ed. Física y Biblioteca pueden o no hablar español.</td><td data-label="Atkinson hoy">Las clases en inglés son parte del modelo 90/10 y 80/20. Maestra de huerto bilingüe.</td></tr>
+<tr><th scope="row">Apoyo</th><td data-label="Lo que mostró PPS">Intervención académica solo en inglés.</td><td data-label="Atkinson hoy">Bilingües: especialista de habla y lectura, tutor HIT, asistentes, psicóloga, directora, oficina y maestros de ELD, 1.º y 4.º.</td></tr>
+<tr><th scope="row">Tamaño de clase</th><td data-label="Lo que mostró PPS">1.º en Atkinson: 28 por clase. 2.º en Lent: 24 por clase.</td><td data-label="Atkinson hoy">1.º hoy: 27. Los 24 por clase en Lent suponen que los 27 se mudan: (27 + 46 de Lent) ÷ 3 clases.</td></tr>
+</tbody>
+</table>
+```
+
+::: {.source}
+`r cite("pps_slide_nov4", "atk_factsheet")` Adaptado de una tabla hecha por una familia de Atkinson. PPS rotula su diapositiva "Proposed student experience for graphic development. Rightsizing decisions are not final." (experiencia estudiantil propuesta para desarrollar la gráfica; las decisiones no son definitivas).
+:::
+
+## Rumores y hechos {#rumors}
+
+### Quiénes están en DLI {#rumor-who}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}Falso]{.stamp}
+
+"El DLI es para familias privilegiadas o que no hablan español."
+:::
+
+::: {.fact-card}
+[[`r fmt_pct(atk_und)`]{.big} de los estudiantes DLI de Atkinson son de grupos históricamente desatendidos.]{.fact-line}
+
+[[`r fmt_pct(atk_ml$ml_and_immersion / atk$total)`]{.big} son estudiantes multilingües.]{.fact-line}
+
+El DLI es casi la mitad de la escuela: `r fmt_n(atk$total)` de `r fmt_n(atk_all)` estudiantes.
+:::
+
+::: {.source}
+`r cite("race_program", "profiles")`
+:::
+
+### Si las familias seguirían al programa {#rumor-follow}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}En duda]{.stamp}
+
+"Las familias seguirán al programa a Lent."
+:::
+
+::: {.fact-card}
+[[63%]{.big} de las familias DLI que respondieron la encuesta dicen que probablemente o definitivamente no continuarían (42 de 67).]{.fact-line}
+
+[[70%]{.big} de las familias hispanohablantes dicen lo mismo (30 de 43).]{.fact-line}
+
+Nuestra encuesta no es representativa, y sus respuestas son intenciones, no decisiones. El último traslado apunta en ambas direcciones. La auditoría de equidad de PPS encontró que los estudiantes que ya estaban en programas trasladados en general los siguieron si se quedaron en PPS. El programa de Bridger pasó a Lent en 2023. Después, Lent inscribió en inmersión un 31% menos estudiantes de kínder por año que el promedio por grado de las dos escuelas. Con la misma medida, el distrito bajó un 14%. Las propias proyecciones de PPS implican que unos 4 de cada 5 estudiantes de Atkinson llegarían a Lent.
+:::
+
+**Si las familias hacen lo que dicen, Lent seguiría a menos de 40% de su capacidad.**
+
+```{r}
+#| label: fig-lent-building
+#| fig-height: 2.8
+#| fig-cap: "Estudiantes en el edificio de Lent, comparados con su capacidad. El rango de la encuesta es una estimación de una encuesta que no es representativa. Pase el cursor para ver las cifras."
+bars <- tibble(label = factor(c("Según la encuesta", "Proyección de PPS, 2027", "Lent hoy"), levels = c("Según la encuesta", "Proyección de PPS, 2027", "Lent hoy")),
+               low = c(surv_low, lent_a, lent$enrollment_2025), high = c(surv_high, lent_a, lent$enrollment_2025),
+               col = c(PAL$light[["orange"]], PAL$light[["blue"]], "#8a94a6"))
+bars$txt <- ifelse(bars$low == bars$high, sprintf("%s estudiantes, %s", fmt_n(bars$high), cap_pct(bars$high)),
+                   sprintf("unos %s-%s estudiantes, %s-%s", fmt_n(bars$low), fmt_n(bars$high), sub("%", "", cap_pct(bars$low)), cap_pct(bars$high)))
+plot_ly(bars, y = ~label, x = ~high, type = "bar", orientation = "h", marker = list(color = ~col),
+        hovertext = ~paste0("<b>", label, "</b><br>", txt, " de una capacidad de ", fmt_n(lent$functional_capacity)), hoverinfo = "text") |>
+  viz_layout(xtitle = "Estudiantes", legend = FALSE) |>
+  layout(bargap = 0.45, yaxis = list(tickvals = bars$label, ticktext = paste0(bars$label, "<br>", bars$txt)),
+         xaxis = list(range = c(0, lent$functional_capacity * 1.08)),
+         shapes = list(list(type = "line", x0 = lent$functional_capacity, x1 = lent$functional_capacity, y0 = -0.5, y1 = 2.5, line = list(color = PAL$ink, width = 2, dash = "dash"))),
+         annotations = list(list(x = lent$functional_capacity, y = 2.5, text = paste0("Capacidad: ", fmt_n(lent$functional_capacity)), showarrow = FALSE, xanchor = "right", yanchor = "bottom", font = list(color = PAL$ink, size = 12))))
+```
+
+<div class="visually-hidden"><table>
+<caption>Estudiantes en el edificio de Lent, con una capacidad de `r fmt_n(lent$functional_capacity)`</caption>
+<tr><th>Lent hoy</th><td>`r fmt_n(lent$enrollment_2025)` estudiantes, `r cap_pct(lent$enrollment_2025)`</td></tr>
+<tr><th>Proyección de PPS, 2027</th><td>`r fmt_n(lent_a)` estudiantes, `r cap_pct(lent_a)`</td></tr>
+<tr><th>Según la encuesta</th><td>unos `r fmt_n(surv_low)` a `r fmt_n(surv_high)` estudiantes, `r cap_pct(surv_low)` a `r cap_pct(surv_high)`</td></tr>
+</table></div>
+
+::: {.source}
+El rango de la encuesta es `r fmt_n(lent$enrollment_2025)` más el 15% de los `r fmt_n(atk$total)` estudiantes DLI de Atkinson (familias que continuarían), hasta esa cifra más la mitad del 22% que no estaba seguro. La tabla del plan de PPS muestra `r fmt_n(lent$enrollment_2025 + atk$total)` (`r cap_pct(lent$enrollment_2025 + atk$total)`) si los `r fmt_n(atk$total)` estudiantes se mudan. `r cite("atk_survey", "profiles25", "guides", "audit", "summary10")`
+:::
+
+### Asistencia {#rumor-attendance}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}Falso]{.stamp}
+
+"Juntar el DLI en Lent va a mejorar la asistencia."
+:::
+
+::: {.fact-card}
+Atkinson ya está en la meta de asistencia que Lent espera alcanzar en 2027.
+
+| Escuela | Hoy | Meta de 2027 |
+|---|---:|---:|
+| Atkinson | 80% | 83% |
+| Lent | 76% | 80% |
+
+Nuestra opinión, no una estadística: viajes más largos no mejoran la asistencia. La hacen más difícil.
+:::
+
+::: {.source}
+Porcentaje de estudiantes con asistencia buena o aceptable. `r cite("scip")`
+:::
+
+### Dónde vive la gente que habla español {#rumor-near}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}Media verdad]{.stamp}
+
+"Lent está cerca de donde vive la gente que habla español."
+:::
+
+::: {.fact-card}
+[[6 de 10]{.big} niños hispanohablantes a 2 millas de Lent viven fuera de PPS, según nuestra estimación.]{.fact-line}
+
+[[28%]{.big} de los estudiantes de PPS que viven en la zona de Lent van a Lent (`r fmt_n(lent$students_in_neighborhood_school)` de `r fmt_n(lent$pps_students_live_in_zone)`).]{.fact-line}
+
+La mayor parte de la caída de ese porcentaje fue intencional: en 2023, PPS asignó a Marysville a los niños del vecindario de Lent que no estaban en inmersión. Por eso muestra que Lent ya no atiende a la mayor parte de su vecindario. No muestra que las familias hayan rechazado a Lent.
+
+Las solicitudes de cada año no nos dicen cuántas familias latinas cerca de Lent quieren DLI en toda la escuela. Esto se debe a que los niños del vecindario de Lent se inscriben sin lotería. Para las familias hispanohablantes de todo el sureste de Portland, puede ser difícil llegar a Lent dos veces al día.
+:::
+
+::: {.source}
+Español hablado en casa, de 5 a 17 años, repartido por manzanas censales: unos `r fmt_n(near10(kl$kids))` niños, unos `r fmt_n(near10(kl$outside_pps))` fuera de PPS, con márgenes de error amplios. `r cite("acs", "blocks", "profiles25")`
+:::
+
+### Apoyar a César Chávez y a Lent {#rumor-consolidate}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}No]{.stamp}
+
+"Hay que juntar el DLI para apoyar a César Chávez y a Lent."
+:::
+
+::: {.view-card}
+[Nuestra propuesta]{.view-label}
+
+Financien a Chávez y a Lent. Dejen en paz a las escuelas que funcionan.
+:::
+
+Nadie aquí está en contra de Lent. Queremos que todas las escuelas DLI del sureste tengan éxito.
+
+## PPS tiene sus hechos. Estos son los nuestros. {#act}
+
+La superintendente da su recomendación el 17 de noviembre. Pida a la Junta y a sus legisladores que escuchen a las familias DLI. ¡No nos vamos!
+
+[Actúe](https://atkinsondli.org/act){.btn .btn-primary}
+
+## Fuentes y métodos {#sources-methods}
+
+::: {.callout-note collapse="true"}
+## Abrir las fuentes y los métodos
+
+- **Diapositiva de PPS.** "Student Journey: Atkinson to Lent", mostrada en la sesión ordinaria de la Junta de Educación de PPS del 4 de noviembre de 2026, en el minuto 3:51:12 de la [grabación](https://www.youtube.com/watch?v=9kX3vnfRlvY). Está en la p. 16 de la [presentación de PPS](https://meetings.boardbook.org/Documents/FileViewerOrPublic/915?file=14615901). La campaña informa que la narración dijo que Lent ofrecería "a whole school immersive experience" (una experiencia de inmersión en toda la escuela) y que los apoyos "could be in the native language" (podrían ser en el idioma materno).
+- **Datos de Atkinson.** Octubre de 2025: `r fmt_n(atk_all)` estudiantes, de los cuales 44% son históricamente desatendidos y 21% son estudiantes multilingües. El DLI tiene `r fmt_n(atk$total)` estudiantes (`r fmt_pct(atk$total / atk_all)` de la escuela). Las funciones del personal vienen de la hoja informativa de la comunidad de Atkinson "Correcting data presented to the Board", del 4 de noviembre de 2026.
+- **Encuesta a las familias.** La [encuesta a las familias de Atkinson](https://atkinsondli.org/survey) publicó sus resultados finales el 26 de octubre de 2026. Fue independiente, anónima y dirigida por madres y padres. No es representativa ni un estudio oficial de PPS, y sus respuestas son intenciones. Tuvo 109 respuestas. De 67 familias DLI, 63% (42) no continuarían, 22% no estaban seguras y 15% continuarían. De 43 familias de habla hispana nativa o de herencia, 70% (30) no continuarían.
+- **Edificio de Lent.** El perfil escolar de PPS indica `r fmt_n(lent$enrollment_2025)` estudiantes y una capacidad de `r fmt_n(lent$functional_capacity)`. La proyección de PPS para 2027-28 en el Escenario A es `r fmt_n(lent_a)`.
+- **Metas de asistencia.** Planes de Mejora Continua de cada escuela, 2025-26. Atkinson: "from 80% to 83%" para junio de 2027. Lent: "from 76% to 80%" para junio de 2027. Ambas miden el porcentaje de estudiantes con "good or acceptable attendance rates" (asistencia buena o aceptable).
+- **Estimación del censo.** Contamos los niños de 5 a 17 años que hablan español en casa en cada sección censal (ACS 2020-2024, tabla B16007). Repartimos ese conteo entre las manzanas censales de 2020, según la parte de menores de 18 años de cada manzana. Conservamos las manzanas a 2 millas de Lent en línea recta. Eso da unos `r fmt_n(near10(kl$kids))` niños: unos `r fmt_n(near10(kl$inside_pps))` dentro de PPS y unos `r fmt_n(near10(kl$outside_pps))` (`r paste0(round(kl$pct_outside), "%")`) fuera. El margen de error es de unos ±`r fmt_n(near10(kl$moe_tracts))`, por eso la página dice "6 de 10". Como comparación, `r paste0(round(100 * ka$inside_pps / ka$kids), "%")` de esos niños a 2 millas de Atkinson viven dentro de PPS.
+- **Tamaño de clase.** 27 estudiantes de 1.º de Atkinson más 46 de 1.º de Lent son 73. Divididos entre 3 salones, son unos 24.3. Las cifras vienen de la tabla de la familia. No hemos confirmado los 46 en los datos de PPS.
+
+Hay más detalles en la página de [Métodos](methods.qmd#facts).
+:::

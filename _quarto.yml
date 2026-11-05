@@ -13,6 +13,7 @@ project:
     - history.qmd
     - research.qmd
     - handouts.qmd
+    - facts.qmd
     - es/*.qmd
     - methods.qmd
   resources:
@@ -42,6 +43,8 @@ website:
         text: Whole-school vs. strand
       - href: handouts.qmd
         text: Handouts
+      - href: facts.qmd
+        text: Rumors & Facts
       - href: methods.qmd
         text: Methods
     right:

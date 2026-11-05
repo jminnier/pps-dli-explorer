@@ -1,0 +1,207 @@
+---
+title: "Rumors & Facts"
+subtitle: "From the Keep DLI at Atkinson campaign, after the PPS board meeting of November 4, 2026"
+toc-depth: 2
+---
+
+```{r}
+source("R/site_data.R")
+source("R/charts.R")
+prof <- read_data("school_profiles_2025.csv")
+lent <- prof[prof$school == "Lent", ]
+hp <- read_data("history_projection.csv")
+lent_a <- hp$enrollment[hp$school == "Lent" & hp$scenario == "a" & hp$year == "2027-28"]
+rp <- read_data("race_by_program_2025.csv")
+atk <- rp[rp$school == "Atkinson" & rp$program == "Spanish Immersion", ]
+atk_all <- rp$total[rp$school == "Atkinson" & rp$program == "Total"]
+atk_und <- (atk$latino_n + atk$black_n + atk$native_american_n + atk$pacific_islander_n + atk$other_multi_n) / atk$total
+atk_ml <- read_data("dli_track_profiles.csv") |> filter(year == "2025-26", school == "Atkinson")
+kids <- read_data("facts_spanish_kids_2mi.csv")
+kl <- kids[kids$key == "lent", ]
+ka <- kids[kids$key == "atkinson", ]
+near10 <- function(x) round(x, -1)
+surv_low <- lent$enrollment_2025 + 0.15 * atk$total
+surv_high <- surv_low + 0.11 * atk$total
+cap_pct <- function(x) paste0(round(100 * x / lent$functional_capacity), "%")
+```
+
+::: {.callout-note}
+## This page takes a side
+Unlike the rest of this site, this page comes from the Keep DLI at Atkinson campaign and asks PPS to keep Spanish immersion at Atkinson. Dual language immersion (DLI) teaches children in two languages. Each card gives its source, and [Sources and methods](#sources-methods) gives the details.
+:::
+
+PPS has its own "rumors and facts" page. Here are ours, from Atkinson: a DLI **and** neighborhood school.
+
+At the November 4 board meeting, PPS showed a slide called "Student Journey: Atkinson to Lent." It left out a lot of what makes our school work.
+
+## PPS's "Atkinson to Lent" slide left a lot out {#left-out}
+
+```{=html}
+<table class="compare">
+<thead><tr><th scope="col">Topic</th><th scope="col">PPS's slide said</th><th scope="col">Atkinson today</th></tr></thead>
+<tbody>
+<tr><th scope="row">DLI community</th><td data-label="PPS's slide said">Single-strand DLI program.</td><td data-label="Atkinson today">DLI since 1994. Teachers and families across generations.</td></tr>
+<tr><th scope="row">Language environment</th><td data-label="PPS's slide said">About half of Atkinson students learn and practice Spanish each day.</td><td data-label="Atkinson today">DLI and neighborhood students together: a feature, not a flaw.</td></tr>
+<tr><th scope="row">Teacher collaboration</th><td data-label="PPS's slide said">One DLI teacher per grade.</td><td data-label="Atkinson today">DLI and neighborhood teachers plan lessons and cultural events together.</td></tr>
+<tr><th scope="row">Enrichment</th><td data-label="PPS's slide said">Arts, PE and Library teachers may or may not speak Spanish.</td><td data-label="Atkinson today">English specials are part of the 90/10, 80/20 model. Bilingual garden teacher.</td></tr>
+<tr><th scope="row">Student support</th><td data-label="PPS's slide said">Academic intervention in English only.</td><td data-label="Atkinson today">Bilingual: speech/reading specialist, HIT tutor, paraeducators, school psychologist, principal, office staff, and ELD and 1st/4th grade teachers.</td></tr>
+<tr><th scope="row">Class size</th><td data-label="PPS's slide said">1st grade at Atkinson: 28 per class. 2nd at Lent: 24 per class.</td><td data-label="Atkinson today">1st grade today: 27. Lent's 24 per class assumes all 27 move: (27 + 46 Lent students) ÷ 3 classes.</td></tr>
+</tbody>
+</table>
+```
+
+::: {.source}
+`r cite("pps_slide_nov4", "atk_factsheet")` Adapted from a chart made by an Atkinson parent. PPS labels its slide "Proposed student experience for graphic development. Rightsizing decisions are not final."
+:::
+
+## Rumors and facts {#rumors}
+
+### Who is in DLI {#rumor-who}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}False]{.stamp}
+
+"DLI is mostly for privileged families or non-native speakers."
+:::
+
+::: {.fact-card}
+[[`r fmt_pct(atk_und)`]{.big} of Atkinson DLI students are historically underserved.]{.fact-line}
+
+[[`r fmt_pct(atk_ml$ml_and_immersion / atk$total)`]{.big} are multilingual learners.]{.fact-line}
+
+DLI is almost half of the school: `r fmt_n(atk$total)` of `r fmt_n(atk_all)` students.
+:::
+
+::: {.source}
+`r cite("race_program", "profiles")`
+:::
+
+### Whether families would follow {#rumor-follow}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}In doubt]{.stamp}
+
+"Families will follow DLI to Lent."
+:::
+
+::: {.fact-card}
+[[63%]{.big} of DLI families who answered our survey say they probably or definitely wouldn't continue (42 of 67).]{.fact-line}
+
+[[70%]{.big} of Spanish-speaking families say the same (30 of 43).]{.fact-line}
+
+Our survey isn't representative, and its answers are intentions, not decisions. The last move points both ways. PPS's equity audit found that students already in moved programs generally followed them if they stayed in PPS. After Bridger's program moved to Lent in 2023, Lent enrolled 31% fewer immersion kindergartners a year than the two schools had averaged per grade. The district fell 14% measured the same way. PPS's own projections imply that about 4 in 5 Atkinson students would arrive at Lent.
+:::
+
+**If families do what they say, Lent stays under 40% full.**
+
+```{r}
+#| label: fig-lent-building
+#| fig-height: 2.8
+#| fig-cap: "Students in Lent's building, compared with its capacity. The survey range is an estimate from a survey that isn't representative. Hover for counts."
+bars <- tibble(label = factor(c("Per the family survey", "PPS projection, 2027", "Lent today"), levels = c("Per the family survey", "PPS projection, 2027", "Lent today")),
+               low = c(surv_low, lent_a, lent$enrollment_2025), high = c(surv_high, lent_a, lent$enrollment_2025),
+               col = c(PAL$light[["orange"]], PAL$light[["blue"]], "#8a94a6"))
+bars$txt <- ifelse(bars$low == bars$high, sprintf("%s students, %s", fmt_n(bars$high), cap_pct(bars$high)),
+                   sprintf("about %s-%s students, %s-%s", fmt_n(bars$low), fmt_n(bars$high), sub("%", "", cap_pct(bars$low)), cap_pct(bars$high)))
+plot_ly(bars, y = ~label, x = ~high, type = "bar", orientation = "h", marker = list(color = ~col),
+        hovertext = ~paste0("<b>", label, "</b><br>", txt, " of a capacity of ", fmt_n(lent$functional_capacity)), hoverinfo = "text") |>
+  viz_layout(xtitle = "Students", legend = FALSE) |>
+  layout(bargap = 0.45, yaxis = list(tickvals = bars$label, ticktext = paste0(bars$label, "<br>", bars$txt)),
+         xaxis = list(range = c(0, lent$functional_capacity * 1.08)),
+         shapes = list(list(type = "line", x0 = lent$functional_capacity, x1 = lent$functional_capacity, y0 = -0.5, y1 = 2.5, line = list(color = PAL$ink, width = 2, dash = "dash"))),
+         annotations = list(list(x = lent$functional_capacity, y = 2.5, text = paste0("Capacity: ", fmt_n(lent$functional_capacity)), showarrow = FALSE, xanchor = "right", yanchor = "bottom", font = list(color = PAL$ink, size = 12))))
+```
+
+<div class="visually-hidden"><table>
+<caption>Students in Lent's building, with a capacity of `r fmt_n(lent$functional_capacity)`</caption>
+<tr><th>Lent today</th><td>`r fmt_n(lent$enrollment_2025)` students, `r cap_pct(lent$enrollment_2025)`</td></tr>
+<tr><th>PPS projection, 2027</th><td>`r fmt_n(lent_a)` students, `r cap_pct(lent_a)`</td></tr>
+<tr><th>Per the family survey</th><td>about `r fmt_n(surv_low)` to `r fmt_n(surv_high)` students, `r cap_pct(surv_low)` to `r cap_pct(surv_high)`</td></tr>
+</table></div>
+
+::: {.source}
+The survey range is `r fmt_n(lent$enrollment_2025)` plus 15% of Atkinson's `r fmt_n(atk$total)` DLI students (families who would continue), up to that number plus half of the 22% who were unsure. PPS's plan table shows `r fmt_n(lent$enrollment_2025 + atk$total)` (`r cap_pct(lent$enrollment_2025 + atk$total)`) if all `r fmt_n(atk$total)` students move. `r cite("atk_survey", "profiles25", "guides", "audit", "summary10")`
+:::
+
+### Attendance {#rumor-attendance}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}False]{.stamp}
+
+"Consolidating DLI at Lent will improve attendance."
+:::
+
+::: {.fact-card}
+Atkinson is already at the attendance goal Lent hopes to reach by 2027.
+
+| School | Today | 2027 goal |
+|---|---:|---:|
+| Atkinson | 80% | 83% |
+| Lent | 76% | 80% |
+
+Our view, not a statistic: longer commutes don't raise attendance. They make it harder.
+:::
+
+::: {.source}
+Share of students with good or acceptable attendance. `r cite("scip")`
+:::
+
+### Where Spanish speakers live {#rumor-near}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}Half true]{.stamp}
+
+"Lent is near where Spanish speakers live."
+:::
+
+::: {.fact-card}
+[[6 in 10]{.big} Spanish-speaking children within 2 miles of Lent live outside PPS, by our estimate.]{.fact-line}
+
+[[28%]{.big} of PPS students living in Lent's zone attend Lent (`r fmt_n(lent$students_in_neighborhood_school)` of `r fmt_n(lent$pps_students_live_in_zone)`).]{.fact-line}
+
+Most of the drop in that share was by design: in 2023, PPS assigned Lent's non-immersion neighborhood children to Marysville. So it shows that Lent no longer serves most of its neighborhood. It doesn't show families choosing against Lent.
+
+Yearly applications can't tell us how many Latino families near Lent want whole-school DLI, because Lent's neighborhood children enroll without the lottery. For Spanish-speaking families across Southeast Portland, Lent may be hard to reach twice a day.
+:::
+
+::: {.source}
+Spanish spoken at home, ages 5-17, placed on census blocks: about `r fmt_n(near10(kl$kids))` children, about `r fmt_n(near10(kl$outside_pps))` outside PPS, with wide margins of error. `r cite("acs", "blocks", "profiles25")`
+:::
+
+### Supporting César Chávez and Lent {#rumor-consolidate}
+
+::: {.rumor-card}
+[[Rumor: ]{.visually-hidden}No]{.stamp}
+
+"We have to consolidate DLI to support César Chávez and Lent."
+:::
+
+::: {.view-card}
+[Our view]{.view-label}
+
+Fund Chávez and Lent so they thrive. Leave working neighborhood schools alone.
+:::
+
+No one here is against Lent. We want every Southeast DLI school to succeed.
+
+## PPS has its facts. These are ours. {#act}
+
+The superintendent's recommendation comes November 17. Ask the board and your legislators to listen to DLI families. We're not leaving!
+
+[Take action](https://atkinsondli.org/act){.btn .btn-primary}
+
+## Sources and methods {#sources-methods}
+
+::: {.callout-note collapse="true"}
+## Open the sources and methods
+
+- **PPS slide.** "Student Journey: Atkinson to Lent," shown at the PPS Board of Education regular meeting, November 4, 2026, at 3:51:12 of the [recording](https://www.youtube.com/watch?v=9kX3vnfRlvY). It is on p. 16 of [PPS's deck](https://meetings.boardbook.org/Documents/FileViewerOrPublic/915?file=14615901). The campaign reports that the narration said Lent would offer "a whole school immersive experience" and that supports "could be in the native language."
+- **Atkinson data.** October 2025: `r fmt_n(atk_all)` students, of whom 44% are historically underserved and 21% are multilingual learners. DLI has `r fmt_n(atk$total)` students (`r fmt_pct(atk$total / atk_all)` of the school). The staffing roles come from the Atkinson community fact sheet "Correcting data presented to the Board," November 4, 2026.
+- **Family survey.** The [Atkinson family survey](https://atkinsondli.org/survey) posted final results on October 26, 2026. It was independent, anonymous and parent-led. It isn't representative or an official PPS study, and its answers are stated intentions. It had 109 responses. Of 67 DLI families, 63% (42) wouldn't continue, 22% were unsure and 15% would continue. Of 43 native or heritage Spanish-speaking families, 70% (30) wouldn't continue.
+- **Lent building.** PPS's school profile lists `r fmt_n(lent$enrollment_2025)` students and a capacity of `r fmt_n(lent$functional_capacity)`. PPS's Scenario A projection for 2027-28 is `r fmt_n(lent_a)`.
+- **Attendance goals.** School Continuous Improvement Plans, 2025-26. Atkinson: "from 80% to 83%" by June 2027. Lent: "from 76% to 80%" by June 2027. Both measure the share of students with "good or acceptable attendance rates."
+- **Census estimate.** We spread each tract's count of children ages 5-17 who speak Spanish at home (ACS 2020-2024, table B16007) across its 2020 census blocks, by each block's share of children under 18. We kept blocks within 2 miles of Lent in a straight line. That gives about `r fmt_n(near10(kl$kids))` children: about `r fmt_n(near10(kl$inside_pps))` inside PPS and about `r fmt_n(near10(kl$outside_pps))` (`r paste0(round(kl$pct_outside), "%")`) outside it. The margin of error is about ±`r fmt_n(near10(kl$moe_tracts))`, so the page says "6 in 10." For comparison, `r paste0(round(100 * ka$inside_pps / ka$kids), "%")` of such children within 2 miles of Atkinson live inside PPS.
+- **Class size.** 27 Atkinson 1st graders plus 46 Lent 1st graders is 73. Divided by 3 classrooms, that is about 24.3. The numbers come from the parent's chart. We haven't confirmed the 46 in PPS's data.
+
+More detail is on the [Methods](methods.qmd#facts) page.
+:::
