@@ -423,13 +423,13 @@ ba_pct <- function(x) if (is.na(x)) "—" else paste0(round(x), "%")
 bind_rows(ba_row("Estudiantes", "students", fmt_n), ba_row("Estudiantes de color", "not_white", ba_pct),
           ba_row("Estudiantes multilingües", "pct_ml", ba_pct), ba_row("Bajos ingresos", "low_income", ba_pct)) |>
   gt() |>
-  cols_label(measure = "", moved_before = "2021-22", moved_after = "2025-26", stayed_before = "2021-22", stayed_after = "2025-26") |>
+  cols_label(measure = "", moved_before = "2021", moved_after = "2025", stayed_before = "2021", stayed_after = "2025") |>
   cols_align("right", -measure) |>
-  tab_style(cell_text(whitespace = "nowrap"), cells_column_labels()) |>
+  tab_options(data_row.padding.horizontal = px(4), column_labels.padding.horizontal = px(4)) |>
   tab_spanner("Se trasladó: Bridger + Lent, hoy Lent", c(moved_before, moved_after)) |>
   tab_spanner("No se trasladó: Atkinson", c(stayed_before, stayed_after)) |>
   tab_header(title = "Programas de inmersión en español antes y después del traslado de 2023") |>
-  tab_source_note("Son programas, no los mismos estudiantes. Grados K-5. Estudiantes de color: la columna \"BIPOC\" de PPS en 2021-22; en 2025, quienes no figuran solo como blancos. Bajos ingresos es certificación directa, de 2020-21 en la primera columna de cada par; la cifra de Lent de 2025 es de toda la escuela, y Lent es toda de inmersión. PPS no publica bajos ingresos por programa en Atkinson. Su hoja de 2021-22 no da el porcentaje de estudiantes latinos por programa.") |>
+  tab_source_note("Son programas, no los mismos estudiantes. Grados K-5. 2021 es el año escolar 2021-22; 2025 es octubre de 2025. Estudiantes de color: la columna \"BIPOC\" de PPS en 2021-22; en 2025, quienes no figuran solo como blancos. Bajos ingresos es certificación directa, de 2020-21 en la primera columna de cada par; la cifra de Lent de 2025 es de toda la escuela, y Lent es toda de inmersión. PPS no publica bajos ingresos por programa en Atkinson. Su hoja de 2021-22 no da el porcentaje de estudiantes latinos por programa.") |>
   tab_source_note(md(cite("se_baseline_2022", "race_program", "profiles", "demographics")))
 ```
 

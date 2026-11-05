@@ -410,13 +410,13 @@ ba_pct <- function(x) if (is.na(x)) "—" else paste0(round(x), "%")
 bind_rows(ba_row("Students", "students", fmt_n), ba_row("Students of color", "not_white", ba_pct),
           ba_row("Multilingual learners", "pct_ml", ba_pct), ba_row("Low income", "low_income", ba_pct)) |>
   gt() |>
-  cols_label(measure = "", moved_before = "2021-22", moved_after = "2025-26", stayed_before = "2021-22", stayed_after = "2025-26") |>
+  cols_label(measure = "", moved_before = "2021", moved_after = "2025", stayed_before = "2021", stayed_after = "2025") |>
   cols_align("right", -measure) |>
-  tab_style(cell_text(whitespace = "nowrap"), cells_column_labels()) |>
+  tab_options(data_row.padding.horizontal = px(4), column_labels.padding.horizontal = px(4)) |>
   tab_spanner("Moved: Bridger + Lent, now Lent", c(moved_before, moved_after)) |>
   tab_spanner("Didn't move: Atkinson", c(stayed_before, stayed_after)) |>
   tab_header(title = "Spanish immersion programs before and after the 2023 move") |>
-  tab_source_note("Programs, not the same students. Grades K-5. Students of color: PPS's \"BIPOC\" column in 2021-22; everyone not listed as white alone in 2025. Low income is direct certification, from 2020-21 in the first column of each pair; Lent's 2025 figure is whole-school, and Lent is all immersion. PPS publishes no low-income figure by program at Atkinson. Its 2021-22 sheet gives no Latino share by program.") |>
+  tab_source_note("Programs, not the same students. Grades K-5. 2021 is the 2021-22 school year; 2025 is October 2025. Students of color: PPS's \"BIPOC\" column in 2021-22; everyone not listed as white alone in 2025. Low income is direct certification, from 2020-21 in the first column of each pair; Lent's 2025 figure is whole-school, and Lent is all immersion. PPS publishes no low-income figure by program at Atkinson. Its 2021-22 sheet gives no Latino share by program.") |>
   tab_source_note(md(cite("se_baseline_2022", "race_program", "profiles", "demographics")))
 ```
 
