@@ -1,0 +1,7 @@
+group,period,students,not_white,ml,low_income,pct_ml
+moved,before,337,63.78219584569732,116,23.551632047477746,34.4213649851632
+moved,after,256,75.78125,106,47,41.40625
+stayed,before,136,60.3,31,24.3,22.794117647058822
+stayed,after,178,71.91011235955057,72,NA,40.449438202247194
+atkinson_school,before,NA,NA,NA,17.9,NA
+atkinson_school,after,NA,NA,NA,32,NA

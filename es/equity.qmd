@@ -411,6 +411,32 @@ Cuando un programa se aleja, algunas familias eligen en su lugar la escuela del 
 
 La auditoría es menos clara sobre quiénes dejaron los programas trasladados. Dice que quienes se fueron "con más frecuencia se identificaban como blancos" (p. 11). La auditoría reporta a los estudiantes latinos/as/x como un grupo aparte, junto a los estudiantes blancos, asiáticos y afrodescendientes. Así que lo más probable es que se refiera a estudiantes blancos no latinos. Pero el informe no dice cómo contó a los estudiantes que son blancos y latinos a la vez. Sobre el idioma del hogar, la auditoría se contradice. Dice que quienes se fueron "con más frecuencia hablan en casa un idioma distinto del inglés" (p. 11). También dice que "las familias que se fueron eran desproporcionadamente angloparlantes" (p. 49).
 
+**Nadie ha publicado quiénes se quedaron en el programa de español de Bridger ni quiénes lo dejaron.** La auditoría no da cifras de ese grupo. Sus resultados sobre quiénes se fueron cubren todos los programas trasladados juntos, y los registros de estudiantes no son públicos. Solo podemos comparar la composición de cada programa antes y después del traslado (@tbl-spanish-before-after). Eso muestra quiénes están en un programa, no quiénes lo dejaron. En esos años, los estudiantes mayores siguieron adelante y llegaron nuevos estudiantes de kínder. Además, los niños del vecindario de Lent podían unirse sin pasar por la lotería.
+
+```{r}
+#| label: tbl-spanish-before-after
+ba <- read_data("equity_spanish_before_after.csv")
+bav <- function(g, p, col) ba[[col]][ba$group == g & ba$period == p]
+ba_row <- function(label, col, f) tibble(measure = label, moved_before = f(bav("moved", "before", col)), moved_after = f(bav("moved", "after", col)),
+                                         stayed_before = f(bav("stayed", "before", col)), stayed_after = f(bav("stayed", "after", col)))
+ba_pct <- function(x) if (is.na(x)) "—" else paste0(round(x), "%")
+bind_rows(ba_row("Estudiantes", "students", fmt_n), ba_row("Estudiantes de color", "not_white", ba_pct),
+          ba_row("Estudiantes multilingües", "pct_ml", ba_pct), ba_row("Bajos ingresos", "low_income", ba_pct)) |>
+  gt() |>
+  cols_label(measure = "", moved_before = "2021-22", moved_after = "2025-26", stayed_before = "2021-22", stayed_after = "2025-26") |>
+  cols_align("right", -measure) |>
+  tab_style(cell_text(whitespace = "nowrap"), cells_column_labels()) |>
+  tab_spanner("Se trasladó: Bridger + Lent, hoy Lent", c(moved_before, moved_after)) |>
+  tab_spanner("No se trasladó: Atkinson", c(stayed_before, stayed_after)) |>
+  tab_header(title = "Programas de inmersión en español antes y después del traslado de 2023") |>
+  tab_source_note("Son programas, no los mismos estudiantes. Grados K-5. Estudiantes de color: la columna \"BIPOC\" de PPS en 2021-22; en 2025, quienes no figuran solo como blancos. Bajos ingresos es certificación directa, de 2020-21 en la primera columna de cada par; la cifra de Lent de 2025 es de toda la escuela, y Lent es toda de inmersión. PPS no publica bajos ingresos por programa en Atkinson. Su hoja de 2021-22 no da el porcentaje de estudiantes latinos por programa.") |>
+  tab_source_note(md(cite("se_baseline_2022", "race_program", "profiles", "demographics")))
+```
+
+El programa trasladado bajó de `r fmt_n(bav("moved", "before", "students"))` a `r fmt_n(bav("moved", "after", "students"))` estudiantes, mientras que el de Atkinson creció de `r fmt_n(bav("stayed", "before", "students"))` a `r fmt_n(bav("stayed", "after", "students"))`. El porcentaje de estudiantes de color subió casi lo mismo en ambos. En el programa trasladado pasó del `r ba_pct(bav("moved", "before", "not_white"))` al `r ba_pct(bav("moved", "after", "not_white"))`. En Atkinson pasó del `r ba_pct(bav("stayed", "before", "not_white"))` al `r ba_pct(bav("stayed", "after", "not_white"))`. Por eso, esta comparación no muestra que el traslado haya causado ese cambio.
+
+Los estudiantes multilingües, quienes están aprendiendo inglés, aumentaron en ambos programas, y más en Atkinson. En Lent, su número bajó de `r fmt_n(bav("moved", "before", "ml"))` a `r fmt_n(bav("moved", "after", "ml"))`. Los demás estudiantes bajaron más, de `r fmt_n(bav("moved", "before", "students") - bav("moved", "before", "ml"))` a `r fmt_n(bav("moved", "after", "students") - bav("moved", "after", "ml"))`. El porcentaje de bajos ingresos de Lent subió del `r ba_pct(bav("moved", "before", "low_income"))` al `r ba_pct(bav("moved", "after", "low_income"))`. Atkinson como escuela completa, con su programa del vecindario, subió del `r ba_pct(bav("atkinson_school", "before", "low_income"))` al `r ba_pct(bav("atkinson_school", "after", "low_income"))`.
+
 La prueba más clara es la última vez que PPS consolidó la inmersión en español. En 2023-24, **PPS trasladó el programa de español de Bridger a Lent** (`r SRC$summary10`). Antes del traslado, las dos escuelas tenían unos 55 estudiantes de inmersión por grado. Desde entonces, Lent ha inscrito 32 y 43 estudiantes de kínder en inmersión. Eso es **un 31% menos**. Con la misma medida, la matrícula de todo el distrito bajó un 14%. Así, el programa perdió a **alrededor de una de cada cinco familias más allá de la tendencia del distrito** ([detalles](scorecard.qmd#a-precedent-bridgers-spanish-program-moved-to-lent-in-2023)). La auditoría también encontró que las proyecciones del Sureste sobrestimaron la inscripción en 12 de 20 escuelas. De las 7 escuelas que siguen muy por debajo de la meta, 3 tuvieron un traslado de programa o un cambio de grados (`r SRC$audit`, p. 6).
 
 El plan que la Junta aprobó en mayo de 2022 esperaba que Lent creciera, no que se redujera. Convirtió a Lent en una escuela de inmersión completa, donde todos los grupos son de inmersión. En cambio, un programa paralelo (*strand*) es un programa de inmersión que comparte la escuela con un programa del vecindario. El apéndice escuela por escuela de la auditoría resume el análisis de impacto de la Fase 2 de PPS. Ese análisis proyectaba que convertir Lent en una escuela de inmersión completa en español "agregando dos programas paralelos (*strands*) de inmersión en español desde Bridger" la llevaría "de 277 estudiantes en 2021–22 a unos 527 estudiantes estimados en 2025–26". También proyectaba que el uso del edificio subiría "de 43.8% a 87.5%" (`r SRC$audit_schools`, p. 34).
