@@ -86,7 +86,7 @@ El DLI es casi la mitad de la escuela: `r fmt_n(atk$total)` de `r fmt_n(atk_all)
 :::
 
 ::: {.fact-card}
-[[63%]{.big} de las familias DLI que respondieron la encuesta de familias de Atkinson dicen que probablemente o definitivamente no continuarían (42 de 67).]{.fact-line}
+[[63%]{.big} de las familias DLI que respondieron la encuesta de Atkinson dicen que probablemente o definitivamente no continuarían (42 de 67).]{.fact-line}
 
 [[70%]{.big} de las familias hispanohablantes dicen lo mismo (30 de 43).]{.fact-line}
 
