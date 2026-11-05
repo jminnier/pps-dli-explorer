@@ -27,7 +27,7 @@ cap_pct <- function(x) paste0(round(100 * x / lent$functional_capacity), "%")
 
 ::: {.callout-note}
 ## This page takes a side
-Unlike the rest of this site, this page comes from the Keep DLI at Atkinson campaign and asks PPS to keep Spanish immersion at Atkinson. Dual language immersion (DLI) teaches children in two languages. Each card gives its source, and [Sources and methods](#sources-methods) gives the details.
+Unlike the rest of this site, this page comes from the Keep DLI at Atkinson campaign and asks PPS to keep Spanish immersion at Atkinson. Dual language immersion (DLI) teaches children in two languages. Each card gives its source, and [Sources and methods](#sources-methods) gives the details. When the campaign's text says "our," it means the campaign, not this site.
 :::
 
 PPS has its own "rumors and facts" page. Here are ours, from Atkinson: a DLI **and** neighborhood school.
@@ -85,11 +85,11 @@ DLI is almost half of the school: `r fmt_n(atk$total)` of `r fmt_n(atk_all)` stu
 :::
 
 ::: {.fact-card}
-[[63%]{.big} of DLI families who answered our survey say they probably or definitely wouldn't continue (42 of 67).]{.fact-line}
+[[63%]{.big} of DLI families who answered the Atkinson family survey say they probably or definitely wouldn't continue (42 of 67).]{.fact-line}
 
 [[70%]{.big} of Spanish-speaking families say the same (30 of 43).]{.fact-line}
 
-Our survey isn't representative, and its answers are intentions, not decisions. The last move points both ways. PPS's equity audit found that students already in moved programs generally followed them if they stayed in PPS. After Bridger's program moved to Lent in 2023, Lent enrolled 31% fewer immersion kindergartners a year than the two schools had averaged per grade. The district fell 14% measured the same way. PPS's own projections imply that about 4 in 5 Atkinson students would arrive at Lent.
+The survey isn't representative, and its answers are intentions, not decisions. The last move points both ways. PPS's equity audit found that students already in moved programs generally followed them if they stayed in PPS. After Bridger's program moved to Lent in 2023, Lent enrolled 31% fewer immersion kindergartners a year than the two schools had averaged per grade. The district fell 14% measured the same way. PPS's own projections imply that about 4 in 5 Atkinson students would arrive at Lent.
 :::
 
 **If families do what they say, Lent stays under 40% full.**
@@ -98,7 +98,7 @@ Our survey isn't representative, and its answers are intentions, not decisions. 
 #| label: fig-lent-building
 #| fig-height: 2.8
 #| fig-cap: "Students in Lent's building, compared with its capacity. The survey range is an estimate from a survey that isn't representative. Hover for counts."
-bars <- tibble(label = factor(c("Per the family survey", "PPS projection, 2027", "Lent today"), levels = c("Per the family survey", "PPS projection, 2027", "Lent today")),
+bars <- tibble(label = factor(c("Atkinson survey estimate", "PPS projection, 2027", "Lent today"), levels = c("Atkinson survey estimate", "PPS projection, 2027", "Lent today")),
                low = c(surv_low, lent_a, lent$enrollment_2025), high = c(surv_high, lent_a, lent$enrollment_2025),
                col = c(PAL$light[["orange"]], PAL$light[["blue"]], "#8a94a6"))
 bars$txt <- ifelse(bars$low == bars$high, sprintf("%s students, %s", fmt_n(bars$high), cap_pct(bars$high)),
@@ -116,7 +116,7 @@ plot_ly(bars, y = ~label, x = ~high, type = "bar", orientation = "h", marker = l
 <caption>Students in Lent's building, with a capacity of `r fmt_n(lent$functional_capacity)`</caption>
 <tr><th>Lent today</th><td>`r fmt_n(lent$enrollment_2025)` students, `r cap_pct(lent$enrollment_2025)`</td></tr>
 <tr><th>PPS projection, 2027</th><td>`r fmt_n(lent_a)` students, `r cap_pct(lent_a)`</td></tr>
-<tr><th>Per the family survey</th><td>about `r fmt_n(surv_low)` to `r fmt_n(surv_high)` students, `r cap_pct(surv_low)` to `r cap_pct(surv_high)`</td></tr>
+<tr><th>Atkinson survey estimate</th><td>about `r fmt_n(surv_low)` to `r fmt_n(surv_high)` students, `r cap_pct(surv_low)` to `r cap_pct(surv_high)`</td></tr>
 </table></div>
 
 ::: {.source}
@@ -155,7 +155,7 @@ Share of students with good or acceptable attendance. `r cite("scip")`
 :::
 
 ::: {.fact-card}
-[[6 in 10]{.big} Spanish-speaking children within 2 miles of Lent live outside PPS, by our estimate.]{.fact-line}
+[[6 in 10]{.big} Spanish-speaking children within 2 miles of Lent live outside PPS, by an estimate from Census data.]{.fact-line}
 
 [[28%]{.big} of PPS students living in Lent's zone attend Lent (`r fmt_n(lent$students_in_neighborhood_school)` of `r fmt_n(lent$pps_students_live_in_zone)`).]{.fact-line}
 

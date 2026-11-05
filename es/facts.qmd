@@ -28,7 +28,7 @@ cap_pct <- function(x) paste0(round(100 * x / lent$functional_capacity), "%")
 
 ::: {.callout-note}
 ## Esta página toma partido
-A diferencia del resto de este sitio, esta página viene de la campaña Keep DLI at Atkinson. La campaña le pide a PPS que mantenga la inmersión en español en Atkinson. La inmersión en dos idiomas (DLI) enseña a los niños en dos idiomas. Cada tarjeta da su fuente, y [Fuentes y métodos](#sources-methods) da los detalles.
+A diferencia del resto de este sitio, esta página viene de la campaña Keep DLI at Atkinson. La campaña le pide a PPS que mantenga la inmersión en español en Atkinson. La inmersión en dos idiomas (DLI) enseña a los niños en dos idiomas. Cada tarjeta da su fuente, y [Fuentes y métodos](#sources-methods) da los detalles. Cuando el texto de la campaña dice "nuestro" o "nuestra", se refiere a la campaña, no a este sitio.
 :::
 
 PPS tiene su propia página de "rumores y hechos". Aquí están los nuestros, de Atkinson: una escuela DLI **y** de vecindario.
@@ -86,11 +86,11 @@ El DLI es casi la mitad de la escuela: `r fmt_n(atk$total)` de `r fmt_n(atk_all)
 :::
 
 ::: {.fact-card}
-[[63%]{.big} de las familias DLI que respondieron la encuesta dicen que probablemente o definitivamente no continuarían (42 de 67).]{.fact-line}
+[[63%]{.big} de las familias DLI que respondieron la encuesta de familias de Atkinson dicen que probablemente o definitivamente no continuarían (42 de 67).]{.fact-line}
 
 [[70%]{.big} de las familias hispanohablantes dicen lo mismo (30 de 43).]{.fact-line}
 
-Nuestra encuesta no es representativa, y sus respuestas son intenciones, no decisiones. El último traslado apunta en ambas direcciones. La auditoría de equidad de PPS encontró que los estudiantes que ya estaban en programas trasladados en general los siguieron si se quedaron en PPS. El programa de Bridger pasó a Lent en 2023. Después, Lent inscribió en inmersión un 31% menos estudiantes de kínder por año que el promedio por grado de las dos escuelas. Con la misma medida, el distrito bajó un 14%. Las propias proyecciones de PPS implican que unos 4 de cada 5 estudiantes de Atkinson llegarían a Lent.
+La encuesta no es representativa, y sus respuestas son intenciones, no decisiones. El último traslado apunta en ambas direcciones. La auditoría de equidad de PPS encontró que los estudiantes que ya estaban en programas trasladados en general los siguieron si se quedaron en PPS. El programa de Bridger pasó a Lent en 2023. Después, Lent inscribió en inmersión un 31% menos estudiantes de kínder por año que el promedio por grado de las dos escuelas. Con la misma medida, el distrito bajó un 14%. Las propias proyecciones de PPS implican que unos 4 de cada 5 estudiantes de Atkinson llegarían a Lent.
 :::
 
 **Si las familias hacen lo que dicen, Lent seguiría a menos de 40% de su capacidad.**
@@ -99,7 +99,7 @@ Nuestra encuesta no es representativa, y sus respuestas son intenciones, no deci
 #| label: fig-lent-building
 #| fig-height: 2.8
 #| fig-cap: "Estudiantes en el edificio de Lent, comparados con su capacidad. El rango de la encuesta es una estimación de una encuesta que no es representativa. Pase el cursor para ver las cifras."
-bars <- tibble(label = factor(c("Según la encuesta", "Proyección de PPS, 2027", "Lent hoy"), levels = c("Según la encuesta", "Proyección de PPS, 2027", "Lent hoy")),
+bars <- tibble(label = factor(c("Estimado, encuesta de Atkinson", "Proyección de PPS, 2027", "Lent hoy"), levels = c("Estimado, encuesta de Atkinson", "Proyección de PPS, 2027", "Lent hoy")),
                low = c(surv_low, lent_a, lent$enrollment_2025), high = c(surv_high, lent_a, lent$enrollment_2025),
                col = c(PAL$light[["orange"]], PAL$light[["blue"]], "#8a94a6"))
 bars$txt <- ifelse(bars$low == bars$high, sprintf("%s estudiantes, %s", fmt_n(bars$high), cap_pct(bars$high)),
@@ -117,7 +117,7 @@ plot_ly(bars, y = ~label, x = ~high, type = "bar", orientation = "h", marker = l
 <caption>Estudiantes en el edificio de Lent, con una capacidad de `r fmt_n(lent$functional_capacity)`</caption>
 <tr><th>Lent hoy</th><td>`r fmt_n(lent$enrollment_2025)` estudiantes, `r cap_pct(lent$enrollment_2025)`</td></tr>
 <tr><th>Proyección de PPS, 2027</th><td>`r fmt_n(lent_a)` estudiantes, `r cap_pct(lent_a)`</td></tr>
-<tr><th>Según la encuesta</th><td>unos `r fmt_n(surv_low)` a `r fmt_n(surv_high)` estudiantes, `r cap_pct(surv_low)` a `r cap_pct(surv_high)`</td></tr>
+<tr><th>Estimado, encuesta de Atkinson</th><td>unos `r fmt_n(surv_low)` a `r fmt_n(surv_high)` estudiantes, `r cap_pct(surv_low)` a `r cap_pct(surv_high)`</td></tr>
 </table></div>
 
 ::: {.source}
@@ -156,7 +156,7 @@ Porcentaje de estudiantes con asistencia buena o aceptable. `r cite("scip")`
 :::
 
 ::: {.fact-card}
-[[6 de 10]{.big} niños hispanohablantes a 2 millas de Lent viven fuera de PPS, según nuestra estimación.]{.fact-line}
+[[6 de 10]{.big} niños hispanohablantes a 2 millas de Lent viven fuera de PPS, según una estimación con datos del censo.]{.fact-line}
 
 [[28%]{.big} de los estudiantes de PPS que viven en la zona de Lent van a Lent (`r fmt_n(lent$students_in_neighborhood_school)` de `r fmt_n(lent$pps_students_live_in_zone)`).]{.fact-line}
 
