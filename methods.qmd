@@ -382,7 +382,7 @@ No published source says who stayed in or left Bridger's Spanish program. The au
 - *Students of color*: The 2021-22 figure is PPS's "BIPOC" column, which the sheet doesn't define. The 2025 figure is everyone not listed as white alone (source 23), which includes students who list both Asian and white. Without those students, Lent's 2025 share is 72%.
 - *Multilingual learners*: Immersion students who are multilingual learners ÷ immersion students (source 1, both years). This equals the baseline sheet's ELL column in 2021-22 within 0.51 points, so the two are the same measure.
 - *Low income*: Direct certification. The first column is 2020-21, a pandemic year, and the second is 2025-26 (source 12), so the two are five years apart. Attachment F prints 57.8% for Bridger's program, which repeats its BIPOC column. We use the 15.7% in Attachment A and the "F-3 amended" version.
-- *Limits*: The change in a program's makeup mixes students who left, students who aged out and new kindergartners. We don't report a Latino share because the 2021-22 sheet has none by program.
+- *Limits*: The change in a program's makeup mixes students who left, students who aged out and new kindergartners. Atkinson is not an independent comparison. The 2022 plan moved part of Bridger's attendance area to Atkinson (source 31, "F-3 amended" p. 4), and some Bridger families may have switched to Atkinson's program. We have no data on how many. We don't report a Latino share because the 2021-22 sheet has none by program.
 
 ### Neighborhood capture rates (source 18) {#neighborhood-capture-rates-source-18}
 
